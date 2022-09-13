@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import LogInModal from '@components/modals/LogInModal';
 
@@ -12,6 +12,7 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+
   const options = [
     { link: '#', text: 'dashborad', onClick: () => {}, activate: true },
     { link: '#', text: 'dashborad', onClick: () => {}, activate: false },
@@ -45,6 +46,7 @@ export const Header = (props: HeaderProps) => {
           </nav>
         </Container>
       </header>
+      <LogInModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 };

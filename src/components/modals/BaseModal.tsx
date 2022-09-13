@@ -26,7 +26,7 @@ export const BaseModal = ({
             <div className="relative w-11/12 my-6 mx-auto bg-white max-w-3xl border-2 border-black">
               <div className="flex justify- between border-solid rounded-t bg-primary">
                 <div className="grow flex px-4 py-2 w-100 justify-center items-center">
-                  <p className="font-semibold text-white text-center items-center text-xl">
+                  <p className="font-semibold text-white text-center items-center text-xl capitalize">
                     {title}
                   </p>
                 </div>

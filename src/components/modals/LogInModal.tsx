@@ -31,8 +31,8 @@ export const LogInModal = ({showModal, setShowModal} : LogInModalProps) => {
             </div>
             <div className="text-center">
               <Button
-                className="w-auto rounded-md font-bold capitalize"
-                onClick={'undefined'}
+                className="w-auto rounded-md font-bold"
+                onClick={() => {}}
               >
                 iniciar sesión
               </Button>
