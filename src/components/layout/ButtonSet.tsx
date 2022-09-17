@@ -12,12 +12,12 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
     <Container>
       <div className="flex justify-end gap-x-4">
         <Button
-          className="w-auto rounded-t-md font-bold capitalize"
+          className="w-auto rounded-b-none"
           onClick={() => setShowModal(true)}
         >
           iniciar sesión
         </Button>
-        <Button className="w-auto rounded-t-md font-bold capitalize">
+        <Button className="w-auto rounded-b-none">
           registrarse
         </Button>
       </div>

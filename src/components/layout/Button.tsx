@@ -6,7 +6,8 @@ interface ContainerProps {
   children: ReactChild;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
-  className: string;
+  className?: string;
+  color?: string;
 }
 
 export const Button = ({
@@ -15,12 +16,13 @@ export const Button = ({
   startIcon,
   endIcon,
   className,
+  bgColor = 'bg-secundary',
   ...props
 }: ContainerProps & Props) => {
   return (
     <button
       type={type ? type : 'button'}
-      className={`bg-secundary w-full text-white py-2 px-4 ${className}`}
+      className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize ${className}`}
       {...props}
     >
       {startIcon && startIcon}
