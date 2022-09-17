@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import type { NextPage } from 'next';
 
+import CheckBox from '@components/forms/Checkbox';
+import Field from '@components/forms/Field';
+import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
+import AboutUs from '@components/sections/register/AbousUs';
 import InfoRegister from '@components/sections/register/Info';
+
+import { classNames } from '@utils/classNames';
+import { RegisterSection } from '@components/sections/register/RegisterSection';
 
 const registerSections = [
   {
@@ -35,6 +42,8 @@ const registerSections = [
 
 const Register: NextPage = () => {
   const [indexSection, setSection] = useState<number>(0);
+  const refForm = useRef(null);
+
   return (
     <MainContainer>
       <InfoRegister />
@@ -45,9 +54,10 @@ const Register: NextPage = () => {
               key={index}
               onClick={() => setSection(index)}
               className="w-auto rounded-md font-bold"
-              bgColor={`${
-                indexSection == index ? 'bg-third underline' : 'bg-gray-300'
-              }`}
+              bgColor={classNames(
+                indexSection >= index ? 'bg-third' : 'bg-gray-300',
+                indexSection == index ? 'underline' : ''
+              )}
             >
               {`${index + 1}- ${text}`}
             </Button>
@@ -73,20 +83,21 @@ const Register: NextPage = () => {
           Continuar &gt;
         </Button>
       </section>
-      <section className='p-8'>
-        {indexSection == 0 && (
-          <>
-            <p>
-              Por favor coméntenos, cómo se enteró de los servicios de la
-              empresa
-            </p>
-            <p>
-              Es importante para nosotros, porque nos ayuda a mejorar el
-              servicio que le ofrecemos
-            </p>
-          </>
-        )}
-      </section>
+      <Form
+        initialValues={{ checked: [] }}
+        innerRef={refForm}
+        onSubmit={() => {}}
+      >
+        <section className="p-8 min-h-[40vh]">
+          {indexSection == 0 && <AboutUs />}
+          {indexSection == 1 && <RegisterSection />}
+        </section>
+        <div className="w-full text-center">
+          <Button className="w-auto" onClick={() => {}}>
+            cancelar
+          </Button>
+        </div>
+      </Form>
     </MainContainer>
   );
 };

@@ -3,10 +3,10 @@ import React from 'react';
 export const InfoRegister = ({}) => {
   return (
     <section>
-      <h2 className="uppercase font-bold text-center text-xl">
+      <h2 className="uppercase font-bold text-center text-xl mt-6">
         panel de registro
       </h2>
-      <hr className="my-8" />
+      <hr className="mb-8 mt-2" />
       <div>
         <p>
           <span className="text-red">*</span> Estos son los pasos a seguir para
