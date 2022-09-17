@@ -9,12 +9,16 @@ module.exports = {
         darkprimary: "#0F56B3",
         secundary: "#ffc000",
         darksecundary: "#034e47",
-        third: "#FFD43E",
+        third: "#92d050",
         darkthird: "#9b7e16",
+        red: "#ff0000"
       },
       fontFamily: {
         'montserrat' : ['Montserrat'],
         'lato': ['Lato'],
+      },
+      gridTemplateColumns: {
+        'custom': '150px 1fr 150px'
       }
     },
   },

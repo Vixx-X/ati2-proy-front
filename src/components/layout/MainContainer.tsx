@@ -11,7 +11,7 @@ const MainContainer = ({ children }: any) => {
     <div className="flex flex-col h-screen">
       <Header activate={false} options={undefined} />
       <Container className="h-full py-4">
-        <div className="grow border-2 border-black h-full overflow-scroll">{children}</div>
+        <div className="grow h-full overflow-scroll">{children}</div>
       </Container>
     </div>
   );
