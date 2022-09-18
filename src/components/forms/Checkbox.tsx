@@ -6,13 +6,11 @@ import { Field } from './Field';
 interface CheckBoxProps extends Props {
   choices: { value: string | Number; text: string }[];
   name: string;
-  onChangeCallback: any;
 }
 
 export const CheckBox = ({
   choices,
   name,
-  onChangeCallback,
   ...props
 }: CheckBoxProps) => {
   const { handleChange } = useFormikContext();
@@ -30,7 +28,6 @@ export const CheckBox = ({
                 name={name}
                 value={value}
                 className="w-4 h-4"
-                onChangeCallback={functionCita}
               />
               <label className="ml-2">{text}</label>
             </div>

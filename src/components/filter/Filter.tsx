@@ -1,23 +1,19 @@
-import ContinentFilter from './subFilters/ContinentFilter';
-import ContryFilter from './subFilters/ContryFilter';
-import StateFilter from './subFilters/StateFilter';
-import TrasactionFilter from './subFilters/TrasactionFilter';
-import VehicleBrandFilter from './subFilters/VehicleBrandFilter';
-import VehicleModelFilter from './subFilters/VehicleModelFilter';
+import RadioButtonFilter from './subFilters/RadioButtonFilter';
+import SelectFilter from './subFilters/SelectFilter';
 
 interface FilterInterface extends Props {
   tag: string;
+  choices: { value: string; text: string }[];
+  name: string;
+  placeholder: string;
+  selectName: string;
 }
 
-export const Filter = ({ tag }: FilterInterface) => {
+export const Filter = ({ tag, ...props }: FilterInterface) => {
   return (
     <>
-      {tag === 'continent' && <ContinentFilter/>}
-      {tag === 'contry' && <ContryFilter/>}
-      {tag === 'state' && <StateFilter/>}
-      {tag === 'vehicle brand' && <VehicleBrandFilter/>}
-      {tag === 'vehicle model' && <VehicleModelFilter/>}
-      {tag === 'trasaction type' && <TrasactionFilter/>}
+      {tag === 'select' && <SelectFilter {...props} />}
+      {tag === 'radioButton' && <RadioButtonFilter {...props} />}
     </>
   );
 };
