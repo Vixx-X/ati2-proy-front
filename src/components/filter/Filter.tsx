@@ -11,10 +11,10 @@ interface FilterInterface extends Props {
 
 export const Filter = ({ tag, ...props }: FilterInterface) => {
   return (
-    <>
+    <div className='w-60'>
       {tag === 'select' && <SelectFilter {...props} />}
       {tag === 'radioButton' && <RadioButtonFilter {...props} />}
-    </>
+    </div>
   );
 };
 

@@ -36,18 +36,17 @@ const FastSearch = ({ filters }: FastSearchInterface) => {
             console.log(value);
           }}
         >
-          <div className="flex">
+          <div className="flex gap-2 flex-nowrap">
             {filters?.map(
               ({ tag, choices, name, placeholder, selectName }, index) => (
-                <div key={index}>
-                  <Filter
-                    tag={tag}
-                    choices={choices}
-                    name={name}
-                    placeholder={placeholder}
-                    selectName={selectName}
-                  ></Filter>
-                </div>
+                <Filter
+                  key={index}
+                  tag={tag}
+                  choices={choices}
+                  name={name}
+                  placeholder={placeholder}
+                  selectName={selectName}
+                ></Filter>
               )
             )}
           </div>

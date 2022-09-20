@@ -15,17 +15,18 @@ export const SelectFilter = ({
   ...props
 }: SelectFilter) => {
   return (
-    <div {...props}>
-      <p className="bg-sky-600 p-3 cursor-pointer text-white font-semibold">
+    <>
+      <p className="bg-sky-600 py-1 px-2 mb-2 cursor-pointer text-white font-semibold rounded">
         {selectName}
       </p>
       <Select
+        className="rounded"
         choices={choices}
         placeholder={placeholder}
         name={name}
         id={name}
       ></Select>
-    </div>
+    </>
   );
 };
 
