@@ -36,7 +36,7 @@ const FastSearch = ({ filters }: FastSearchInterface) => {
             console.log(value);
           }}
         >
-          <div className="flex gap-2 flex-nowrap">
+          <div className="flex gap-2 flex-wrap">
             {filters?.map(
               ({ tag, choices, name, placeholder, selectName }, index) => (
                 <Filter
@@ -50,7 +50,10 @@ const FastSearch = ({ filters }: FastSearchInterface) => {
               )
             )}
           </div>
-          <button type="submit">ENVIAR</button>
+          <div className='flex mt-4 justify-center gap-6'>
+            <button className='px-8 font-semibold py-2 rounded text-white bg-yellow-400' type="submit">Buscar Vehiculos</button>
+            <button className='px-8 font-semibold py-2 rounded text-white bg-yellow-400' type="submit">Cancelar</button>
+          </div> 
         </Form>
       </details>
     </div>

@@ -5,6 +5,7 @@ import { Form } from '@components/forms/Form';
 import Header from '@components/layout/Header';
 
 import Container from '../Container';
+import { Field } from '../../forms/Field';
 
 interface FastSearchInterface {
   filters: {
@@ -17,12 +18,6 @@ interface FastSearchInterface {
 }
 
 const initialValues = {
-  contient: '',
-  contry: '',
-  state: '',
-  vehicleType: '',
-  vehicleBrand: '',
-  vehicleModel: '',
 };
 
 const DetailSearch = ({ filters }: FastSearchInterface) => {

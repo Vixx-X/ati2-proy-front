@@ -16,7 +16,7 @@ export const SelectFilter = ({
 }: SelectFilter) => {
   return (
     <>
-      <p className="bg-sky-600 py-1 px-2 mb-2 cursor-pointer text-white font-semibold rounded">
+      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
         {selectName}
       </p>
       <Select
