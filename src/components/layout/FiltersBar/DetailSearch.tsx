@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import Filter from '@components/filter/Filter';
+import RadioButtonWithSelects from '@components/filter/subFilters/RadioButtonWithSelects';
 import { Form } from '@components/forms/Form';
 import Header from '@components/layout/Header';
 
-import Container from '../Container';
 import { Field } from '../../forms/Field';
+import Container from '../Container';
 
 interface FastSearchInterface {
   filters: {
@@ -17,8 +18,7 @@ interface FastSearchInterface {
   }[];
 }
 
-const initialValues = {
-};
+const initialValues = {};
 
 const DetailSearch = ({ filters }: FastSearchInterface) => {
   return (
@@ -44,6 +44,11 @@ const DetailSearch = ({ filters }: FastSearchInterface) => {
                 ></Filter>
               )
             )}
+            <RadioButtonWithSelects
+              name={'price_rent'}
+              placeholder={'Indique Precio de alquiler'}
+              selectName={'Precio de Alquiler'}
+            />
           </div>
           <button type="submit">ENVIAR</button>
         </Form>
