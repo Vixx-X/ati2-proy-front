@@ -80,11 +80,11 @@ export const BusinessUser = ({}) => {
             datos representante de la empresa
           </div>
           <div className="flex items-center">
-            <label htmlFor="representant.name" className="w-2/4 capitalize">
+            <label htmlFor="representant.first_name" className="w-2/4 capitalize">
               name of representant
             </label>
-            <Field name="representant.name" id="representant.name" />
-            <ErrorMsg name="representant.name" />
+            <Field name="representant.first_name" id="representant.first_name" />
+            <ErrorMsg name="representant.first_name" />
           </div>
           <div className="flex items-center">
             <label

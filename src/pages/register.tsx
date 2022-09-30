@@ -50,7 +50,7 @@ const initialValues: NaturalPerson | Business = {
     email: '',
     language: '',
     notification: {
-      send_notificacion: false,
+      send_notification: false,
       notification_frecuency: '',
       notification_method: {
         email: '',

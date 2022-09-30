@@ -56,7 +56,7 @@ interface PaymentInfo {
 }
 
 interface NotificationManager {
-  send_notificacion: boolean;
+  send_notification: boolean;
   notification_frecuency: string;
   notification_method: NotificationMethod;
 }
