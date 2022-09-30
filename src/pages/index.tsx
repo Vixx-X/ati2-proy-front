@@ -6,11 +6,15 @@ import RadioButton from '@components/forms/RadioButton';
 import Select from '@components/forms/Select';
 import MainContainer from '@components/layout/MainContainer';
 import FiltersBar from '@components/layout/FiltersBar/FiltersBar';
+import DragAndDrop from '@components/forms/DragAndDrop';
 
 const Landing: NextPage = () => {
   return (
     <MainContainer>
-      <FiltersBar/>
+      {/* <FiltersBar/> */}
+      <div className='w-[100px] h-[100px]'>
+        <DragAndDrop />
+      </div>
     </MainContainer>
   );
 };
