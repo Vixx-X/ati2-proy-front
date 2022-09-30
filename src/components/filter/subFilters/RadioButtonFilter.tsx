@@ -1,3 +1,5 @@
+import RadioGroup from '@components/forms/RadioGroup';
+
 import { Field } from 'formik';
 
 interface RadioButtonFilterProps {
@@ -20,12 +22,7 @@ export const RadioButtonFilter = ({
         {selectName}
       </p>
       <div {...props} className="flex flex-col p-2">
-        {choices?.map(({ value, text }: any, index: number) => (
-          <label key={index} className="py-1 flex content-center gap-2">
-            <Field type="radio" name={name} value={value} />
-            <p>{text}</p>
-          </label>
-        ))}
+        <RadioGroup choices={choices} name={name} {...props} />
       </div>
     </div>
   );

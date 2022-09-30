@@ -36,7 +36,7 @@ export const LogInModal = ({showModal, setShowModal} : LogInModalProps) => {
               >
                 iniciar sesión
               </Button>
-              <a className="mt-4 block underline">Olvide mi Contraseña o mis datos</a>
+              <a className="mt-4 block underline ">Olvide mi Contraseña o mis datos</a>
             </div>
           </Form>
         </>

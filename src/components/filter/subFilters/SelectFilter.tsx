@@ -2,10 +2,11 @@ import Select from '@components/forms/Select';
 
 interface SelectFilter {
   choices: { value: string; text: string }[];
+  selectName: string;
   name: string;
   placeholder: string;
-  selectName: string;
 }
+  
 
 export const SelectFilter = ({
   choices,
@@ -20,7 +21,7 @@ export const SelectFilter = ({
         {selectName}
       </p>
       <Select
-        className="rounded"
+        className="rounded w-full"
         choices={choices}
         placeholder={placeholder}
         name={name}

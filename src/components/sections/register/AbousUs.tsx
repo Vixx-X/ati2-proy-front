@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import CheckBox from '@components/forms/Checkbox';
 import Field from '@components/forms/Field';
 
 const optionsAboutUs = [
@@ -22,21 +23,9 @@ const optionsAboutUs = [
 ];
 
 export const AboutUs = ({}) => {
-  const [aboutUsSection, setAboutUsSection] = useState<Array<boolean>>([
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [socialSection, setSocial] = useState<boolean>(false);
+  const [otherSection, setOther] = useState<boolean>(false);
 
-  const showAboutUsSection = (event: any) => {
-    const tempSection = [...aboutUsSection];
-    if (!event?.target?.value) {
-      return;
-    }
-    tempSection[event.target.value] = event.target.checked;
-    setAboutUsSection(tempSection);
-  };
   return (
     <>
       <p>Por favor coméntenos, cómo se enteró de los servicios de la empresa</p>
@@ -44,36 +33,41 @@ export const AboutUs = ({}) => {
         Es importante para nosotros, porque nos ayuda a mejorar el servicio que
         le ofrecemos
       </p>
-
-      <div className="grid grid-cols-4 my-8 gap-4 justify-center">
-        {optionsAboutUs?.map(
-          ({ value, text }: { value: any; text: string }, index: number) => (
-            <div className="text-center" key={index}>
-              <input
-                type="checkbox"
-                value={value}
-                className="w-4 h-4"
-                onChange={showAboutUsSection}
-              />
-              <label className="ml-2">{text}</label>
-            </div>
-          )
-        )}
-        <div className="invisible">holi</div>
-        <div
-          className={`text-center ${
-            aboutUsSection[1] ? 'visible' : 'invisible'
-          }`}
-        >
-          Facebook
+      <div className="grid md:grid-cols-4 text-center mt-8">
+        <CheckBox
+          name="user.about_website.web_portal"
+          label="web portal of business"
+        />
+        <div>
+          <input
+            type="checkbox"
+            className="w-4 h-4"
+            onChange={(event) => {
+              setSocial(event.target.checked);
+            }}
+          />
+          <label className="ml-2">social networks</label>
+          <div
+            className={`text-center ${socialSection ? 'visible' : 'invisible'}`}
+          >
+            Facebook
+          </div>
         </div>
-        <div className="invisible">holi</div>
-        <div
-          className={`text-center ${
-            aboutUsSection[3] ? 'visible' : 'invisible'
-          }`}
-        >
-          <Field name="other" placeholder=""></Field>
+        <CheckBox name="user.about_website.friends" label="friends" />
+        <div>
+          <input
+            type="checkbox"
+            className="w-4 h-4"
+            onChange={(event) => {
+              setOther(event.target.checked);
+            }}
+          />
+          <label className="ml-2">other</label>
+          <div
+            className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
+          >
+            <Field name="user.about_website.other" placeholder=""></Field>
+          </div>
         </div>
       </div>
     </>

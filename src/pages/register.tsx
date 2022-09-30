@@ -2,16 +2,20 @@ import { useRef, useState } from 'react';
 
 import type { NextPage } from 'next';
 
-import CheckBox from '@components/forms/Checkbox';
-import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
 import AboutUs from '@components/sections/register/AbousUs';
 import InfoRegister from '@components/sections/register/Info';
+import LanguageSection from '@components/sections/register/LanguageSection';
+import LoginSection from '@components/sections/register/LoginSection';
+import PayInfo from '@components/sections/register/PayInfo';
+import { RegisterSection } from '@components/sections/register/RegisterSection';
 
 import { classNames } from '@utils/classNames';
-import { RegisterSection } from '@components/sections/register/RegisterSection';
+
+import { FormikValues } from 'formik';
+import { Business, NaturalPerson } from 'user';
 
 const registerSections = [
   {
@@ -40,9 +44,80 @@ const registerSections = [
   },
 ];
 
+const initialValues: NaturalPerson | Business = {
+  user: {
+    password: '',
+    email: '',
+    language: '',
+    notification: {
+      send_notification: false,
+      notification_frecuency: '',
+      notification_method: {
+        email: '',
+        socials: [],
+        text_message: '',
+        other: '',
+        facebook: '',
+      },
+    },
+    about_website: {
+      web_portal: false,
+      social: [],
+      friends: false,
+      other: '',
+    },
+    payment_info: {
+      source_bank: '',
+      target_bank: '',
+      country_source: {
+        name: '',
+      },
+    },
+  },
+  name: '',
+  tax_id: '',
+  address: {
+    line1: '',
+    line2: '',
+  },
+  representant: {
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    local_phone: '',
+  },
+  first_name: '',
+  last_name: '',
+  document_id: '',
+  email: '',
+  phone: '',
+  local_phone: '',
+  country: {
+    name: '',
+  },
+};
+
 const Register: NextPage = () => {
   const [indexSection, setSection] = useState<number>(0);
   const refForm = useRef(null);
+  const [load, setLoading] = useState<boolean>(false);
+
+  const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
+    setLoading(true);
+    try {
+      alert(JSON.stringify(values, null, 2));
+      // await postRegisterUser({
+      //   ...values,
+      //   document_id: `${values.typeOfDocumentID}-${values.number}`,
+      // });
+      // await login(values.username, values.password1);
+      setStatus({});
+    } catch (exception: any) {
+      setStatus(exception.data);
+      setLoading(false);
+    }
+  };
 
   return (
     <MainContainer>
@@ -84,18 +159,26 @@ const Register: NextPage = () => {
         </Button>
       </section>
       <Form
-        initialValues={{ checked: [] }}
+        initialValues={initialValues}
         innerRef={refForm}
-        onSubmit={() => {}}
+        onSubmit={handleSubmit}
       >
-        <section className="p-8 min-h-[40vh]">
+        <section className="p-8 min-h-[35vh]">
           {indexSection == 0 && <AboutUs />}
           {indexSection == 1 && <RegisterSection />}
+          {indexSection == 2 && <LanguageSection />}
+          {indexSection == 3 && <LoginSection />}
+          {indexSection == 5 && <PayInfo />}
         </section>
-        <div className="w-full text-center">
+        <div className="w-full justify-center gap-x-10 flex">
           <Button className="w-auto" onClick={() => {}}>
             cancelar
           </Button>
+          {indexSection == 5 && (
+            <Button type="submit" className="w-auto">
+              registar
+            </Button>
+          )}
         </div>
       </Form>
     </MainContainer>

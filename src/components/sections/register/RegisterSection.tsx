@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import BusinessUser from './user/BusinessUser';
 import NaturalUser from './user/NaturalUser';
 
@@ -31,9 +32,11 @@ export const RegisterSection = ({}) => {
           <label className="ml-2">Empresa</label>
         </div>
       </div>
-      <div className="my-8">
-        {userType === 'natural' && <NaturalUser/>}
-        {userType === 'business' && <BusinessUser/>}    
+      <div className="my-8 flex justify-center w-full">
+        <div className="w-full mt-4 ">
+          {userType === 'natural' && <NaturalUser />}
+          {userType === 'business' && <BusinessUser />}
+        </div>
       </div>
     </>
   );

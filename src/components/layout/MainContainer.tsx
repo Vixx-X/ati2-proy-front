@@ -10,8 +10,8 @@ const MainContainer = ({ children }: any) => {
   return (
     <div className="flex flex-col h-screen">
       <Header activate={false} options={undefined} />
-      <Container className="h-full py-4">
-        <div className="grow h-full overflow-scroll">{children}</div>
+      <Container className="pt-4 pb-16">
+        <div>{children}</div>
       </Container>
     </div>
   );
