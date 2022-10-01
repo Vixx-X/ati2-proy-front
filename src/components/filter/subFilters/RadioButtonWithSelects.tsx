@@ -24,11 +24,15 @@ export const RadioButtonWithSelects = ({
   };
 
   return (
-    <div className="w-60">
+    <div>
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
         {selectName}
       </p>
-      <div {...props} className="flex flex-col p-2">
+      <div {...props} className="flex flex-col">
+        <label>
+          <input onChange={handleChange} name="open" type={'radio'} /> Cualquier
+          precio{' '}
+        </label>
         <label>
           <input
             onChange={handleChange}
@@ -38,28 +42,22 @@ export const RadioButtonWithSelects = ({
           ></input>{' '}
           Por rango
         </label>
-        {open && (
-          <div className="flex flex-col gap-3">
-            <Filter
-              tag={'input'}
-              choices={[]}
-              name={name+".min"}
-              placeholder={placeholder}
-              selectName={'Minimo'}
-            ></Filter>
-            <Filter
-              tag={'input'}
-              choices={[]}
-              name={name+".max"}
-              placeholder={placeholder}
-              selectName={'Maximo'}
-            ></Filter>
-          </div>
-        )}
-        <label>
-          <input onChange={handleChange} name="open" type={'radio'} /> Cualquier
-          precio{' '}
-        </label>
+        <div className={`flex gap-3 md:my-4 ${open ? 'visible' : 'invisible'}`}>
+          <Filter
+            tag={'input'}
+            choices={[]}
+            name={name + '.min'}
+            placeholder={placeholder}
+            selectName={'Minimo'}
+          ></Filter>
+          <Filter
+            tag={'input'}
+            choices={[]}
+            name={name + '.max'}
+            placeholder={placeholder}
+            selectName={'Maximo'}
+          ></Filter>
+        </div>
       </div>
     </div>
   );

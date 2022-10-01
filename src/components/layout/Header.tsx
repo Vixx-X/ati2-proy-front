@@ -33,7 +33,7 @@ export const Header = (props: HeaderProps) => {
                 ({ link, text, onClick, activate }: any, index: number) => (
                   <li key={index}>
                     <a
-                      className={activate ? 'underline text-secundary' : ''}
+                      className={activate ? 'underline text-yellow' : ''}
                       href={link}
                       onClick={onClick}
                     >

@@ -6,6 +6,7 @@ import { Form } from '@components/forms/Form';
 import Header from '@components/layout/Header';
 
 import { Field } from '../../forms/Field';
+import Button from '../Button';
 import Container from '../Container';
 
 interface FastSearchInterface {
@@ -22,16 +23,16 @@ const initialValues = {};
 
 const DetailSearch = ({ filters }: FastSearchInterface) => {
   return (
-    <div className="">
-      <details>
-        <summary>Busqueda Detallada</summary>
+    <div className="w-full">
+      <details className="w-full">
+        <summary className="w-full mb-2 text-lg">Busqueda Detallada</summary>
         <Form
           initialValues={initialValues}
           onSubmit={(value) => {
             console.log(value);
           }}
         >
-          <div className="flex gap-2 flex-nowrap">
+          <div className="grid md:grid-cols-2 gap-2 ">
             {filters?.map(
               ({ tag, choices, name, placeholder, selectName }, index) => (
                 <Filter
@@ -50,7 +51,9 @@ const DetailSearch = ({ filters }: FastSearchInterface) => {
               selectName={'Precio de Alquiler'}
             />
           </div>
-          <button type="submit">ENVIAR</button>
+          <Button className="capitalize" type="submit">
+            enviar
+          </Button>
         </Form>
       </details>
     </div>
