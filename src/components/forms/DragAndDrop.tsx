@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { useDropzone } from 'react-dropzone';
 
-export const DragAndDrop = () => {
-  const [images, setImages] = useState([]);
+interface DragAndDrop extends Props {
+  handleDrag(acceptedFiles: any): void;
+}
 
-  useEffect(() => {
-    if (images.length > 0) {
-      isDragActive = false;
-    }
-  }, [images]); // just first time it loads
+export const DragAndDrop = ({ handleDrag }: DragAndDrop) => {
+  const [image, setImages] = useState({});
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -18,33 +16,17 @@ export const DragAndDrop = () => {
       'image/jpeg': ['.jpeg'],
     },
     onDrop: (acceptedFiles) => {
-      setImages(
-        acceptedFiles.map((upFile) =>
-          Object.assign(upFile, {
-            preview: URL.createObjectURL(upFile),
-          })
-        )
-      );
+      handleDrag(acceptedFiles);
+      setImages({
+        ...acceptedFiles,
+        preview: URL.createObjectURL(acceptedFiles[0]),
+      });
     },
   });
-
   return (
-    <div {...getRootProps()}>
+    <div {...getRootProps()} className="w-full h-full">
       <input {...getInputProps()} />
-      {isDragActive ? (
-        <p>Coloque la imagen aqui</p>
-      ) : (
-        <p>Coloque n imagenes aqui</p>
-      )}
-      <div>
-        {images.map((upFile, index) => {
-          return (
-            <div key={index}>
-              <img alt="preview" src={upFile.preview} />
-            </div>
-          );
-        })}
-      </div>
+      <div className="w-full h-full">{<img src={image.preview} alt="" />}</div>
     </div>
   );
 };
