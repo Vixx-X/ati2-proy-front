@@ -4,9 +4,10 @@ import Filter from '@components/filter/Filter';
 import { Form } from '@components/forms/Form';
 import Header from '@components/layout/Header';
 
+import Button from '../Button';
 import Container from '../Container';
 
-interface FastSearchInterface {
+interface FastSearchInterface extends Props {
   filters: {
     tag: string;
     choices: { value: string; text: string }[];
@@ -14,6 +15,9 @@ interface FastSearchInterface {
     placeholder: string;
     selectName: string;
   }[];
+  layoutFilters: string;
+  classNameInput?: string;
+  classNameSelect?: string;
 }
 
 const initialValues = {
@@ -25,48 +29,40 @@ const initialValues = {
   vehicleModel: '',
 };
 
-const FastSearch = ({ filters }: FastSearchInterface) => {
+const FastSearch = ({
+  filters,
+  layoutFilters,
+  ...props
+}: FastSearchInterface) => {
   return (
-    <div className="w-full">
-      <details className="w-full">
-        <summary className="w-full mb-2 text-lg">Busqueda Rapida</summary>
-        <Form
-          initialValues={initialValues}
-          onSubmit={(value) => {
-            console.log(value);
-          }}
-        >
-          <div className="gap-2 grid md:grid-cols-3">
-            {filters?.map(
-              ({ tag, choices, name, placeholder, selectName }, index) => (
-                <Filter
-                  key={index}
-                  tag={tag}
-                  choices={choices}
-                  name={name}
-                  placeholder={placeholder}
-                  selectName={selectName}
-                ></Filter>
-              )
-            )}
-          </div>
-          <div className="flex mt-4 justify-center gap-6">
-            <button
-              className="px-8 font-semibold py-2 rounded text-white bg-secundary"
-              type="submit"
-            >
-              Buscar Vehiculos
-            </button>
-            <button
-              className="px-8 font-semibold py-2 rounded text-white bg-secundary"
-              type="submit"
-            >
-              Cancelar
-            </button>
-          </div>
-        </Form>
-      </details>
-    </div>
+    <Form
+      initialValues={initialValues}
+      onSubmit={(values) => {
+        alert(JSON.stringify(values, null, 2));
+      }}
+    >
+      <div className={`mb-4 ${layoutFilters}`}>
+        {filters?.map(
+          ({ tag, choices, name, placeholder, selectName }, index) => (
+            <Filter
+              key={index}
+              tag={tag}
+              choices={choices}
+              name={name}
+              placeholder={placeholder}
+              selectName={selectName}
+              {...props}
+            ></Filter>
+          )
+        )}
+      </div>
+      <div className="flex gap-x-4">
+        <Button type="submit" className="capitalize w-fit">
+          buscar
+        </Button>
+        <Button className="capitalize w-fit">cancelar</Button>
+      </div>
+    </Form>
   );
 };
 

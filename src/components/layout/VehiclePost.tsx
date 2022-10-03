@@ -43,7 +43,7 @@ export const VehiclePost = (props: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
-    <div className="p-6 max-w-[535px] max-h-[535px]">
+    <div className="max-w-[535px] max-h-[535px]">
       <div className="sm:flex">
         <div>
           <div className="sm:mr-4 mb-2">

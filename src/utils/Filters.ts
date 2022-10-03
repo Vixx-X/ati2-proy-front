@@ -29,7 +29,7 @@ export const simpleFilters = [
       { value: 'state3', text: 'state3' },
     ],
     name: 'state',
-    placeholder: 'Seleccione Estado',
+    placeholder: 'Seleccione',
     selectName: 'Estado',
   },
   {

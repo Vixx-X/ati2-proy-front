@@ -5,14 +5,15 @@ interface SelectFilter {
   selectName: string;
   name: string;
   placeholder: string;
+  styles: string;
 }
-  
 
 export const SelectFilter = ({
   choices,
   selectName,
   name,
   placeholder,
+  styles,
   ...props
 }: SelectFilter) => {
   return (
@@ -21,7 +22,7 @@ export const SelectFilter = ({
         {selectName}
       </p>
       <Select
-        className="rounded w-full"
+        className={`rounded w-full ${styles}`}
         choices={choices}
         placeholder={placeholder}
         name={name}

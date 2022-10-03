@@ -17,46 +17,44 @@ interface FastSearchInterface {
     placeholder: string;
     selectName: string;
   }[];
+  classNameInput?: string;
+  classNameSelect?: string;
 }
 
 const initialValues = {};
 
-const DetailSearch = ({ filters }: FastSearchInterface) => {
+const DetailSearch = ({ filters, ...props }: FastSearchInterface) => {
   return (
-    <div className="w-full">
-      <details className="w-full">
-        <summary className="w-full mb-2 text-lg">Busqueda Detallada</summary>
-        <Form
-          initialValues={initialValues}
-          onSubmit={(value) => {
-            console.log(value);
-          }}
-        >
-          <div className="grid md:grid-cols-2 gap-2 ">
-            {filters?.map(
-              ({ tag, choices, name, placeholder, selectName }, index) => (
-                <Filter
-                  key={index}
-                  tag={tag}
-                  choices={choices}
-                  name={name}
-                  placeholder={placeholder}
-                  selectName={selectName}
-                ></Filter>
-              )
-            )}
-            <RadioButtonWithSelects
-              name={'price_rent'}
-              placeholder={'Indique Precio de alquiler'}
-              selectName={'Precio de Alquiler'}
-            />
-          </div>
-          <Button className="capitalize" type="submit">
-            enviar
-          </Button>
-        </Form>
-      </details>
-    </div>
+    <Form
+      initialValues={initialValues}
+      onSubmit={(value) => {
+        console.log(value);
+      }}
+    >
+      <div className="grid md:grid-cols-2 gap-2 ">
+        {filters?.map(
+          ({ tag, choices, name, placeholder, selectName }, index) => (
+            <Filter
+              key={index}
+              tag={tag}
+              choices={choices}
+              name={name}
+              placeholder={placeholder}
+              selectName={selectName}
+              {...props}
+            ></Filter>
+          )
+        )}
+        <RadioButtonWithSelects
+          name={'price_rent'}
+          placeholder={'Indique Precio de alquiler'}
+          selectName={'Precio de Alquiler'}
+        />
+      </div>
+      <Button className="capitalize w-fit text-center" type="submit">
+        enviar
+      </Button>
+    </Form>
   );
 };
 

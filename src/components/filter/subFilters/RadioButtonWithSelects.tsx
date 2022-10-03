@@ -49,6 +49,8 @@ export const RadioButtonWithSelects = ({
             name={name + '.min'}
             placeholder={placeholder}
             selectName={'Minimo'}
+            classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+            classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
           ></Filter>
           <Filter
             tag={'input'}
@@ -56,6 +58,8 @@ export const RadioButtonWithSelects = ({
             name={name + '.max'}
             placeholder={placeholder}
             selectName={'Maximo'}
+            classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+            classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
           ></Filter>
         </div>
       </div>
