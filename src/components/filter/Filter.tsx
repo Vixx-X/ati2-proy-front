@@ -10,12 +10,14 @@ interface FilterInterface extends Props {
   name: string;
   placeholder: string;
   selectName: string;
+  classNameInput?: string;
+  classNameSelect?: string;
 }
 
-export const Filter = ({ tag, ...props }: FilterInterface) => {
+export const Filter = ({ tag, classNameInput, classNameSelect, ...props }: FilterInterface) => {
   return (
-    <div className="w-60">
-      {tag === 'select' && <SelectFilter {...props} />}
+    <div>
+      {tag === 'select' && <SelectFilter styles={classNameSelect} {...props} />}
       {tag === 'radioButton' && <RadioButtonFilter {...props} />}
       {tag === 'checkBox' && <CheckBoxFilter {...props}></CheckBoxFilter>}
       {tag === 'input' && (
@@ -25,11 +27,7 @@ export const Filter = ({ tag, ...props }: FilterInterface) => {
               {props.selectName}
             </p>
           )}
-          <Field
-            className="bg-white border-4 border-gray-500 placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 text-gray-600 pl-4 pr-10 py-2 "
-            as="input"
-            {...props}
-          />
+          <Field styles={classNameInput} {...props} />
         </>
       )}
     </div>

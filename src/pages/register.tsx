@@ -9,6 +9,7 @@ import AboutUs from '@components/sections/register/AbousUs';
 import InfoRegister from '@components/sections/register/Info';
 import LanguageSection from '@components/sections/register/LanguageSection';
 import LoginSection from '@components/sections/register/LoginSection';
+import NotificationSection from '@components/sections/register/NotificationSection';
 import PayInfo from '@components/sections/register/PayInfo';
 import { RegisterSection } from '@components/sections/register/RegisterSection';
 
@@ -102,6 +103,7 @@ const Register: NextPage = () => {
   const [indexSection, setSection] = useState<number>(0);
   const refForm = useRef(null);
   const [load, setLoading] = useState<boolean>(false);
+  const [userType, setUserType] = useState<string>('');
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
@@ -165,9 +167,17 @@ const Register: NextPage = () => {
       >
         <section className="p-8 min-h-[35vh]">
           {indexSection == 0 && <AboutUs />}
-          {indexSection == 1 && <RegisterSection />}
+          {indexSection == 1 && (
+            <RegisterSection userType={userType} setUserType={setUserType} />
+          )}
           {indexSection == 2 && <LanguageSection />}
           {indexSection == 3 && <LoginSection />}
+          {indexSection == 4 && (
+            <NotificationSection
+              userType={userType}
+              setUserType={setUserType}
+            />
+          )}
           {indexSection == 5 && <PayInfo />}
         </section>
         <div className="w-full justify-center gap-x-10 flex">

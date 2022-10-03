@@ -12,6 +12,7 @@
       "@styles/*": ["styles/*"],
       "@utils/*": ["utils/*"],
       "@fetches/*": ["fetches/*"],
+      "@data/*": ["data/*"],
       "*": ["types/*.d.ts"]
     },
     "target": "es5",

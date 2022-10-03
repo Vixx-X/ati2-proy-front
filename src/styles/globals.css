@@ -99,10 +99,10 @@ a {
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
   background-repeat: no-repeat;
-  padding-top: 0.5rem;
-  padding-right: 2.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.75rem;
+  padding-top: 0.5em;
+  padding-right: 2.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.75em;
   font-size: 1rem;
   line-height: 1.5;
   background-position: right 0.5rem center;
@@ -123,7 +123,7 @@ a {
 @media print and (-ms-high-contrast: active),
   print and (-ms-high-contrast: none) {
   .form-select {
-    padding-right: 0.75rem;
+    padding-right: 0.75em;
   }
 }
 

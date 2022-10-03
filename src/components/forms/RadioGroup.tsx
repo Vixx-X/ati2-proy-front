@@ -3,9 +3,10 @@ import { Field } from './Field';
 interface RadioGroupProps extends Props {
   choices?: { value: string | Number; text: string }[];
   name: string;
+  moreElements?: JSX.Element | boolean;
 }
 
-export const RadioGroup = ({ choices, name, ...props }: RadioGroupProps) => {
+export const RadioGroup = ({ choices, name, moreElements, ...props }: RadioGroupProps) => {
   return (
     <>
       <div role="group" {...props}>
@@ -25,6 +26,7 @@ export const RadioGroup = ({ choices, name, ...props }: RadioGroupProps) => {
             </div>
           )
         )}
+        {moreElements}
       </div>
     </>
   );

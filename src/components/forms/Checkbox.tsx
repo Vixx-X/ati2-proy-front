@@ -1,7 +1,7 @@
 import { Field } from './Field';
 
 interface CheckBoxProps extends Props {
-  choices?: { value: string | Number; text: string }[];
+  choices?: { value: string | Number; text: string | JSX.Element }[];
   name: string;
   label?: string;
 }
@@ -13,7 +13,10 @@ export const CheckBox = ({ choices, name, label, ...props }: CheckBoxProps) => {
         <div role="group" {...props}>
           {choices?.map(
             (
-              { value, text }: { value: string | Number; text: string },
+              {
+                value,
+                text,
+              }: { value: string | Number; text: string | JSX.Element },
               index: number
             ) => (
               <div key={index}>
