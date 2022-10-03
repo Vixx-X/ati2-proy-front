@@ -8,7 +8,7 @@ const defaultOnChange = (callback: Function) => {
   return callback;
 };
 
-export const Field = ({ children, onChangeCallback, ...props }: Props) => {
+export const Field = ({ children, onChangeCallback, styles, ...props }: Props) => {
   if (!onChangeCallback) onChangeCallback = defaultOnChange;
 
   const { status, handleChange /*, errors */ } = useFormikContext();
@@ -24,7 +24,8 @@ export const Field = ({ children, onChangeCallback, ...props }: Props) => {
           'bg-white border border-darkprimary placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 text-gray-600 pl-4 pr-10 py-2 focus:border-1',
         hasError
           ? 'focus:border-red-300 focus:ring-red-300'
-          : 'focus:border-gray-300 focus:ring-gray-300'
+          : 'focus:border-gray-300 focus:ring-gray-300',
+        styles
       )}
       onChange={onChangeCallback(handleChange)}
       {...props}

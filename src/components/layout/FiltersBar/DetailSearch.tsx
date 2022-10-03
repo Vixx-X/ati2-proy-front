@@ -6,6 +6,7 @@ import { Form } from '@components/forms/Form';
 import Header from '@components/layout/Header';
 
 import { Field } from '../../forms/Field';
+import Button from '../Button';
 import Container from '../Container';
 
 interface FastSearchInterface {
@@ -16,44 +17,44 @@ interface FastSearchInterface {
     placeholder: string;
     selectName: string;
   }[];
+  classNameInput?: string;
+  classNameSelect?: string;
 }
 
 const initialValues = {};
 
-const DetailSearch = ({ filters }: FastSearchInterface) => {
+const DetailSearch = ({ filters, ...props }: FastSearchInterface) => {
   return (
-    <div className="">
-      <details>
-        <summary>Busqueda Detallada</summary>
-        <Form
-          initialValues={initialValues}
-          onSubmit={(value) => {
-            console.log(value);
-          }}
-        >
-          <div className="flex gap-2 flex-nowrap">
-            {filters?.map(
-              ({ tag, choices, name, placeholder, selectName }, index) => (
-                <Filter
-                  key={index}
-                  tag={tag}
-                  choices={choices}
-                  name={name}
-                  placeholder={placeholder}
-                  selectName={selectName}
-                ></Filter>
-              )
-            )}
-            <RadioButtonWithSelects
-              name={'price_rent'}
-              placeholder={'Indique Precio de alquiler'}
-              selectName={'Precio de Alquiler'}
-            />
-          </div>
-          <button type="submit">ENVIAR</button>
-        </Form>
-      </details>
-    </div>
+    <Form
+      initialValues={initialValues}
+      onSubmit={(value) => {
+        console.log(value);
+      }}
+    >
+      <div className="grid md:grid-cols-2 gap-2 ">
+        {filters?.map(
+          ({ tag, choices, name, placeholder, selectName }, index) => (
+            <Filter
+              key={index}
+              tag={tag}
+              choices={choices}
+              name={name}
+              placeholder={placeholder}
+              selectName={selectName}
+              {...props}
+            ></Filter>
+          )
+        )}
+        <RadioButtonWithSelects
+          name={'price_rent'}
+          placeholder={'Indique Precio de alquiler'}
+          selectName={'Precio de Alquiler'}
+        />
+      </div>
+      <Button className="capitalize w-fit text-center" type="submit">
+        enviar
+      </Button>
+    </Form>
   );
 };
 

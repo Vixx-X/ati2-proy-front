@@ -11,7 +11,10 @@ module.exports = {
         darksecundary: "#034e47",
         third: "#92d050",
         darkthird: "#9b7e16",
-        red: "#ff0000"
+        red: "#ff0000",
+        green: "#00b050",
+        yellow: "#ffff03",
+        pink: "#ff0066",
       },
       fontFamily: {
         'montserrat' : ['Montserrat'],

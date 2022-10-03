@@ -10,13 +10,13 @@ enum DaysOfWeek {
   WEEK = 8,
 }
 
-enum SaleType {
-  SALE = 0,
-  RENTAL = 1,
-  SALE_RENTAL = 2,
+export enum SaleType {
+  SALE = "SALE",
+  RENTAL = "RENTAL",
+  SALE_RENTAL = "SALE AND RENTAL",
 }
 
-enum StatusVehicle {
+export enum StatusVehicle {
   NEW = 'new',
   USED = 'used',
 }
@@ -136,17 +136,17 @@ interface ServicePost {
   title: string;
 }
 
-interface Vehicle {
+export interface Vehicle {
   model: string;
   year: string;
   brand: string;
   type: string;
 }
 
-interface Multimedia {
+export interface Multimedia {
+  text: string;
   type: string;
   file: string;
-  post: Post;
 }
 
 interface Social {
