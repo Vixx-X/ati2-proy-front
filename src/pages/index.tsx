@@ -7,9 +7,12 @@ import Button from '@components/layout/Button';
 import DetailSearch from '@components/layout/FiltersBar/DetailSearch';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
-import VehiclePost from '@components/layout/VehiclePost';
+import VehiclePostList from '@components/layout/Post/VehiclePostList';
+import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
+import SplideImageComponent from '@components/layout/Splide';
 
 import { complexFilters, simpleFilters } from '@utils/Filters';
+import { classNames } from '@utils/classNames';
 
 import { initialValues } from '@data/fakeData';
 import { Field } from 'formik';
@@ -64,7 +67,6 @@ const Landing: NextPage = () => {
                   type="radio"
                   name="typePost"
                   value="photo"
-                  checked
                   onChange={handlePost}
                 />
                 <div className="flex items-center">
@@ -142,8 +144,13 @@ const Landing: NextPage = () => {
           </div>
 
           <div>
-            <Form initialValues={{ selected_post: [] }} onSubmit={() => {}}>
-              <div className="md:grid lg:grid-cols-2 2xl:grid-cols-3">
+            <Form initialValues={{ selected: [] }} onSubmit={() => {}}>
+              <div
+                className={classNames(
+                  postMode == 'photo' ? 'lg:grid-cols-2 2xl:grid-cols-3' : '',
+                  'grid'
+                )}
+              >
                 {[
                   initialValues,
                   initialValues,
@@ -153,13 +160,12 @@ const Landing: NextPage = () => {
                   initialValues,
                 ].map((element, index) => (
                   <div key={index} className="flex p-6 gap-x-4">
-                    <Field
-                      key={index}
-                      type="checkbox"
-                      name="selected_post"
-                      value={index}
-                    />
-                    <VehiclePost {...element} />
+                    <Field type="checkbox" name="selected" value={`post-${index}`} />
+                    {postMode == 'photo' ? (
+                      <VehiclePostPhoto {...element} />
+                    ) : (
+                      <VehiclePostList {...element} />
+                    )}
                   </div>
                 ))}
               </div>

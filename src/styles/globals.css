@@ -133,3 +133,11 @@ a {
     opacity: 0;
   }
 }
+
+.splide__arrow--next {
+  font-size: 10px;
+}
+
+.splide__arrow--prev {
+  font-size: 10px;
+}

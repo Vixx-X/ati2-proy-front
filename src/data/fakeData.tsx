@@ -78,6 +78,21 @@ export const initialValues = {
         type: 'image',
         file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
       },
+      {
+        text: 'placeholder image',
+        type: 'image',
+        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+      },
+      {
+        text: 'placeholder image',
+        type: 'image',
+        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+      },
+            {
+        text: 'placeholder image',
+        type: 'image',
+        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+      },
     ],
   },
 };
