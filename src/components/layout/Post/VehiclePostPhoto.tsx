@@ -15,11 +15,11 @@ import {
   Vehicle,
 } from 'user';
 
-import Button from './Button';
-import ButtonSet from './ButtonSet';
-import Container from './Container';
+import Button from '../Button';
+import ButtonSet from '../ButtonSet';
+import Container from '../Container';
 
-interface VehiclePostProps extends Props {
+interface VehiclePostPhotoProps extends Props {
   author: User;
   id: string;
   address: Address;
@@ -38,7 +38,7 @@ interface VehiclePostProps extends Props {
   };
 }
 
-export const VehiclePost = (props: any) => {
+const VehiclePostPhoto = (props: any) => {
   const { id, author, address, contact, details, vehicle_post } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -129,4 +129,4 @@ export const VehiclePost = (props: any) => {
   );
 };
 
-export default VehiclePost;
+export default VehiclePostPhoto;
