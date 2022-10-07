@@ -17,6 +17,7 @@ import {
 
 import Button from '../Button';
 import ButtonSet from '../ButtonSet';
+import CardHover from '../Card/CardHover';
 import Container from '../Container';
 
 interface VehiclePostPhotoProps extends Props {
@@ -38,14 +39,24 @@ interface VehiclePostPhotoProps extends Props {
   };
 }
 
-const VehiclePostPhoto = (props: any) => {
+const VehiclePostPhoto = ({ index, ...props }: any) => {
   const { id, author, address, contact, details, vehicle_post } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [titleHover, setTitle] = useState<string>('details');
+  const [isHovering, setIsHovering] = useState(false);
 
+  const handleMouseOver = (title: string) => {
+    setTitle(title);
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
   return (
     <div className="max-w-[535px] max-h-[535px]">
       <div className="sm:flex">
-        <div>
+        <div className="relative">
           <div className="sm:mr-4 mb-2">
             <header className="sm:hidden mb-2 uppercase text-lg font-bold">
               <h2 className="underline text-blue-600">
@@ -73,27 +84,73 @@ const VehiclePostPhoto = (props: any) => {
             </div>
           </div>
           <nav>
-            <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline cursor-pointer">
+            <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline">
               <li>
-                <a>Ver detalles</a>
+                <a
+                  onMouseOver={() => {
+                    handleMouseOver('details');
+                  }}
+                  onMouseOut={handleMouseOut}
+                  className="cursor-pointer"
+                >
+                  Ver detalles
+                </a>
               </li>
               <li>
-                <a>Ver accesorios</a>
+                <a
+                  onMouseOver={() => {
+                    handleMouseOver('accesories');
+                  }}
+                  onMouseOut={handleMouseOut}
+                  className="cursor-pointer"
+                >
+                  Ver accesorios
+                </a>
               </li>
               <li>
-                <a>Ver fotos</a>
+                <a
+                  onMouseOver={() => {
+                    handleMouseOver('photos');
+                  }}
+                  onMouseOut={handleMouseOut}
+                  className="cursor-pointer"
+                >
+                  Ver fotos
+                </a>
               </li>
               <li>
-                <a>Ver videos</a>
+                <a
+                  onMouseOver={() => {
+                    handleMouseOver('videos');
+                  }}
+                  onMouseOut={handleMouseOut}
+                  className="cursor-pointer"
+                >
+                  Ver videos
+                </a>
               </li>
               <li>
                 <a>Ver servicios al día</a>
               </li>
               <li>
-                <a>Ver ubicación exacta</a>
+                <a
+                  onMouseOver={() => {
+                    handleMouseOver('address');
+                  }}
+                  onMouseOut={handleMouseOut}
+                >
+                  Ver ubicación exacta
+                </a>
               </li>
             </ul>
           </nav>
+          {isHovering && (
+            <CardHover
+              title={titleHover}
+              position={index % 2 == 0 ? 'right-[-480px]' : 'left-[-480px]'}
+              {...props}
+            />
+          )}
         </div>
         <div>
           <header className="hidden sm:block sm:text-center uppercase text-lg sm:text-xl font-bold">

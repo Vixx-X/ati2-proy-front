@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { NextPage } from 'next';
 
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
+import CardHover from '@components/layout/Card/CardHover';
 import DetailSearch from '@components/layout/FiltersBar/DetailSearch';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
@@ -23,6 +24,7 @@ const Landing: NextPage = () => {
   const handlePost = (event: any) => {
     setMode(event.target.value);
   };
+
   return (
     <MainContainer maxWidth="w-11/12">
       <div className="md:flex justify-between">
@@ -159,10 +161,14 @@ const Landing: NextPage = () => {
                   initialValues,
                   initialValues,
                 ].map((element, index) => (
-                  <div key={index} className="flex p-6 gap-x-4">
-                    <Field type="checkbox" name="selected" value={`post-${index}`} />
+                  <div key={index} className="flex p-6 gap-x-4 relative">
+                    <Field
+                      type="checkbox"
+                      name="selected"
+                      value={`post-${index}`}
+                    />
                     {postMode == 'photo' ? (
-                      <VehiclePostPhoto {...element} />
+                      <VehiclePostPhoto index={index} {...element} />
                     ) : (
                       <VehiclePostList {...element} />
                     )}
