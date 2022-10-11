@@ -1,12 +1,16 @@
 import { Form as FForm, Formik, FormikConfig, FormikValues } from 'formik';
 
+interface FormInterface {
+  displayProps?: String;
+}
+
 export const Form = ({
+  displayProps,
   children,
   initialValues,
   onSubmit,
   ...props
-}: FormikConfig<FormikValues>) => {
-
+}: FormikConfig<FormikValues> & FormInterface) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -14,7 +18,7 @@ export const Form = ({
       enableReinitialize
       {...props}
     >
-      <FForm>{children}</FForm>
+      <FForm className={`${displayProps}`} >{children}</FForm>
     </Formik>
   );
 };

@@ -21,16 +21,9 @@ interface FastSearchInterface {
   classNameSelect?: string;
 }
 
-const initialValues = {};
-
 const DetailSearch = ({ filters, ...props }: FastSearchInterface) => {
   return (
-    <Form
-      initialValues={initialValues}
-      onSubmit={(value) => {
-        console.log(value);
-      }}
-    >
+    <>
       <div className="grid md:grid-cols-2 gap-2 ">
         {filters?.map(
           ({ tag, choices, name, placeholder, selectName }, index) => (
@@ -54,7 +47,7 @@ const DetailSearch = ({ filters, ...props }: FastSearchInterface) => {
       <Button className="capitalize w-fit text-center" type="submit">
         enviar
       </Button>
-    </Form>
+    </>
   );
 };
 

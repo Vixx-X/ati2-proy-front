@@ -9,10 +9,10 @@ import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
 import VehiclePost from '@components/layout/VehiclePost';
 
-import { complexFilters, simpleFilters } from '@utils/Filters';
+import { Field, FormikValues } from 'formik';
 
-import { initialValues } from '@data/fakeData';
-import { Field } from 'formik';
+import { initialValues } from '../data/fakeData';
+import { complexFilters, simpleFilters } from '../utils/Filters';
 
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
@@ -29,12 +29,19 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda rápida
               </summary>
-              <FastSearch
-                layoutFilters="gap-2 grid md:grid-cols-3"
-                classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                filters={simpleFilters}
-              />
+              <Form
+                initialValues={initialValues}
+                onSubmit={(values: FormikValues) => {
+                  console.log(values);
+                }}
+              >
+                <FastSearch
+                  layoutFilters="gap-2 grid md:grid-cols-3"
+                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                  filters={simpleFilters}
+                />
+              </Form>
             </details>
           </div>
           <div className="w-full">
@@ -42,11 +49,18 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda detallada
               </summary>
-              <DetailSearch
+              <Form
+                initialValues={{}}
+                onSubmit={(values: FormikValues) => {
+                  console.log(values);
+                }}
+              >
+                <DetailSearch
                 filters={complexFilters}
                 classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
                 classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
               />
+              </Form>
             </details>
           </div>
         </div>
@@ -142,7 +156,7 @@ const Landing: NextPage = () => {
           </div>
 
           <div>
-            <Form initialValues={{ selected_post: [] }} onSubmit={() => {}}>
+             <Form initialValues={{ selected_post: [] }} onSubmit={() => {}}>
               <div className="md:grid lg:grid-cols-2 2xl:grid-cols-3">
                 {[
                   initialValues,
