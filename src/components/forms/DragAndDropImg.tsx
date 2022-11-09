@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { useDropzone } from 'react-dropzone';
 
-interface DragAndDrop extends Props {
-  handleDrag(acceptedFiles: any): void;
+interface DragAndDropImg extends Props {
+  handleDrag: Function;
+  index: number;
 }
 
-export const DragAndDrop = ({ handleDrag }: DragAndDrop) => {
+export const DragAndDropImg = ({ handleDrag, index }: DragAndDropImg) => {
   const [image, setImages] = useState({});
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -16,7 +17,7 @@ export const DragAndDrop = ({ handleDrag }: DragAndDrop) => {
       'image/jpeg': ['.jpeg'],
     },
     onDrop: (acceptedFiles) => {
-      handleDrag(acceptedFiles);
+      handleDrag(acceptedFiles, index);
       setImages({
         ...acceptedFiles,
         preview: URL.createObjectURL(acceptedFiles[0]),
@@ -26,9 +27,15 @@ export const DragAndDrop = ({ handleDrag }: DragAndDrop) => {
   return (
     <div {...getRootProps()} className="w-full h-full">
       <input {...getInputProps()} />
-      <div className="w-full h-full">{<img src={image.preview} alt="" />}</div>
+      <div className="w-full h-full">
+        <img
+          className="w-full h-full object-contain"
+          src={image.preview}
+          alt=""
+        />
+      </div>
     </div>
   );
 };
 
-export default DragAndDrop;
+export default DragAndDropImg;

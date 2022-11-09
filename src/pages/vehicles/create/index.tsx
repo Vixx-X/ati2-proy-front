@@ -2,13 +2,18 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
+import { DragAndDropImg } from '@components/forms/DragAndDropImg';
+import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
 import { Form } from '@components/forms/Form';
+import TextArea from '@components/forms/textArea';
 import Button from '@components/layout/Button';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
 
 import {
   brandYearVehicle,
+  rentPrice,
+  sellPrice,
   vehicleLocation,
   vehicleStatus,
 } from '../../../utils/Filters';
@@ -21,6 +26,31 @@ const initialValues = {
   vehicleBrand: '',
   vehicleModel: '',
 };
+
+const textAreaData = [
+  {
+    title: 'Detalles o especificaciones del vehículo',
+    description:
+      'Si lo deseas, puedes indicar detalles adicionales del vehículo. Que no sea los accesorios, en esta sección',
+    name: 'vehicleDetails',
+  },
+  {
+    title: 'Accesorios o comodidades',
+    description: 'Accesorios o comodidades',
+    name: 'vehicleAccesories',
+  },
+  {
+    title: 'Servicios al día',
+    description:
+      'SI deseas, indica los trabajos que se le han realizado al vehículo recientemente, como: Cambio de aceite, cauchos, tapicería, pago de seguros al día, entre otros',
+    name: 'vehicleServices',
+  },
+  {
+    title: 'Ubicación exacta',
+    description: 'Si deseas, puedes indicar donde se encuentra el vehículo',
+    name: 'vehicleLocation',
+  },
+];
 
 const options = [
   { link: '#', text: 'dashborad', onClick: () => {}, activate: true },
@@ -54,9 +84,35 @@ const Landing: NextPage = () => {
     '',
     '',
   ]);
+  const [videos, setVideos] = useState([]);
+  const [displayDragVideo, setDisplayDragVideo] = useState(false);
 
   const handleSetImage = (data: string, index: number) => {
-    images[index] = data;
+    console.log('DATA', data);
+    console.log('Index', index);
+    const Images = [...images];
+    Images[index] = data;
+    setImages(Images);
+  };
+
+  const handleSetVideo = (data: string) => {};
+
+  const handleChangeCantVideo = (e: any) => {
+    if (e.target.value === '2') {
+      setVideos(['', '']);
+    }
+    if (e.target.value === '5') {
+      setVideos(['', '', '', '', '']);
+    }
+  };
+
+  const handleChangeAreVideos = (e: any) => {
+    if (e.target.value === 'true') {
+      setDisplayDragVideo(true);
+    }
+    if (e.target.value === 'false') {
+      setDisplayDragVideo(false);
+    }
   };
 
   return (
@@ -93,6 +149,7 @@ const Landing: NextPage = () => {
               displayProps={'w-full'}
               initialValues={initialValues}
               onSubmit={(values) => {
+                console.log('imagenes', images);
                 alert(JSON.stringify(values, null, 2));
               }}
             >
@@ -145,30 +202,121 @@ const Landing: NextPage = () => {
                         Fotos del Vehiculo
                       </p>
                     </div>
-                    <div className="w-full border border-2 border-darkprimary">
-                      <p className="text-center">
+                    <div className="w-full mt-2 border border-2 border-darkprimary">
+                      <p className="text-center ">
                         Arrastre las fotos que desea cargar en cada uno de los
                         recuadros
                       </p>
-                      <div></div>
+                      <div className="flex flex-wrap justify-center gap-3">
+                        {images.map((image, index) => (
+                          <div
+                            className="w-[100px] h-[100px] border border-solid border-primary"
+                            key={index}
+                          >
+                            <DragAndDropImg
+                              key={index}
+                              index={index}
+                              handleDrag={handleSetImage}
+                            ></DragAndDropImg>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div className="w-4/12 flex items-center flex-col">
-                    <div className="w-8/12 py-3 px-10 bg-secundary">
+                  <div className="w-4/12 flex items-center flex-col gap-2">
+                    <div className="w-9/12 py-3 px-10 bg-secundary">
                       <p className="w-full text-center text-white capitalize font-bold text-xl">
-                        Fotos del Vehiculo
+                        ¿Desea agregar video?
                       </p>
                     </div>
                     <div className="w-full border border-2 border-darkprimary">
-                      <p>
-                        Arrastre las fotos que desea cargar en cada uno de los
-                        recuadros
-                      </p>
-                      <div className="flex">{images.map((image) => {
-                        
-                      })}</div>
+                      <div className="flex justify-center items-center gap-6">
+                        <div>
+                          <input
+                            onChange={handleChangeAreVideos}
+                            type="radio"
+                            name="areVideos"
+                            value="true"
+                          />
+                          <label htmlFor="areVideos">Si</label>
+                        </div>
+                        <div>
+                          <input
+                            onChange={handleChangeAreVideos}
+                            type="radio"
+                            name="areVideos"
+                            value="false"
+                          />
+                          <label htmlFor="areVideos">No</label>
+                        </div>
+                      </div>
+                      {displayDragVideo && (
+                        <div className="m-2 flex gap-3 justify-center">
+                          <label
+                            className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded"
+                            htmlFor="cantVideo"
+                          >
+                            Cantidad de video
+                          </label>
+                          <select
+                            onChange={handleChangeCantVideo}
+                            className="rounded-md"
+                            name="cantVideo"
+                            id="cantVideo"
+                          >
+                            <option value="2">Hasta 2</option>
+                            <option value="5">Hasta 5</option>
+                          </select>
+                        </div>
+                      )}
+                      <div className="flex justify-center flex-wrap gap-2 p-3">
+                        <p>
+                          Arrastre los videos que desea cargar, en cada uno de
+                          los recuadros
+                        </p>
+                        {videos.map((videos, index) => (
+                          <div
+                            className="w-[100px] h-[100px] border border-solid border-primary"
+                            key={index}
+                          >
+                            <DragAndDropVideo
+                              key={index}
+                              index={index}
+                              handleDrag={handleSetVideo}
+                            ></DragAndDropVideo>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
+                </div>
+                <div className="flex flex-wrap gap-3 items-center">
+                  {textAreaData.map((item, index) => (
+                    <div
+                      className={index % 2 === 0 ? 'w-[65%]' : 'w-[30%]  '}
+                      key={index}
+                    >
+                      <TextArea
+                        name={item.name}
+                        title={item.title}
+                        description={item.description}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-3 items-center">
+                  <FastSearch
+                    layoutFilters="flex justify-around"
+                    classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                    classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                    filters={rentPrice}
+                  />
+                  <FastSearch
+                    layoutFilters="flex justify-around"
+                    classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                    classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                    filters={sellPrice}
+                  />
                 </div>
                 <div className="flex gap-x-4">
                   <Button type="submit" className="capitalize w-fit">
