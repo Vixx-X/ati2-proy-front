@@ -6,6 +6,7 @@ import { faEye, faPen, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Button from '../Button';
+import GenericComponent from '../Parser/Parse';
 import SplideImageComponent from '../Splide';
 
 export enum StatusVehicle {
@@ -49,7 +50,7 @@ const VehiclePostList = (props: any) => {
             </p>
             <p className="capitalize">
               <h4 className="text-darkprimary font-bold inline">detalles : </h4>
-              {details}
+              <GenericComponent content={details} />
             </p>
             <p className="capitalize">
               <h4 className="text-darkprimary font-bold inline">
@@ -67,9 +68,9 @@ const VehiclePostList = (props: any) => {
             </p>
             <p className="capitalize">
               <h4 className="text-darkprimary font-bold inline">
-                servicios al día :{' '}
+                servicios al día :
               </h4>
-              {vehicle_post.services}
+              <GenericComponent content={vehicle_post.services} />
             </p>
             <p>
               <a className="text-red">

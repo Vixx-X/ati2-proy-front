@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import Image from 'next/image';
-
-import LogInModal from '@components/modals/LogInModal';
+import DetailsModal from '@components/modals/DetailsModal';
+import PhotosModal from '@components/modals/PhotosModal';
 
 import {
   Address,
   Contact,
   Multimedia,
-  Post,
   SaleType,
   StatusVehicle,
   User,
@@ -16,9 +14,7 @@ import {
 } from 'user';
 
 import Button from '../Button';
-import ButtonSet from '../ButtonSet';
 import CardHover from '../Card/CardHover';
-import Container from '../Container';
 
 interface VehiclePostPhotoProps extends Props {
   author: User;
@@ -39,11 +35,39 @@ interface VehiclePostPhotoProps extends Props {
   };
 }
 
+const optionsLink = [
+  {
+    text: 'details',
+    hover: true,
+  },
+  {
+    text: 'accesories',
+    hover: true,
+  },
+  {
+    text: 'photos',
+    hover: true,
+  },
+  {
+    text: 'videos',
+    hover: true,
+  },
+  {
+    text: 'services',
+    hover: false,
+  },
+  {
+    text: 'exact address',
+    hover: true,
+  },
+];
+
 const VehiclePostPhoto = ({ index, ...props }: any) => {
-  const { id, author, address, contact, details, vehicle_post } = props;
+  const { address, details, vehicle_post } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);
+  const [isHoveringCard, setIsHoveringCard] = useState(false);
 
   const handleMouseOver = (title: string) => {
     setTitle(title);
@@ -51,8 +75,11 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
   };
 
   const handleMouseOut = () => {
-    setIsHovering(false);
+    setTimeout(() => {
+      setIsHovering(false);
+    }, 200);
   };
+
   return (
     <div className="max-w-[535px] max-h-[535px]">
       <div className="sm:flex">
@@ -85,72 +112,45 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           </div>
           <nav>
             <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline">
-              <li>
-                <a
-                  onMouseOver={() => {
-                    handleMouseOver('details');
-                  }}
-                  onMouseOut={handleMouseOut}
-                  className="cursor-pointer"
-                >
-                  Ver detalles
-                </a>
-              </li>
-              <li>
-                <a
-                  onMouseOver={() => {
-                    handleMouseOver('accesories');
-                  }}
-                  onMouseOut={handleMouseOut}
-                  className="cursor-pointer"
-                >
-                  Ver accesorios
-                </a>
-              </li>
-              <li>
-                <a
-                  onMouseOver={() => {
-                    handleMouseOver('photos');
-                  }}
-                  onMouseOut={handleMouseOut}
-                  className="cursor-pointer"
-                >
-                  Ver fotos
-                </a>
-              </li>
-              <li>
-                <a
-                  onMouseOver={() => {
-                    handleMouseOver('videos');
-                  }}
-                  onMouseOut={handleMouseOut}
-                  className="cursor-pointer"
-                >
-                  Ver videos
-                </a>
-              </li>
-              <li>
-                <a>Ver servicios al día</a>
-              </li>
-              <li>
-                <a
-                  onMouseOver={() => {
-                    handleMouseOver('address');
-                  }}
-                  onMouseOut={handleMouseOut}
-                >
-                  Ver ubicación exacta
-                </a>
-              </li>
+              {optionsLink.map(({ text, hover }) => (
+                <li className='group"'>
+                  <span className="relative">
+                    <a
+                      onMouseMove={() => handleMouseOver(text)}
+                      onMouseLeave={hover ? handleMouseOut : () => {}}
+                      onClick={() => setShowModal(true)}
+                      className="cursor-pointer"
+                    >
+                      {`See ${text}`}
+                    </a>
+                    {hover &&
+                      (isHoveringCard || isHovering) &&
+                      text === titleHover && (
+                        <CardHover
+                          title={titleHover}
+                          onMouseOver={() => setIsHoveringCard(true)}
+                          onMouseLeave={() => setIsHoveringCard(false)}
+                          onClick={() => setShowModal(true)}
+                          position={`transition hidden sm:flex top-[-180px] sm:right-[-535px]
+                          ${
+                            index % 2 === 0
+                              ? 'lg:right-[-535px]'
+                              : 'lg:left-[-540px]'
+                          }
+                          ${
+                            index % 3 === 2
+                              ? '2xl:left-[-540px] 2xl:right-auto'
+                              : '2xl:right-[-535px] 2xl:left-auto'
+                          }
+                        `}
+                          {...props}
+                        />
+                      )}
+                  </span>
+                </li>
+              ))}
             </ul>
           </nav>
-          {isHovering && (
-            <CardHover
-              title={titleHover}
-              position={index % 2 == 0 ? 'right-[-480px]' : 'left-[-480px]'}
-              {...props}
-            />
-          )}
         </div>
         <div>
           <header className="hidden sm:block sm:text-center uppercase text-lg sm:text-xl font-bold">
@@ -182,6 +182,26 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
       <a className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block">
         Ver información completa
       </a>
+      {titleHover !== 'photos' && titleHover !== 'videos' ? (
+        <DetailsModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          title={titleHover}
+          details={details}
+          accesories={vehicle_post.accesories}
+          services={vehicle_post.services}
+          address={`${address.line1}. ${address.line2}`}
+        />
+      ) : (
+        <PhotosModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          title={titleHover}
+          medias={vehicle_post.images}
+          address={address}
+          vehicle_post={vehicle_post}
+        />
+      )}
     </div>
   );
 };
