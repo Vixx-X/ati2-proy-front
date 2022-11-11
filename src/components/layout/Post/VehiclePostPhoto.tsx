@@ -15,6 +15,7 @@ import {
 
 import Button from '../Button';
 import CardHover from '../Card/CardHover';
+import Prices from './Prices';
 
 interface VehiclePostPhotoProps extends Props {
   author: User;
@@ -101,14 +102,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
             </div>
           </div>
           <div className="font-bold text-lg sm:flex sm:justify-center sm:items-center">
-            <div>
-              {vehicle_post.rental_price && (
-                <p>{`Rental price: ${vehicle_post.rental_price} ${vehicle_post.currency}`}</p>
-              )}
-              {vehicle_post.sale_price && (
-                <p>{`Sale price: ${vehicle_post.sale_price} ${vehicle_post.currency}`}</p>
-              )}
-            </div>
+            <Prices vehicle_post={vehicle_post} />
           </div>
           <nav>
             <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline">

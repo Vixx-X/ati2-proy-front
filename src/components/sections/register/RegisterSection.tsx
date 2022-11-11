@@ -3,9 +3,14 @@ import React, { useState } from 'react';
 import BusinessUser from './user/BusinessUser';
 import NaturalUser from './user/NaturalUser';
 
+export enum UserType {
+  NATURAL = 'natural',
+  BUSINESS = 'business',
+}
+
 export const RegisterSection = ({ userType, setUserType }: any) => {
   const handleUser = (event: any) => {
-    setUserType(event.target.value);
+    setUserType(event.target.value as UserType);
   };
   return (
     <>
@@ -15,7 +20,7 @@ export const RegisterSection = ({ userType, setUserType }: any) => {
           <input
             type="radio"
             name="typeUser"
-            value="natural"
+            value={UserType.NATURAL}
             onChange={handleUser}
           />
           <label className="ml-2">Persona Natural</label>
@@ -24,7 +29,7 @@ export const RegisterSection = ({ userType, setUserType }: any) => {
           <input
             type="radio"
             name="typeUser"
-            value="business"
+            value={UserType.BUSINESS}
             onChange={handleUser}
           />
           <label className="ml-2">Empresa</label>

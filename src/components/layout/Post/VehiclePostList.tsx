@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../Button';
 import GenericComponent from '../Parser/Parse';
 import SplideImageComponent from '../Splide';
+import Prices from './Prices';
 
 export enum StatusVehicle {
   NEW = 'new',
@@ -28,14 +29,7 @@ const VehiclePostList = (props: any) => {
         </div>
         <div className="md:w-8/12 lg:w-5/12 relative px-4">
           <div>
-            <div className="font-bold">
-              {vehicle_post.rental_price && (
-                <p>{`Rental price: ${vehicle_post.rental_price} ${vehicle_post.currency}`}</p>
-              )}
-              {vehicle_post.sale_price && (
-                <p>{`Sale price: ${vehicle_post.sale_price} ${vehicle_post.currency}`}</p>
-              )}
-            </div>
+            <Prices vehicle_post={vehicle_post} />
             <p className="capitalize">
               <h4 className="text-darkprimary font-bold inline">marca : </h4>
               {vehicle_post.vehicle.brand}

@@ -14,4 +14,10 @@ export const API_URLS = {
   URL_CHANGE_EMAIL: `/user/change-email/`,
   URL_CHANGE_PASSWORD: `/user/change-password/`,
   URL_OTP_REQUEST: `/user/generate-otp/`,
+
+  //Natural Person
+  URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
+
+  //Business
+  URL_BUSINESS_REGISTER: `/businesses/register/`,
 };

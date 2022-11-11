@@ -1,63 +1,199 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import type { NextPage } from 'next';
 
-import Loader from '@components/Loader';
-import ErrorMsg from '@components/forms/ErrorMsg';
-import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
-import PassField from '@components/forms/PassField';
-import Select from '@components/forms/Select';
+import Button from '@components/layout/Button';
+import MainContainer from '@components/layout/MainContainer';
+import AboutUs from '@components/sections/register/AbousUs';
+import InfoRegister from '@components/sections/register/Info';
+import LanguageSection from '@components/sections/register/LanguageSection';
+import LoginSection from '@components/sections/register/LoginSection';
+import NotificationSection from '@components/sections/register/NotificationSection';
+import PayInfo from '@components/sections/register/PayInfo';
+import {
+  RegisterSection,
+  UserType,
+} from '@components/sections/register/RegisterSection';
 
-import { postRegisterUser } from '@fetches/user';
+import { postRegisterBusiness, postRegisterPerson } from '@fetches/user';
 
 import authStore from '@stores/AuthStore';
 
+import { classNames } from '@utils/classNames';
+
 import { FormikValues } from 'formik';
+import { Business, NaturalPerson } from 'user';
 
-interface SignupForm {
-  first_name: string;
-  last_name: string;
-  email: string;
-  username: string;
-  password1: string;
-  password2: string;
-  tel: string;
-  number: number;
-  typeOfDocumentID: string;
-}
-
-const TypeOfDocumentIDChoices = [
-  { value: 'V', text: 'V' },
-  { value: 'J', text: 'J' },
-  { value: 'E', text: 'E' },
+const registerSections = [
+  {
+    index: 0,
+    text: '¿Cómo supo de nosotros?',
+  },
+  {
+    index: 1,
+    text: 'Registrar usuario',
+  },
+  {
+    index: 2,
+    text: 'Idioma del adiestamiento',
+  },
+  {
+    index: 3,
+    text: 'Datos de inicio de sesión',
+  },
+  {
+    index: 4,
+    text: 'frecuencia e información a recibir',
+  },
+  {
+    index: 5,
+    text: 'datos de facturación',
+  },
 ];
 
-const Registro: NextPage = () => {
-  const [loading, setLoading] = useState(false);
-
-  const login = authStore((state: any) => state.login);
-
-  const initValues: SignupForm = {
+const initialValues1: NaturalPerson | Business = {
+  user: {
+    password1: '',
+    password2: '',
+    email: '',
+    language: '',
+    notification_setting: {
+      active: false,
+      frecuency: '',
+      notification_method: {
+        email: '',
+        socials: [
+          {
+            social: '',
+            value: '',
+          },
+        ],
+        sms: '',
+        other: '',
+        facebook: '',
+      },
+    },
+    about_website: {
+      web: false,
+      socials: [],
+      friends: false,
+      other: '',
+    },
+    payment_info: {
+      source_bank: '',
+      target_bank: '',
+      country: '',
+    },
+  },
+  name: '',
+  tax_id: '',
+  address: {
+    line1: '',
+    line2: '',
+    // city
+  },
+  representant: {
     first_name: '',
     last_name: '',
     email: '',
-    username: '',
-    password1: '',
-    password2: '',
-    tel: '',
-    number: 0,
-    typeOfDocumentID: 'v',
-  };
+    phone: '',
+    local_phone: '',
+  },
+  first_name: '',
+  last_name: '',
+  document_id: '',
+  email: '',
+  phone: '',
+  local_phone: '',
+  country: '',
+};
+
+const initialValues: NaturalPerson | Business = {
+  user: {
+    password1: 'abcd1234..',
+    password2: 'abcd1234..',
+    email: 'gabyustariz@hotmail.com',
+    language: 'ES',
+    notification_setting: {
+      active: false,
+      frecuency: '1 vez a la semana',
+      notification_method: {
+        email: 'gabyustariz@hotmail.com',
+        socials: [
+          {
+            social: 'Facebook',
+            value: '@gabyustariz',
+          },
+        ],
+        sms: '+584241315948',
+        other: '',
+        facebook: '',
+      },
+    },
+    about_website: {
+      web: false,
+      socials: [],
+      friends: false,
+      other: '',
+    },
+    payment_info: {
+      source_bank: 'Banesco Panama',
+      target_bank: 'Mercantil Panama',
+      country: 'pa',
+    },
+  },
+  name: 'Company 2',
+  tax_id: 'J8896882',
+  address: {
+    line1: 'los chaguaramos',
+    line2: 'av san francisco',
+    // city
+  },
+  representant: {
+    first_name: 'Gabriela',
+    last_name: 'Ustariz',
+    email: 'gabyustariz@hotmail.com',
+    phone: '+584241315948',
+    local_phone: '+582121315948',
+  },
+  first_name: 'Pepita',
+  last_name: 'Perez',
+  document_id: 'V6677885',
+  email: 'pepitaperez@gmail.com',
+  phone: '+584143332244',
+  local_phone: '+582123332244',
+  country: 've',
+};
+
+const Register: NextPage = () => {
+  const [indexSection, setSection] = useState<number>(0);
+  const refForm = useRef(null);
+  const [load, setLoading] = useState<boolean>(false);
+  const [userType, setUserType] = useState<UserType>(UserType.NATURAL);
+
+  const login = authStore((state: any) => state.login);
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
+    const { user, representant, name, tax_id, address, ...props } = values;
+    const commonUser = {
+      user: { ...user, username: user.email },
+      adresss: { ...address },
+    };
     try {
-      await postRegisterUser({
-        ...values,
-        document_id: `${values.typeOfDocumentID}-${values.number}`,
-      });
-      await login(values.username, values.password1);
+      console.log('valores', values);
+      if (userType === UserType.NATURAL) {
+        await postRegisterPerson({ ...commonUser, ...props });
+      } else {
+        await postRegisterBusiness({
+          ...commonUser,
+          representant: { ...representant },
+          name,
+          tax_id,
+        });
+      }
+      await login(user.email, user.password1);
       setStatus({});
     } catch (exception: any) {
       setStatus(exception.data);
@@ -66,182 +202,77 @@ const Registro: NextPage = () => {
   };
 
   return (
-    <>
-      <div className="rounded mb-4 w-[90%] max-w-[60rem] my-10 mb-14">
-        <Form initialValues={initValues} onSubmit={handleSubmit}>
-          <>
-            <div className="divide-y">
-              <div>
-                <p className="font-light text-3xl xl:text-4xl mb-3 text-light">
-                  Registro
-                </p>
-              </div>
-              <div className="pt-4 grid sm:grid-cols-2 gap-x-8 justify-center">
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="name"
-                  >
-                    Nombre
-                  </label>
-                  <Field
-                    label="Nombre"
-                    name="first_name"
-                    id="name"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Nombre"
-                  />
-                  <ErrorMsg name="first_name" />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="lastname"
-                  >
-                    Apellido
-                  </label>
-                  <Field
-                    label="Apellido"
-                    name="last_name"
-                    id="lastname"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Apellido"
-                  />
-                  <ErrorMsg name="last_name" />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="username"
-                  >
-                    Nombre de usuario
-                  </label>
-                  <Field
-                    label="Nombre de usuario"
-                    name="username"
-                    id="username"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Username"
-                  />
-                  <ErrorMsg name="username" />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="email"
-                  >
-                    Correo
-                  </label>
-                  <Field
-                    type="email"
-                    label="Correo electrónico"
-                    name="email"
-                    id="email"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="E-mail"
-                  />
-                  <ErrorMsg name="email" />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="password"
-                  >
-                    Contraseña
-                  </label>
-                  <PassField
-                    label="Contraseña"
-                    id="password"
-                    name="password1"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Password"
-                  />
-                  <ErrorMsg name="password1" />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="passwordConfirm"
-                  >
-                    Confirmar contraseña
-                  </label>
-                  <PassField
-                    label="Confirmar contraseña"
-                    id="passwordConfirm"
-                    name="password2"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Confirmar contraseña"
-                  />
-                  <ErrorMsg name="password2" />
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                    htmlFor="passwordConfirm"
-                  >
-                    Teléfono
-                  </label>
-                  <Field
-                    type="tel"
-                    label="Teléfono"
-                    id="tel"
-                    name="tel"
-                    className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Teléfono"
-                  />
-                  <ErrorMsg name="tel" />
-                </div>
-                <div className="grid grid-cols-2 gap-x-4">
-                  <div className="mb-4">
-                    <label
-                      className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                      htmlFor="type"
-                    >
-                      Tipo de identificación
-                    </label>
-                    <Select
-                      as="select"
-                      id="typeOfDocumentID"
-                      className="form-select appearance-none block w-full px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      name="typeOfDocumentID"
-                      placeholder="--Seleccionar--"
-                      choices={TypeOfDocumentIDChoices}
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label
-                      className="block text-sm xl:text-lg font-bold mb-2 text-light"
-                      htmlFor="idNumber"
-                    >
-                      Número de identificación
-                    </label>
-                    <Field
-                      className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="idNumber"
-                      type="number"
-                      name="number"
-                      placeholder="Ej: 5555555"
-                    />
-                    <ErrorMsg name="number" />
-                  </div>
-                </div>
-                <div></div>
-                <ErrorMsg name="non_field_errors" />
-              </div>
-            </div>
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className=" w-full md:w-[55%] bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-              >
-                <p>Registrarse</p>
-              </button>
-            </div>
-            {loading && <Loader />}
-          </>
-        </Form>
+    <MainContainer>
+      <InfoRegister />
+      <div className="max-w-2xl mx-auto w-full my-8">
+        <div className="sm:grid-cols-2 md:grid-cols-3 grid gap-4">
+          {registerSections.map(({ index, text }) => (
+            <Button
+              key={index}
+              onClick={() => setSection(index)}
+              className="w-auto rounded-md font-bold"
+              bgColor={classNames(
+                indexSection >= index ? 'bg-third' : 'bg-gray-300',
+                indexSection == index ? 'underline' : ''
+              )}
+            >
+              {`${index + 1}- ${text}`}
+            </Button>
+          ))}
+        </div>
       </div>
-    </>
+      <section className="grid gap-4 grid-cols-custom items-center">
+        <Button
+          bgColor="bg-red"
+          className={`h-fit ${indexSection <= 0 ? 'invisible' : 'visible'}`}
+          onClick={() => setSection(indexSection - 1)}
+        >
+          &lt; Atrás
+        </Button>
+        <p className="font-bold text-white text-center bg-primary text-xl py-4 rounded-md uppercase">
+          {registerSections[indexSection].text}
+        </p>
+        <Button
+          bgColor="bg-red"
+          className={`h-fit ${indexSection >= 5 ? 'invisible' : 'visible'}`}
+          onClick={() => setSection(indexSection + 1)}
+        >
+          Continuar &gt;
+        </Button>
+      </section>
+      <Form
+        initialValues={initialValues}
+        innerRef={refForm}
+        onSubmit={handleSubmit}
+      >
+        <section className="p-8 min-h-[35vh]">
+          {indexSection == 0 && <AboutUs />}
+          {indexSection == 1 && (
+            <RegisterSection userType={userType} setUserType={setUserType} />
+          )}
+          {indexSection == 2 && <LanguageSection />}
+          {indexSection == 3 && <LoginSection />}
+          {indexSection == 4 && (
+            <NotificationSection
+              userType={userType}
+              setUserType={setUserType}
+            />
+          )}
+          {indexSection == 5 && <PayInfo />}
+        </section>
+        <div className="w-full justify-center gap-x-10 flex">
+          <Button className="w-auto" onClick={() => {}}>
+            cancelar
+          </Button>
+          {indexSection == 5 && (
+            <Button type="submit" className="w-auto">
+              registar
+            </Button>
+          )}
+        </div>
+      </Form>
+    </MainContainer>
   );
 };
-export default Registro;
+
+export default Register;

@@ -29,7 +29,7 @@ export const PayInfo = ({}) => {
           <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
             pais donde reside la cuenta del banco de origen
           </div>
-          <Field name="user.payment_info.country_source.name" />
+          <Field name="user.payment_info.country.name" />
         </div>
         <div>
           <div className="h-fit bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">

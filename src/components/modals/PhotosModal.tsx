@@ -1,4 +1,5 @@
 import GenericComponent from '@components/layout/Parser/Parse';
+import Prices from '@components/layout/Post/Prices';
 import BaseModal from '@components/modals/BaseModal';
 
 import { classNames } from '@utils/classNames';
@@ -51,14 +52,7 @@ export const DetailsModal = ({
               src={medias[0].file}
             />
             <div className="font-bold text-lg sm:flex sm:justify-center sm:items-center">
-              <div>
-                {vehicle_post.rental_price && (
-                  <p>{`Rental price: ${vehicle_post.rental_price} ${vehicle_post.currency}`}</p>
-                )}
-                {vehicle_post.sale_price && (
-                  <p>{`Sale price: ${vehicle_post.sale_price} ${vehicle_post.currency}`}</p>
-                )}
-              </div>
+              <Prices vehicle_post={vehicle_post} />
             </div>
             <div className="col-span-2">
               <header className="hidden sm:block sm:text-center uppercase text-lg sm:text-xl font-bold">
@@ -85,7 +79,9 @@ export const DetailsModal = ({
                 </div>
               </div>
             </div>
-            <div className="col-span-full capitalize text-center font-bold">{title} adicionales</div>
+            <div className="col-span-full capitalize text-center font-bold">
+              {title} adicionales
+            </div>
             {medias.map(({ text, file }, index) => (
               <img
                 className="border boder-solid border-black"
