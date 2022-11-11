@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { classNames } from '@utils/classNames';
+import recursiveGetter from '@utils/recursiveGetter';
 
 import { Field as FField, useFormikContext } from 'formik';
 
@@ -8,10 +9,15 @@ const defaultOnChange = (callback: Function) => {
   return callback;
 };
 
-export const Field = ({ children, onChangeCallback, styles, ...props }: Props) => {
+export const Field = ({
+  children,
+  onChangeCallback,
+  styles,
+  ...props
+}: Props) => {
   if (!onChangeCallback) onChangeCallback = defaultOnChange;
 
-  const { status, handleChange /*, errors */ } = useFormikContext();
+  const { status, handleChange, values /*, errors */ } = useFormikContext();
   const hasError = useMemo(
     () => status?.[props.name] /* || errors?.[props.name]*/,
     [status, props.name /*, errors*/]
@@ -27,6 +33,7 @@ export const Field = ({ children, onChangeCallback, styles, ...props }: Props) =
           : 'focus:border-gray-300 focus:ring-gray-300',
         styles
       )}
+      value={recursiveGetter(values, props.name)}
       onChange={onChangeCallback(handleChange)}
       {...props}
     >

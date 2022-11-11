@@ -91,7 +91,7 @@ const initialValues1: NaturalPerson | Business = {
   address: {
     line1: '',
     line2: '',
-    // city
+    // city: 1,
   },
   representant: {
     first_name: '',
@@ -182,7 +182,6 @@ const Register: NextPage = () => {
       address,
     };
     try {
-      console.log('valores', values);
       if (userType === UserType.NATURAL) {
         await postRegisterPerson({ ...commonUser, ...props });
       } else {
@@ -196,7 +195,7 @@ const Register: NextPage = () => {
       await login(user.email, user.password1);
       setStatus({});
     } catch (exception: any) {
-      setStatus(exception.data);
+      setStatus(exception.data.detail);
       setLoading(false);
     }
   };
@@ -241,7 +240,7 @@ const Register: NextPage = () => {
         </Button>
       </section>
       <Form
-        initialValues={initialValues}
+        initialValues={initialValues1}
         innerRef={refForm}
         onSubmit={handleSubmit}
       >

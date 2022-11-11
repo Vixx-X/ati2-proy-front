@@ -163,7 +163,7 @@ interface Social {
 interface Address {
   line1: string;
   line2: string;
-  city?: City;
+  city?: City | number;
 }
 
 interface City {
