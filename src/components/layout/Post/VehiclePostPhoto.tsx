@@ -15,6 +15,8 @@ import {
 
 import Button from '../Button';
 import CardHover from '../Card/CardHover';
+import AddressPost from './Address';
+import HeaderPost from './Header';
 import Prices from './Prices';
 
 interface VehiclePostPhotoProps extends Props {
@@ -86,13 +88,10 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
       <div className="sm:flex">
         <div className="relative">
           <div className="sm:mr-4 mb-2">
-            <header className="sm:hidden mb-2 uppercase text-lg font-bold">
-              <h2 className="underline text-blue-600">
-                {vehicle_post.vehicle.brand} - {vehicle_post.vehicle.model}
-              </h2>
-              <p className="underline text-red">{vehicle_post.sale_type}</p>
-              <p className="underline text-green">{vehicle_post.state}</p>
-            </header>
+            <HeaderPost
+              className="sm:hidden mb-2"
+              vehicle_post={vehicle_post}
+            />
             <div className="w-full sm:max-w-[250px] sm:max-h-[170px]">
               <img
                 alt={vehicle_post.images[0].text}
@@ -147,28 +146,9 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           </nav>
         </div>
         <div>
-          <header className="hidden sm:block sm:text-center uppercase text-lg sm:text-xl font-bold">
-            <h2 className="underline text-blue-600">
-              {vehicle_post.vehicle.brand} - {vehicle_post.vehicle.model}
-            </h2>
-            <p className="underline text-red">{vehicle_post.sale_type}</p>
-            <p className="underline text-green">{vehicle_post.state}</p>
-          </header>
+          <HeaderPost vehicle_post={vehicle_post} />
           <div className="sm:flex sm:flex-col justify-center items-center">
-            <div className="capitalize text-lg my-4">
-              <h4>
-                <span className="font-bold underline">country:</span>{' '}
-                {address.city?.state.country.name}
-              </h4>
-              <h4>
-                <span className="font-bold underline">state:</span>{' '}
-                {address.city?.state.name}
-              </h4>
-              <h4>
-                <span className="font-bold underline">zone:</span>{' '}
-                {address.city?.name}
-              </h4>
-            </div>
+            <AddressPost address={address} />
             <Button className="sm:mt-16">contactar al anunciante</Button>
           </div>
         </div>
@@ -191,7 +171,9 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           showModal={showModal}
           setShowModal={setShowModal}
           title={titleHover}
-          medias={vehicle_post.images}
+          medias={
+            titleHover === 'photos' ? vehicle_post.images : vehicle_post.videos
+          }
           address={address}
           vehicle_post={vehicle_post}
         />

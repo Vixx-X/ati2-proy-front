@@ -1,13 +1,8 @@
 import React from 'react';
 
-export enum StatusVehicle {
-  NEW = 'new',
-  USED = 'used',
-}
-
-const Prices = (vehicle_post: any) => {
+const Prices = ({ vehicle_post }: any) => {
   return (
-    <div className="font-bold">
+    <div>
       {vehicle_post.rental_price && (
         <p>{`Rental price: ${vehicle_post.rental_price} ${vehicle_post.currency}`}</p>
       )}

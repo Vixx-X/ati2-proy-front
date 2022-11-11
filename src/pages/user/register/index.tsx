@@ -113,7 +113,7 @@ const initialValues: NaturalPerson | Business = {
   user: {
     password1: 'abcd1234..',
     password2: 'abcd1234..',
-    email: 'gabyustariz@hotmail.com',
+    email: 'empresita@gmail.com',
     language: 'ES',
     notification_setting: {
       active: false,
@@ -148,7 +148,7 @@ const initialValues: NaturalPerson | Business = {
   address: {
     line1: 'los chaguaramos',
     line2: 'av san francisco',
-    // city
+    city: 1,
   },
   representant: {
     first_name: 'Gabriela',
@@ -179,7 +179,7 @@ const Register: NextPage = () => {
     const { user, representant, name, tax_id, address, ...props } = values;
     const commonUser = {
       user: { ...user, username: user.email },
-      adresss: { ...address },
+      address,
     };
     try {
       console.log('valores', values);
@@ -188,7 +188,7 @@ const Register: NextPage = () => {
       } else {
         await postRegisterBusiness({
           ...commonUser,
-          representant: { ...representant },
+          representant,
           name,
           tax_id,
         });
