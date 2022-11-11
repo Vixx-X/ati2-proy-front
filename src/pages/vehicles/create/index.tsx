@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 
 import { DragAndDropImg } from '@components/forms/DragAndDropImg';
 import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
+import { Field } from '@components/forms/Field';
 import { Form } from '@components/forms/Form';
 import TextArea from '@components/forms/textArea';
 import Button from '@components/layout/Button';
@@ -12,8 +13,7 @@ import MainContainer from '@components/layout/MainContainer';
 
 import {
   brandYearVehicle,
-  rentPrice,
-  sellPrice,
+  money,
   vehicleLocation,
   vehicleStatus,
 } from '../../../utils/Filters';
@@ -86,6 +86,8 @@ const Landing: NextPage = () => {
   ]);
   const [videos, setVideos] = useState([]);
   const [displayDragVideo, setDisplayDragVideo] = useState(false);
+  const [displayVehicleAre, setDisplayVehicleAre] = useState(0);
+  const [displayOtherMoney, setDisplayOtherMoney] = useState(false)
 
   const handleSetImage = (data: string, index: number) => {
     console.log('DATA', data);
@@ -112,6 +114,29 @@ const Landing: NextPage = () => {
     }
     if (e.target.value === 'false') {
       setDisplayDragVideo(false);
+    }
+  };
+
+  const handleChangeStateVehicle = (e: any) => {
+    console.log('RADIO:', e);
+  };
+
+  const handleChangeStatusVehicle = (e: any) => {
+    if (e.target.value === 'Rent') {
+      setDisplayVehicleAre(1);
+    } else if (e.target.value === 'Sell') {
+      setDisplayVehicleAre(2);
+    } else {
+      setDisplayVehicleAre(3);
+    }
+    console.log('TARGET', e);
+  };
+
+  const handleChangeMoney = (e: any) => {
+    if(e.target.value === 'other'){
+      setDisplayOtherMoney(true)
+    }else{
+      setDisplayOtherMoney(false)
     }
   };
 
@@ -187,12 +212,63 @@ const Landing: NextPage = () => {
                         Estatus del vehículo
                       </p>
                     </div>
-                    <FastSearch
-                      layoutFilters="flex justify-between"
-                      classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                      classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                      filters={vehicleStatus}
-                    />
+                    <div className="flex gap-3">
+                      <div>
+                        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                          Vehiculo en
+                        </p>
+                        <div className="flex gap-2 items-center">
+                          <input
+                            onChange={handleChangeStatusVehicle}
+                            type="radio"
+                            value="Rent"
+                            name="StatusVehicle"
+                          />
+                          <label htmlFor="areVideos">Alquiler</label>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <input
+                            onChange={handleChangeStatusVehicle}
+                            type="radio"
+                            value="Sell"
+                            name="StatusVehicle"
+                          />
+                          <label htmlFor="areVideos">Venta</label>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <input
+                            onChange={handleChangeStatusVehicle}
+                            type="radio"
+                            value="RentSell"
+                            name="StatusVehicle"
+                          />
+                          <label htmlFor="areVideos">Alquiler y Venta</label>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                          Estado en
+                        </p>
+                        <div className="flex gap-2 items-center">
+                          <input
+                            onChange={handleChangeStateVehicle}
+                            type="radio"
+                            value="New"
+                            name="VehicleState"
+                          />
+                          <label htmlFor="areVideos">Nuevo</label>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <input
+                            onChange={handleChangeStateVehicle}
+                            type="radio"
+                            value="Used"
+                            name="VehicleState"
+                          />
+                          <label htmlFor="areVideos">Usado</label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex w-full gap-10">
@@ -290,7 +366,7 @@ const Landing: NextPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-3 items-center">
+                <div className="flex flex-wrap gap-3 items-center justify-between">
                   {textAreaData.map((item, index) => (
                     <div
                       className={index % 2 === 0 ? 'w-[65%]' : 'w-[30%]  '}
@@ -304,19 +380,60 @@ const Landing: NextPage = () => {
                     </div>
                   ))}
                 </div>
-                <div className="flex gap-3 items-center">
-                  <FastSearch
-                    layoutFilters="flex justify-around"
-                    classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                    classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                    filters={rentPrice}
-                  />
-                  <FastSearch
-                    layoutFilters="flex justify-around"
-                    classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                    classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                    filters={sellPrice}
-                  />
+                <div className="flex justify-between">
+                  <div className=" flex gap-3 items-center">
+                    {(displayVehicleAre === 1 || displayVehicleAre === 3) && (
+                      <div>
+                        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                          Precio del Alquiler
+                        </p>
+                        <Field type="text" name="rentPrice" />
+                      </div>
+                    )}
+                    {(displayVehicleAre === 2 || displayVehicleAre === 3) && (
+                      <div>
+                        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                          Precio del Alquiler
+                        </p>
+                        <Field type="text" name="sellPrice" />
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <FastSearch
+                      onChange={handleChangeMoney}
+                      layoutFilters="flex justify-around"
+                      classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                      classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                      filters={money}
+                    />
+                    { displayOtherMoney && <div className="flex flex-col">
+                      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                        Coloque las siglas de las monedas
+                      </p>
+                      <Field
+                        type="text"
+                        className="pr-2 pl-2 pt-2 pb-2 text-xs"
+                        name="newMoney"
+                      />
+                    </div>}
+                  </div>
+                </div>
+                <div className="flex justify-between">
+                  <div className="w-[60%] flex justify-center">
+                    <div className="w-[30%] bg-secundary">
+                      <p className="w-full text-center text-white capitalize font-bold text-xl">
+                        Datos del contacto
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-[40%] flex justify-center">
+                    <div className="w-[30%] bg-secundary">
+                      <p className="w-full text-center text-white capitalize font-bold text-xl">
+                        Dias del Contacto
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex gap-x-4">
                   <Button type="submit" className="capitalize w-fit">

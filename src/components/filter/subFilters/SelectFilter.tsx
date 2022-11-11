@@ -22,6 +22,7 @@ export const SelectFilter = ({
         {selectName}
       </p>
       <Select
+        {...props}
         className={`rounded w-full ${styles}`}
         choices={choices}
         placeholder={placeholder}

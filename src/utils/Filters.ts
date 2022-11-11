@@ -225,30 +225,16 @@ export const vehicleStatus = [
   },
 ]
 
-export const rentPrice = [
+export const money = [
   {
     tag: 'select',
     choices: [
-      { value: 'rentPrice1', text: 'precioRenta1' },
-      { value: 'rentPrice2', text: 'precioRenta2' },
-      { value: 'rentPrice3', text: 'precioRenta3' },
+      { value: 'USD', text: 'USD' },
+      { value: 'EUR', text: 'EUR' },
+      { value: 'other', text: 'other' },
     ],
-    name: 'rentPrice',
-    placeholder: 'Precio de Renta',
-    selectName: 'Precio de Renta',
-  },
-]
-
-export const sellPrice = [
-  {
-    tag: 'select',
-    choices: [
-      { value: 'sellPrice1', text: 'Precio de venta1' },
-      { value: 'sellPrice2', text: 'Precio de venta2' },
-      { value: 'sellPrice3', text: 'Precio de venta3' },
-    ],
-    name: 'sellPrice',
-    placeholder: 'Seleccione Precio de Venta',
-    selectName: 'Precio de Venta',
+    name: 'money',
+    placeholder: 'Seleccione Moneda',
+    selectName: 'Seleccione Moneda',
   },
 ]
