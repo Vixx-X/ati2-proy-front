@@ -2,7 +2,7 @@ import { API_URLS } from '@config';
 
 import assertApiError from '@utils/assertApiError';
 import fetcher from '@utils/fetcher';
-import  makeFetchOptions  from '@utils/makeFetchOptions';
+import makeFetchOptions from '@utils/makeFetchOptions';
 import { makeUrl } from '@utils/makeUrl';
 
 export const getCountries = async (query: any = {}) => {
