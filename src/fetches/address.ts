@@ -5,7 +5,7 @@ import fetcher from '@utils/fetcher';
 import { makeAuthFetchOptions } from '@utils/makeFetchOptions';
 import { makeUrl } from '@utils/makeUrl';
 
-export const getCountries = async (query: any) => {
+export const getCountries = async (query: any = {}) => {
   const resp = await fetcher.get(
     makeUrl(API_URLS.URL_COUNTRIES, query),
     makeAuthFetchOptions()

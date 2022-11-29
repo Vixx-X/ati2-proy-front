@@ -4,14 +4,14 @@ import { getCountries } from '@fetches/address';
 
 import useSWR from 'swr';
 
-import { Select, SelectProps } from './Select';
+import Select, { SelectProps } from './Select';
 
 export interface CountrySelectProps extends Omit<SelectProps, 'choices'> {
   choices?: { value: string; text: string }[];
 }
 
 export const CountrySelect = (props: CountrySelectProps) => {
-  const { data } = useSWR('countries', getCountries);
+  const { data } = useSWR('countries', () => getCountries());
   const choices = useMemo(
     () =>
       data?.map((item: any) => ({
@@ -21,5 +21,9 @@ export const CountrySelect = (props: CountrySelectProps) => {
     [data]
   );
 
-  return <Select choices={choices} {...props} />;
+  return (
+    <Select choices={choices} placeholder="--Selecciona País--" {...props} />
+  );
 };
+
+export default CountrySelect;
