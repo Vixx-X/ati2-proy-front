@@ -1,0 +1,25 @@
+import { useMemo } from 'react';
+
+import { getCountries } from '@fetches/address';
+
+import useSWR from 'swr';
+
+import { Select, SelectProps } from './Select';
+
+export interface CountrySelectProps extends Omit<SelectProps, 'choices'> {
+  choices?: { value: string; text: string }[];
+}
+
+export const CountrySelect = (props: CountrySelectProps) => {
+  const { data } = useSWR('countries', getCountries);
+  const choices = useMemo(
+    () =>
+      data?.map((item: any) => ({
+        text: item.name,
+        value: item.iso_3166_1_a2,
+      })),
+    [data]
+  );
+
+  return <Select choices={choices} {...props} />;
+};
