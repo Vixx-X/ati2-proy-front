@@ -87,8 +87,9 @@ const Landing: NextPage = () => {
   const [videos, setVideos] = useState([]);
   const [displayDragVideo, setDisplayDragVideo] = useState(false);
   const [displayVehicleAre, setDisplayVehicleAre] = useState(0);
-  const [displayOtherMoney, setDisplayOtherMoney] = useState(false)
-
+  const [displayOtherMoney, setDisplayOtherMoney] = useState(false);
+  const [enableContactStaticPhone, setEnableContactStaticPhone] = useState(false)
+  const [enableContactMobilePhone, setEnableContactMobilePhone] = useState(false)
   const handleSetImage = (data: string, index: number) => {
     console.log('DATA', data);
     console.log('Index', index);
@@ -133,12 +134,23 @@ const Landing: NextPage = () => {
   };
 
   const handleChangeMoney = (e: any) => {
-    if(e.target.value === 'other'){
-      setDisplayOtherMoney(true)
-    }else{
-      setDisplayOtherMoney(false)
+    if (e.target.value === 'other') {
+      setDisplayOtherMoney(true);
+    } else {
+      setDisplayOtherMoney(false);
     }
   };
+
+  const handleChangeContactPhone = (e:any) =>{
+    console.log(e.target.value)
+    if(e.target.value === 'static'){
+      setEnableContactStaticPhone(!enableContactStaticPhone)
+      console.log(enableContactStaticPhone)
+    }else{
+      setEnableContactMobilePhone(!enableContactMobilePhone)
+      console.log(enableContactMobilePhone)
+    }
+  }
 
   return (
     <MainContainer>
@@ -175,7 +187,8 @@ const Landing: NextPage = () => {
               initialValues={initialValues}
               onSubmit={(values) => {
                 console.log('imagenes', images);
-                alert(JSON.stringify(values, null, 2));
+                console.log(values);
+                /* alert(JSON.stringify(values, null, 2)); */
               }}
             >
               <div className="w-full flex flex-col gap-6 px-5">
@@ -407,39 +420,96 @@ const Landing: NextPage = () => {
                       classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
                       filters={money}
                     />
-                    { displayOtherMoney && <div className="flex flex-col">
-                      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                        Coloque las siglas de las monedas
-                      </p>
-                      <Field
-                        type="text"
-                        className="pr-2 pl-2 pt-2 pb-2 text-xs"
-                        name="newMoney"
-                      />
-                    </div>}
+                    {displayOtherMoney && (
+                      <div className="flex flex-col">
+                        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                          Coloque las siglas de las monedas
+                        </p>
+                        <Field
+                          type="text"
+                          className="pr-2 pl-2 pt-2 pb-2 text-xs"
+                          name="newMoney"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <div className="w-[60%] flex justify-center">
+                  <div className="w-[60%] gap-2 flex flex-col items-center justify-center">
                     <div className="w-[30%] bg-secundary">
-                      <p className="w-full text-center text-white capitalize font-bold text-xl">
-                        Datos del contacto
+                      <p className="w-full text-center text-white font-bold text-xl p-2">
+                        Datos de contacto
                       </p>
+                    </div>
+                    <div className="w-full border border-2 border-darkprimary p-4 flex flex-col gap-2">
+                      <div className="flex justify-between items-center">
+                        <p className="w-[25%] font-bold">
+                          Nombre <span className="text-red-600">*</span>
+                        </p>
+                        <Field
+                          required
+                          className="w-[70%]"
+                          type="text"
+                          name="contact.name"
+                        />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <p className="w-[25%] font-bold">
+                          Apellido <span className="text-red-600">*</span>
+                        </p>
+                        <Field
+                          className="w-[70%]"
+                          type="text"
+                          name="contact.lastName"
+                        />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <p className="w-[25%] font-bold">
+                          Correo Electronico{' '}
+                          <span className="text-red-600">*</span>
+                        </p>
+                        <Field
+                          className="w-[70%]"
+                          type="text"
+                          name="contact.email"
+                        />
+                      </div>
+                      <p className="text-center">Seleccione, el o los teléfonos de su preferencia</p>
+                      <div className="flex flex gap-2">
+                        <div className="flex gap-2 items-center w-full">
+                          <input
+                            onChange={handleChangeContactPhone}
+                            type="checkbox"
+                            value="mobile"
+                          />
+                          <label className="bg-secundary py-2 px-8 text-white w-[70%]">Movil</label>
+                        </div>
+                        <div className="flex gap-2 items-center w-full">
+                          <input
+                            onChange={handleChangeContactPhone}
+                            type="checkbox"
+                            value="static"
+                          />
+                          <label className="bg-secundary py-2 px-8 text-white w-[70%]">Fijo</label>
+                        </div>
+                      </div>
+                      
                     </div>
                   </div>
-                  <div className="w-[40%] flex justify-center">
+                  <div className="w-[40%] gap-2 flex flex-col items-center justify-center">
                     <div className="w-[30%] bg-secundary">
-                      <p className="w-full text-center text-white capitalize font-bold text-xl">
-                        Dias del Contacto
+                      <p className="w-full text-center text-white font-bold text-xl p-2">
+                        Dias de contacto
                       </p>
                     </div>
+                    <div className="border border-2 border-darkprimary"></div>
                   </div>
                 </div>
                 <div className="flex gap-x-4">
                   <Button type="submit" className="capitalize w-fit">
                     buscar
                   </Button>
-                  <Button className="capitalize w-fit">cancelar</Button>
+                  <Button className="capitalize w-fit">ancelar</Button>
                 </div>
               </div>
             </Form>
