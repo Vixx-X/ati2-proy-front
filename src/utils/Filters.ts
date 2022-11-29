@@ -165,7 +165,7 @@ export const brandYearVehicle = [
       { value: 'brand2', text: 'brand2' },
       { value: 'brand3', text: 'brand3' },
     ],
-    name: 'brand',
+    name: 'vehicleBrand',
     placeholder: 'Selecciona marca',
     selectName: 'Marca del vehiculo',
   },
@@ -176,9 +176,9 @@ export const brandYearVehicle = [
       { value: 'model2', text: 'model2' },
       { value: 'model3', text: 'model3' },
     ],
-    name: 'model',
+    name: 'vehicleModel',
     placeholder: 'Modelo de Vehiculo',
-    selectName: 'Marca del modelo',
+    selectName: 'Marca de vehiculo',
   },
   {
     tag: 'input',
@@ -195,8 +195,8 @@ export const brandYearVehicle = [
       { value: 'model3', text: 'model3' },
     ],
     name: 'model',
-    placeholder: 'Modelo de Vehiculo',
-    selectName: 'Marca del modelo',
+    placeholder: 'Seleccione la marca',
+    selectName: 'Tipo de vehiculo',
   },
 ]
 
