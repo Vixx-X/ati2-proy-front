@@ -11,10 +11,10 @@ export interface CountrySelectProps extends Omit<SelectProps, 'choices'> {
 }
 
 export const CountrySelect = (props: CountrySelectProps) => {
-  const { data } = useSWR('countries', () => getCountries());
+  const { data } = useSWR('countries', () => getCountries({limit:300}));
   const choices = useMemo(
     () =>
-      data?.map((item: any) => ({
+      data?.results.map((item: any) => ({
         text: item.name,
         value: item.iso_3166_1_a2,
       })),

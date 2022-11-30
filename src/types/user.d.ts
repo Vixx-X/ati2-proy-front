@@ -10,6 +10,11 @@ enum DaysOfWeek {
   WEEK = 8,
 }
 
+export enum contactUseHours {
+  AM = 0,
+  PM = 1
+}
+
 export enum SaleType {
   SALE = "SALE",
   RENTAL = "RENTAL",

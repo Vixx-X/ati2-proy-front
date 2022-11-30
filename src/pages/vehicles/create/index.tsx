@@ -17,6 +17,8 @@ import {
   vehicleLocation,
   vehicleStatus,
 } from '../../../utils/Filters';
+import ContactDays from '@components/forms/ContactDays';
+import ContactUseHours from '@components/forms/ContactHours';
 
 const initialValues = {
   contient: '',
@@ -26,7 +28,6 @@ const initialValues = {
   vehicleBrand: '',
   vehicleModel: '',
 };
-
 const textAreaData = [
   {
     title: 'Detalles o especificaciones del vehículo',
@@ -51,7 +52,6 @@ const textAreaData = [
     name: 'vehicleLocation',
   },
 ];
-
 const options = [
   { link: '#', text: 'dashborad', onClick: () => {}, activate: true },
   { link: '#', text: 'dashborad', onClick: () => {}, activate: false },
@@ -434,17 +434,13 @@ const Landing: NextPage = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <div className="w-[60%] gap-2 flex flex-col items-center justify-center">
                     <ContactUserData/>
                   </div>
                   <div className="w-[40%] gap-2 flex flex-col items-center justify-center">
-                    <div className="w-[30%] bg-secundary">
-                      <p className="w-full text-center text-white font-bold text-xl p-2">
-                        Dias de contacto
-                      </p>
-                    </div>
-                    <div className="border border-2 border-darkprimary"></div>
+                    <ContactDays />
+                    <ContactUseHours />
                   </div>
                 </div>
                 <div className="flex gap-x-4">
