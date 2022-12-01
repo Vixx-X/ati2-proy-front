@@ -17,4 +17,7 @@ export const API_URLS = {
 
   //Address
   URL_COUNTRIES: `/addresses/countries/`,
+  URL_CONTINENTS: `/addresses/continents/`,
+  URL_STATES: '/addresses/states/',
+  URL_CITIES:'/addresses/cities/',
 };

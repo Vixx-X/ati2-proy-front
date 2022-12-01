@@ -8,10 +8,14 @@ import Select, { SelectProps } from './Select';
 
 export interface CountrySelectProps extends Omit<SelectProps, 'choices'> {
   choices?: { value: string; text: string }[];
+  continentId?: number;
 }
 
 export const CountrySelect = (props: CountrySelectProps) => {
-  const { data } = useSWR('countries', () => getCountries({limit:300}));
+  const { continentId, label } = props;
+  const { data } = useSWR('countries', () =>
+    getCountries({ limit: 300, continent: continentId })
+  );
   const choices = useMemo(
     () =>
       data?.results.map((item: any) => ({
@@ -20,9 +24,13 @@ export const CountrySelect = (props: CountrySelectProps) => {
       })),
     [data]
   );
-
   return (
-    <Select choices={choices} placeholder="--Selecciona País--" {...props} />
+    <div className="w-full">
+      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+        Pais
+      </p>
+      <Select className="rounded" choices={choices} placeholder="--Selecciona País--" {...props} />
+    </div>
   );
 };
 

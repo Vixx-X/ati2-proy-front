@@ -13,3 +13,30 @@ export const getCountries = async (query: any = {}) => {
   await assertApiError(resp);
   return resp.data;
 };
+
+export const getContinents = async (query: any = {}) => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_CONTINENTS, query),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const getStates = async (query: any = {}) => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_STATES, query),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const getCity = async (query: any = {}) => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_CITIES, query),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
