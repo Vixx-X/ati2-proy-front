@@ -8,6 +8,7 @@ interface ContainerProps {
   endIcon?: ReactNode;
   className?: string;
   color?: string;
+  anchorTag?: boolean;
 }
 
 export const Button = ({
@@ -17,18 +18,32 @@ export const Button = ({
   endIcon,
   className,
   bgColor = 'bg-secundary',
+  anchorTag = false,
   ...props
 }: ContainerProps & Props) => {
   return (
-    <button
-      type={type ? type : 'button'}
-      className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
-      {...props}
-    >
-      {startIcon && startIcon}
-      {children}
-      {endIcon && endIcon}
-    </button>
+    <>
+      {!anchorTag ? (
+        <button
+          type={type ? type : 'button'}
+          className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
+          {...props}
+        >
+          {startIcon && startIcon}
+          {children}
+          {endIcon && endIcon}
+        </button>
+      ) : (
+        <a
+          className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
+          {...props}
+        >
+          {startIcon && startIcon}
+          {children}
+          {endIcon && endIcon}
+        </a>
+      )}
+    </>
   );
 };
 

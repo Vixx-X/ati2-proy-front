@@ -106,7 +106,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           <nav>
             <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline">
               {optionsLink.map(({ text, hover }) => (
-                <li className='group"'>
+                <li className="group" key={text}>
                   <span className="relative">
                     <a
                       onMouseMove={() => handleMouseOver(text)}

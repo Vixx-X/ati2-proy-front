@@ -76,22 +76,22 @@ export const initialValues = {
       {
         text: 'placeholder image',
         type: 'image',
-        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
       },
       {
         text: 'placeholder image',
         type: 'image',
-        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
       },
       {
         text: 'placeholder image',
         type: 'image',
-        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
       },
       {
         text: 'placeholder image',
         type: 'image',
-        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
       },
     ],
   },
