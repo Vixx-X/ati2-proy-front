@@ -4,25 +4,19 @@ import Form from '@components/forms/Form';
 import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 
-import { postContactUsInfo } from '@fetches/user';
+import { getBusinessInfo, postContactUsInfo } from '@fetches/contact';
 
 import { FormikValues } from 'formik';
+import useSWR from 'swr';
 
 interface ContactUsForm {
   email: string;
   full_name: string;
   reason: string;
-  body?: string;
 }
 
-const initValues: ContactUsForm = {
-  email: '',
-  full_name: '',
-  reason: '',
-  body: '',
-};
-
 const ContactForm = ({ setLoading }: any) => {
+  const { data } = useSWR('contact', () => getBusinessInfo());
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
     try {
@@ -32,6 +26,11 @@ const ContactForm = ({ setLoading }: any) => {
       setStatus(exception.data.detail);
       setLoading(false);
     }
+  };
+  const initValues: ContactUsForm = {
+    email: '',
+    full_name: '',
+    reason: '',
   };
 
   return (
@@ -45,7 +44,13 @@ const ContactForm = ({ setLoading }: any) => {
             <label htmlFor="email" className="capitalize mr-2">
               para:
             </label>
-            <Field className="px-2 border-none grow" name="email" id="email" />
+            <Field
+              className="px-2 border-none grow text-gray-600"
+              name="email"
+              id="email"
+              disabled
+              value={'nirvana01@gmail.com'}
+            />
           </div>
           <ErrorMsg name="email" />
         </div>
@@ -62,23 +67,12 @@ const ContactForm = ({ setLoading }: any) => {
           </div>
           <ErrorMsg name="full_name" />
         </div>
-        <div className="mb-4">
-          <div className="flex border-b border-gray py-2">
-            <label htmlFor="reason" className="capitalize mr-2">
-              asunto:
-            </label>
-            <Field
-              className="px-2 border-none grow"
-              name="reason"
-              id="reason"
-            />
-          </div>
-          <ErrorMsg name="full_name" />
-        </div>
         <div className="mb-8">
-          {' '}
-          <TextArea className="w-full h-56 resize-none" name="body" />
-          <ErrorMsg name="body" />
+          <label htmlFor="reason" className="capitalize py-2 mb-2 block">
+            asunto:
+          </label>
+          <TextArea className="w-full h-56 resize-none" name="reason" />
+          <ErrorMsg name="reason" />
         </div>
         <div className="text-center">
           <Button

@@ -36,16 +36,6 @@ export const postRegisterPerson = async (data: any) => {
   return resp.data;
 };
 
-export const postContactUsInfo = async (data: any) => {
-  const resp = await fetcher.post(
-    API_URLS.URL_CONTACT_US,
-    data,
-    makeFetchOptions()
-  );
-  await assertApiError(resp);
-  return resp.data;
-};
-
 export const postOTPRequest = async (data: any) => {
   const resp = await fetcher.post(
     API_URLS.URL_OTP_REQUEST,

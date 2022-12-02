@@ -28,6 +28,7 @@ export const API_URLS = {
 
   //Contact
   URL_CONTACT_US: `/about/contact-me/`,
+  URL_MY_BUSINESS_INFO: `/about/info/`,
 
   //Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
