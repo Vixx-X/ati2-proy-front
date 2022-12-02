@@ -1,13 +1,9 @@
+import { useState } from 'react';
+
 import type { NextPage } from 'next';
 
-import Field from '@components/forms/Field';
-import Form from '@components/forms/Form';
-import TextArea from '@components/forms/TextArea';
-import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
-
-import authStore from '@stores/AuthStore';
-import userStore from '@stores/UserStore';
+import ContactForm from '@components/sections/contactus/ContactForm';
 
 import {
   faFacebook,
@@ -17,18 +13,10 @@ import {
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormikHelpers, FormikValues } from 'formik';
-
-interface ContactUsForm {
-  target: string;
-  name: string;
-  reason: string;
-  body?: string;
-}
 
 const ContactUs: NextPage = () => {
-  // const logout = authStore((state: any) => state.logout);
-  // const user = userStore((state: any) => state.user);
+  const [load, setLoading] = useState<boolean>(false);
+
   return (
     <MainContainer
       activate="contáctenos"
@@ -104,59 +92,7 @@ const ContactUs: NextPage = () => {
             </ul>
           </div>
         </div>
-        <div className="w-2/4 border-2 border-black p-8 h-fit">
-          <h2 className="font-bold text-lg text-center mb-4">
-            Formulario de contacto
-          </h2>
-          <Form
-            initialValues={{
-              target: '',
-              name: '',
-              reason: '',
-              body: '',
-            }}
-            onSubmit={(values) => {
-              alert(JSON.stringify(values, null, 2));
-            }}
-          >
-            <div className="py-2 border-b border-gray mb-4 flex">
-              <label htmlFor="target" className="capitalize mr-2">
-                para:
-              </label>
-              <Field
-                className="px-2 border-none grow"
-                name="target"
-                id="target"
-              />
-            </div>
-            <div className="py-2 border-b border-gray mb-4 flex">
-              <label htmlFor="name" className="capitalize mr-2">
-                Nombre y apellido:
-              </label>
-              <Field className="px-2 border-none grow" name="name" id="name" />
-            </div>
-            <div className="py-2 border-b border-gray mb-4 flex">
-              <label htmlFor="reason" className="capitalize mr-2">
-                Asunto:
-              </label>
-              <Field
-                className="px-2 border-none grow"
-                name="reason"
-                id="reason"
-              />
-            </div>
-            <TextArea className="w-full h-56 mb-8 resize-none" name="body" />
-            <div className="text-center">
-              <Button
-                bgColor="bg-darkprimary"
-                type="submit"
-                className="w-fit align-center"
-              >
-                Enviar
-              </Button>
-            </div>
-          </Form>
-        </div>
+        <ContactForm setLoading={setLoading} />
       </div>
     </MainContainer>
   );

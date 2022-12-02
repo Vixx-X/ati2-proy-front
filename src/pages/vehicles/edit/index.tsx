@@ -15,11 +15,11 @@ import { Field } from '@components/forms/Field';
 import { Form } from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
 import StateSelect from '@components/forms/StateSelect';
+import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
-import ZoneSelect from '@components/forms/ZoneSelect';
-import TextArea from '@components/forms/textArea';
+// import ZoneSelect from '@components/forms/ZoneSelect';
 import Button from '@components/layout/Button';
-import FastSearch from '@components/layout/FiltersBar/FastSearch';
+// import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
 
 const initialValues = {
@@ -87,7 +87,7 @@ const Landing: NextPage = () => {
     '',
     '',
   ]);
-  const [videos, setVideos] = useState([]);
+  const [videos, setVideos] = useState<Array<string>>([]);
   const [displayDragVideo, setDisplayDragVideo] = useState(false);
   const [displayVehicleAre, setDisplayVehicleAre] = useState(0);
   const [displayOtherMoney, setDisplayOtherMoney] = useState(false);
@@ -378,16 +378,20 @@ const Landing: NextPage = () => {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-3 items-center justify-between">
-                  {textAreaData.map((item, index) => (
+                  {textAreaData.map(({ name, title, description }, index) => (
                     <div
                       className={index % 2 === 0 ? 'w-[65%]' : 'w-[30%]  '}
                       key={index}
                     >
-                      <TextArea
-                        name={item.name}
-                        title={item.title}
-                        description={item.description}
-                      />
+                      <div className="p-3 w-[80%] bg-secundary">
+                        <p className="w-full text-center text-white capitalize font-bold text-xl">
+                          {title}
+                        </p>
+                      </div>
+                      <p className="w-full px-3 text-center my-1">
+                        {description}
+                      </p>
+                      <TextArea name={name} />
                     </div>
                   ))}
                 </div>

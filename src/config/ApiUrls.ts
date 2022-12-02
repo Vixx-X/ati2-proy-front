@@ -25,7 +25,10 @@ export const API_URLS = {
   URL_BRAND: `/vehicles/brands`,
   URL_MODEL: `/vehicles/models`,
   URL_YEAR: `/vehicles/years`,
-  
+
+  //Contact
+  URL_CONTACT_US: `/about/contact-me/`,
+
   //Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
 
