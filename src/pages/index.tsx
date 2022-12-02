@@ -26,7 +26,7 @@ const Landing: NextPage = () => {
   };
 
   return (
-    <MainContainer activate="inicio" maxWidth="w-11/12">
+    <MainContainer activate="inicio" className="w-11/12">
       <div className="md:flex justify-between">
         <div className="w-96 text-xs flex flex-col gap-y-8">
           <div className="w-full">
