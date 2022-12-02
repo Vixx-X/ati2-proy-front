@@ -19,5 +19,10 @@ export const API_URLS = {
   URL_COUNTRIES: `/addresses/countries/`,
   URL_CONTINENTS: `/addresses/continents/`,
   URL_STATES: '/addresses/states/',
-  URL_CITIES:'/addresses/cities/',
+  URL_CITIES: '/addresses/cities/',
+
+  //Vehivles
+  URL_BRAND: `/vehicles/brands`,
+  URL_MODEL: `/vehicles/models`,
+  URL_YEAR: `/vehicles/years`,
 };

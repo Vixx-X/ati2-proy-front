@@ -2,19 +2,21 @@ import { useMemo } from 'react';
 
 import { getStates } from '@fetches/address';
 
+import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 import Select, { SelectProps } from './Select';
 
 export interface StateSelectProps extends Omit<SelectProps, 'choices'> {
   choices?: { value: string; text: string }[];
-  countryId: number;
 }
 
 export const StateSelect = (props: StateSelectProps) => {
-  const { countryId } = props;
-  const { data } = useSWR('state', () => getStates({ limit: 300, country: countryId }));
-  console.log("ESTADO",data)
+  const { values } = useFormikContext();
+  const { data } = useSWR(
+    ['state', { limit: 300, country: values?.country }],
+    (_, query) => getStates(query)
+  );
   const choices = useMemo(
     () =>
       data?.results.map((item: any) => ({
@@ -30,7 +32,7 @@ export const StateSelect = (props: StateSelectProps) => {
         Estado
       </p>
       <Select
-        className="rounded"
+        className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Estado--"
         {...props}

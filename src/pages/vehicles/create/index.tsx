@@ -2,25 +2,25 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
+import CitySelect from '@components/forms/CitySelect';
 import ContactDays from '@components/forms/ContactDays';
 import ContactUseHours from '@components/forms/ContactHours';
 import ContactUserData from '@components/forms/ContactUserData';
 import ContinentSelect from '@components/forms/ContinentSelect';
 import CountrySelect from '@components/forms/CountrySelect';
-import CitySelect from '@components/forms/CitySelect';
-import ZoneSelect from '@components/forms/ZoneSelect';
-
 import { DragAndDropImg } from '@components/forms/DragAndDropImg';
 import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
 import { Field } from '@components/forms/Field';
 import { Form } from '@components/forms/Form';
 import StateSelect from '@components/forms/StateSelect';
+import ZoneSelect from '@components/forms/ZoneSelect';
 import TextArea from '@components/forms/textArea';
 import Button from '@components/layout/Button';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
-
-import { vehicleLocation } from '../../../utils/Filters';
+import BrandSelect from '@components/forms/BrandSelect';
+import ModelSelect from '@components/forms/ModelSelect';
+import YearSelect from '@components/forms/YearSelect';
 
 const initialValues = {
   contient: '',
@@ -29,6 +29,7 @@ const initialValues = {
   vehicleType: '',
   vehicleBrand: '',
   vehicleModel: '',
+  brand:''
 };
 const textAreaData = [
   {
@@ -87,12 +88,6 @@ const Landing: NextPage = () => {
     '',
   ]);
   const [videos, setVideos] = useState([]);
-  const [selectContinent, setSelectContinent] = useState(0);
-  const [selectCountry, setSelectCountry] = useState(0);
-  const [selectState, setSelectState] = useState(0);
-  const [selectCity, setSelectCity] = useState(0);
-  const [selectZone, setSelectZone] = useState(0);
-
   const [displayDragVideo, setDisplayDragVideo] = useState(false);
   const [displayVehicleAre, setDisplayVehicleAre] = useState(0);
   const [displayOtherMoney, setDisplayOtherMoney] = useState(false);
@@ -162,22 +157,6 @@ const Landing: NextPage = () => {
     }
   };
 
-  const handleSelectContinent = (e: any) => {
-    setSelectContinent(e.target.value);
-  };
-  const handleSelectCountry = (e: any) => {
-    setSelectCountry(e.target.value);
-  };
-  const handleSelectState = (e:any) =>{
-    setSelectState(e.target.value);
-  }
-  const handleSelectCity = (e:any) =>{
-    setSelectCity(e.target.value);
-  }
-  const handleSelectZone = (e:any) =>{
-    setSelectZone(e.target.value);
-  }
-
   return (
     <MainContainer>
       <div className="flex justify-center flex-col items-center">
@@ -224,32 +203,17 @@ const Landing: NextPage = () => {
                       Ubicacion del Vehiculo
                     </p>
                   </div>
-                  <FastSearch
-                    layoutFilters="flex justify-around"
-                    classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                    classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                    filters={vehicleLocation}
-                  />
-                  <div className="flex justify-around gap-2">
-                    <ContinentSelect
-                      onChange={handleSelectContinent}
-                      name="continent"
-                    />
-                    <CountrySelect
-                      continentId={selectContinent}
-                      onChange={handleSelectCountry}
-                      name="country"
-                    />
-                    <StateSelect 
-                      countryId={selectCountry} 
-                      onChange={handleSelectState}
-                      name="states" 
-                    />
-                    <CitySelect 
-                      stateId={selectState} 
-                      onChange={handleSelectCity}
-                      name="city" 
-                    />
+                  <div className="w-full flex justify-around gap-2">
+                    <ContinentSelect name="continent" />
+                    <CountrySelect name="country" />
+                    <StateSelect name="state" />
+                    <CitySelect name="city" />
+                    <div>
+                      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+                        Zone
+                      </p>
+                      <Field className="p-2 border-1 border-black" name="zone" />
+                    </div>
                   </div>
                   <div className="flex justify-around"></div>
                 </div>
@@ -260,12 +224,12 @@ const Landing: NextPage = () => {
                         Marca, modelo y año del vehículo
                       </p>
                     </div>
-                    {/*  <FastSearch
-                      layoutFilters="flex justify-between"
-                      classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                      classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                      filters={brandYearVehicle}
-                    /> */}
+                    <div className="w-full flex justify-around gap-2">
+                      <BrandSelect name="brand"/>
+                      <ModelSelect name="model"/>
+                      <YearSelect name="year"/>
+                      {/* <TypeSelect name="brand"/> */}
+                    </div>
                   </div>
                   <div className="py-2 w-1/3 flex flex-col items-center gap-6">
                     <div className="py-3 px-10 w-9/12 bg-secundary">

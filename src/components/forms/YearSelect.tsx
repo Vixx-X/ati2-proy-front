@@ -1,30 +1,34 @@
 import { useMemo } from 'react';
 
-import { getContinents } from '@fetches/address';
+import { getYear } from '@fetches/address';
 
+import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 import Select, { SelectProps } from './Select';
 
-export interface ContinentSelectProps extends Omit<SelectProps, 'choices'> {
+export interface YearSelectProps extends Omit<SelectProps, 'choices'> {
   choices?: { value: string; text: string }[];
 }
 
-export const ContinentSelect = (props: ContinentSelectProps) => {
-  const { data } = useSWR('continents', () => getContinents({ limit: 300 }));
+export const YearSelect = (props: YearSelectProps) => {
+  const { values } = useFormikContext();
+  const { data } = useSWR(
+    ['year', { limit: 300, model: values.model }],
+    (_, query) => getYear(query)
+  );
+
   const choices = useMemo(
     () =>
-      data?.results.map((item: any) => ({
-        text: item.name,
-        value: item.id,
+      data?.results.map((item: any, index: any) => ({
+        text: item.year,
       })),
     [data]
   );
-
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Continente
+        Año de Vehiculo
       </p>
       <Select
         className="w-full rounded"
@@ -36,4 +40,4 @@ export const ContinentSelect = (props: ContinentSelectProps) => {
   );
 };
 
-export default ContinentSelect;
+export default YearSelect;

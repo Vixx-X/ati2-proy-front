@@ -34,7 +34,34 @@ export const getStates = async (query: any = {}) => {
 
 export const getCity = async (query: any = {}) => {
   const resp = await fetcher.get(
-    makeUrl(API_URLS.URL_CITIES, query),
+    makeUrl(API_URLS.URL_BRAND, query),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const getBrand = async (query: any = {}) => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_BRAND, query),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const getModel = async (query: any = {}) => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_MODEL, query),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const getYear = async (query: any = {}) => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_YEAR, query),
     makeFetchOptions()
   );
   await assertApiError(resp);

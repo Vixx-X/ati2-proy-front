@@ -1,30 +1,34 @@
 import { useMemo } from 'react';
 
-import { getContinents } from '@fetches/address';
+import { getModel } from '@fetches/address';
 
+import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 import Select, { SelectProps } from './Select';
 
-export interface ContinentSelectProps extends Omit<SelectProps, 'choices'> {
+export interface ModelSelectProps extends Omit<SelectProps, 'choices'> {
   choices?: { value: string; text: string }[];
 }
 
-export const ContinentSelect = (props: ContinentSelectProps) => {
-  const { data } = useSWR('continents', () => getContinents({ limit: 300 }));
+export const ModelSelect = (props: ModelSelectProps) => {
+  const { values } = useFormikContext();
+  const { data } = useSWR(
+    ['model', { limit: 300, brand: values?.brand }],
+    (_, query) => getModel(query)
+  );
+
   const choices = useMemo(
     () =>
-      data?.results.map((item: any) => ({
-        text: item.name,
-        value: item.id,
+      data?.results.map((item: any, index: any) => ({
+        text: item.model,
       })),
     [data]
   );
-
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Continente
+        Marcas de Vehiculos
       </p>
       <Select
         className="w-full rounded"
@@ -36,4 +40,4 @@ export const ContinentSelect = (props: ContinentSelectProps) => {
   );
 };
 
-export default ContinentSelect;
+export default ModelSelect;
