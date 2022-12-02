@@ -8,9 +8,13 @@ interface ContainerProps {
   layout?: string;
 }
 
-export const Container = ({ className, children }: ContainerProps) => {
+export const Container = ({
+  className,
+  maxWidth = 'max-w-7xl',
+  children,
+}: ContainerProps) => {
   return (
-    <div className={`w-11/12 mx-auto max-w-7xl ${className}`}>{children}</div>
+    <div className={`w-11/12 mx-auto ${className} ${maxWidth}`}>{children}</div>
   );
 };
 

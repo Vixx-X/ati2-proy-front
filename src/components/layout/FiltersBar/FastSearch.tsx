@@ -20,27 +20,13 @@ interface FastSearchInterface extends Props {
   classNameSelect?: string;
 }
 
-const initialValues = {
-  contient: '',
-  contry: '',
-  state: '',
-  vehicleType: '',
-  vehicleBrand: '',
-  vehicleModel: '',
-};
-
 const FastSearch = ({
   filters,
   layoutFilters,
   ...props
 }: FastSearchInterface) => {
   return (
-    <Form
-      initialValues={initialValues}
-      onSubmit={(values) => {
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
+    <div className="w-full">
       <div className={`mb-4 ${layoutFilters}`}>
         {filters?.map(
           ({ tag, choices, name, placeholder, selectName }, index) => (
@@ -56,13 +42,13 @@ const FastSearch = ({
           )
         )}
       </div>
-      <div className="flex gap-x-4">
+      {/* <div className="flex gap-x-4">
         <Button type="submit" className="capitalize w-fit">
           buscar
         </Button>
         <Button className="capitalize w-fit">cancelar</Button>
-      </div>
-    </Form>
+      </div> */}
+    </div>
   );
 };
 

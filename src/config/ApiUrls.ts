@@ -15,6 +15,17 @@ export const API_URLS = {
   URL_CHANGE_PASSWORD: `/user/change-password/`,
   URL_OTP_REQUEST: `/user/generate-otp/`,
 
+  //Address
+  URL_COUNTRIES: `/addresses/countries/`,
+  URL_CONTINENTS: `/addresses/continents/`,
+  URL_STATES: '/addresses/states/',
+  URL_CITIES: '/addresses/cities/',
+
+  //Vehicles
+  URL_BRAND: `/vehicles/brands`,
+  URL_MODEL: `/vehicles/models`,
+  URL_YEAR: `/vehicles/years`,
+  
   //Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
 

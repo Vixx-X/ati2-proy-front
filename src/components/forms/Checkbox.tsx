@@ -6,7 +6,7 @@ interface CheckBoxProps extends Props {
   label?: string;
 }
 
-export const CheckBox = ({ choices, name, label, ...props }: CheckBoxProps) => {
+export const CheckBox = ({ choices, name, label, childClassName, ...props }: CheckBoxProps) => {
   return (
     <>
       {choices ? (
@@ -19,7 +19,7 @@ export const CheckBox = ({ choices, name, label, ...props }: CheckBoxProps) => {
               }: { value: string | Number; text: string | JSX.Element },
               index: number
             ) => (
-              <div key={index}>
+              <div className={ childClassName } key={index}>
                 <Field
                   type="checkbox"
                   name={name}

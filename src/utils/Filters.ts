@@ -98,3 +98,143 @@ export const complexFilters = [
     selectName: 'Escriba un Input',
   },
 ];
+
+export const vehicleLocation = [
+  {
+    tag: 'select',
+    choices: [
+      { value: 'cont1', text: 'continente1' },
+      { value: 'cont2', text: 'continente2' },
+      { value: 'cont3', text: 'continente3' },
+    ],
+    name: 'contient',
+    placeholder: 'Seleccione Continente',
+    selectName: 'Continente',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'country1', text: 'pais1' },
+      { value: 'country2', text: 'pais2' },
+      { value: 'country3', text: 'pais3' },
+    ],
+    name: 'contry',
+    placeholder: 'Seleccione pais',
+    selectName: 'pais',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'state1', text: 'state1' },
+      { value: 'state2', text: 'state2' },
+      { value: 'state3', text: 'state3' },
+    ],
+    name: 'state',
+    placeholder: 'Seleccione',
+    selectName: 'Estado',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'city1', text: 'city1' },
+      { value: 'city2', text: 'city2' },
+      { value: 'city3', text: 'city3' },
+    ],
+    name: 'city',
+    placeholder: 'Seleccione Cuidad',
+    selectName: 'Cuidad',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'zone1', text: 'zone1' },
+      { value: 'zone2', text: 'zone2' },
+      { value: 'zone3', text: 'zone3' },
+    ],
+    name: 'zone',
+    placeholder: 'Seleccione Zona',
+    selectName: 'Zona',
+  },
+]
+
+export const brandYearVehicle = [
+  {
+    tag: 'select',
+    choices: [
+      { value: 'brand1', text: 'brand1' },
+      { value: 'brand2', text: 'brand2' },
+      { value: 'brand3', text: 'brand3' },
+    ],
+    name: 'vehicleBrand',
+    placeholder: 'Selecciona marca',
+    selectName: 'Marca del vehiculo',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'model1', text: 'model1' },
+      { value: 'model2', text: 'model2' },
+      { value: 'model3', text: 'model3' },
+    ],
+    name: 'vehicleModel',
+    placeholder: 'Modelo de Vehiculo',
+    selectName: 'Marca de vehiculo',
+  },
+  {
+    tag: 'input',
+    choices: [],
+    name: 'vehicleYear',
+    placeholder: 'Ejm: 1987',
+    selectName: 'Año de vehiculo',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'model1', text: 'model1' },
+      { value: 'model2', text: 'model2' },
+      { value: 'model3', text: 'model3' },
+    ],
+    name: 'model',
+    placeholder: 'Seleccione la marca',
+    selectName: 'Tipo de vehiculo',
+  },
+]
+
+export const vehicleStatus = [
+  {
+    tag: 'select',
+    choices: [
+      { value: 'brand1', text: 'brand1' },
+      { value: 'brand2', text: 'brand2' },
+      { value: 'brand3', text: 'brand3' },
+    ],
+    name: 'brand',
+    placeholder: 'Selecciona marca',
+    selectName: 'Marca del vehiculo',
+  },
+  {
+    tag: 'select',
+    choices: [
+      { value: 'brand1', text: 'brand1' },
+      { value: 'brand2', text: 'brand2' },
+      { value: 'brand3', text: 'brand3' },
+    ],
+    name: 'brand',
+    placeholder: 'Selecciona marca',
+    selectName: 'Marca del vehiculo',
+  },
+]
+
+export const money = [
+  {
+    tag: 'select',
+    choices: [
+      { value: 'USD', text: 'USD' },
+      { value: 'EUR', text: 'EUR' },
+      { value: 'other', text: 'other' },
+    ],
+    name: 'money',
+    placeholder: 'Seleccione Moneda',
+    selectName: 'Seleccione Moneda',
+  },
+]

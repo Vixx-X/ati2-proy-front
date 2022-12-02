@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 
 import { Field } from './Field';
 
-interface SelectProps extends Props {
+export interface SelectProps extends Props {
   placeholder: string;
   choices: { value: string; text: string }[];
 }

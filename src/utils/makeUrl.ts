@@ -14,7 +14,7 @@ export const makeUrl = (
 
   const queryString = Object.keys(query)
     .reduce((carry: string[], key: string) => {
-      if (!params.includes(key))
+      if (!params.includes(key) && query?.[key] != undefined)
         carry.push(
           encodeURIComponent(key) + '=' + encodeURIComponent(query[key])
         );

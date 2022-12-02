@@ -9,13 +9,16 @@ import Container from './Container';
 const MainContainer = ({
   containerClassName,
   activate,
+  maxWidth,
   children,
-  layout,
 }: any) => {
   return (
     <div className="flex flex-col h-screen">
       <Header activate={activate} />
-      <Container className={`pt-4 pb-16 ${containerClassName}`}>
+      <Container
+        className={`pt-4 pb-16 ${containerClassName}`}
+        maxWidth={maxWidth}
+      >
         {children}
       </Container>
     </div>

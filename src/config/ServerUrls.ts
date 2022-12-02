@@ -17,8 +17,8 @@ export const SERVER_URLS = {
 
   //vehicles
   URL_VEHICLES: '/vehicles',
-  URL_EDIT_VEHICLE: '/edit-vehicle',
-  URL_SEARCH_VEHICLE: '/search-vehicle',
+  URL_EDIT_VEHICLE: '/vehicles/edit',
+  URL_SEARCH_VEHICLE: '/vehicles/search',
 
 
   //services

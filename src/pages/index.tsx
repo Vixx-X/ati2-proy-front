@@ -15,8 +15,9 @@ import SplideImageComponent from '@components/layout/Splide';
 import { complexFilters, simpleFilters } from '@utils/Filters';
 import { classNames } from '@utils/classNames';
 
-import { initialValues } from '@data/fakeData';
-import { Field } from 'formik';
+import { Field, FormikValues } from 'formik';
+
+import { initialValues } from '../data/fakeData';
 
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
@@ -26,7 +27,7 @@ const Landing: NextPage = () => {
   };
 
   return (
-    <MainContainer activate="inicio" containerClassName="w-11/12 max-w-none">
+    <MainContainer activate="inicio" maxWidth="max-w-none">
       <div className="md:flex justify-between">
         <div className="w-96 text-xs flex flex-col gap-y-8">
           <div className="w-full">
@@ -34,12 +35,19 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda rápida
               </summary>
-              <FastSearch
-                layoutFilters="gap-2 grid md:grid-cols-3"
-                classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                filters={simpleFilters}
-              />
+              <Form
+                initialValues={initialValues}
+                onSubmit={(values: FormikValues) => {
+                  console.log(values);
+                }}
+              >
+                <FastSearch
+                  layoutFilters="gap-2 grid md:grid-cols-3"
+                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                  filters={simpleFilters}
+                />
+              </Form>
             </details>
           </div>
           <div className="w-full">
@@ -47,11 +55,18 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda detallada
               </summary>
-              <DetailSearch
-                filters={complexFilters}
-                classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-              />
+              <Form
+                initialValues={{}}
+                onSubmit={(values: FormikValues) => {
+                  console.log(values);
+                }}
+              >
+                <DetailSearch
+                  filters={complexFilters}
+                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                />
+              </Form>
             </details>
           </div>
         </div>
