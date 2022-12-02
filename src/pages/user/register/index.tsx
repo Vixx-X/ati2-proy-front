@@ -240,7 +240,7 @@ const Register: NextPage = () => {
         </Button>
       </section>
       <Form
-        initialValues={initialValues1}
+        initialValues={initialValues}
         innerRef={refForm}
         onSubmit={handleSubmit}
       >
@@ -265,7 +265,7 @@ const Register: NextPage = () => {
           </Button>
           {indexSection == 5 && (
             <Button type="submit" className="w-auto">
-              registar
+              registrar
             </Button>
           )}
         </div>

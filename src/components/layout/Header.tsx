@@ -8,7 +8,6 @@ import ButtonSet from './ButtonSet';
 import Container from './Container';
 import Navbar from './Navbar';
 
-
 interface HeaderProps {
   activate?: string;
 }
@@ -51,7 +50,7 @@ export const Header = ({ activate }: HeaderProps) => {
       <ButtonSet setShowModal={setShowModal} />
       <header className="w-100 bg-primary relative">
         <Container>
-          <ul>
+          <ul className="px-0 mx-0">
             <Navbar
               options={options}
               visible={true}

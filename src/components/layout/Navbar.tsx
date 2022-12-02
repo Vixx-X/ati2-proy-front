@@ -54,7 +54,7 @@ export const Navbar = ({
       )}
       {isVisible && options ? (
         <ul
-          className={`px-4 flex flex-wrap max-h-14 bg-primary gap-x-4 gap-y-4 justify-between text-white no-underline items-center capitalize font-bold cursor-pointer list-none ${stylesMargin}`}
+          className={`px-0 mx-0 flex flex-wrap max-h-14 bg-primary gap-x-4 gap-y-4 justify-between text-white no-underline items-center capitalize font-bold cursor-pointer list-none ${stylesMargin}`}
           style={{ top: styleTop }}
         >
           <>
