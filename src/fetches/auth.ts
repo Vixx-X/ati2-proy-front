@@ -8,6 +8,7 @@ export const postLogin = async (username: string, password: string) => {
   const resp = await rawFetcher.post(
     API_URLS.URL_TOKEN_AUTH,
     { username, password },
+    // { email:username, password },
     makeFetchOptions({ baseURL: '' })
   );
   await assertApiError(resp);

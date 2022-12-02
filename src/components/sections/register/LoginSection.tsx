@@ -3,6 +3,7 @@ import React from 'react';
 import CheckBox from '@components/forms/Checkbox';
 import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
+import PassField from '@components/forms/PassField';
 
 const LoginSection = ({}) => {
   return (
@@ -17,18 +18,25 @@ const LoginSection = ({}) => {
             <ErrorMsg name="user.email" />
           </div>
           <div className="flex items-center">
-            <label htmlFor="user.password" className="w-80 capitalize">
+            <label htmlFor="user.password1" className="w-80 capitalize">
               password
             </label>
-            <Field name="user.password" type="password" id="user.password" />
-            <ErrorMsg name="user.password" />
+            <PassField name="user.password1" id="user.password1" />
+            <ErrorMsg name="user.password1" />
+          </div>
+          <div className="flex items-center">
+            <label htmlFor="user.password2" className="w-80 capitalize">
+              confirm password
+            </label>
+            <PassField name="user.password2" id="user.password2" />
+            <ErrorMsg name="user.password2" />
           </div>
           {/* Setear un checkbox para saber si se debe recibir info */}
           {/* <CheckBox name="information-details" choices={"value", "option"}></CheckBox> */}
         </div>
       </div>
       <div className="flex">
-        <CheckBox name="user.notification.send_notification" />
+        <CheckBox name="user.notification_setting.active" />
         Quiero mantenerme informado acerca de los servicios que ofrece la
         empresa, y otros aspectos de interés
       </div>

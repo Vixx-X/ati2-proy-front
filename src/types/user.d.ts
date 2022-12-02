@@ -16,9 +16,14 @@ export enum contactUseHours {
 }
 
 export enum SaleType {
-  SALE = "SALE",
-  RENTAL = "RENTAL",
-  SALE_RENTAL = "SALE AND RENTAL",
+  SALE = 'SALE',
+  RENTAL = 'RENTAL',
+  SALE_RENTAL = 'SALE AND RENTAL',
+}
+
+export enum UserType {
+  NATURAL = 'natural',
+  BUSINESS = 'business',
 }
 
 export enum StatusVehicle {
@@ -27,10 +32,11 @@ export enum StatusVehicle {
 }
 
 export interface User {
-  password: string;
+  password1: string;
+  password2: string;
   email: string;
   language: string;
-  notification: NotificationManager;
+  notification_setting: NotificationManager;
   about_website: AboutWebSite;
   payment_info: PaymentInfo;
 }
@@ -51,32 +57,32 @@ export interface NaturalPerson {
   email: string;
   phone: string;
   local_phone: string;
-  country: Country;
+  country: string;
 }
 
 interface PaymentInfo {
   source_bank: string;
   target_bank: string;
-  country_source: Country;
+  country: string;
 }
 
 interface NotificationManager {
-  send_notification: boolean;
-  notification_frecuency: string;
+  active: boolean;
+  frecuency: string;
   notification_method: NotificationMethod;
 }
 
 interface NotificationMethod {
   email: string;
   socials: Social[];
-  text_message: string;
+  sms: string;
   other: string;
   facebook: string;
 }
 
 interface AboutWebSite {
-  web_portal: boolean;
-  social: Social[];
+  web: boolean;
+  socials: string[];
   friends: boolean;
   other: string;
 }
@@ -155,18 +161,14 @@ export interface Multimedia {
 }
 
 interface Social {
-  name: string;
-  value?: SocialUser;
-}
-
-interface SocialUser {
-  value: string;
+  social: string;
+  value?: string;
 }
 
 interface Address {
   line1: string;
   line2: string;
-  city?: City;
+  city?: City | number;
 }
 
 interface City {

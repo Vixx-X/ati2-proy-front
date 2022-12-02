@@ -5,6 +5,7 @@ interface ContainerProps {
   className?: any;
   children: ReactChild;
   maxWidth?: string;
+  layout?: string;
 }
 
 export const Container = ({
@@ -13,9 +14,7 @@ export const Container = ({
   children,
 }: ContainerProps) => {
   return (
-    <div className={`w-11/12 mx-auto ${maxWidth} ${className}`}>
-      {children}
-    </div>
+    <div className={`w-11/12 mx-auto ${className} ${maxWidth}`}>{children}</div>
   );
 };
 

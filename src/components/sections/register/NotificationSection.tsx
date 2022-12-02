@@ -71,19 +71,19 @@ const NotificationSection = ({ userType, setUserType }: any) => {
           servicios que ofrece la empresa?
         </p>
         <RadioGroup
-          name="user.notification.notification_frecuency"
+          name="user.notification_setting.frecuency"
           className="flex justify-between"
           choices={choicesNotificationFrecuency}
           moreElements={
             <div
               className={`w-fit ${
-                values.user.notification.notification_frecuency == 'other'
+                values.user.notification_setting.frecuency == 'other'
                   ? 'visible'
                   : 'invisible'
               }`}
             >
               <Field
-                name="user.notification.notification_frecuency_other"
+                name="user.notification_setting.frecuency_other"
                 placeholder="Ej:9 días"
               />
               <p className="w-72 text-sm opacity-40 mt-4">
@@ -115,7 +115,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
                 }`}
               >
                 <Field
-                  name={`user.notification.notification_method.${value}`}
+                  name={`user.notification_setting.notification_method.${value}`}
                 />
               </div>
             </div>

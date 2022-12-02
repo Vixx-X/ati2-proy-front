@@ -11,6 +11,12 @@ body {
   height: 100%;
 }
 
+ul,
+ol {
+  list-style-type: disc;
+  margin-left: 1rem;
+}
+
 [data-reactroot] {
   height: 100%;
 }
@@ -132,4 +138,12 @@ a {
     transform: translateX(0%);
     opacity: 0;
   }
+}
+
+.splide__arrow--next {
+  font-size: 10px;
+}
+
+.splide__arrow--prev {
+  font-size: 10px;
 }

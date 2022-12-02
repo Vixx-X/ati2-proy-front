@@ -35,7 +35,7 @@ export const AboutUs = ({}) => {
       </p>
       <div className="grid md:grid-cols-4 text-center mt-8">
         <CheckBox
-          name="user.about_website.web_portal"
+          name="user.about_website.web"
           label="web portal of business"
         />
         <div>

@@ -46,7 +46,7 @@ export const NaturalUser = ({}) => {
           <label htmlFor="country" className="w-2/4 capitalize">
             country
           </label>
-          <Select choices={[]} placeholder="Select a country" />
+          <Select choices={[]} name="country" placeholder="Select a country" />
           <ErrorMsg name="country" />
         </div>
         <div className="flex items-center">

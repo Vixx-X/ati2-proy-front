@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { NextPage } from 'next';
 
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
+import CardHover from '@components/layout/Card/CardHover';
 import DetailSearch from '@components/layout/FiltersBar/DetailSearch';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
-import VehiclePost from '@components/layout/VehiclePost';
+import VehiclePostList from '@components/layout/Post/VehiclePostList';
+import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
+import SplideImageComponent from '@components/layout/Splide';
+
+import { complexFilters, simpleFilters } from '@utils/Filters';
+import { classNames } from '@utils/classNames';
 
 import { Field, FormikValues } from 'formik';
 
 import { initialValues } from '../data/fakeData';
-import { complexFilters, simpleFilters } from '../utils/Filters';
 
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
@@ -20,8 +25,9 @@ const Landing: NextPage = () => {
   const handlePost = (event: any) => {
     setMode(event.target.value);
   };
+
   return (
-    <MainContainer maxWidth="w-11/12">
+    <MainContainer activate="inicio" maxWidth="max-w-none">
       <div className="md:flex justify-between">
         <div className="w-96 text-xs flex flex-col gap-y-8">
           <div className="w-full">
@@ -56,10 +62,10 @@ const Landing: NextPage = () => {
                 }}
               >
                 <DetailSearch
-                filters={complexFilters}
-                classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-              />
+                  filters={complexFilters}
+                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
+                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
+                />
               </Form>
             </details>
           </div>
@@ -78,7 +84,6 @@ const Landing: NextPage = () => {
                   type="radio"
                   name="typePost"
                   value="photo"
-                  checked
                   onChange={handlePost}
                 />
                 <div className="flex items-center">
@@ -156,8 +161,13 @@ const Landing: NextPage = () => {
           </div>
 
           <div>
-             <Form initialValues={{ selected_post: [] }} onSubmit={() => {}}>
-              <div className="md:grid lg:grid-cols-2 2xl:grid-cols-3">
+            <Form initialValues={{ selected: [] }} onSubmit={() => {}}>
+              <div
+                className={classNames(
+                  postMode == 'photo' ? 'lg:grid-cols-2 2xl:grid-cols-3' : '',
+                  'grid'
+                )}
+              >
                 {[
                   initialValues,
                   initialValues,
@@ -166,14 +176,17 @@ const Landing: NextPage = () => {
                   initialValues,
                   initialValues,
                 ].map((element, index) => (
-                  <div key={index} className="flex p-6 gap-x-4">
+                  <div key={index} className="flex p-6 gap-x-4 relative">
                     <Field
-                      key={index}
                       type="checkbox"
-                      name="selected_post"
-                      value={index}
+                      name="selected"
+                      value={`post-${index}`}
                     />
-                    <VehiclePost {...element} />
+                    {postMode == 'photo' ? (
+                      <VehiclePostPhoto index={index} {...element} />
+                    ) : (
+                      <VehiclePostList {...element} />
+                    )}
                   </div>
                 ))}
               </div>

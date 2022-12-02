@@ -16,9 +16,19 @@ export const getUser = async () => {
   return resp.data;
 };
 
-export const postRegisterUser = async (data: any) => {
+export const postRegisterBusiness = async (data: any) => {
   const resp = await fetcher.post(
-    API_URLS.URL_USER_REGISTER,
+    API_URLS.URL_BUSINESS_REGISTER,
+    data,
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const postRegisterPerson = async (data: any) => {
+  const resp = await fetcher.post(
+    API_URLS.URL_NATURAL_PERSON_REGISTER,
     data,
     makeFetchOptions()
   );

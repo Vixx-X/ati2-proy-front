@@ -1,18 +1,28 @@
+import { useMemo } from 'react';
+
+import recursiveGetter from '@utils/recursiveGetter';
+
 import { ErrorMessage, ErrorMessageProps, useFormikContext } from 'formik';
+
+const ErrorMess: any = ErrorMessage;
 
 export const ErrorMsg = ({ name, ...props }: ErrorMessageProps) => {
   const { status } = useFormikContext();
+  const errorMessage = useMemo(() => {
+    return recursiveGetter(status, name, null);
+  }, [status, name]);
+
   const Message = ({ error }: any) => {
     return (
-      <span className="font-normal my-3 px-3 py-3 text-md text-red-600">
-        {error}
-      </span>
+      <div className="bg-red-600 border border-red-700 w-full p-3 my-3 py-2 rounded-lg text-sm font-normal">
+        <span>{error}</span>
+      </div>
     );
   };
   return (
     <>
-      <ErrorMessage name={name} component={Message} {...props} />
-      {status?.[name] ? <Message error={status?.[name]} /> : null}
+      <ErrorMess name={name} component={Message} {...props} />
+      {errorMessage != null ? <Message error={errorMessage} /> : null}
     </>
   );
 };

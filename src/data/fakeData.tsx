@@ -57,7 +57,7 @@ export const initialValues = {
     contact_hour_start: '',
     contact_hour_end: '',
   },
-  details: 'Un modelo super todo terreno 4x4',
+  details: `<h2>Los detalles son:</h2><ul><li>Coffee</li><li>Tea</li><li>Milk</li></ul>`,
   vehicle_post: {
     rental_price: 400,
     sale_price: 1000000,
@@ -69,14 +69,29 @@ export const initialValues = {
       brand: 'toyota',
       type: 'camioneta',
     },
-    accesories: '',
-    services: '',
+    accesories: `<h2>Accesorios son:</h2><ul><li>Coffee</li><li>Tea</li><li>Milk</li></ul>`,
+    services: `<h2>Sevicios son:</h2><ul><li>Coffee</li><li>Tea</li><li>Milk</li></ul>`,
     state: StatusVehicle.NEW,
     images: [
       {
         text: 'placeholder image',
         type: 'image',
-        file: 'http://atrilco.com/wp-content/uploads/2017/11/ef3-placeholder-image.jpg',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
+      },
+      {
+        text: 'placeholder image',
+        type: 'image',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
+      },
+      {
+        text: 'placeholder image',
+        type: 'image',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
+      },
+      {
+        text: 'placeholder image',
+        type: 'image',
+        file: 'https://tiendacasper.com.py/front/img/no-image.jpg',
       },
     ],
   },

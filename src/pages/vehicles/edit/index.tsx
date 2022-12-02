@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
+import BrandSelect from '@components/forms/BrandSelect';
 import CitySelect from '@components/forms/CitySelect';
 import ContactDays from '@components/forms/ContactDays';
 import ContactUseHours from '@components/forms/ContactHours';
@@ -12,15 +13,14 @@ import { DragAndDropImg } from '@components/forms/DragAndDropImg';
 import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
 import { Field } from '@components/forms/Field';
 import { Form } from '@components/forms/Form';
+import ModelSelect from '@components/forms/ModelSelect';
 import StateSelect from '@components/forms/StateSelect';
+import YearSelect from '@components/forms/YearSelect';
 import ZoneSelect from '@components/forms/ZoneSelect';
 import TextArea from '@components/forms/textArea';
 import Button from '@components/layout/Button';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
-import BrandSelect from '@components/forms/BrandSelect';
-import ModelSelect from '@components/forms/ModelSelect';
-import YearSelect from '@components/forms/YearSelect';
 
 const initialValues = {
   contient: '',
@@ -29,7 +29,7 @@ const initialValues = {
   vehicleType: '',
   vehicleBrand: '',
   vehicleModel: '',
-  brand:''
+  brand: '',
 };
 const textAreaData = [
   {
@@ -160,23 +160,6 @@ const Landing: NextPage = () => {
   return (
     <MainContainer>
       <div className="flex justify-center flex-col items-center">
-        <div className="w-[85%] bg-primary py-2 px-4">
-          <ul className="flex flex-wrap gap-x-4 gap-y-4 justify-between text-white no-underline items-center capitalize font-bold">
-            {options.map(
-              ({ link, text, onClick, activate }: any, index: number) => (
-                <li key={index}>
-                  <a
-                    className={activate ? 'underline text-secundary' : ''}
-                    href={link}
-                    onClick={onClick}
-                  >
-                    {text}
-                  </a>
-                </li>
-              )
-            )}
-          </ul>
-        </div>
         <div className="w-[85%] bg-primary p-2 mt-4">
           <p className="w-full text-center text-white capitalize font-bold text-xl">
             Publicar Vehiculo
@@ -212,7 +195,10 @@ const Landing: NextPage = () => {
                       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                         Zone
                       </p>
-                      <Field className="p-2 border-1 border-black" name="zone" />
+                      <Field
+                        className="p-2 border-1 border-black"
+                        name="zone"
+                      />
                     </div>
                   </div>
                   <div className="flex justify-around"></div>
@@ -225,9 +211,9 @@ const Landing: NextPage = () => {
                       </p>
                     </div>
                     <div className="w-full flex justify-around gap-2">
-                      <BrandSelect name="brand"/>
-                      <ModelSelect name="model"/>
-                      <YearSelect name="year"/>
+                      <BrandSelect name="brand" />
+                      <ModelSelect name="model" />
+                      <YearSelect name="year" />
                       {/* <TypeSelect name="brand"/> */}
                     </div>
                   </div>

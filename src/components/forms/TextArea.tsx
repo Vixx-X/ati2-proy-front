@@ -3,28 +3,17 @@ import { useMemo } from 'react';
 import { classNames } from '@utils/classNames';
 import recursiveGetter from '@utils/recursiveGetter';
 
-import { Field as FField, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 
-const defaultOnChange = (callback: Function) => {
-  return callback;
-};
+import { Field } from './Field';
 
-export const Field = ({
-  children,
-  onChangeCallback,
-  styles,
-  ...props
-}: Props) => {
-  if (!onChangeCallback) onChangeCallback = defaultOnChange;
-
-  const { status, handleChange, values /*, errors */ } = useFormikContext();
-  const hasError = useMemo(
-    () => status?.[props.name] /* || errors?.[props.name]*/,
-    [status, props.name /*, errors*/]
-  );
+export const TextArea = ({ children, styles, ...props }: Props) => {
+  const { status, values } = useFormikContext();
+  const hasError = useMemo(() => status?.[props.name], [status, props.name]);
 
   return (
-    <FField
+    <Field
+      as="textarea"
       className={classNames(
         props?.className ??
           'bg-white border border-darkprimary placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 text-gray-600 pl-4 pr-10 py-2 focus:border-1',
@@ -34,12 +23,11 @@ export const Field = ({
         styles
       )}
       value={recursiveGetter(values, props.name)}
-      onChange={onChangeCallback(handleChange)}
       {...props}
     >
       {children}
-    </FField>
+    </Field>
   );
 };
 
-export default Field;
+export default TextArea;
