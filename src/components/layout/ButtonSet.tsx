@@ -19,7 +19,6 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
   const isAuth = authStore((state: any) => state.isAuth);
   const logout = authStore((state: any) => state.logout);
   const user = userStore((state: any) => state.user);
-  console.log(user);
   return (
     <Container className="w-11/12">
       <div className="flex justify-end gap-x-4 h-12">
@@ -44,7 +43,7 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
               alt="placeholder-user"
-              className='py-1'
+              className="py-1"
             />
             <div className="font-bold">
               <p className="capitalize">{user?.username}</p>

@@ -5,39 +5,38 @@ import fetcher from '@utils/fetcher';
 import makeFetchOptions from '@utils/makeFetchOptions';
 import { makeUrl } from '@utils/makeUrl';
 
-export const getCountries = async (query: any = {}) => {
+export const getBrands = async (query: any = {}) => {
   const resp = await fetcher.get(
-    makeUrl(API_URLS.URL_COUNTRIES, query),
+    makeUrl(API_URLS.URL_BRANDS, query),
     makeFetchOptions()
   );
   await assertApiError(resp);
   return resp.data;
 };
 
-export const getContinents = async (query: any = {}) => {
+export const getModels = async (query: any = {}) => {
   const resp = await fetcher.get(
-    makeUrl(API_URLS.URL_CONTINENTS, query),
+    makeUrl(API_URLS.URL_MODELS, query),
     makeFetchOptions()
   );
   await assertApiError(resp);
   return resp.data;
 };
 
-export const getStates = async (query: any = {}) => {
+export const getYears = async (query: any = {}) => {
   const resp = await fetcher.get(
-    makeUrl(API_URLS.URL_STATES, query),
+    makeUrl(API_URLS.URL_YEARS, query),
     makeFetchOptions()
   );
   await assertApiError(resp);
   return resp.data;
 };
 
-export const getCities = async (query: any = {}) => {
+export const getVehicles = async (query: any = {}) => {
   const resp = await fetcher.get(
-    makeUrl(API_URLS.URL_CITIES, query),
+    makeUrl(API_URLS.URL_VEHICLES, query),
     makeFetchOptions()
   );
   await assertApiError(resp);
   return resp.data;
 };
-

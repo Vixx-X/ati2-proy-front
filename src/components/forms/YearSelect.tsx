@@ -1,27 +1,23 @@
 import { useMemo } from 'react';
 
-import { getYear } from '@fetches/address';
+import { getYears } from '@fetches/vehicles';
 
-import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
-import Select, { SelectProps } from './Select';
+import Select, { FilteredSelectProps } from './Select';
 
-export interface YearSelectProps extends Omit<SelectProps, 'choices'> {
-  choices?: { value: string; text: string }[];
-}
+export interface YearSelectProps extends FilteredSelectProps {}
 
-export const YearSelect = (props: YearSelectProps) => {
-  const { values } = useFormikContext();
-  const { data } = useSWR(
-    ['year', { limit: 300, model: values.model }],
-    (_, query) => getYear(query)
+export const YearSelect = ({ filter, ...props }: YearSelectProps) => {
+  const { data } = useSWR(['year', { limit: 300, ...filter }], (_, query) =>
+    getYears(query)
   );
 
   const choices = useMemo(
     () =>
-      data?.results.map((item: any, index: any) => ({
+      data?.results.map((item: any) => ({
         text: item.year,
+        value: item.year,
       })),
     [data]
   );
@@ -33,7 +29,7 @@ export const YearSelect = (props: YearSelectProps) => {
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Continente--"
+        placeholder="--Selecciona Year--"
         {...props}
       />
     </div>

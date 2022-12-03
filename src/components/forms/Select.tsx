@@ -5,8 +5,16 @@ import { useFormikContext } from 'formik';
 import { Field } from './Field';
 
 export interface SelectProps extends Props {
+  name: string;
   placeholder: string;
   choices: { value: string; text: string }[];
+}
+
+export interface FilteredSelectProps {
+  name: string;
+  placeholder?: string;
+  choices?: { value: string; text: string }[];
+  filter?: { [key: string]: any };
 }
 
 export const Select = ({ choices, placeholder, ...props }: SelectProps) => {
