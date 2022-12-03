@@ -50,29 +50,6 @@ const textAreaData = [
   },
 ];
 const Landing: NextPage = () => {
-  const [images, setImages] = useState([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ]);
-  const [videos, setVideos] = useState([]);
   const [displayDragVideo, setDisplayDragVideo] = useState(false);
   const [displayVehicleAre, setDisplayVehicleAre] = useState(0);
   const [displayOtherMoney, setDisplayOtherMoney] = useState(false);
@@ -80,22 +57,12 @@ const Landing: NextPage = () => {
     useState(false);
   const [enableContactMobilePhone, setEnableContactMobilePhone] =
     useState(false);
-  const handleSetImage = (data: string, index: number) => {
-    const Images = [...images];
-    Images[index] = data;
-    setImages(Images);
-  };
 
-  const handleSetVideo = (data: string) => {};
+  const [imageLoaders, setImageLoaders] = useState([]);
+  const [videoLoaders, setVideoLoaders] = useState([]);
 
-  const handleChangeCantVideo = (e: any) => {
-    if (e.target.value === '2') {
-      setVideos(['', '']);
-    }
-    if (e.target.value === '5') {
-      setVideos(['', '', '', '', '']);
-    }
-  };
+  const [imageLimit, setImageLimit] = useState(20);
+  const [videoLimit, setVideoLimit] = useState(5);
 
   const handleChangeAreVideos = (e: any) => {
     if (e.target.value === 'true') {
@@ -149,7 +116,7 @@ const Landing: NextPage = () => {
     services: '',
     vehicle_state: '',
     vehicle: -1,
-    images: [],
+    media: [],
   };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
@@ -257,7 +224,7 @@ const Landing: NextPage = () => {
                               onChange={handleChangeStatusVehicle}
                               type="radio"
                               value="Rent"
-                              name="StatusVehicle"
+                              name="sale_type"
                             />
                             <label htmlFor="areVideos">Alquiler</label>
                           </div>
@@ -266,7 +233,7 @@ const Landing: NextPage = () => {
                               onChange={handleChangeStatusVehicle}
                               type="radio"
                               value="Sell"
-                              name="StatusVehicle"
+                              name="sale_type"
                             />
                             <label htmlFor="areVideos">Venta</label>
                           </div>
@@ -275,7 +242,7 @@ const Landing: NextPage = () => {
                               onChange={handleChangeStatusVehicle}
                               type="radio"
                               value="RentSell"
-                              name="StatusVehicle"
+                              name="sale_type"
                             />
                             <label htmlFor="areVideos">Alquiler y Venta</label>
                           </div>
@@ -289,7 +256,7 @@ const Landing: NextPage = () => {
                               onChange={handleChangeStateVehicle}
                               type="radio"
                               value="New"
-                              name="VehicleState"
+                              name="vehicle_state"
                             />
                             <label htmlFor="areVideos">Nuevo</label>
                           </div>
@@ -298,7 +265,7 @@ const Landing: NextPage = () => {
                               onChange={handleChangeStateVehicle}
                               type="radio"
                               value="Used"
-                              name="VehicleState"
+                              name="vehicle_state"
                             />
                             <label htmlFor="areVideos">Usado</label>
                           </div>
@@ -319,16 +286,15 @@ const Landing: NextPage = () => {
                           recuadros
                         </p>
                         <div className="flex flex-wrap justify-center gap-3">
-                          {images.map((image, index) => (
+                          {Array(imageLimit).map((_, idx) => (
                             <div
                               className="w-[100px] h-[100px] border border-solid border-primary"
-                              key={index}
+                              key={idx}
                             >
                               <DragAndDropImg
-                                key={index}
-                                index={index}
-                                handleDrag={handleSetImage}
-                              ></DragAndDropImg>
+                                name={`image[${idx}]`}
+                                loading={imageLoaders?.[idx]}
+                              />
                             </div>
                           ))}
                         </div>
@@ -370,7 +336,9 @@ const Landing: NextPage = () => {
                               Cantidad de video
                             </label>
                             <select
-                              onChange={handleChangeCantVideo}
+                              onChange={(e) =>
+                                setVideoLimit(parseInt(e.target.value))
+                              }
                               className="rounded-md"
                               name="cantVideo"
                               id="cantVideo"
@@ -385,16 +353,15 @@ const Landing: NextPage = () => {
                             Arrastre los videos que desea cargar, en cada uno de
                             los recuadros
                           </p>
-                          {videos.map((videos, index) => (
+                          {Array(videoLimit).map((_, idx) => (
                             <div
                               className="w-[100px] h-[100px] border border-solid border-primary"
-                              key={index}
+                              key={idx}
                             >
                               <DragAndDropVideo
-                                key={index}
-                                index={index}
-                                handleDrag={handleSetVideo}
-                              ></DragAndDropVideo>
+                                name={`videos[${idx}]`}
+                                loading={videoLoaders?.[idx]}
+                              />
                             </div>
                           ))}
                         </div>
@@ -422,7 +389,7 @@ const Landing: NextPage = () => {
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                             Precio del Alquiler
                           </p>
-                          <Field type="text" name="rentPrice" />
+                          <Field type="text" name="rental_price" />
                         </div>
                       )}
                       {(displayVehicleAre === 2 || displayVehicleAre === 3) && (
@@ -430,18 +397,11 @@ const Landing: NextPage = () => {
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                             Precio del Alquiler
                           </p>
-                          <Field type="text" name="sellPrice" />
+                          <Field type="text" name="sale_price" />
                         </div>
                       )}
                     </div>
                     <div>
-                      {/* <FastSearch
-                      onChange={handleChangeMoney}
-                      layoutFilters="flex justify-around"
-                      classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                      classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                      filters={money}
-                    /> */}
                       {displayOtherMoney && (
                         <div className="flex flex-col">
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
@@ -450,7 +410,7 @@ const Landing: NextPage = () => {
                           <Field
                             type="text"
                             className="pr-2 pl-2 pt-2 pb-2 text-xs"
-                            name="newMoney"
+                            name="currency"
                           />
                         </div>
                       )}
