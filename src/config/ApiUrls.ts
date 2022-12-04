@@ -36,4 +36,7 @@ export const API_URLS = {
 
   // Posts
   URL_POST_VEHICLES: `/posts/vehicles/`,
+
+  // Media
+  URL_MEDIA: `/media/`,
 };

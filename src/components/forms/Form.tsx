@@ -24,6 +24,7 @@ export const Form = ({
   renderProps,
   ...props
 }: FormikConfig<FormikValues> & FormInterface) => {
+  console.log(renderProps);
   return (
     <Formik
       initialValues={initialValues}
@@ -32,7 +33,7 @@ export const Form = ({
       {...props}
     >
       <FForm className={className}>
-        {renderProps ? <InnerForm>{children}</InnerForm> : { children }}
+        {renderProps ? <InnerForm>{children}</InnerForm> : <>{children}</>}
       </FForm>
     </Formik>
   );

@@ -9,19 +9,23 @@ import ContactUseHours from '@components/forms/ContactHours';
 import ContactUserData from '@components/forms/ContactUserData';
 import ContinentSelect from '@components/forms/ContinentSelect';
 import CountrySelect from '@components/forms/CountrySelect';
+import { CurrencySelect } from '@components/forms/CurrencySelect';
 import { DragAndDropImg } from '@components/forms/DragAndDropImg';
 import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
 import { Field } from '@components/forms/Field';
 import { Form } from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
+import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
+import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
-import TextArea from '@components/forms/textArea';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
 
-import { postVehicle } from '@fetches/post';
+import { postMedia, postVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
+
+import useArray from '@hooks/useArray';
 
 import { FormikValues } from 'formik';
 
@@ -49,63 +53,67 @@ const textAreaData = [
     name: 'address.line2',
   },
 ];
+
+const SALE_TYPE_CHOICES = [
+  {
+    value: 'RENT',
+    text: 'Alquiler',
+  },
+  {
+    value: 'SALE',
+    text: 'Venta',
+  },
+  {
+    value: 'BOTH',
+    text: 'Alquiler y Venta',
+  },
+];
+
+const VEHICLE_STATE_CHOICES = [
+  {
+    value: 'NEW',
+    text: 'Nuevo',
+  },
+  {
+    value: 'USED',
+    text: 'Usado',
+  },
+];
+
+const YES_OR_NO = [
+  { value: '1', text: 'Si' },
+  { value: '0', text: 'No' },
+];
+
 const Landing: NextPage = () => {
-  const [displayDragVideo, setDisplayDragVideo] = useState(false);
-  const [displayVehicleAre, setDisplayVehicleAre] = useState(0);
-  const [displayOtherMoney, setDisplayOtherMoney] = useState(false);
-  const [enableContactStaticPhone, setEnableContactStaticPhone] =
-    useState(false);
-  const [enableContactMobilePhone, setEnableContactMobilePhone] =
-    useState(false);
-
-  const [imageLoaders, setImageLoaders] = useState([]);
-  const [videoLoaders, setVideoLoaders] = useState([]);
-
   const [imageLimit, setImageLimit] = useState(20);
   const [videoLimit, setVideoLimit] = useState(5);
 
-  const handleChangeAreVideos = (e: any) => {
-    if (e.target.value === 'true') {
-      setDisplayDragVideo(true);
-    }
-    if (e.target.value === 'false') {
-      setDisplayDragVideo(false);
-    }
+  const {
+    array: imageLoaders,
+    update: imageLoadersUpdate,
+    set: imageLoadersSet,
+  } = useArray(Array(imageLimit));
+  const {
+    array: videoLoaders,
+    update: videoLoadersUpdate,
+    set: videoLoadersSet,
+  } = useArray(Array(videoLimit));
+
+  const changeImageLimit = (limit: number) => {
+    setImageLimit(limit);
+    imageLoadersSet(Array(limit));
   };
-
-  const handleChangeStateVehicle = (e: any) => {};
-
-  const handleChangeStatusVehicle = (e: any) => {
-    if (e.target.value === 'Rent') {
-      setDisplayVehicleAre(1);
-    } else if (e.target.value === 'Sell') {
-      setDisplayVehicleAre(2);
-    } else {
-      setDisplayVehicleAre(3);
-    }
-  };
-
-  const handleChangeMoney = (e: any) => {
-    if (e.target.value === 'other') {
-      setDisplayOtherMoney(true);
-    } else {
-      setDisplayOtherMoney(false);
-    }
-  };
-
-  const handleChangeContactPhone = (e: any) => {
-    if (e.target.value === 'static') {
-      setEnableContactStaticPhone(!enableContactStaticPhone);
-    } else {
-      setEnableContactMobilePhone(!enableContactMobilePhone);
-    }
+  const changeVideoLimit = (limit: number) => {
+    setVideoLimit(limit);
+    videoLoadersSet(Array(limit));
   };
 
   const initialValues = {
     address: {
       line1: '',
       line2: '',
-      city: -1,
+      city: '',
     },
     details: '',
     currency: '',
@@ -121,10 +129,46 @@ const Landing: NextPage = () => {
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     try {
+      const images = values.images;
+      const videos = values.videos;
+      const imagesPromises = images.map(async (file: any, idx: number) => {
+        const resp = await postMedia(file, (progressEvent) =>
+          imageLoadersUpdate(
+            idx,
+            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          )
+        );
+        return resp.id;
+      });
+      const videoPromises = videos.map(async (file: any, idx: number) => {
+        const resp = await postMedia(file, (progressEvent) =>
+          videoLoadersUpdate(
+            idx,
+            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          )
+        );
+        return resp.id;
+      });
+
+      const media = await Promise.all([...imagesPromises, ...videoPromises]);
+
       const vehicles = await getVehicles(values?.filter?.vehicle);
-      if (vehicles.results.length !== 1) {
-        await postVehicle({ ...values, vehicle: vehicles?.results?.[0]?.id });
-      }
+
+      const data = {
+        address: values.address,
+        details: values.details,
+        currency:
+          values?.currency1 === 'OTHER' ? values?.currency2 : values?.currency1,
+        sale_price: values.sale_price,
+        rental_price: values.rental_price,
+        sale_type: values.sale_type,
+        accesories: values.accesories,
+        services: values.services,
+        vehicle_state: values.vehicle_state,
+        vehicle: vehicles?.results?.[0]?.id,
+        media: media,
+      };
+      await postVehicle(data);
       setStatus({});
     } catch (exception: any) {
       setStatus(exception.data);
@@ -176,12 +220,9 @@ const Landing: NextPage = () => {
                       />
                       <div>
                         <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                          Zone
+                          Zona
                         </p>
-                        <Field
-                          className="p-2 border-1 border-black"
-                          name="address.line1"
-                        />
+                        <Field name="address.line1" />
                       </div>
                     </div>
                     <div className="flex justify-around"></div>
@@ -219,56 +260,19 @@ const Landing: NextPage = () => {
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                             Vehiculo en
                           </p>
-                          <div className="flex gap-2 items-center">
-                            <input
-                              onChange={handleChangeStatusVehicle}
-                              type="radio"
-                              value="Rent"
-                              name="sale_type"
-                            />
-                            <label htmlFor="areVideos">Alquiler</label>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            <input
-                              onChange={handleChangeStatusVehicle}
-                              type="radio"
-                              value="Sell"
-                              name="sale_type"
-                            />
-                            <label htmlFor="areVideos">Venta</label>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            <input
-                              onChange={handleChangeStatusVehicle}
-                              type="radio"
-                              value="RentSell"
-                              name="sale_type"
-                            />
-                            <label htmlFor="areVideos">Alquiler y Venta</label>
-                          </div>
+                          <RadioGroup
+                            name="sale_type"
+                            choices={SALE_TYPE_CHOICES}
+                          />
                         </div>
                         <div>
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                             Estado en
                           </p>
-                          <div className="flex gap-2 items-center">
-                            <input
-                              onChange={handleChangeStateVehicle}
-                              type="radio"
-                              value="New"
-                              name="vehicle_state"
-                            />
-                            <label htmlFor="areVideos">Nuevo</label>
-                          </div>
-                          <div className="flex gap-2 items-center">
-                            <input
-                              onChange={handleChangeStateVehicle}
-                              type="radio"
-                              value="Used"
-                              name="vehicle_state"
-                            />
-                            <label htmlFor="areVideos">Usado</label>
-                          </div>
+                          <RadioGroup
+                            name="sale_type"
+                            choices={VEHICLE_STATE_CHOICES}
+                          />
                         </div>
                       </div>
                     </div>
@@ -286,7 +290,7 @@ const Landing: NextPage = () => {
                           recuadros
                         </p>
                         <div className="flex flex-wrap justify-center gap-3">
-                          {Array(imageLimit).map((_, idx) => (
+                          {[...Array(imageLimit)].map((_, idx) => (
                             <div
                               className="w-[100px] h-[100px] border border-solid border-primary"
                               key={idx}
@@ -307,64 +311,51 @@ const Landing: NextPage = () => {
                         </p>
                       </div>
                       <div className="w-full border border-2 border-darkprimary">
-                        <div className="flex justify-center items-center gap-6">
-                          <div>
-                            <input
-                              onChange={handleChangeAreVideos}
-                              type="radio"
-                              name="areVideos"
-                              value="true"
-                            />
-                            <label htmlFor="areVideos">Si</label>
-                          </div>
-                          <div>
-                            <input
-                              onChange={handleChangeAreVideos}
-                              type="radio"
-                              name="areVideos"
-                              value="false"
-                            />
-                            <label htmlFor="areVideos">No</label>
-                          </div>
-                        </div>
-                        {displayDragVideo && (
-                          <div className="m-2 flex gap-3 justify-center">
-                            <label
-                              className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded"
-                              htmlFor="cantVideo"
-                            >
-                              Cantidad de video
-                            </label>
-                            <select
-                              onChange={(e) =>
-                                setVideoLimit(parseInt(e.target.value))
-                              }
-                              className="rounded-md"
-                              name="cantVideo"
-                              id="cantVideo"
-                            >
-                              <option value="2">Hasta 2</option>
-                              <option value="5">Hasta 5</option>
-                            </select>
-                          </div>
-                        )}
-                        <div className="flex justify-center flex-wrap gap-2 p-3">
-                          <p>
-                            Arrastre los videos que desea cargar, en cada uno de
-                            los recuadros
-                          </p>
-                          {Array(videoLimit).map((_, idx) => (
-                            <div
-                              className="w-[100px] h-[100px] border border-solid border-primary"
-                              key={idx}
-                            >
-                              <DragAndDropVideo
-                                name={`videos[${idx}]`}
-                                loading={videoLoaders?.[idx]}
-                              />
+                        <RadioGroup
+                          name="filter.video"
+                          className="flex justify-center items-center gap-6"
+                          choices={YES_OR_NO}
+                        />
+                        {parseInt(values?.filter?.video) ? (
+                          <>
+                            <div className="m-2 flex gap-3 justify-center">
+                              <label
+                                className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded"
+                                htmlFor="cantVideo"
+                              >
+                                Cantidad de video
+                              </label>
+                              <select
+                                onChange={(e) =>
+                                  changeVideoLimit(parseInt(e.target.value))
+                                }
+                                className="rounded-md"
+                                name="cantVideo"
+                                id="cantVideo"
+                              >
+                                <option value="2">Hasta 2</option>
+                                <option value="5">Hasta 5</option>
+                              </select>
                             </div>
-                          ))}
-                        </div>
+                            <div className="flex justify-center flex-wrap gap-2 p-3">
+                              <p>
+                                Arrastre los videos que desea cargar, en cada
+                                uno de los recuadros
+                              </p>
+                              {[...Array(videoLimit)].map((_, idx) => (
+                                <div
+                                  className="w-[100px] h-[100px] border border-solid border-primary"
+                                  key={idx}
+                                >
+                                  <DragAndDropVideo
+                                    name={`videos[${idx}]`}
+                                    loading={videoLoaders?.[idx]}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -384,25 +375,27 @@ const Landing: NextPage = () => {
                   </div>
                   <div className="flex justify-between">
                     <div className=" flex gap-3 items-center">
-                      {(displayVehicleAre === 1 || displayVehicleAre === 3) && (
+                      {['BOTH', 'RENT'].includes(values?.sale_type) ? (
                         <div>
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                            Precio del Alquiler
+                            Precio de Alquiler
                           </p>
                           <Field type="text" name="rental_price" />
                         </div>
-                      )}
-                      {(displayVehicleAre === 2 || displayVehicleAre === 3) && (
+                      ) : null}
+                      {['BOTH', 'SALE'].includes(values?.sale_type) ? (
                         <div>
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                            Precio del Alquiler
+                            Precio de Venta
                           </p>
                           <Field type="text" name="sale_price" />
                         </div>
-                      )}
+                      ) : null}
                     </div>
                     <div>
-                      {displayOtherMoney && (
+                      <CurrencySelect name="currency1" />
+
+                      {values?.currency1 === 'OTHER' ? (
                         <div className="flex flex-col">
                           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                             Coloque las siglas de las monedas
@@ -410,10 +403,10 @@ const Landing: NextPage = () => {
                           <Field
                             type="text"
                             className="pr-2 pl-2 pt-2 pb-2 text-xs"
-                            name="currency"
+                            name="currency2"
                           />
                         </div>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                   <div className="flex justify-between gap-4">

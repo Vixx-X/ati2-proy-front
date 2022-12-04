@@ -13,3 +13,25 @@ export const postVehicle = async (data: any) => {
   await assertApiError(resp);
   return resp.data;
 };
+
+export const postMedia = async (
+  file: any,
+  onUploadProgress: (progressEvent: any) => void
+) => {
+  const data = new FormData();
+  data.append('media', file);
+
+  const resp = await fetcher.post(
+    API_URLS.URL_MEDIA,
+    data,
+    makeAuthFetchOptions({
+      headers: {
+        'Content-Type': `multipart/form-data`,
+      },
+      onUploadProgress,
+      transformRequest: () => data,
+    })
+  );
+  await assertApiError(resp);
+  return resp.data;
+};

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import Image from 'next/image';
+
 import DetailsModal from '@components/modals/DetailsModal';
 import PhotosModal from '@components/modals/PhotosModal';
 
@@ -93,10 +95,11 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
               vehicle_post={vehicle_post}
             />
             <div className="w-full sm:max-w-[250px] sm:max-h-[170px]">
-              <img
+              <Image
                 alt={vehicle_post.images[0].text}
                 src={vehicle_post.images[0].file}
                 className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
+                unoptimized
               />
             </div>
           </div>

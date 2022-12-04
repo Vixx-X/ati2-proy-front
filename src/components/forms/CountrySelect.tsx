@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { getCountries } from '@fetches/address';
 
-import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';

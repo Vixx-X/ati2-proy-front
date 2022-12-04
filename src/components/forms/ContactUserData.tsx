@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
+import CountrySelect from '@components/forms/CountrySelect';
 import { Field } from '@components/forms/Field';
-import CountrySelect from '@components/forms/CountrySelect'
 
 export const ContactUserData = () => {
   const [enableContactStaticPhone, setEnableContactStaticPhone] =
@@ -68,15 +68,24 @@ export const ContactUserData = () => {
             </label>
           </div>
         </div>
-       { enableContactMobilePhone ? <div className="w-full flex gap-2">
-            <CountrySelect name="contact.mobilePhoneCode" className="w-[30%]"/>
-            <Field placeholder="Telefono Movil" name="contact.mobilePhoneValue"></Field>
-        </div> : null }    
-        { enableContactStaticPhone ? <div className="w-full flex gap-2">
-            <CountrySelect name="contact.staticPhoneCode" className="w-[30%]"/>
-            <Field placeholder="Telefono Fijo" name="contact.staticPhoneValue"></Field>
-        </div> : null }
-
+        {enableContactMobilePhone ? (
+          <div className="w-full flex gap-2">
+            <CountrySelect name="contact.mobilePhoneCode" className="w-[30%]" />
+            <Field
+              placeholder="Telefono Movil"
+              name="contact.mobilePhoneValue"
+            ></Field>
+          </div>
+        ) : null}
+        {enableContactStaticPhone ? (
+          <div className="w-full flex gap-2">
+            <CountrySelect name="contact.staticPhoneCode" className="w-[30%]" />
+            <Field
+              placeholder="Telefono Fijo"
+              name="contact.staticPhoneValue"
+            ></Field>
+          </div>
+        ) : null}
       </div>
     </>
   );

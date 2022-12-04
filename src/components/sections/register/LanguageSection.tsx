@@ -11,11 +11,15 @@ const choices = [
   },
 ];
 
-export const LanguageSection = ({}) => {
+export const LanguageSection = () => {
   return (
     <>
       <div className="flex gap-x-10 justify-center">
-        <RadioGroup name="user.language" choices={choices} className="flex capitalize gap-x-20" />
+        <RadioGroup
+          name="user.language"
+          choices={choices}
+          className="flex capitalize gap-x-20"
+        />
       </div>
     </>
   );

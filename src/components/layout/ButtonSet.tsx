@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Image from 'next/image';
+
 import Button from '@components/layout/Button';
 
 import { SERVER_URLS } from '@config';
@@ -40,10 +42,11 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
           </>
         ) : (
           <>
-            <img
+            <Image
               src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
               alt="placeholder-user"
               className="py-1"
+              unoptimized
             />
             <div className="font-bold">
               <p className="capitalize">{user?.username}</p>

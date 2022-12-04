@@ -6,9 +6,6 @@ import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
 
-import authStore from '@stores/AuthStore';
-import userStore from '@stores/UserStore';
-
 import {
   faFacebook,
   faInstagram,
@@ -17,7 +14,6 @@ import {
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormikHelpers, FormikValues } from 'formik';
 
 interface ContactUsForm {
   target: string;
@@ -73,31 +69,31 @@ const ContactUs: NextPage = () => {
               <li className="flex items-center mb-2">
                 <FontAwesomeIcon
                   className="text-primary mr-2 w-8 h-8"
-                  icon={faFacebook}
+                  icon={faFacebook as any}
                 />
                 Facebook
               </li>
               <li className="flex items-center mb-2">
                 <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                  <FontAwesomeIcon icon={faTwitter} size="lg" />
+                  <FontAwesomeIcon icon={faTwitter as any} size="lg" />
                 </div>
                 Twitter
               </li>
               <li className="flex items-center mb-2">
                 <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                  <FontAwesomeIcon icon={faYoutube} size="lg" />
+                  <FontAwesomeIcon icon={faYoutube as any} size="lg" />
                 </div>
                 Youtube
               </li>
               <li className="flex items-center mb-2">
                 <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                  <FontAwesomeIcon icon={faInstagram} size="lg" />
+                  <FontAwesomeIcon icon={faInstagram as any} size="lg" />
                 </div>
                 Instagram
               </li>
               <li className="flex items-center mb-2">
                 <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                  <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
+                  <FontAwesomeIcon icon={faLinkedinIn as any} size="lg" />
                 </div>
                 LinkedIn
               </li>
