@@ -66,13 +66,12 @@ const optionsLink = [
   },
 ];
 
-const VehiclePostPhoto = ({ index, ...props }: any) => {
+const VehiclePostPhoto = ({ index, setShowModalContact, ...props }: Props) => {
   const { address, details, vehicle_post } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringCard, setIsHoveringCard] = useState(false);
-  const [showModalContact, setShowModalContact] = useState<boolean>(false);
 
   const handleMouseOver = (title: string) => {
     setTitle(title);
@@ -187,10 +186,6 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           vehicle_post={vehicle_post}
         />
       )}
-      <ContactSellerModal
-        showModal={showModalContact}
-        setShowModal={setShowModalContact}
-      />
     </div>
   );
 };

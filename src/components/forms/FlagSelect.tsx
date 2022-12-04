@@ -49,8 +49,9 @@ export const FlagSelect = ({
   return (
     <div className={`relative ${className}`}>
       <button
-        className="truncate border py-2 px-4 flex justify-between items-center text-gray-400 cursor-pointer w-full focus:border-darkprimary rounded-md"
+        className="truncate border border-gray-400 py-2 px-4 flex justify-between items-center text-gray-400 cursor-pointer w-full focus:border-darkprimary rounded-md"
         onClick={() => setStyles(styles == 'block' ? 'hidden' : 'block')}
+        type="button"
       >
         {element}
         <FontAwesomeIcon icon={faChevronDown} />

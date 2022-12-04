@@ -1,75 +1,49 @@
-import { useEffect, useState } from 'react';
-
+import ContactUseHours from '@components/forms/ContactHours';
 import Field from '@components/forms/Field';
 import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
-import { getCountries } from '@fetches/address';
 import { getBusinessInfo } from '@fetches/contact';
 
-import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
-export const EmailSection = ({}) => {
+export const RegisterDateSection = ({}) => {
   const { data } = useSWR('contact', () => getBusinessInfo());
 
   return (
-    <>
-      <p className="text-red text-xl font-bold">Enviar correo eletrónico</p>
+    <div>
+      <h2 className="text-red text-xl font-bold">Llamar por teléfono</h2>
       <div className="mb-2">
         <div className="flex py-2">
-          <label
-            htmlFor="target_email"
-            className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
-          >
-            para:
-          </label>
-          <div className="w-9/12 mr-2">
-            <input
-              className="w-full text-gray-400 bg-white border border-darkprimary placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 pl-4 pr-10 py-2"
-              value={data?.email}
-              readOnly
-              id="target_email"
-            ></input>
-          </div>
-        </div>
-      </div>
-      <div className="mb-2">
-        <div className="flex py-2">
-          <label
-            htmlFor="first_name"
-            className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
-          >
-            nombre:
-          </label>
-          <Field name="data.first_name" styles="w-9/12 mr-2" id="first_name" />
-        </div>
-      </div>
-      <div className="mb-2">
-        <div className="flex py-2">
-          <label
-            htmlFor="last_name"
-            className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
-          >
-            apellido:
-          </label>
-          <Field name="data.last_name" styles="w-9/12 mr-2" id="last_name" />
-        </div>
-      </div>
-      <div className="mb-2">
-        <div className="flex py-2">
-          <label
-            htmlFor="source_email"
-            className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
-          >
-            correo de solicitante:
+          <label className="mr-2 w-3/12 block font-bold text-darkprimary">
+            Fecha en que desea realizar visita:
           </label>
           <Field
-            name="data.source_email"
-            styles="w-9/12 mr-2"
-            id="source_email"
+            type="date"
+            name="data.date"
+            className="w-9/12 mr-2"
+            id="date"
           />
+        </div>
+      </div>
+      <div className="mb-2">
+        <ContactUseHours
+          name="data.contact_days"
+          className="flex mb-2"
+          titleClassNames="w-3/12 mr-2 w-fit h-fit text-sm"
+          optionsClassNames="w-9/12 mr-2"
+        />
+      </div>
+      <div className="mb-2">
+        <div className="flex py-2">
+          <label
+            htmlFor="email"
+            className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
+          >
+            email:
+          </label>
+          <Field name="data.email" styles="w-9/12 mr-2" id="email" />
         </div>
       </div>
       <div className="mb-2 flex">
@@ -88,9 +62,9 @@ export const EmailSection = ({}) => {
       <div className="mb-2 flex">
         <label
           htmlFor="reason"
-          className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
+          className="mr-2 w-3/12 font-bold text-darkprimary block"
         >
-          mensaje a enviar:
+          Otros detalles que desees aportar sobre la vista
         </label>
         <TextArea className="h-40 resize-none w-9/12 mr-2" name="data.reason" />
       </div>
@@ -110,8 +84,8 @@ export const EmailSection = ({}) => {
           Contactar al anunciante
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default EmailSection;
+export default RegisterDateSection;

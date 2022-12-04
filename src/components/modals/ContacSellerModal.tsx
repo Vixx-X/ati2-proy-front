@@ -11,6 +11,7 @@ import { FormikValues } from 'formik';
 import CallMeSection from './ContactSellerSections/CallMeSection';
 import EmailSection from './ContactSellerSections/EmailSection';
 import PhoneSection from './ContactSellerSections/PhoneSection';
+import RegisterDateSection from './ContactSellerSections/RegisterDate';
 import SendQuerySection from './ContactSellerSections/SendQuerySection';
 
 interface ContactSellerProps {
@@ -110,7 +111,7 @@ export const ContactSellerModal = ({
                 {sectionContact === 'call_me' ? <CallMeSection /> : null}
                 {sectionContact === 'send_value' ? <SendQuerySection /> : null}
                 {sectionContact === 'register_visit' ? (
-                  <p>register_visit</p>
+                  <RegisterDateSection />
                 ) : null}
               </div>
             ) : null}

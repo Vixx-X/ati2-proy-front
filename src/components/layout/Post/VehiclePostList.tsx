@@ -18,8 +18,15 @@ export enum StatusVehicle {
 }
 
 const VehiclePostList = (props: any) => {
-  const { id, author, address, contact, details, vehicle_post } = props;
-  const [showModalContact, setShowModalContact] = useState<boolean>(false);
+  const {
+    id,
+    author,
+    address,
+    contact,
+    details,
+    vehicle_post,
+    setShowModalContact,
+  } = props;
   return (
     <div>
       <div className="md:flex md:flex-wrap">

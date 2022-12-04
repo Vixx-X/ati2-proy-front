@@ -45,11 +45,16 @@ export const CallMeSection = ({}) => {
       </div>
       <ContactDays
         name="data.contact_days"
-        className="flex"
+        className="flex mb-2"
         titleClassNames="w-3/12 mr-2 w-fit h-fit text-sm"
         optionsClassNames="w-9/12 mr-2"
       />
-      <ContactUseHours />
+      <ContactUseHours
+        name="data.contact_days"
+        className="flex mb-2"
+        titleClassNames="w-3/12 mr-2 w-fit h-fit text-sm"
+        optionsClassNames="w-9/12 mr-2"
+      />
       <div className="py-4">
         <p className="text-darkprimary font-bold">
           <span className="text-red">* </span>Por favor verifique que sus datos
