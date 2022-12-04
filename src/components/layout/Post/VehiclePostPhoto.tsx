@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import ContactSellerModal from '@components/modals/ContacSellerModal';
 import DetailsModal from '@components/modals/DetailsModal';
 import PhotosModal from '@components/modals/PhotosModal';
 
@@ -71,6 +72,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringCard, setIsHoveringCard] = useState(false);
+  const [showModalContact, setShowModalContact] = useState<boolean>(false);
 
   const handleMouseOver = (title: string) => {
     setTitle(title);
@@ -149,7 +151,14 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           <HeaderPost vehicle_post={vehicle_post} />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
-            <Button className="sm:mt-16">contactar al anunciante</Button>
+            <Button
+              onClick={() => {
+                setShowModalContact(true);
+              }}
+              className="sm:mt-16"
+            >
+              contactar al anunciante
+            </Button>
           </div>
         </div>
       </div>
@@ -178,6 +187,10 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           vehicle_post={vehicle_post}
         />
       )}
+      <ContactSellerModal
+        showModal={showModalContact}
+        setShowModal={setShowModalContact}
+      />
     </div>
   );
 };

@@ -17,6 +17,16 @@ export const postContactUsInfo = async (data: any) => {
   return resp.data;
 };
 
+export const postContactSeller = async (data: any) => {
+  const resp = await fetcher.post(
+    API_URLS.URL_CONTACT_SELLER,
+    data,
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
 export const getBusinessInfo = async () => {
   const resp = await fetcher.get(
     API_URLS.URL_MY_BUSINESS_INFO,

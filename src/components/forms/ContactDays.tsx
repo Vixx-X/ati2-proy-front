@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
 import { Field } from '@components/forms/Field';
+
 import CheckBox from './Checkbox';
+
 const contactDays = [
   { text: 'Lunes', value: 0 },
   { text: 'Martes', value: 1 },
@@ -14,22 +16,29 @@ const contactDays = [
   { text: 'De Lunes a Viernes', value: 8 },
 ];
 
-export const ContactDays = () => {
+export const ContactDays = ({
+  name = 'days',
+  titleClassNames = 'text-xl',
+  optionsClassNames,
+  ...props
+}: Props) => {
   return (
-    <>
-      <div className="bg-secundary">
-        <p className="w-full text-center text-white font-bold text-xl py-2 px-4">
+    <div {...props}>
+      <div className={`bg-secundary ${titleClassNames}`}>
+        <p className="w-full text-center text-white font-bold py-2 px-4">
           Dias de contacto
         </p>
       </div>
-      <div className="border border-2 border-darkprimary p-3 flex flex-wrap justify-center">
-        <CheckBox 
-            className="flex flex-wrap gap-1 justify-center" 
-            choices={contactDays} 
-            name="days"
-            />
+      <div
+        className={`border border-2 border-darkprimary p-3 flex flex-wrap justify-center ${optionsClassNames}`}
+      >
+        <CheckBox
+          className="flex flex-wrap gap-1 justify-center"
+          choices={contactDays}
+          name={name}
+        />
       </div>
-    </>
+    </div>
   );
 };
 

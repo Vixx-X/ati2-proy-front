@@ -24,8 +24,8 @@ const ContactForm = ({ setLoading }: any) => {
       setStatus({});
     } catch (exception: any) {
       setStatus(exception.data.detail);
-      setLoading(false);
     }
+    setLoading(false);
   };
   const initValues: ContactUsForm = {
     email: '',
@@ -41,15 +41,19 @@ const ContactForm = ({ setLoading }: any) => {
       <Form initialValues={initValues} onSubmit={handleSubmit}>
         <div className="mb-4">
           <div className="flex border-b border-gray py-2">
+            <label className="capitalize mr-2">para:</label>
+            <p className="px-2 border-none grow text-gray-600">{data?.email}</p>
+          </div>
+        </div>
+        <div className="mb-4">
+          <div className="flex border-b border-gray py-2">
             <label htmlFor="email" className="capitalize mr-2">
-              para:
+              de:
             </label>
             <Field
               className="px-2 border-none grow text-gray-600"
               name="email"
               id="email"
-              disabled
-              value={'nirvana01@gmail.com'}
             />
           </div>
           <ErrorMsg name="email" />

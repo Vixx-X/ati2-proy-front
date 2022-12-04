@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import ContactSellerModal from '@components/modals/ContacSellerModal';
+
 import { classNames } from '@utils/classNames';
 
 import { faEye, faPen, faX } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +19,7 @@ export enum StatusVehicle {
 
 const VehiclePostList = (props: any) => {
   const { id, author, address, contact, details, vehicle_post } = props;
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModalContact, setShowModalContact] = useState<boolean>(false);
   return (
     <div>
       <div className="md:flex md:flex-wrap">
@@ -85,7 +87,9 @@ const VehiclePostList = (props: any) => {
               >
                 {vehicle_post.state}
               </p>
-              <Button>contactar al anunciante</Button>
+              <Button onClick={setShowModalContact(true)}>
+                contactar al anunciante
+              </Button>
             </div>
           </div>
         </div>

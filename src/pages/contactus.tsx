@@ -20,6 +20,7 @@ import useSWR from 'swr';
 
 const ContactUs: NextPage = () => {
   const [load, setLoading] = useState<boolean>(false);
+  const { data } = useSWR('contact', () => getBusinessInfo());
 
   return (
     <>
@@ -32,8 +33,8 @@ const ContactUs: NextPage = () => {
           <div className="w-2/4 h-full flex flex-col justify-between items">
             <div>
               <h4 className="font-bold">Teléfonos</h4>
-              <p>+58 (0212)-362-82-68</p>
-              <p>+58+0414-389-74-44</p>
+              <p>{data?.local_phone}</p>
+              <p>{data?.phone}</p>
             </div>
             <div>
               <h4 className="font-bold">Atención al público</h4>
@@ -48,7 +49,7 @@ const ContactUs: NextPage = () => {
             </div>
             <div>
               <h4 className="font-bold">Correo electrónico</h4>
-              <p>Envíanos tus preguntas o comentarios a nirvana01@gmail.com</p>
+              <p>Envíanos tus preguntas o comentarios a {data?.email}</p>
             </div>
             <div>
               <h4 className="font-bold">Enlaces de interés</h4>
