@@ -37,9 +37,7 @@ const Landing: NextPage = () => {
               </summary>
               <Form
                 initialValues={initialValues}
-                onSubmit={(values: FormikValues) => {
-                  console.log(values);
-                }}
+                onSubmit={(values: FormikValues) => {}}
               >
                 <FastSearch
                   layoutFilters="gap-2 grid md:grid-cols-3"
@@ -55,12 +53,7 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda detallada
               </summary>
-              <Form
-                initialValues={{}}
-                onSubmit={(values: FormikValues) => {
-                  console.log(values);
-                }}
-              >
+              <Form initialValues={{}} onSubmit={(values: FormikValues) => {}}>
                 <DetailSearch
                   filters={complexFilters}
                   classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"

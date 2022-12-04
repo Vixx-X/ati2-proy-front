@@ -24,7 +24,6 @@ export const Form = ({
   renderProps,
   ...props
 }: FormikConfig<FormikValues> & FormInterface) => {
-  console.log(renderProps);
   return (
     <Formik
       initialValues={initialValues}
