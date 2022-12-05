@@ -11,71 +11,47 @@ import useSWR from 'swr';
 const EditVehicle: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-//   const { data } = useSWR(['vehicle_post', id], () => getPostVehicleById(id));
-//   console.log(data);
-
-//   const initialValues1 = {
-//     filter: {
-//         address : {
-//             country : 
-//             state : {
-
-//             },
-//             city: {
-
-//             },
-//         }
-//     }
-// }
-//     address: values.address,
-//     details: values.details,
-//     currency:
-//       values?.currency1 === 'OTHER' ? values?.currency2 : values?.currency1,
-//     sale_price: values.sale_price,
-//     rental_price: values.rental_price,
-//     sale_type: values.sale_type,
-//     accesories: values.accesories,
-//     services: values.services,
-//     vehicle_state: values.vehicle_state,
-//     vehicle: vehicle,
-//     media: [],
-//   };
+  const { data } = useSWR(['vehicle_post', id], () => getPostVehicleById(id));
 
   const initialValues = {
-    address: {
-      line1: '',
-      line2: '',
-      city: '',
+    filter: {
+      address: {
+        country: data?.address.city.state.country.iso_3166_1_a2,
+        continent: data?.address.city.state.country.continent.id,
+        state: data?.address.city.state.id,
+      },
+      vehicle: {
+        brand: data?.vehicle.brand,
+        model: data?.vehicle.model,
+        year: data?.vehicle.year,
+      },
     },
-    details: '',
-    currency: '',
-    sale_price: '',
-    rental_price: '',
-    sale_type: '',
-    accesories: '',
-    services: '',
-    vehicle_state: '',
-    vehicle: -1,
-    media: [],
+    address: {
+      city: data?.address.city.id,
+      line1: data?.address.line1,
+      line2: data?.address.line2,
+    },
+    sale_type: data?.sale_type,
+    vehicle_state: data?.vehicle_state,
+    rental_price: data?.rental_price,
+    sale_price: data?.sale_price,
+    details: data?.details,
+    accesories: data?.accesories,
+    services: data?.services,
+    contact: {
+      data: {
+        first_name: data?.contact.first_name,
+        last_name: data?.contact.last_name,
+        email: data?.contact.email,
+        local_phone: data?.local_phone,
+        phone: data?.phone,
+      },
+    },
+    days: '',
+    // currency: data.currency,
   };
 
-  const initialValues1 = {
-    address: {
-      line1: 'los chaguaramos',
-      line2: 'santa monica',
-      city: 'Caracas',
-    },
-    details: 'la vida es bonitica',
-    currency: 'USD',
-    sale_price: 300,
-    rental_price: 500,
-    sale_type: 'RENT',
-    accesories: 'blanquito lindo',
-    services: 'casita',
-    vehicle_state: 'NEW',
-    vehicle: 1,
-    media: [],
-  };
+  console.log(data, 'daataaaa', initialValues);
 
   return (
     <MainContainer>
@@ -90,7 +66,7 @@ const EditVehicle: NextPage = () => {
         </p>
         <div className="w-full p-1 flex justify-center flex-col items-center border border-primary">
           <div className="flex justify-center my-6 w-full">
-            <EditVehicleForm />
+            <EditVehicleForm initialValues={initialValues} />
           </div>
         </div>
       </div>

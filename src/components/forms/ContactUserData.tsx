@@ -29,27 +29,19 @@ export const ContactUserData = () => {
           <p className="w-[25%] font-bold">
             Nombre <span className="text-red-600">*</span>
           </p>
-          <Field
-            className="w-[70%]"
-            type="text"
-            name="contact.data.first_name"
-          />
+          <Field className="w-[70%]" type="text" name="contact.first_name" />
         </div>
         <div className="flex justify-between items-center">
           <p className="w-[25%] font-bold">
             Apellido <span className="text-red-600">*</span>
           </p>
-          <Field
-            className="w-[70%]"
-            type="text"
-            name="contact.data.last_mame"
-          />
+          <Field className="w-[70%]" type="text" name="contact.last_name" />
         </div>
         <div className="flex justify-between items-center">
           <p className="w-[25%] font-bold">
             Correo Electronico <span className="text-red-600">*</span>
           </p>
-          <Field className="w-[70%]" type="text" name="contact.data.email" />
+          <Field className="w-[70%]" type="text" name="contact.email" />
         </div>
         <p className="text-center">
           Seleccione, el o los teléfonos de su preferencia
@@ -62,7 +54,7 @@ export const ContactUserData = () => {
               value="mobile"
             />
             <label className="bg-secundary py-2 px-8 text-white w-[70%] text-center font-bold">
-              Movil
+              Móvil
             </label>
           </div>
           <div className="flex gap-2 items-center w-full">
@@ -82,7 +74,7 @@ export const ContactUserData = () => {
             <Field
               placeholder="Telefono Movil"
               name="contact.mobilePhoneValue"
-            ></Field>
+            />
           </div>
         ) : null}
         {enableContactStaticPhone ? (

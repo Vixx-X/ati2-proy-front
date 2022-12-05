@@ -22,13 +22,12 @@ import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
 import Button from '@components/layout/Button';
 
-import { getPostVehicleById, postMedia, postVehicle } from '@fetches/post';
+import { postMedia, postVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
 
 import useArray from '@hooks/useArray';
 
 import { FormikValues } from 'formik';
-import useSWR from 'swr';
 
 const textAreaData = [
   {
@@ -123,16 +122,15 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     try {
       const images = await Promise.all(
-        values.images.map(async (file: any, idx: number) =>
+        values.image_ids.map(async (file: any, idx: number) =>
           progressSetter(file, idx, imageLoadersUpdate)
         )
       );
       const videos = await Promise.all(
-        values.videos.map(async (file: any, idx: number) =>
+        values.video_ids.map(async (file: any, idx: number) =>
           progressSetter(file, idx, videoLoadersUpdate)
         )
       );
-
       const vehicles = await getVehicles(values?.filter?.vehicle);
       const fakeVehicle = values?.filter?.vehicle;
       const vehicle =
@@ -190,10 +188,10 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                 filter={{ country: values?.filter?.address?.country }}
               />
               <CitySelect
-                name="address.city"
+                name="address.city_id"
                 filter={{ state: values?.filter?.address?.state }}
               />
-              <ErrorMsg name="address.city" />
+              <ErrorMsg name="address.city_id" />
               <div>
                 <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                   Zona
@@ -273,7 +271,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                       key={idx}
                     >
                       <DragAndDropImg
-                        name={`image[${idx}]`}
+                        name={`image_ids[${idx}]`}
                         loading={imageLoaders?.[idx]}
                       />
                     </div>
@@ -325,7 +323,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                           key={idx}
                         >
                           <DragAndDropVideo
-                            name={`videos[${idx}]`}
+                            name={`video_ids[${idx}]`}
                             loading={videoLoaders?.[idx]}
                           />
                         </div>

@@ -33,7 +33,10 @@ const CreateVehicle: NextPage = () => {
     address: {
       line1: 'los chaguaramos',
       line2: 'santa monica',
-      city: 'Caracas',
+      city_id: 2,
+    },
+    contact: {
+      data: {},
     },
     details: 'la vida es bonitica',
     currency: 'USD',
@@ -43,8 +46,9 @@ const CreateVehicle: NextPage = () => {
     accesories: 'blanquito lindo',
     services: 'casita',
     vehicle_state: 'NEW',
-    vehicle: 1,
-    media: [],
+    vehicle_id: 1,
+    video_ids: [],
+    image_ids: [],
   };
 
   return (
@@ -60,7 +64,7 @@ const CreateVehicle: NextPage = () => {
         </p>
         <div className="w-full p-1 flex justify-center flex-col items-center border border-primary">
           <div className="flex justify-center my-6 w-full">
-            <EditVehicleForm createMode initialValues={initialValues} />
+            <EditVehicleForm createMode initialValues={initialValues1} />
           </div>
         </div>
       </div>
