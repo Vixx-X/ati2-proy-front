@@ -17,7 +17,8 @@ export const PhotosModal = ({
   showModal,
   setShowModal,
   title,
-  media,
+  images,
+  videos,
   address,
   vehicle,
   vehicle_state,
@@ -26,6 +27,7 @@ export const PhotosModal = ({
   currency,
   sale_price,
 }: any) => {
+  const media = images?.[0];
   return (
     <BaseModal
       showModal={showModal}
@@ -36,12 +38,12 @@ export const PhotosModal = ({
       <div className="grid grid-cols-4 gap-4">
         {title === 'photos' ? (
           <>
-            {media && media[0] ? (
+            {media ? (
               <Image
                 className="border boder-solid border-black"
-                alt={media[0].text}
-                src={media[0].file}
-                unoptimized
+                alt={title}
+                src={media}
+                objectFit="cover"
                 layout="fill"
               />
             ) : null}

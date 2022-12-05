@@ -23,6 +23,7 @@ import Button from '@components/layout/Button';
 import { postVehicle, putVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
 
+import { initialValues } from '@data/fakeData';
 import { FormikValues } from 'formik';
 
 const textAreaData = [
@@ -90,7 +91,10 @@ export const EditVehicleForm = ({
 
   const initialValues = {
     ...initValues,
-    filter: { video: '0', ...initValues.filter },
+    filter: {
+      video: initValues.video_ids?.length ? '1' : '0',
+      ...initValues.filter,
+    },
   };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {

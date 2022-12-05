@@ -74,13 +74,15 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
     vehicle,
     vehicle_state,
     sale_type,
-    media,
+    images,
+    videos,
     rental_price,
     currency,
     sale_price,
     accesories,
     services,
   } = props;
+  const media = images?.[0];
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);
@@ -111,13 +113,11 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
             <div className="w-full sm:max-w-[250px] sm:max-h-[170px]">
               {media && media[0] ? (
                 <Image
-                  alt={media[0].text}
-                  src={media.file}
+                  alt={'post'}
+                  src={media}
                   className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
-                  unoptimized
-                  width="100%"
-                  height="100%"
                   objectFit="cover"
+                  layout="fill"
                 />
               ) : null}
             </div>
