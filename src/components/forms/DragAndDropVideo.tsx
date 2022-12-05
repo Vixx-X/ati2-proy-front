@@ -61,7 +61,13 @@ export const DragAndDropVideo = ({ name, maxFiles = 1 }: DragAndDropVideo) => {
         {recursiveGetter(values, name, [])?.map(
           (video: VideoState, idx: number) => (
             <div key={idx} className="w-full h-full object-contain">
-              <video width={100} className="w-full h-full object-contain">
+              <video
+                width={100}
+                className="w-full h-full object-contain"
+                autoPlay
+                muted
+                loop
+              >
                 <source src={video.url} type="video/mp4" />
                 <p>{`${name}-${idx}`}</p>
               </video>
