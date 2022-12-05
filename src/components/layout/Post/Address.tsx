@@ -5,14 +5,14 @@ const AddressPost = ({ address, className }: any) => {
     <div className={`capitalize text-lg my-4 ${className}`}>
       <h4>
         <span className="font-bold underline">country:</span>{' '}
-        {address.city?.state.country.name}
+        {address?.city?.state?.country.name}
       </h4>
       <h4>
         <span className="font-bold underline">state:</span>{' '}
-        {address.city?.state.name}
+        {address?.city?.state?.name}
       </h4>
       <h4>
-        <span className="font-bold underline">zone:</span> {address.city?.name}
+        <span className="font-bold underline">zone:</span> {address?.city?.name}
       </h4>
     </div>
   );

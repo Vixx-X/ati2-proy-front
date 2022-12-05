@@ -8,7 +8,11 @@ import Select, { FilteredSelectProps } from './Select';
 
 export interface ContinentSelectProps extends FilteredSelectProps {}
 
-export const ContinentSelect = ({ filter, ...props }: ContinentSelectProps) => {
+export const ContinentSelect = ({
+  filter,
+  name,
+  ...props
+}: ContinentSelectProps) => {
   const { data } = useSWR(
     ['continents', { limit: 300, ...filter }],
     (_, query) => getContinents(query)
@@ -28,6 +32,7 @@ export const ContinentSelect = ({ filter, ...props }: ContinentSelectProps) => {
         Continente
       </p>
       <Select
+        name={name}
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Continente--"

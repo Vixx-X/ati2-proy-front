@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 
 import type { NextPage } from 'next';
 
@@ -12,10 +12,13 @@ import VehiclePostList from '@components/layout/Post/VehiclePostList';
 import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
 import SplideImageComponent from '@components/layout/Splide';
 
+import { getPostsVehicles } from '@fetches/post';
+
 import { complexFilters, simpleFilters } from '@utils/Filters';
 import { classNames } from '@utils/classNames';
 
 import { Field, FormikValues } from 'formik';
+import useSWR from 'swr';
 
 import { initialValues } from '../data/fakeData';
 
@@ -25,6 +28,10 @@ const Landing: NextPage = () => {
   const handlePost = (event: any) => {
     setMode(event.target.value);
   };
+
+  const { data } = useSWR(['post-vehicle', { limit: 100 }], (_, query) =>
+    getPostsVehicles(query)
+  );
 
   return (
     <MainContainer activate="inicio" maxWidth="max-w-none">
@@ -161,15 +168,8 @@ const Landing: NextPage = () => {
                   'grid'
                 )}
               >
-                {[
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                ].map((element, index) => (
-                  <div key={index} className="flex p-6 gap-x-4 relative">
+                {data?.map((element: any, index: any) => (
+                  <div key={element.id} className="flex p-6 gap-x-4 relative">
                     <Field
                       type="checkbox"
                       name="selected"

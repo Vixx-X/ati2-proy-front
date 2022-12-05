@@ -4,11 +4,9 @@ import { getBrands } from '@fetches/vehicles';
 
 import useSWR from 'swr';
 
-import Select, { FilteredSelectProps } from './Select';
+import Select from './Select';
 
-export interface BrandSelectProps extends FilteredSelectProps {}
-
-export const BrandSelect = ({ filter, ...props }: BrandSelectProps) => {
+export const BrandSelect = ({ name, filter, ...props }: Props) => {
   const { data } = useSWR(['brand', { limit: 100, ...filter }], (_, query) =>
     getBrands(query)
   );
@@ -26,6 +24,7 @@ export const BrandSelect = ({ filter, ...props }: BrandSelectProps) => {
         Marcas de Vehiculos
       </p>
       <Select
+        name={name}
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Marca--"

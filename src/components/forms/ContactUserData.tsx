@@ -29,19 +29,27 @@ export const ContactUserData = () => {
           <p className="w-[25%] font-bold">
             Nombre <span className="text-red-600">*</span>
           </p>
-          <Field required className="w-[70%]" type="text" name="contact.name" />
+          <Field
+            className="w-[70%]"
+            type="text"
+            name="contact.data.first_name"
+          />
         </div>
         <div className="flex justify-between items-center">
           <p className="w-[25%] font-bold">
             Apellido <span className="text-red-600">*</span>
           </p>
-          <Field className="w-[70%]" type="text" name="contact.lastName" />
+          <Field
+            className="w-[70%]"
+            type="text"
+            name="contact.data.last_mame"
+          />
         </div>
         <div className="flex justify-between items-center">
           <p className="w-[25%] font-bold">
             Correo Electronico <span className="text-red-600">*</span>
           </p>
-          <Field className="w-[70%]" type="text" name="contact.email" />
+          <Field className="w-[70%]" type="text" name="contact.data.email" />
         </div>
         <p className="text-center">
           Seleccione, el o los teléfonos de su preferencia

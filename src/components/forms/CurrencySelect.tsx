@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 
-import Select, { FilteredSelectProps } from './Select';
+import Select from './Select';
 
-export interface CurrencySelectProps extends FilteredSelectProps {}
-
-export const CurrencySelect = ({ filter, ...props }: CurrencySelectProps) => {
+export const CurrencySelect = ({ filter, name, ...props }: Props) => {
   const choices = [
     {
       text: 'USD',
@@ -28,6 +26,7 @@ export const CurrencySelect = ({ filter, ...props }: CurrencySelectProps) => {
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona la Moneda--"
+        name={name}
         {...props}
       />
     </div>

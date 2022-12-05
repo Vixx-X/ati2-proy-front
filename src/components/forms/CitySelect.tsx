@@ -8,7 +8,7 @@ import Select, { FilteredSelectProps } from './Select';
 
 export interface CitySelectProps extends FilteredSelectProps {}
 
-export const CitySelect = ({ filter, ...props }: CitySelectProps) => {
+export const CitySelect = ({ filter, name, ...props }: CitySelectProps) => {
   const { data } = useSWR(['cities', { limit: 300, ...filter }], (_, query) =>
     getCities(query)
   );
@@ -30,6 +30,7 @@ export const CitySelect = ({ filter, ...props }: CitySelectProps) => {
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Ciudad--"
+        name={name}
         {...props}
       />
     </div>

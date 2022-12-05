@@ -11,17 +11,21 @@ interface DetailsModalProps {
   title: string;
   medias: any[];
   address: any;
-  vehicle_post: any;
 }
 
 export const PhotosModal = ({
   showModal,
   setShowModal,
   title,
-  medias,
+  media,
   address,
-  vehicle_post,
-}: DetailsModalProps) => {
+  vehicle,
+  vehicle_state,
+  sale_type,
+  rental_price,
+  currency,
+  sale_price,
+}: any) => {
   return (
     <BaseModal
       showModal={showModal}
@@ -32,19 +36,28 @@ export const PhotosModal = ({
       <div className="grid grid-cols-4 gap-4">
         {title === 'photos' ? (
           <>
-            <Image
-              className="border boder-solid border-black"
-              alt={medias[0].text}
-              src={medias[0].file}
-              unoptimized
-            />
+            {media && media[0] ? (
+              <Image
+                className="border boder-solid border-black"
+                alt={media[0].text}
+                src={media[0].file}
+                unoptimized
+                layout="fill"
+              />
+            ) : null}
             <div className="text-md">
-              <Prices vehicle_post={vehicle_post} />
+              <Prices
+                rental_price={rental_price}
+                currency={currency}
+                sale_price={sale_price}
+              />
             </div>
             <div className="col-span-2 pl-10">
               <HeaderPost
-                vehicle_post={vehicle_post}
                 className="text-left sm:text-left"
+                vehicle={vehicle}
+                vehicle_state={vehicle_state}
+                sale_type={sale_type}
               />
               <div className="sm:flex sm:flex-col">
                 <AddressPost address={address} />
@@ -53,15 +66,18 @@ export const PhotosModal = ({
             <div className="col-span-full capitalize text-center font-bold">
               {title} adicionales
             </div>
-            {medias.map(({ text, file }, index) => (
-              <Image
-                className="border boder-solid border-black"
-                key={text + index}
-                alt={text}
-                src={file}
-                unoptimized
-              />
-            ))}
+            {media
+              ? media.map((element: any, index: any) => (
+                  <Image
+                    className="border boder-solid border-black"
+                    key={element?.text + index}
+                    alt={element?.text}
+                    src={element?.file}
+                    unoptimized
+                    layout="fill"
+                  />
+                ))
+              : null}
           </>
         ) : (
           <p>holi</p>

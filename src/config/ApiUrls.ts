@@ -35,7 +35,8 @@ export const API_URLS = {
   URL_BUSINESS_REGISTER: `/businesses/register/`,
 
   // Posts
-  URL_POST_VEHICLES: `/posts/vehicles/`,
+  URL_POSTS_VEHICLES: `/posts/vehicle/`,
+  URL_POST_VEHICLE: `/posts/vehicle/[id]/`,
 
   // Media
   URL_MEDIA: `/media/`,

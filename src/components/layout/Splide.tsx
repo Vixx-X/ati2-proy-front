@@ -16,7 +16,7 @@ export const SplideImageComponent = ({ images }: SplideImageComponentProps) => {
     <Splide>
       {images?.map(({ text, file }: any, index) => (
         <SplideSlide key={index} className="flex justify-center">
-          <Image src={file} alt={text} unoptimized />
+          <Image src={file} alt={text} unoptimized layout="fill" />
         </SplideSlide>
       ))}
     </Splide>

@@ -56,6 +56,7 @@ export const DragAndDropImg = ({
               src={image.preview}
               alt={`${name}-${idx}`}
               unoptimized
+              layout="fill"
             />
             {loading && (
               <Circle percent={loading} strokeWidth={4} strokeColor="#D3D3D3" />

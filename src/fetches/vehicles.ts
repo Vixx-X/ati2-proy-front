@@ -38,5 +38,5 @@ export const getVehicles = async (query: any = {}) => {
     makeFetchOptions()
   );
   await assertApiError(resp);
-  return resp.data;
+  return resp.data.results;
 };

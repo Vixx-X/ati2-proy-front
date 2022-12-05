@@ -68,7 +68,19 @@ const optionsLink = [
 ];
 
 const VehiclePostPhoto = ({ index, ...props }: any) => {
-  const { address, details, vehicle_post } = props;
+  const {
+    address,
+    details,
+    vehicle,
+    vehicle_state,
+    sale_type,
+    media,
+    rental_price,
+    currency,
+    sale_price,
+    accesories,
+    services,
+  } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);
@@ -92,19 +104,30 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           <div className="sm:mr-4 mb-2">
             <HeaderPost
               className="sm:hidden mb-2"
-              vehicle_post={vehicle_post}
+              vehicle={vehicle}
+              vehicle_state={vehicle_state}
+              sale_type={sale_type}
             />
             <div className="w-full sm:max-w-[250px] sm:max-h-[170px]">
-              <Image
-                alt={vehicle_post.images[0].text}
-                src={vehicle_post.images[0].file}
-                className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
-                unoptimized
-              />
+              {media && media[0] ? (
+                <Image
+                  alt={media[0].text}
+                  src={media.file}
+                  className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
+                  unoptimized
+                  width="100%"
+                  height="100%"
+                  objectFit="cover"
+                />
+              ) : null}
             </div>
           </div>
           <div className="font-bold text-lg sm:flex sm:justify-center sm:items-center">
-            <Prices vehicle_post={vehicle_post} />
+            <Prices
+              rental_price={rental_price}
+              currency={currency}
+              sale_price={sale_price}
+            />
           </div>
           <nav>
             <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline">
@@ -149,7 +172,11 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           </nav>
         </div>
         <div>
-          <HeaderPost vehicle_post={vehicle_post} />
+          <HeaderPost
+            vehicle={vehicle}
+            vehicle_state={vehicle_state}
+            sale_type={sale_type}
+          />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
             <Button className="sm:mt-16">contactar al anunciante</Button>
@@ -165,20 +192,23 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           setShowModal={setShowModal}
           title={titleHover}
           details={details}
-          accesories={vehicle_post.accesories}
-          services={vehicle_post.services}
-          address={`${address.line1}. ${address.line2}`}
+          accesories={accesories}
+          services={services}
+          address={`${address?.line1}. ${address?.line2}`}
         />
       ) : (
         <PhotosModal
           showModal={showModal}
           setShowModal={setShowModal}
           title={titleHover}
-          medias={
-            titleHover === 'photos' ? vehicle_post.images : vehicle_post.videos
-          }
+          media={media}
           address={address}
-          vehicle_post={vehicle_post}
+          vehicle={vehicle}
+          vehicle_state={vehicle_state}
+          sale_type={sale_type}
+          rental_price={rental_price}
+          currency={currency}
+          sale_price={sale_price}
         />
       )}
     </div>

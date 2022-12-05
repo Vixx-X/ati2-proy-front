@@ -42,12 +42,13 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
           </>
         ) : (
           <>
-            <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
-              alt="placeholder-user"
-              className="py-1"
-              unoptimized
-            />
+            <div>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+                alt="placeholder-user"
+                className="w-12 h-12"
+              />
+            </div>
             <div className="font-bold">
               <p className="capitalize">{user?.username}</p>
               <p>{user?.email}</p>
