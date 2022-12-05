@@ -22,7 +22,7 @@ import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
 import Button from '@components/layout/Button';
 
-import { getPostVehicleById, postVehicle } from '@fetches/post';
+import { getPostVehicleById, postMedia, postVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
 
 import useArray from '@hooks/useArray';
@@ -86,59 +86,52 @@ const YES_OR_NO = [
   { value: '0', text: 'No' },
 ];
 
+const progressSetter = async (file: any, idx: number, setter: Function) => {
+  if (!isNaN(file)) return file;
+  const resp = await postMedia(file, (progressEvent) =>
+    setter(idx, Math.round((progressEvent.loaded * 100) / progressEvent.total))
+  );
+  return resp.id;
+};
+
 export const EditVehicleForm = ({ createMode, initialValues }: any) => {
   const [imageLimit, setImageLimit] = useState(20);
   const [videoLimit, setVideoLimit] = useState(5);
-  const router = useRouter();
-  const { id } = router.query;
-  const { data } = useSWR(['vehicle_post'], () => getPostVehicleById(id));
 
   const {
     array: imageLoaders,
     update: imageLoadersUpdate,
     set: imageLoadersSet,
-  } = useArray(Array(imageLimit));
+  } = useArray([...Array(imageLimit)]);
+
   const {
     array: videoLoaders,
     update: videoLoadersUpdate,
     set: videoLoadersSet,
-  } = useArray(Array(videoLimit));
+  } = useArray([...Array(videoLimit)]);
 
   const changeImageLimit = (limit: number) => {
     setImageLimit(limit);
-    imageLoadersSet(Array(limit));
+    imageLoadersSet([...Array(limit)]);
   };
+
   const changeVideoLimit = (limit: number) => {
     setVideoLimit(limit);
-    videoLoadersSet(Array(limit));
+    videoLoadersSet([...Array(limit)]);
   };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     try {
-      // alert(JSON.stringify(values, null, 2));
-      const images = values.images;
-      const videos = values.videos;
-      const router = useRouter();
-
-      // const imagesPromises = images.map(async (file: any, idx: number) => {
-      //   const resp = await postMedia(file, (progressEvent) =>
-      //     imageLoadersUpdate(
-      //       idx,
-      //       Math.round((progressEvent.loaded * 100) / progressEvent.total)
-      //     )
-      //   );
-      //   return resp.id;
-      // });
-      // const videoPromises = videos.map(async (file: any, idx: number) => {
-      //   const resp = await postMedia(file, (progressEvent) =>
-      //     videoLoadersUpdate(
-      //       idx,
-      //       Math.round((progressEvent.loaded * 100) / progressEvent.total)
-      //     )
-      //   );
-      //   return resp.id;
-      // });
-      // const media = await Promise.all([...imagesPromises, ...videoPromises]);
+      const images = await Promise.all(
+        values.images.map(async (file: any, idx: number) =>
+          progressSetter(file, idx, imageLoadersUpdate)
+        )
+      );
+      const videos = await Promise.all(
+        values.videos.map(async (file: any, idx: number) =>
+          progressSetter(file, idx, videoLoadersUpdate)
+        )
+      );
 
       const vehicles = await getVehicles(values?.filter?.vehicle);
       const fakeVehicle = values?.filter?.vehicle;
@@ -158,8 +151,9 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
         accesories: values.accesories,
         services: values.services,
         vehicle_state: values.vehicle_state,
-        vehicle: vehicle,
-        media: [],
+        vehicle_id: vehicle,
+        image_ids: images,
+        video_ids: videos,
       };
       await postVehicle(data);
       setStatus({});
