@@ -1,7 +1,3 @@
-import { useState } from 'react';
-
-import Image from 'next/image';
-
 import { postMedia } from '@fetches/post';
 
 import useArray from '@hooks/useArray';

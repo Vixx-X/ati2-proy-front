@@ -81,9 +81,17 @@ const YES_OR_NO = [
   { value: '0', text: 'No' },
 ];
 
-export const EditVehicleForm = ({ createMode, initialValues }: any) => {
+export const EditVehicleForm = ({
+  createMode,
+  initialValues: initValues,
+}: any) => {
   const [imageLimit] = useState(20);
   const [videoLimit, setVideoLimit] = useState(5);
+
+  const initialValues = {
+    ...initValues,
+    filter: { video: '0', ...initValues.filter },
+  };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     try {
@@ -275,8 +283,8 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                           setVideoLimit(parseInt(e.target.value))
                         }
                         className="rounded-md"
-                        name="cantVideo"
                         id="cantVideo"
+                        value={videoLimit}
                       >
                         <option value="2">Hasta 2</option>
                         <option value="5">Hasta 5</option>
