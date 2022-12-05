@@ -149,9 +149,21 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
         accesories: values.accesories,
         services: values.services,
         vehicle_state: values.vehicle_state,
-        vehicle_id: vehicle,
+        vehicle_id: 2,
         image_ids: images,
         video_ids: videos,
+        contact: {
+          first_name: 'gabriela',
+          last_name: 'ustariz',
+          email: 'gabyustariz@hotmail.com',
+          local_phone: '+582128886655',
+          phone: '+582128886655',
+          contact_hour_start: '2022-12-05T05:55:38.575Z',
+          contact_hour_end: '2022-12-05T05:55:38.575Z',
+          contact_days: ['monday'],
+          // contact_hour_start: '2022-12-05T05:55:38.575Z,
+          // contact_hour_end": '2022-12-05T05:55:38.575Z",
+        },
       };
       await postVehicle(data);
       setStatus({});
