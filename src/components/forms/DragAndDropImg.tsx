@@ -2,30 +2,43 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
+import { postMedia } from '@fetches/post';
+
+import useArray from '@hooks/useArray';
+
+import recursiveGetter from '@utils/recursiveGetter';
+
 import { useFormikContext } from 'formik';
 import { Circle } from 'rc-progress';
 import { useDropzone } from 'react-dropzone';
 
 interface DragAndDropImg extends Props {
   name: string;
-  loading?: number | null;
   maxFiles?: number;
 }
 
 interface ImageState {
   file: any;
-  preview: string;
+  url: string;
+  id: Promise<number> | number;
 }
 
-export const DragAndDropImg = ({
-  name,
-  loading,
-  maxFiles = 1,
-}: DragAndDropImg) => {
-  const [images, setImages] = useState<ImageState[]>([]);
-  const { setFieldValue } = useFormikContext();
+const progressSetter = async (file: any, idx: number, setter: Function) => {
+  if (!isNaN(file?.id)) return file.id;
+  const resp = await postMedia(file, (progressEvent) =>
+    setter(idx, Math.round((progressEvent.loaded * 100) / progressEvent.total))
+  );
+  return resp.id;
+};
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+export const DragAndDropImg = ({ name, maxFiles = 1 }: DragAndDropImg) => {
+  const { array: imageLoaders, update: imageLoadersUpdate } = useArray([
+    ...Array(maxFiles),
+  ]);
+
+  const { setFieldValue, values } = useFormikContext();
+
+  const { getRootProps, getInputProps } = useDropzone({
     maxFiles,
     accept: {
       'image/png': ['.png'],
@@ -33,11 +46,12 @@ export const DragAndDropImg = ({
       'image/jpeg': ['.jpeg'],
     },
     onDrop: (acceptedFiles) => {
-      setFieldValue(name, maxFiles == 1 ? acceptedFiles?.[0] : acceptedFiles);
-      setImages(
-        acceptedFiles.map((file) =>
+      setFieldValue(
+        name,
+        acceptedFiles.map((file, idx) =>
           Object.assign(file, {
-            preview: URL.createObjectURL(file),
+            url: URL.createObjectURL(file),
+            id: progressSetter(file, idx, imageLoadersUpdate),
           })
         ) as any
       );
@@ -48,21 +62,24 @@ export const DragAndDropImg = ({
     <div {...getRootProps()} className="w-full h-full">
       <input {...getInputProps()} />
       <div className="w-full h-full">
-        {images.map((image, idx) => (
-          <>
-            <Image
-              key={idx}
-              className="w-full h-full object-contain"
-              src={image.preview}
-              alt={`${name}-${idx}`}
-              unoptimized
-              layout="fill"
-            />
-            {loading && (
-              <Circle percent={loading} strokeWidth={4} strokeColor="#D3D3D3" />
-            )}
-          </>
-        ))}
+        {recursiveGetter(values, name, [])?.map(
+          (image: ImageState, idx: number) => (
+            <div key={idx} className="w-full h-full object-contain">
+              <img
+                className="w-full h-full object-contain"
+                src={image.url}
+                alt={`${name}-${idx}`}
+              />
+              {imageLoaders?.[idx] && imageLoaders?.[idx] !== 100 && (
+                <Circle
+                  percent={imageLoaders?.[idx]}
+                  strokeWidth={4}
+                  strokeColor="#D3D3D3"
+                />
+              )}
+            </div>
+          )
+        )}
       </div>
     </div>
   );

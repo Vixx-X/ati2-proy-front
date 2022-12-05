@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { useRouter } from 'next/router';
-
 import BrandSelect from '@components/forms/BrandSelect';
 import CitySelect from '@components/forms/CitySelect';
 import ContactDays from '@components/forms/ContactDays';
@@ -22,10 +20,8 @@ import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
 import Button from '@components/layout/Button';
 
-import { postMedia, postVehicle } from '@fetches/post';
+import { postVehicle, putVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
-
-import useArray from '@hooks/useArray';
 
 import { FormikValues } from 'formik';
 
@@ -85,58 +81,21 @@ const YES_OR_NO = [
   { value: '0', text: 'No' },
 ];
 
-const progressSetter = async (file: any, idx: number, setter: Function) => {
-  if (!isNaN(file)) return file;
-  const resp = await postMedia(file, (progressEvent) =>
-    setter(idx, Math.round((progressEvent.loaded * 100) / progressEvent.total))
-  );
-  return resp.id;
-};
-
 export const EditVehicleForm = ({ createMode, initialValues }: any) => {
-  const [imageLimit, setImageLimit] = useState(20);
+  const [imageLimit] = useState(20);
   const [videoLimit, setVideoLimit] = useState(5);
-
-  const {
-    array: imageLoaders,
-    update: imageLoadersUpdate,
-    set: imageLoadersSet,
-  } = useArray([...Array(imageLimit)]);
-
-  const {
-    array: videoLoaders,
-    update: videoLoadersUpdate,
-    set: videoLoadersSet,
-  } = useArray([...Array(videoLimit)]);
-
-  const changeImageLimit = (limit: number) => {
-    setImageLimit(limit);
-    imageLoadersSet([...Array(limit)]);
-  };
-
-  const changeVideoLimit = (limit: number) => {
-    setVideoLimit(limit);
-    videoLoadersSet([...Array(limit)]);
-  };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     try {
       const images = await Promise.all(
-        values.image_ids.map(async (file: any, idx: number) =>
-          progressSetter(file, idx, imageLoadersUpdate)
-        )
+        values.image_ids.flat().map((file: any) => file.id)
       );
       const videos = await Promise.all(
-        values.video_ids.map(async (file: any, idx: number) =>
-          progressSetter(file, idx, videoLoadersUpdate)
-        )
+        values.video_ids.flat().map((file: any) => file.id)
       );
+
       const vehicles = await getVehicles(values?.filter?.vehicle);
-      const fakeVehicle = values?.filter?.vehicle;
-      const vehicle =
-        fakeVehicle?.brand && fakeVehicle?.model && fakeVehicle?.year
-          ? vehicles?.results?.[0]?.id
-          : '';
+      const vehicle = vehicles?.results?.[0]?.id ?? values?.vehicle_id;
 
       const data = {
         address: values.address,
@@ -149,7 +108,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
         accesories: values.accesories,
         services: values.services,
         vehicle_state: values.vehicle_state,
-        vehicle_id: 2,
+        vehicle_id: vehicle,
         image_ids: images,
         video_ids: videos,
         contact: {
@@ -165,7 +124,9 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
           // contact_hour_end": '2022-12-05T05:55:38.575Z",
         },
       };
-      await postVehicle(data);
+
+      if (createMode) await postVehicle(data);
+      else await putVehicle(values.id, data);
       setStatus({});
     } catch (exception: any) {
       setStatus(exception.data);
@@ -282,10 +243,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                       className="w-[100px] h-[100px] border border-solid border-primary"
                       key={idx}
                     >
-                      <DragAndDropImg
-                        name={`image_ids[${idx}]`}
-                        loading={imageLoaders?.[idx]}
-                      />
+                      <DragAndDropImg name={`image_ids[${idx}]`} />
                     </div>
                   ))}
                 </div>
@@ -314,7 +272,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                       </label>
                       <select
                         onChange={(e) =>
-                          changeVideoLimit(parseInt(e.target.value))
+                          setVideoLimit(parseInt(e.target.value))
                         }
                         className="rounded-md"
                         name="cantVideo"
@@ -334,10 +292,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
                           className="w-[100px] h-[100px] border border-solid border-primary"
                           key={idx}
                         >
-                          <DragAndDropVideo
-                            name={`video_ids[${idx}]`}
-                            loading={videoLoaders?.[idx]}
-                          />
+                          <DragAndDropVideo name={`video_ids[${idx}]`} />
                         </div>
                       ))}
                     </div>
@@ -407,7 +362,7 @@ export const EditVehicleForm = ({ createMode, initialValues }: any) => {
           </div>
           <div className="flex gap-x-4">
             <Button type="submit" className="capitalize w-fit">
-              buscar
+              enviar
             </Button>
             <Button className="capitalize w-fit">cancelar</Button>
           </div>

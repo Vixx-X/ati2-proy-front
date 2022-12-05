@@ -38,6 +38,9 @@ export const API_URLS = {
   URL_POSTS_VEHICLES: `/posts/vehicle/`,
   URL_POST_VEHICLE: `/posts/vehicle/[id]/`,
 
+  // Days options
+  URL_DAY_OPTIONS: `/posts/day-options/`,
+
   // Media
   URL_MEDIA: `/media/`,
 };

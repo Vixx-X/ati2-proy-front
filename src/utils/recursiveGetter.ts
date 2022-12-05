@@ -4,7 +4,7 @@ export default function recursiveGetter(
   _default: any = undefined
 ) {
   if (!name) {
-    return;
+    return undefined;
   }
   const _name = name.replace(/\[/g, '.[');
   const names = _name.split('.');

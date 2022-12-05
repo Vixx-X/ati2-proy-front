@@ -40,7 +40,7 @@ export const postMedia = async (
   onUploadProgress: (progressEvent: any) => void
 ) => {
   const data = new FormData();
-  data.append('media', file);
+  data.append('file', file);
 
   const resp = await fetcher.post(
     API_URLS.URL_MEDIA,
@@ -52,6 +52,25 @@ export const postMedia = async (
       onUploadProgress,
       transformRequest: () => data,
     })
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
+export const getContactDays = async () => {
+  const resp = await fetcher.get(
+    makeUrl(API_URLS.URL_DAY_OPTIONS),
+    makeFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data.results;
+};
+
+export const putVehicle = async (id: number, data: any) => {
+  const resp = await fetcher.put(
+    `${API_URLS.URL_POSTS_VEHICLES}${id}/`,
+    data,
+    makeAuthFetchOptions()
   );
   await assertApiError(resp);
   return resp.data;

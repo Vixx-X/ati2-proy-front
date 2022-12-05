@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
+import Loader from '@components/Loader';
 import MainContainer from '@components/layout/MainContainer';
 import EditVehicleForm from '@components/sections/vehicle/EditVehicleForm';
 
@@ -11,9 +12,12 @@ import useSWR from 'swr';
 const EditVehicle: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useSWR(['vehicle_post', id], () => getPostVehicleById(id));
+  const { data } = useSWR(id ? ['vehicle_post', id] : null, () =>
+    getPostVehicleById(id)
+  );
 
   const initialValues = {
+    id: data?.id, // this is important, it shows there is an edit happening
     filter: {
       address: {
         country: data?.address.city.state.country.iso_3166_1_a2,
@@ -27,7 +31,7 @@ const EditVehicle: NextPage = () => {
       },
     },
     address: {
-      city: data?.address.city.id,
+      city_id: data?.address.city.id,
       line1: data?.address.line1,
       line2: data?.address.line2,
     },
@@ -52,9 +56,20 @@ const EditVehicle: NextPage = () => {
       days: data?.contact.contact_days,
     },
     // currency: data.currency,
+    vehicle_id: data?.vehicle?.id,
+    video_ids: data?.videos?.map((url: string, idx: number) => [
+      {
+        url,
+        id: data?.video_ids[idx],
+      },
+    ]),
+    image_ids: data?.images?.map((url: string, idx: number) => [
+      {
+        url,
+        id: data?.image_ids[idx],
+      },
+    ]),
   };
-
-  console.log(data, 'daataaaa', initialValues);
 
   return (
     <MainContainer>
@@ -69,7 +84,11 @@ const EditVehicle: NextPage = () => {
         </p>
         <div className="w-full p-1 flex justify-center flex-col items-center border border-primary">
           <div className="flex justify-center my-6 w-full">
-            <EditVehicleForm initialValues={initialValues} />
+            {!data ? (
+              <Loader />
+            ) : (
+              <EditVehicleForm initialValues={initialValues} />
+            )}
           </div>
         </div>
       </div>

@@ -4,29 +4,48 @@ import { useRouter } from 'next/router';
 import MainContainer from '@components/layout/MainContainer';
 import EditVehicleForm from '@components/sections/vehicle/EditVehicleForm';
 
-import { getPostVehicleById } from '@fetches/post';
-
-import useSWR from 'swr';
-
 const CreateVehicle: NextPage = () => {
-  const router = useRouter();
-
   const initialValues = {
+    filter: {
+      address: {
+        country: '',
+        continent: '',
+        state: '',
+      },
+      vehicle: {
+        brand: '',
+        model: '',
+        year: '',
+      },
+    },
     address: {
+      city_id: '',
       line1: '',
       line2: '',
-      city: '',
     },
-    details: '',
-    currency: '',
-    sale_price: '',
-    rental_price: '',
     sale_type: '',
+    vehicle_state: '',
+    rental_price: '',
+    sale_price: '',
+    details: '',
     accesories: '',
     services: '',
-    vehicle_state: '',
-    vehicle: -1,
-    media: [],
+    contact: {
+      // "contact_hour_start": "2022-12-05T05:55:38.575Z",
+      // "contact_hour_end": "2022-12-05T05:55:38.575Z",
+      // "contact_days": [
+      //   "string"
+      // ]
+      first_name: '',
+      last_name: '',
+      email: '',
+      local_phone: '',
+      phone: '',
+      days: '',
+    },
+    vehicle_id: '',
+    video_ids: [],
+    image_ids: [],
   };
 
   const initialValues1 = {
@@ -42,8 +61,8 @@ const CreateVehicle: NextPage = () => {
       local_phone: '+582128886655',
       phone: '+582128886655',
       days: '+582128886655',
-        // contact_hour_start: '2022-12-05T05:55:38.575Z,
-        // contact_hour_end": '2022-12-05T05:55:38.575Z",
+      // contact_hour_start: '2022-12-05T05:55:38.575Z,
+      // contact_hour_end": '2022-12-05T05:55:38.575Z",
     },
     details: 'la vida es bonitica',
     currency: 'USD',

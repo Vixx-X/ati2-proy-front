@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 
-import { Field } from '@components/forms/Field';
+import { getContactDays } from '@fetches/post';
+
+import useSWR from 'swr';
+
 import CheckBox from './Checkbox';
-const contactDays = [
-  { text: 'Lunes', value: 0 },
-  { text: 'Martes', value: 1 },
-  { text: 'Miercoles', value: 2 },
-  { text: 'Jueves', value: 3 },
-  { text: 'Viernes', value: 4 },
-  { text: 'Sabado', value: 5 },
-  { text: 'Domingo', value: 6 },
-  { text: 'Fines de Semana', value: 7 },
-  { text: 'De Lunes a Viernes', value: 8 },
-];
 
 export const ContactDays = () => {
+  const { data } = useSWR('day-options', getContactDays);
+  const choices = useMemo(
+    () =>
+      data?.map((el: any) => ({
+        text: el.option,
+        value: el.option,
+      })),
+    [data]
+  );
   return (
     <>
       <div className="bg-secundary">
@@ -23,11 +24,11 @@ export const ContactDays = () => {
         </p>
       </div>
       <div className="border border-2 border-darkprimary p-3 flex flex-wrap justify-center">
-        <CheckBox 
-            className="flex flex-wrap gap-1 justify-center" 
-            choices={contactDays} 
-            name="days"
-            />
+        <CheckBox
+          className="flex flex-wrap gap-1 justify-center"
+          choices={choices}
+          name="days"
+        />
       </div>
     </>
   );
