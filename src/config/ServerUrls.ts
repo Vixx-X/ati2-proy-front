@@ -16,10 +16,10 @@ export const SERVER_URLS = {
   URL_CONTACT_US: '/contactus',
 
   //vehicles
-  URL_VEHICLES: '/vehicles',
-  URL_EDIT_VEHICLE: '/vehicles/edit',
-  URL_SEARCH_VEHICLE: '/vehicles/search',
-
+  URL_VEHICLES: '/posts/vehicles',
+  URL_EDIT_VEHICLE: '/posts/vehicles/[id]/edit',
+  URL_CREATE_VEHICLE: '/posts/vehicles/create',
+  URL_SEARCH_VEHICLE: '/posts/vehicles/search',
 
   //services
   URL_SERVICES: '/services',

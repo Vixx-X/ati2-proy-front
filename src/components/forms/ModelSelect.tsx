@@ -1,27 +1,23 @@
 import { useMemo } from 'react';
 
-import { getModel } from '@fetches/address';
+import { getModels } from '@fetches/vehicles';
 
-import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
-import Select, { SelectProps } from './Select';
+import Select, { FilteredSelectProps } from './Select';
 
-export interface ModelSelectProps extends Omit<SelectProps, 'choices'> {
-  choices?: { value: string; text: string }[];
-}
+export interface ModelSelectProps extends FilteredSelectProps {}
 
-export const ModelSelect = (props: ModelSelectProps) => {
-  const { values } = useFormikContext();
-  const { data } = useSWR(
-    ['model', { limit: 300, brand: values?.brand }],
-    (_, query) => getModel(query)
+export const ModelSelect = ({ filter, ...props }: ModelSelectProps) => {
+  const { data } = useSWR(['model', { limit: 300, ...filter }], (_, query) =>
+    getModels(query)
   );
 
   const choices = useMemo(
     () =>
-      data?.results.map((item: any, index: any) => ({
+      data?.results.map((item: any) => ({
         text: item.model,
+        value: item.model,
       })),
     [data]
   );
@@ -33,7 +29,7 @@ export const ModelSelect = (props: ModelSelectProps) => {
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Continente--"
+        placeholder="--Selecciona Modelo--"
         {...props}
       />
     </div>

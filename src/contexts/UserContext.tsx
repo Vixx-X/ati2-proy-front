@@ -9,10 +9,11 @@ import useSWR from 'swr';
 
 export const UserContextProvider = ({ children }: Props) => {
   const isAuth = authStore((state: any) => state.isAuth);
+  const access = authStore((state: any) => state.access_token);
 
   const updateUser = userStore((state: any) => state.update);
   const { data: user, mutate: refeatchUser } = useSWR(
-    isAuth ? 'user' : null,
+    isAuth ? ['user', access] : null,
     getUser
   );
 

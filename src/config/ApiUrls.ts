@@ -5,6 +5,7 @@ export const API_URLS = {
   URL_TOKEN_REFRESH: `/api/auth/refresh`,
   URL_TOKEN_VERIFY: `/api/auth/verify`,
   URL_TOKEN_REVOKE: `/api/auth/revoke`,
+
   // User
   URL_USER_REGISTER: `/user/register/`,
   URL_USER_PROFILE: `/user/profile/`,
@@ -15,7 +16,7 @@ export const API_URLS = {
   URL_CHANGE_PASSWORD: `/user/change-password/`,
   URL_OTP_REQUEST: `/user/generate-otp/`,
 
-  //Address
+  // Address
   URL_COUNTRIES: `/addresses/countries/`,
   URL_CONTINENTS: `/addresses/continents/`,
   URL_STATES: '/addresses/states/',
@@ -36,6 +37,16 @@ export const API_URLS = {
   //Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
 
-  //Business
+  // Business
   URL_BUSINESS_REGISTER: `/businesses/register/`,
+
+  // Posts
+  URL_POSTS_VEHICLES: `/posts/vehicle/`,
+  URL_POST_VEHICLE: `/posts/vehicle/[id]/`,
+
+  // Days options
+  URL_DAY_OPTIONS: `/posts/day-options/`,
+
+  // Media
+  URL_MEDIA: `/media/`,
 };

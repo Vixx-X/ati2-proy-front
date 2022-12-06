@@ -12,36 +12,26 @@ interface HeaderProps {
   activate?: string;
 }
 
-const {
-  URL_CONTACT_US,
-  URL_EMPLOYEE,
-  URL_SERVICES,
-  URL_VEHICLES,
-  URL_EDIT_VEHICLE,
-  URL_SEARCH_VEHICLE,
-  URL_LANDING,
-} = SERVER_URLS;
-
 export const Header = ({ activate }: HeaderProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const options = [
     {
-      link: URL_LANDING,
+      link: SERVER_URLS.URL_LANDING,
       text: 'inicio',
     },
     {
       text: 'vehículo',
       options: [
-        { link: URL_EDIT_VEHICLE, text: 'publicar' },
-        { link: URL_VEHICLES, text: 'ver publicaciones' },
-        { link: URL_SEARCH_VEHICLE, text: 'buscar' },
-        { link: URL_EDIT_VEHICLE, text: 'modificar' },
+        { link: SERVER_URLS.URL_CREATE_VEHICLE, text: 'publicar' },
+        { link: SERVER_URLS.URL_VEHICLES, text: 'ver publicaciones' },
+        { link: SERVER_URLS.URL_SEARCH_VEHICLE, text: 'buscar' },
+        /* { link: SERVER_URLS.URL_EDIT_VEHICLE, text: 'modificar' }, */
       ],
     },
-    { link: URL_SERVICES, text: 'servicios' },
-    { link: URL_EMPLOYEE, text: 'empleos' },
-    { link: URL_CONTACT_US, text: 'contáctenos' },
+    { link: SERVER_URLS.URL_SERVICES, text: 'servicios' },
+    { link: SERVER_URLS.URL_EMPLOYEE, text: 'empleos' },
+    { link: SERVER_URLS.URL_CONTACT_US, text: 'contáctenos' },
     { text: 'idioma' },
   ];
 

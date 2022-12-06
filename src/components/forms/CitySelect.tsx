@@ -1,21 +1,16 @@
 import { useMemo } from 'react';
 
-import { getCity } from '@fetches/address';
+import { getCities } from '@fetches/address';
 
-import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
-import Select, { SelectProps } from './Select';
+import Select, { FilteredSelectProps } from './Select';
 
-export interface CitySelectProps extends Omit<SelectProps, 'choices'> {
-  choices?: { value: string; text: string }[];
-}
+export interface CitySelectProps extends FilteredSelectProps {}
 
-export const CitySelect = (props: CitySelectProps) => {
-  const { values } = useFormikContext();
-  const { data } = useSWR(
-    ['cities', { limit: 300, state: values?.state }],
-    (_, query) => getCity(query)
+export const CitySelect = ({ filter, name, ...props }: CitySelectProps) => {
+  const { data } = useSWR(['cities', { limit: 300, ...filter }], (_, query) =>
+    getCities(query)
   );
   const choices = useMemo(
     () =>
@@ -35,6 +30,7 @@ export const CitySelect = (props: CitySelectProps) => {
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Ciudad--"
+        name={name}
         {...props}
       />
     </div>
