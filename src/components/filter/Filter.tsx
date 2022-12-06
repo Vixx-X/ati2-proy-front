@@ -14,17 +14,33 @@ interface FilterInterface extends Props {
   classNameSelect?: string;
 }
 
-export const Filter = ({ tag, classNameInput, classNameSelect, ...props }: FilterInterface) => {
+export const Filter = ({
+  tag,
+  classNameInput,
+  classNameSelect,
+  selectName,
+  ...props
+}: FilterInterface) => {
   return (
     <div>
-      {tag === 'select' && <SelectFilter styles={classNameSelect} {...props} />}
-      {tag === 'radioButton' && <RadioButtonFilter {...props} />}
-      {tag === 'checkBox' && <CheckBoxFilter {...props}></CheckBoxFilter>}
+      {tag === 'select' && (
+        <SelectFilter
+          styles={classNameSelect}
+          selectName={selectName}
+          {...props}
+        />
+      )}
+      {tag === 'radioButton' && (
+        <RadioButtonFilter selectName={selectName} {...props} />
+      )}
+      {tag === 'checkBox' && (
+        <CheckBoxFilter selectName={selectName} {...props}></CheckBoxFilter>
+      )}
       {tag === 'input' && (
         <>
-          {props.selectName && (
+          {selectName && (
             <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-              {props.selectName}
+              {selectName}
             </p>
           )}
           <Field styles={classNameInput} {...props} />

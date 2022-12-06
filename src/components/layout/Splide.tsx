@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
@@ -13,10 +13,22 @@ interface SplideImageComponentProps {
 
 export const SplideImageComponent = ({ images }: SplideImageComponentProps) => {
   return (
-    <Splide>
-      {images?.map(({ text, file }: any, index) => (
+    <Splide
+      options={{
+        height: '10rem',
+        width: 'auto',
+        objectFit: 'contain',
+      }}
+    >
+      {images?.map((element: any, index) => (
         <SplideSlide key={index} className="flex justify-center">
-          <img src={file} alt={text} />
+          <Image
+            src={element}
+            alt={element}
+            unoptimized
+            layout="fill"
+            objectFit="contain"
+          />
         </SplideSlide>
       ))}
     </Splide>

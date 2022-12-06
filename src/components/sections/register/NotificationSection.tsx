@@ -88,7 +88,8 @@ const NotificationSection = ({ userType, setUserType }: any) => {
               />
               <p className="w-72 text-sm opacity-40 mt-4">
                 * Importante colocar número seguido del intervalo de tiempo
-                después de que se quiera recibir "días" "semanas" "meses"{' '}
+                después de que se quiera recibir &quot;días&quot;
+                &quot;semanas&quot; &quot;meses&quot;
               </p>
             </div>
           }

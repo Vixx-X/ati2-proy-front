@@ -4,15 +4,19 @@ import { getContinents } from '@fetches/address';
 
 import useSWR from 'swr';
 
-import Select, { SelectProps } from './Select';
+import Select, { FilteredSelectProps } from './Select';
 
-export interface ContinentSelectProps extends Omit<SelectProps, 'choices'> {
-  choices?: { value: string; text: string }[];
-  noTitle?: boolean
-}
+export interface ContinentSelectProps extends FilteredSelectProps {}
 
-export const ContinentSelect = (props: ContinentSelectProps) => {
-  const { data } = useSWR('continents', () => getContinents({ limit: 300 }));
+export const ContinentSelect = ({
+  filter,
+  name,
+  ...props
+}: ContinentSelectProps) => {
+  const { data } = useSWR(
+    ['continents', { limit: 300, ...filter }],
+    (_, query) => getContinents(query)
+  );
   const choices = useMemo(
     () =>
       data?.results.map((item: any) => ({
@@ -28,6 +32,7 @@ export const ContinentSelect = (props: ContinentSelectProps) => {
         Continente
       </p>}
       <Select
+        name={name}
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Continente--"

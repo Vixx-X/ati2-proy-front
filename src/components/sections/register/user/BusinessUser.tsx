@@ -56,18 +56,18 @@ export const BusinessUser = ({}) => {
             <ErrorMsg name="continent" />
           </div>
           <div className="flex items-center">
-            <label htmlFor="address.line1" className="w-2/4 capitalize">
+            <label htmlFor="address?.line1" className="w-2/4 capitalize">
               main address
             </label>
-            <Field name="address.line1" id="address.line1" />
-            <ErrorMsg name="address.line1" />
+            <Field name="address?.line1" id="address?.line1" />
+            <ErrorMsg name="address?.line1" />
           </div>
           <div className="flex items-center">
-            <label htmlFor="address.line2" className="w-2/4 capitalize">
+            <label htmlFor="address?.line2" className="w-2/4 capitalize">
               more details of address
             </label>
-            <Field name="address.line2" id="address.line2" />
-            <ErrorMsg name="address.line2" />
+            <Field name="address?.line2" id="address?.line2" />
+            <ErrorMsg name="address?.line2" />
           </div>
           <div className="flex items-center">
             <label htmlFor="phone" className="w-2/4 capitalize">

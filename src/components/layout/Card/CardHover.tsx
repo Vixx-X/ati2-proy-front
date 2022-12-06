@@ -27,7 +27,7 @@ const CardHover = ({ title, position, address, details, ...props }: any) => {
           <span className="text-darkprimary font-bold font-bold">
             Ubicación exacta:{' '}
           </span>
-          <span className="text-base text-black font-normal">{`${address.line1}. ${address.line2}`}</span>
+          <span className="text-base text-black font-normal">{`${address?.line1}. ${address?.line2}`}</span>
         </p>
       </div>
     </div>

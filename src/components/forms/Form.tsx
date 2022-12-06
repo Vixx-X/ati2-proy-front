@@ -1,14 +1,27 @@
-import { Form as FForm, Formik, FormikConfig, FormikValues } from 'formik';
+import {
+  Form as FForm,
+  Formik,
+  FormikConfig,
+  FormikValues,
+  useFormikContext,
+} from 'formik';
 
 interface FormInterface {
-  displayProps?: String;
+  className?: string;
+  renderProps?: boolean;
 }
 
+const InnerForm = ({ children }: any) => {
+  const context = useFormikContext();
+  return children(context);
+};
+
 export const Form = ({
-  displayProps,
+  className,
   children,
   initialValues,
   onSubmit,
+  renderProps,
   ...props
 }: FormikConfig<FormikValues> & FormInterface) => {
   return (
@@ -18,7 +31,9 @@ export const Form = ({
       enableReinitialize
       {...props}
     >
-      <FForm className={`${displayProps}`} >{children}</FForm>
+      <FForm className={className}>
+        {renderProps ? <InnerForm>{children}</InnerForm> : <>{children}</>}
+      </FForm>
     </Formik>
   );
 };

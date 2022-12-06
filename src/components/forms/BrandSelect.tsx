@@ -1,22 +1,20 @@
 import { useMemo } from 'react';
 
-import { getBrand } from '@fetches/address';
+import { getBrands } from '@fetches/vehicles';
 
 import useSWR from 'swr';
 
-import Select, { SelectProps } from './Select';
+import Select from './Select';
 
-export interface BrandSelectProps extends Omit<SelectProps, 'choices'> {
-  choices?: { value: string; text: string }[];
-}
-
-export const BrandSelect = (props: BrandSelectProps) => {
-  const { data } = useSWR('brand', () => getBrand({ limit: 300 }));
-  console.log("Brands", data)
+export const BrandSelect = ({ name, filter, ...props }: Props) => {
+  const { data } = useSWR(['brand', { limit: 100, ...filter }], (_, query) =>
+    getBrands(query)
+  );
   const choices = useMemo(
     () =>
-      data?.results.map((item: any,index:any) => ({
+      data?.results.map((item: any) => ({
         text: item.brand,
+        value: item.brand,
       })),
     [data]
   );
@@ -26,9 +24,10 @@ export const BrandSelect = (props: BrandSelectProps) => {
         Marcas de Vehiculos
       </p>
       <Select
+        name={name}
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Continente--"
+        placeholder="--Selecciona Marca--"
         {...props}
       />
     </div>

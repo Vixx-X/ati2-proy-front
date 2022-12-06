@@ -2,20 +2,19 @@ import { useMemo } from 'react';
 
 import { getCountries } from '@fetches/address';
 
-import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
-import Select, { SelectProps } from './Select';
+import Select, { FilteredSelectProps } from './Select';
 
-export interface CountrySelectProps extends Omit<SelectProps, 'choices'> {
-  choices?: { value: string; text: string }[];
-  noTitle?: boolean
-}
+export interface CountrySelectProps extends FilteredSelectProps {}
 
-export const CountrySelect = (props: CountrySelectProps) => {
-  const { values } = useFormikContext();
+export const CountrySelect = ({
+  filter,
+  name,
+  ...props
+}: CountrySelectProps) => {
   const { data } = useSWR(
-    ['countries', { limit: 300, continent: values?.continent }],
+    ['countries', { limit: 300, ...filter }],
     (_, query) => getCountries(query)
   );
   const choices = useMemo(
@@ -35,6 +34,7 @@ export const CountrySelect = (props: CountrySelectProps) => {
         className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona País--"
+        name={name}
         {...props}
       />
     </div>

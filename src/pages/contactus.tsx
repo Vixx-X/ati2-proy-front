@@ -18,6 +18,13 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useSWR from 'swr';
 
+interface ContactUsForm {
+  target: string;
+  name: string;
+  reason: string;
+  body?: string;
+}
+
 const ContactUs: NextPage = () => {
   const [load, setLoading] = useState<boolean>(false);
   const { data } = useSWR('contact', () => getBusinessInfo());

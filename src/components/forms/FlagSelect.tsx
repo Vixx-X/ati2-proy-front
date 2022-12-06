@@ -40,7 +40,9 @@ export const FlagSelect = ({
   setValue,
   ...props
 }: FlagSelectInterface) => {
-  const { data } = useSWR('country', getCountries);
+  const { data } = useSWR(['countries', { limit: 300 }], (_, query) =>
+    getCountries(query)
+  );
   const [element, setElement] = useState<any>(
     value ? value : placeholder ? placeholder : '----'
   );
@@ -49,7 +51,7 @@ export const FlagSelect = ({
   return (
     <div className={`relative ${className}`}>
       <button
-        className="truncate border border-gray-400 py-2 px-4 flex justify-between items-center text-gray-400 cursor-pointer w-full focus:border-darkprimary rounded-md"
+        className="truncate border border-gray-400 py-2 px-4 flex justify-between items-center text-gray-400 cursor-pointer focus:border-darkprimary rounded-md w-28"
         onClick={() => setStyles(styles == 'block' ? 'hidden' : 'block')}
         type="button"
       >
@@ -57,7 +59,7 @@ export const FlagSelect = ({
         <FontAwesomeIcon icon={faChevronDown} />
       </button>
       <ul
-        className={`truncate mx-0 list-none absolute w-full z-10 h-80 overflow-scroll border border-gray-200 rounded-md drop-shadow-md ${styles}`}
+        className={`mx-0 list-none absolute w-full z-10 h-80 overflow-scroll border border-gray-200 rounded-md drop-shadow-md ${styles}`}
         {...props}
       >
         <>

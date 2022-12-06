@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 
 import type { NextPage } from 'next';
 
@@ -13,20 +13,27 @@ import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
 import SplideImageComponent from '@components/layout/Splide';
 import ContactSellerModal from '@components/modals/ContacSellerModal';
 
+import { getPostsVehicles } from '@fetches/post';
+
 import { complexFilters, simpleFilters } from '@utils/Filters';
 import { classNames } from '@utils/classNames';
 
-import { Field, FormikHelpers, FormikValues } from 'formik';
+import { Field, FormikValues } from 'formik';
+import useSWR from 'swr';
 
 import { initialValues } from '../data/fakeData';
 
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
   const [showModalContact, setShowModalContact] = useState<boolean>(false);
-
   const handlePost = (event: any) => {
+    event.preventDefault();
     setMode(event.target.value);
   };
+
+  const { data } = useSWR(['post-vehicle', { limit: 100 }], (_, query) =>
+    getPostsVehicles(query)
+  );
 
   return (
     <MainContainer activate="inicio" maxWidth="max-w-none">
@@ -39,9 +46,7 @@ const Landing: NextPage = () => {
               </summary>
               <Form
                 initialValues={initialValues}
-                onSubmit={(values: FormikValues) => {
-                  console.log(values);
-                }}
+                onSubmit={(values: FormikValues) => {}}
               >
                 <FastSearch
                   layoutFilters="gap-2 grid md:grid-cols-3"
@@ -57,12 +62,7 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda detallada
               </summary>
-              <Form
-                initialValues={{}}
-                onSubmit={(values: FormikValues) => {
-                  console.log(values);
-                }}
-              >
+              <Form initialValues={{}} onSubmit={(values: FormikValues) => {}}>
                 <DetailSearch
                   filters={complexFilters}
                   classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
@@ -103,11 +103,11 @@ const Landing: NextPage = () => {
                   />
                   <div className="flex items-center justify-center">
                     <label className="ml-2">tipo lista</label>
-                    <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
+                    {/* <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
                       <hr className="border-black" />
                       <hr className="border-black" />
                       <hr className="border-black" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -172,15 +172,8 @@ const Landing: NextPage = () => {
                   'grid'
                 )}
               >
-                {[
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                  initialValues,
-                ].map((element, index) => (
-                  <div key={index} className="flex p-6 gap-x-4 relative">
+                {data?.map((element: any, index: any) => (
+                  <div key={element.id} className="flex p-6 gap-x-4 relative">
                     <Field
                       type="checkbox"
                       name="selected"
@@ -202,11 +195,11 @@ const Landing: NextPage = () => {
                 ))}
               </div>
             </Form>
-            <ContactSellerModal
-              showModal={showModalContact}
-              setShowModal={setShowModalContact}
-            />
           </div>
+          <ContactSellerModal
+            showModal={showModalContact}
+            setShowModal={setShowModalContact}
+          />
         </div>
       </div>
     </MainContainer>

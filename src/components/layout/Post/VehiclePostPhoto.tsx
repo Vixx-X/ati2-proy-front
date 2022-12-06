@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-import ContactSellerModal from '@components/modals/ContacSellerModal';
+import Image from 'next/image';
+
 import DetailsModal from '@components/modals/DetailsModal';
 import PhotosModal from '@components/modals/PhotosModal';
 
+import { DEFAULT_IMAGE } from '@data/fakeData';
 import {
   Address,
   Contact,
@@ -66,8 +68,22 @@ const optionsLink = [
   },
 ];
 
-const VehiclePostPhoto = ({ index, setShowModalContact, ...props }: Props) => {
-  const { address, details, vehicle_post } = props;
+const VehiclePostPhoto = ({ index, ...props }: any) => {
+  const {
+    address,
+    details,
+    vehicle,
+    vehicle_state,
+    sale_type,
+    images,
+    videos,
+    rental_price,
+    currency,
+    sale_price,
+    accesories,
+    services,
+    setShowModalContact,
+  } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);
@@ -91,18 +107,28 @@ const VehiclePostPhoto = ({ index, setShowModalContact, ...props }: Props) => {
           <div className="sm:mr-4 mb-2">
             <HeaderPost
               className="sm:hidden mb-2"
-              vehicle_post={vehicle_post}
+              vehicle={vehicle}
+              vehicle_state={vehicle_state}
+              sale_type={sale_type}
             />
-            <div className="w-full sm:max-w-[250px] sm:max-h-[170px]">
-              <img
-                alt={vehicle_post.images[0].text}
-                src={vehicle_post.images[0].file}
+            <div className="w-full sm:max-w-[250px] sm:max-h-[170px] text-center">
+              <Image
+                src={images.length ? images[0] : DEFAULT_IMAGE}
+                alt={images.length ? images[0] : 'placeholder-vehicle'}
                 className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
+                unoptimized
+                width="100%"
+                height="100%"
+                objectFit="cover"
               />
             </div>
           </div>
           <div className="font-bold text-lg sm:flex sm:justify-center sm:items-center">
-            <Prices vehicle_post={vehicle_post} />
+            <Prices
+              rental_price={rental_price}
+              currency={currency}
+              sale_price={sale_price}
+            />
           </div>
           <nav>
             <ul className="list-disc ml-4 text-lg my-4 font-bold text-blue-600 underline">
@@ -147,7 +173,11 @@ const VehiclePostPhoto = ({ index, setShowModalContact, ...props }: Props) => {
           </nav>
         </div>
         <div>
-          <HeaderPost vehicle_post={vehicle_post} />
+          <HeaderPost
+            vehicle={vehicle}
+            vehicle_state={vehicle_state}
+            sale_type={sale_type}
+          />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
             <Button
@@ -170,20 +200,24 @@ const VehiclePostPhoto = ({ index, setShowModalContact, ...props }: Props) => {
           setShowModal={setShowModal}
           title={titleHover}
           details={details}
-          accesories={vehicle_post.accesories}
-          services={vehicle_post.services}
-          address={`${address.line1}. ${address.line2}`}
+          accesories={accesories}
+          services={services}
+          address={`${address?.line1}. ${address?.line2}`}
         />
       ) : (
         <PhotosModal
           showModal={showModal}
           setShowModal={setShowModal}
           title={titleHover}
-          medias={
-            titleHover === 'photos' ? vehicle_post.images : vehicle_post.videos
-          }
+          images={images}
+          videos={videos}
           address={address}
-          vehicle_post={vehicle_post}
+          vehicle={vehicle}
+          vehicle_state={vehicle_state}
+          sale_type={sale_type}
+          rental_price={rental_price}
+          currency={currency}
+          sale_price={sale_price}
         />
       )}
     </div>
