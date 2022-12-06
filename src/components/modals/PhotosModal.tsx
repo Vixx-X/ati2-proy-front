@@ -29,6 +29,7 @@ export const PhotosModal = ({
   currency,
   sale_price,
 }: any) => {
+  const media = images?.[0];
   return (
     <BaseModal showModal={showModal} title={title} setShowModal={setShowModal}>
       <div className="grid grid-cols-4 gap-4">

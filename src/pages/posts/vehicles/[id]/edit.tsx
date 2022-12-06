@@ -17,7 +17,7 @@ const EditVehicle: NextPage = () => {
   );
 
   const initialValues = {
-    id: data?.id, // this is important, it shows there is an edit happening
+    id, // this is important, it shows there is an edit happening
     filter: {
       address: {
         country: data?.address.city.state.country.iso_3166_1_a2,

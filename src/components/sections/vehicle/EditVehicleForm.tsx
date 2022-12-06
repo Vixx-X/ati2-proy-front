@@ -11,14 +11,16 @@ import { CurrencySelect } from '@components/forms/CurrencySelect';
 import { DragAndDropImg } from '@components/forms/DragAndDropImg';
 import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
 import ErrorMsg from '@components/forms/ErrorMsg';
-import { Field } from '@components/forms/Field';
-import { Form } from '@components/forms/Form';
+import Field from '@components/forms/Field';
+import Form from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
 import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
 import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
 import Button from '@components/layout/Button';
+
+import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES, YES_OR_NO } from '@config';
 
 import { postVehicle, putVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
@@ -50,37 +52,6 @@ const textAreaData = [
   },
 ];
 
-const SALE_TYPE_CHOICES = [
-  {
-    value: 'RENT',
-    text: 'Alquiler',
-  },
-  {
-    value: 'SALE',
-    text: 'Venta',
-  },
-  {
-    value: 'BOTH',
-    text: 'Alquiler y Venta',
-  },
-];
-
-const VEHICLE_STATE_CHOICES = [
-  {
-    value: 'NEW',
-    text: 'Nuevo',
-  },
-  {
-    value: 'USED',
-    text: 'Usado',
-  },
-];
-
-const YES_OR_NO = [
-  { value: '1', text: 'Si' },
-  { value: '0', text: 'No' },
-];
-
 export const EditVehicleForm = ({
   createMode,
   initialValues: initValues,
@@ -90,7 +61,10 @@ export const EditVehicleForm = ({
 
   const initialValues = {
     ...initValues,
-    filter: { video: '0', ...initValues.filter },
+    filter: {
+      video: initValues.video_ids?.length ? '1' : '0',
+      ...initValues.filter,
+    },
   };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {

@@ -84,6 +84,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
     services,
     setShowModalContact,
   } = props;
+  const media = images?.[0];
   const [showModal, setShowModal] = useState<boolean>(false);
   const [titleHover, setTitle] = useState<string>('details');
   const [isHovering, setIsHovering] = useState(false);

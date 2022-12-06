@@ -1,29 +1,32 @@
-import { Key, useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
-import CardHover from '@components/layout/Card/CardHover';
-import DetailSearch from '@components/layout/FiltersBar/DetailSearch';
-import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
 import VehiclePostList from '@components/layout/Post/VehiclePostList';
 import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
 import SplideImageComponent from '@components/layout/Splide';
 import ContactSellerModal from '@components/modals/ContacSellerModal';
+import VehicleComplexSearch from '@components/sections/vehicle/ComplexVehicleSearch';
+import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 
 import { getPostsVehicles } from '@fetches/post';
 
-import { complexFilters, simpleFilters } from '@utils/Filters';
 import { classNames } from '@utils/classNames';
 
-import { Field, FormikValues } from 'formik';
+import { Field } from 'formik';
+import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
 
-import { initialValues } from '../data/fakeData';
+const PAGE_SIZE = 8;
 
 const Landing: NextPage = () => {
+  const router = useRouter();
+  const query = router.query;
+
   const [postMode, setMode] = useState<string>('photo');
   const [showModalContact, setShowModalContact] = useState<boolean>(false);
   const handlePost = (event: any) => {
@@ -31,9 +34,32 @@ const Landing: NextPage = () => {
     setMode(event.target.value);
   };
 
-  const { data } = useSWR(['post-vehicle', { limit: 100 }], (_, query) =>
-    getPostsVehicles(query)
+  const handlePagination = ({ selected }: any) => {
+    const path = router.pathname;
+    router.push({
+      pathname: path,
+      query: {
+        ...query,
+        page: selected,
+      },
+    });
+  };
+
+  const filters = router.query;
+
+  const { data } = useSWR(
+    [
+      'post-vehicle',
+      {
+        ...query,
+        limit: PAGE_SIZE,
+        offset: (((router.query.page ?? 1) as number) - 1) * PAGE_SIZE,
+      },
+    ],
+    (_, q) => getPostsVehicles(q)
   );
+
+  const pages = useMemo(() => Math.ceil(data?.count / PAGE_SIZE), [data]);
 
   return (
     <MainContainer activate="inicio" maxWidth="max-w-none">
@@ -44,17 +70,15 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda rápida
               </summary>
-              <Form
-                initialValues={initialValues}
-                onSubmit={(values: FormikValues) => {}}
-              >
-                <FastSearch
-                  layoutFilters="gap-2 grid md:grid-cols-3"
-                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                  filters={simpleFilters}
-                />
-              </Form>
+              <VehicleFastSearch
+                className="gap-2 grid md:grid-cols-3"
+                filters={filters}
+                onFilter={(values: any) =>
+                  router.push({
+                    query: values,
+                  })
+                }
+              />
             </details>
           </div>
           <div className="w-full">
@@ -62,13 +86,15 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda detallada
               </summary>
-              <Form initialValues={{}} onSubmit={(values: FormikValues) => {}}>
-                <DetailSearch
-                  filters={complexFilters}
-                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                />
-              </Form>
+              <VehicleComplexSearch
+                className="gap-2 grid md:grid-cols-3"
+                filters={filters}
+                onFilter={(values: any) =>
+                  router.push({
+                    query: values,
+                  })
+                }
+              />
             </details>
           </div>
         </div>
@@ -103,11 +129,11 @@ const Landing: NextPage = () => {
                   />
                   <div className="flex items-center justify-center">
                     <label className="ml-2">tipo lista</label>
-                    {/* <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
+                    <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
                       <hr className="border-black" />
                       <hr className="border-black" />
                       <hr className="border-black" />
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -172,7 +198,7 @@ const Landing: NextPage = () => {
                   'grid'
                 )}
               >
-                {data?.map((element: any, index: any) => (
+                {data?.results?.map((element: any, index: any) => (
                   <div key={element.id} className="flex p-6 gap-x-4 relative">
                     <Field
                       type="checkbox"
@@ -195,6 +221,46 @@ const Landing: NextPage = () => {
                 ))}
               </div>
             </Form>
+            <ReactPaginate
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              previousLabel={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 -12 24 50"
+                >
+                  <path d="M3 12l18-12v24z" fill="#29A9E0" />
+                </svg>
+              }
+              nextLabel={
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 -12 24 50"
+                >
+                  <path d="M21 12l-18 12v-24z" fill="#29A9E0" />
+                </svg>
+              }
+              breakLabel={'...'}
+              pageCount={pages}
+              onPageChange={handlePagination}
+              forcePage={(query?.page ?? 1) as any}
+              containerClassName={'flex items-center justify-center list-none'}
+              pageClassName={
+                'ml-0.5 p-1 mr-0.5 w-8 h-8 rounded-md text-center border border-gray-400'
+              }
+              activeClassName={
+                'ml-0.5 p-1 mr-0.5 w-8 h-8 rounded-md text-center border border-blue-500'
+              }
+              nextLinkClassName={'ml-2 p-1 mr-2 w-8 h-8 rounded-md text-center'}
+              previousLinkClassName={
+                'ml-2 p-1 mr-2 w-8 h-8 rounded-md text-center'
+              }
+              renderOnZeroPageCount={null as any}
+            />
           </div>
           <ContactSellerModal
             showModal={showModalContact}

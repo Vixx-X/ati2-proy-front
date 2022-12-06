@@ -1,3 +1,5 @@
+import AutoSubmit from '@components/forms/AutoSubmit';
+
 import {
   Form as FForm,
   Formik,
@@ -9,6 +11,7 @@ import {
 interface FormInterface {
   className?: string;
   renderProps?: boolean;
+  autoSubmit?: boolean;
 }
 
 const InnerForm = ({ children }: any) => {
@@ -22,6 +25,7 @@ export const Form = ({
   initialValues,
   onSubmit,
   renderProps,
+  autoSubmit,
   ...props
 }: FormikConfig<FormikValues> & FormInterface) => {
   return (
@@ -33,6 +37,8 @@ export const Form = ({
     >
       <FForm className={className}>
         {renderProps ? <InnerForm>{children}</InnerForm> : <>{children}</>}
+
+        {autoSubmit ? <AutoSubmit /> : null}
       </FForm>
     </Formik>
   );
