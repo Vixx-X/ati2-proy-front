@@ -55,7 +55,7 @@ export interface NaturalPerson {
   last_name: string;
   document_id: string;
   email: string;
-  phone: string;
+  phone:string;
   local_phone: string;
   country: string;
 }

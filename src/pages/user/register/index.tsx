@@ -161,7 +161,7 @@ const initialValues: NaturalPerson | Business = {
   last_name: 'Perez',
   document_id: 'V6677885',
   email: 'pepitaperez@gmail.com',
-  phone: '+584143332244',
+  phone:'+58123123123',
   local_phone: '+582123332244',
   country: 've',
 };
@@ -176,6 +176,7 @@ const Register: NextPage = () => {
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
+    console.log("VALUES:", values)
     const { user, representant, name, tax_id, address, ...props } = values;
     const commonUser = {
       user: { ...user, username: user.email },

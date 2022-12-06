@@ -4,6 +4,8 @@ import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
 import Select from '@components/forms/Select';
 import BaseModal from '@components/modals/BaseModal';
+import PhoneField from '../../../forms/PhoneField'
+import PhoneButtonSet from '../../../layout/PhoneButtonSet'
 
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,6 +55,7 @@ export const NaturalUser = ({}) => {
           <label htmlFor="phone" className="w-2/4 capitalize">
             phone
           </label>
+          <PhoneField name="phone"/>
         </div>
       </div>
       <div className="md:ml-16 mt-4">

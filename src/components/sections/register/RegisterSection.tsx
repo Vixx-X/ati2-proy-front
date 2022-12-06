@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import BusinessUser from './user/BusinessUser';
 import NaturalUser from './user/NaturalUser';
 
+
 export enum UserType {
   NATURAL = 'natural',
   BUSINESS = 'business',
