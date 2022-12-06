@@ -31,7 +31,7 @@ export const API_URLS = {
   URL_MY_BUSINESS_INFO: `/about/page-setting/`,
 
   //Contact Seller
-  URL_CONTACT_SELLER: `​/posts​/contact-seller​/`,
+  URL_CONTACT_SELLER: `/posts/contact-seller/`,
 
   //Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,

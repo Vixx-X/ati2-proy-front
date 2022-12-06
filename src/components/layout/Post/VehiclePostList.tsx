@@ -94,7 +94,11 @@ const VehiclePostList = (props: any) => {
               >
                 {vehicle_post.state}
               </p>
-              <Button onClick={setShowModalContact(true)}>
+              <Button
+                onClick={() => {
+                  setShowModalContact(true);
+                }}
+              >
                 contactar al anunciante
               </Button>
             </div>

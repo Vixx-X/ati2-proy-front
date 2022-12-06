@@ -12,7 +12,6 @@ export interface BrandSelectProps extends Omit<SelectProps, 'choices'> {
 
 export const BrandSelect = (props: BrandSelectProps) => {
   const { data } = useSWR('brand', () => getBrand({ limit: 300 }));
-  console.log("Brands", data)
   const choices = useMemo(
     () =>
       data?.results.map((item: any,index:any) => ({

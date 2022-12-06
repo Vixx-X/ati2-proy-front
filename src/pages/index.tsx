@@ -23,8 +23,8 @@ import { initialValues } from '../data/fakeData';
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
   const [showModalContact, setShowModalContact] = useState<boolean>(false);
-
   const handlePost = (event: any) => {
+    event.preventDefault();
     setMode(event.target.value);
   };
 
@@ -103,11 +103,11 @@ const Landing: NextPage = () => {
                   />
                   <div className="flex items-center justify-center">
                     <label className="ml-2">tipo lista</label>
-                    <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
+                    {/* <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
                       <hr className="border-black" />
                       <hr className="border-black" />
                       <hr className="border-black" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -202,11 +202,11 @@ const Landing: NextPage = () => {
                 ))}
               </div>
             </Form>
-            <ContactSellerModal
-              showModal={showModalContact}
-              setShowModal={setShowModalContact}
-            />
           </div>
+          <ContactSellerModal
+            showModal={showModalContact}
+            setShowModal={setShowModalContact}
+          />
         </div>
       </div>
     </MainContainer>

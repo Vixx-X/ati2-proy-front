@@ -92,11 +92,11 @@ export const EmailSection = ({}) => {
         >
           mensaje a enviar:
         </label>
-        <TextArea className="h-40 resize-none w-9/12 mr-2" name="data.reason" />
+        <TextArea className="h-40 resize-none w-9/12 mr-2" name="data.message" />
       </div>
       <div className="py-4">
         <p className="text-darkprimary font-bold">
-          <span className="text-red w-9/12 mr-2">* </span>Por favor verifique
+          <span className="text-red w-9/12 mr-2">* </span>Por favor sverifique
           que sus datos sean los correctos, ya que serán utilizados por el
           anunciante para contactarlo.
         </p>
