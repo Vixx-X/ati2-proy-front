@@ -90,6 +90,7 @@ const Landing: NextPage = () => {
                   type="radio"
                   name="typePost"
                   value="photo"
+                  checked={postMode === 'photo'}
                   onChange={handlePost}
                 />
                 <div className="flex items-center">
@@ -101,6 +102,7 @@ const Landing: NextPage = () => {
                 <input
                   type="radio"
                   name="typePost"
+                  checked={postMode === 'list'}
                   value="list"
                   onChange={handlePost}
                 />

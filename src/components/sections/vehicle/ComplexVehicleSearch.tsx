@@ -1,15 +1,16 @@
 import BrandSelect from '@components/forms/BrandSelect';
-import CheckBox from '@components/forms/Checkbox';
 import CitySelect from '@components/forms/CitySelect';
 import ContinentSelect from '@components/forms/ContinentSelect';
 import CountrySelect from '@components/forms/CountrySelect';
+import { CurrencySelect } from '@components/forms/CurrencySelect';
 import Form from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
+import PriceRangeField from '@components/forms/PriceRangeField';
 import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
 import YearSelect from '@components/forms/YearSelect';
 
-import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES } from '@config';
+import { SALE_TYPE_CHOICES } from '@config';
 
 import { Field } from 'formik';
 
@@ -69,6 +70,8 @@ const VehicleComplexSearch = ({
               model: values?.filter?.vehicle?.model,
             }}
           />
+          <PriceRangeField name="sale_price" />
+          <CurrencySelect name="currency" />
           <div>
             <Label>Vehiculo en</Label>
             <RadioGroup

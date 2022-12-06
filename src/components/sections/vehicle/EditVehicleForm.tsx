@@ -82,8 +82,7 @@ export const EditVehicleForm = ({
       const data = {
         address: values.address,
         details: values.details,
-        currency:
-          values?.currency1 === 'OTHER' ? values?.currency2 : values?.currency1,
+        currency: values.currency,
         sale_price: values.sale_price,
         rental_price: values.rental_price,
         sale_type: values.sale_type,
@@ -317,20 +316,7 @@ export const EditVehicleForm = ({
               ) : null}
             </div>
             <div>
-              <CurrencySelect name="currency1" />
-
-              {values?.currency1 === 'OTHER' ? (
-                <div className="flex flex-col">
-                  <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    Coloque las siglas de las monedas
-                  </p>
-                  <Field
-                    type="text"
-                    className="pr-2 pl-2 pt-2 pb-2 text-xs"
-                    name="currency2"
-                  />
-                </div>
-              ) : null}
+              <CurrencySelect name="currency" />
             </div>
           </div>
           <div className="flex justify-between gap-4">
