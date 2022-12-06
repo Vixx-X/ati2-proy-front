@@ -21,7 +21,7 @@ export const NaturalUser = ({}) => {
             name
           </label>
           <Field name="first_name" id="first_name" />
-          <ErrorMsg name="first_name" />
+          <ErrorMsg name="username" />
         </div>
         <div className="flex items-center">
           <label htmlFor="last_name" className="w-2/4 capitalize">
@@ -42,8 +42,8 @@ export const NaturalUser = ({}) => {
             email
           </label>
           <Field name="email" id="email" />
-          <ErrorMsg name="email" />
         </div>
+          <ErrorMsg name="user.email" />
         <div className="flex items-center">
           <label htmlFor="email" className="w-2/4 capitalize">
             pais

@@ -1,12 +1,13 @@
 import RadioGroup from '@components/forms/RadioGroup';
+import ErrorMsg from '@components/forms/ErrorMsg';
 
 const choices = [
   {
-    value: 'es',
+    value: 'ES',
     text: 'spanish',
   },
   {
-    value: 'en',
+    value: 'EN',
     text: 'english',
   },
 ];
@@ -21,6 +22,7 @@ export const LanguageSection = () => {
           className="flex capitalize gap-x-20"
         />
       </div>
+      <ErrorMsg name="user.language" />
     </>
   );
 };

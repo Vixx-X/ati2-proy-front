@@ -4,6 +4,7 @@ import Field from '@components/forms/Field';
 import RadioGroup from '@components/forms/RadioGroup';
 
 import { useFormikContext } from 'formik';
+import ErrorMsg from '@components/forms/ErrorMsg';
 
 const choicesNotificationFrecuency = [
   {
@@ -94,6 +95,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
             </div>
           }
         />
+        <ErrorMsg name="user.notification_setting.frecuency" />
         <p className="font-bold">
           Medio(s) por los que le gustaría ser informado
         </p>

@@ -241,7 +241,7 @@ const Register: NextPage = () => {
         </Button>
       </section>
       <Form
-        initialValues={initialValues}
+        initialValues={initialValues1}
         innerRef={refForm}
         onSubmit={handleSubmit}
       >

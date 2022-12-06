@@ -11,10 +11,13 @@ export interface CountrySelectProps extends FilteredSelectProps {}
 export const CountrySelect = ({
   filter,
   name,
+  all,
   ...props
 }: CountrySelectProps) => {
   const { data } = useSWR(
-    ['countries', { limit: 300, ...filter }],
+    !all || Object.values(filter).filter((item) => !!item).length > 0
+      ? ['countries', { limit: 300, ...filter }]
+      : null,
     (_, query) => getCountries(query)
   );
   const choices = useMemo(
@@ -27,9 +30,11 @@ export const CountrySelect = ({
   );
   return (
     <div className="w-full">
-      { !props.noTitle && <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Pais
-      </p>}
+      {!props.noTitle && (
+        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+          Pais
+        </p>
+      )}
       <Select
         className="w-full rounded"
         choices={choices}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
+import ErrorMsg from '@components/forms/ErrorMsg';
 
 export const PayInfo = ({}) => {
   const [userType, setUserType] = useState<string>('');
@@ -26,16 +27,19 @@ export const PayInfo = ({}) => {
             banco origen
           </div>
           <Field name="user.payment_info.source_bank" />
+          <ErrorMsg name="user.payment_info.source_bank" />
           <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
             pais donde reside la cuenta del banco de origen
           </div>
           <Field name="user.payment_info.country.name" />
+          <ErrorMsg name="user.payment_info.country" />
         </div>
         <div>
           <div className="h-fit bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
             banco destino
           </div>
           <Field name="user.payment_info.target_bank" />
+          <ErrorMsg name="user.payment_info.source_bank" />
         </div>
       </div>
     </>
