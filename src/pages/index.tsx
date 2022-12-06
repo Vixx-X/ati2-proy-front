@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -6,62 +6,37 @@ import { useRouter } from 'next/router';
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
+import Paginate from '@components/layout/Paginate';
 import VehiclePostList from '@components/layout/Post/VehiclePostList';
 import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
-import SplideImageComponent from '@components/layout/Splide';
 import ContactSellerModal from '@components/modals/ContacSellerModal';
 import VehicleComplexSearch from '@components/sections/vehicle/ComplexVehicleSearch';
 import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
+
+import { PAGE_SIZE } from '@config';
 
 import { getPostsVehicles } from '@fetches/post';
 
 import { classNames } from '@utils/classNames';
 
 import { Field } from 'formik';
-import ReactPaginate from 'react-paginate';
 import useSWR from 'swr';
-
-const PAGE_SIZE = 8;
 
 const Landing: NextPage = () => {
   const router = useRouter();
   const query = router.query;
 
-  const [postMode, setMode] = useState<string>('photo');
   const [showModalContact, setShowModalContact] = useState<boolean>(false);
-  const handlePost = (event: any) => {
-    event.preventDefault();
-    setMode(event.target.value);
-  };
 
-  const handlePagination = ({ selected }: any) => {
-    const path = router.pathname;
-    router.push({
-      pathname: path,
-      query: {
-        ...query,
-        page: selected,
-      },
-    });
+  const [postMode, setMode] = useState<string>('photo');
+  const handlePost = (event: any) => {
+    setMode(event.target.value);
   };
 
   const filters = router.query;
 
-  const { data } = useSWR(
-    [
-      'post-vehicle',
-      {
-        ...query,
-        limit: PAGE_SIZE,
-        offset: (((router.query.page ?? 1) as number) - 1) * PAGE_SIZE,
-      },
-    ],
-    (_, q) => getPostsVehicles(q)
-  );
-
-  const pages = useMemo(
-    () => Math.ceil((data?.count ?? 1) / PAGE_SIZE),
-    [data]
+  const { data } = useSWR(['post-vehicles', query], (_, q) =>
+    getPostsVehicles(q)
   );
 
   return (
@@ -109,38 +84,36 @@ const Landing: NextPage = () => {
             <p className="text-red capitalize font-bold w-64">
               ver listado como:{' '}
             </p>
-            <Form initialValues={{ typePost: 'photo' }} onSubmit={() => {}}>
-              <div className="flex gap-x-16">
-                <div className="radio flex items-center capitalize">
-                  <input
-                    type="radio"
-                    name="typePost"
-                    value="photo"
-                    onChange={handlePost}
-                  />
-                  <div className="flex items-center">
-                    <label className="ml-2">tipo foto</label>
-                    <div className="h-8 w-8 bg-primary ml-2"></div>
-                  </div>
+            <div className="flex gap-x-16" role="group">
+              <div className="radio flex items-center capitalize">
+                <input
+                  type="radio"
+                  name="typePost"
+                  value="photo"
+                  onChange={handlePost}
+                />
+                <div className="flex items-center">
+                  <label className="ml-2">tipo foto</label>
+                  <div className="h-8 w-8 bg-primary ml-2"></div>
                 </div>
-                <div className="radio flex items-center capitalize">
-                  <input
-                    type="radio"
-                    name="typePost"
-                    value="list"
-                    onChange={handlePost}
-                  />
-                  <div className="flex items-center justify-center">
-                    <label className="ml-2">tipo lista</label>
-                    <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
-                      <hr className="border-black" />
-                      <hr className="border-black" />
-                      <hr className="border-black" />
-                    </div>
+              </div>
+              <div className="radio flex items-center capitalize">
+                <input
+                  type="radio"
+                  name="typePost"
+                  value="list"
+                  onChange={handlePost}
+                />
+                <div className="flex items-center justify-center">
+                  <label className="ml-2">tipo lista</label>
+                  <div className="w-6 h-8 flex flex-col gap-y-2 justify-center ml-2">
+                    <hr className="border-black w-full" />
+                    <hr className="border-black w-full" />
+                    <hr className="border-black w-full" />
                   </div>
                 </div>
               </div>
-            </Form>
+            </div>
           </div>
           <div className="flex mt-6 my-4 mx-4 justify-center">
             <p className="text-darkprimary">
@@ -280,46 +253,7 @@ const Landing: NextPage = () => {
                 ))}
               </div>
             </Form>
-            <ReactPaginate
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={3}
-              previousLabel={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 -12 24 50"
-                >
-                  <path d="M3 12l18-12v24z" fill="#29A9E0" />
-                </svg>
-              }
-              nextLabel={
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 -12 24 50"
-                >
-                  <path d="M21 12l-18 12v-24z" fill="#29A9E0" />
-                </svg>
-              }
-              breakLabel={'...'}
-              pageCount={pages}
-              onPageChange={handlePagination}
-              forcePage={(query?.page ?? 1) as any}
-              containerClassName={'flex items-center justify-center list-none'}
-              pageClassName={
-                'ml-0.5 p-1 mr-0.5 w-8 h-8 rounded-md text-center border border-gray-400'
-              }
-              activeClassName={
-                'ml-0.5 p-1 mr-0.5 w-8 h-8 rounded-md text-center border border-blue-500'
-              }
-              nextLinkClassName={'ml-2 p-1 mr-2 w-8 h-8 rounded-md text-center'}
-              previousLinkClassName={
-                'ml-2 p-1 mr-2 w-8 h-8 rounded-md text-center'
-              }
-              renderOnZeroPageCount={null as any}
-            />
+            <Paginate total={data?.count ?? 0} />
           </div>
           <ContactSellerModal
             showModal={showModalContact}

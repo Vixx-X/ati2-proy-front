@@ -3,3 +3,4 @@ export * from './ApiUrls';
 export * from './ServerUrls';
 export * from './Auth';
 export * from './Vehicle';
+export const PAGE_SIZE = 8;
