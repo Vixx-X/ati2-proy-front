@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Image from 'next/image';
 
@@ -21,6 +21,7 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
   const isAuth = authStore((state: any) => state.isAuth);
   const logout = authStore((state: any) => state.logout);
   const user = userStore((state: any) => state.user);
+  const [open, setOpen] = useState(false);
   return (
     <Container className="w-11/12">
       <div className="flex justify-end gap-x-4 h-12">
@@ -53,7 +54,20 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
               <p className="capitalize">{user?.username}</p>
               <p>{user?.email}</p>
             </div>
-            <Button className="w-auto rounded-b-none">Usuario</Button>
+            <Button
+              className="w-auto rounded-b-none"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              Usuario
+            </Button>
+            {open ? (
+              <Button
+                className="w-auto rounded-b-none"
+                onClick={() => logout()}
+              >
+                Cerrar sesión
+              </Button>
+            ) : null}
           </>
         )}
       </div>
