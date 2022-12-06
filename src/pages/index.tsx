@@ -13,8 +13,6 @@ import ContactSellerModal from '@components/modals/ContacSellerModal';
 import VehicleComplexSearch from '@components/sections/vehicle/ComplexVehicleSearch';
 import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 
-import { PAGE_SIZE } from '@config';
-
 import { getPostsVehicles } from '@fetches/post';
 
 import { classNames } from '@utils/classNames';
