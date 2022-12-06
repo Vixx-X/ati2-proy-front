@@ -47,7 +47,6 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
       showModal={showModal}
       title="iniciar sesion"
       setShowModal={setShowModal}
-      backDrop={false}
     >
       <>
         <p>Seleccione la cuenta en la que desea acceder</p>

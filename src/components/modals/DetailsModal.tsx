@@ -44,7 +44,6 @@ export const DetailsModal = ({
       showModal={showModal}
       title="Detalles, fotos, videos y ubicación"
       setShowModal={setShowModal}
-      backDrop={false}
     >
       <>
         <SectionPart openSection={title} title={'details'}>

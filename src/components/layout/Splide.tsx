@@ -13,10 +13,22 @@ interface SplideImageComponentProps {
 
 export const SplideImageComponent = ({ images }: SplideImageComponentProps) => {
   return (
-    <Splide>
-      {images?.map(({ text, file }: any, index) => (
+    <Splide
+      options={{
+        height: '10rem',
+        width: 'auto',
+        objectFit: 'contain',
+      }}
+    >
+      {images?.map((element: any, index) => (
         <SplideSlide key={index} className="flex justify-center">
-          <Image src={file} alt={text} unoptimized layout="fill" />
+          <Image
+            src={element}
+            alt={element}
+            unoptimized
+            layout="fill"
+            objectFit="contain"
+          />
         </SplideSlide>
       ))}
     </Splide>
