@@ -9,16 +9,15 @@ import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
 import VehiclePostList from '@components/layout/Post/VehiclePostList';
 import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
+import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 
 import { getPostsVehicles } from '@fetches/post';
 
-import { complexFilters, simpleFilters } from '@utils/Filters';
+import { complexFilters } from '@utils/Filters';
 import { classNames } from '@utils/classNames';
 
 import { Field, FormikValues } from 'formik';
 import useSWR from 'swr';
-
-import { initialValues } from '../data/fakeData';
 
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
@@ -42,9 +41,9 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda rápida
               </summary>
-              <FastSearch
+              <VehicleFastSearch
                 className="gap-2 grid md:grid-cols-3"
-                filters={initialValues}
+                filters={filters}
                 onFilter={(values: any) =>
                   setFilters((prev) => ({ ...prev, values }))
                 }
