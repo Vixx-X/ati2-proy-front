@@ -23,9 +23,10 @@ export const API_URLS = {
   URL_CITIES: '/addresses/cities/',
 
   //Vehicles
-  URL_BRAND: `/vehicles/brands`,
-  URL_MODEL: `/vehicles/models`,
-  URL_YEAR: `/vehicles/years`,
+  URL_BRANDS: `/vehicles/brands/`,
+  URL_MODELS: `/vehicles/models/`,
+  URL_YEARS: `/vehicles/years/`,
+  URL_VEHICLES: `/vehicles/`,
 
   //Contact
   URL_CONTACT_US: `/about/contact-me/`,
