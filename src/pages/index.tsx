@@ -1,36 +1,35 @@
-import { Key, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
-import CardHover from '@components/layout/Card/CardHover';
 import DetailSearch from '@components/layout/FiltersBar/DetailSearch';
 import FastSearch from '@components/layout/FiltersBar/FastSearch';
 import MainContainer from '@components/layout/MainContainer';
 import VehiclePostList from '@components/layout/Post/VehiclePostList';
 import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
-import SplideImageComponent from '@components/layout/Splide';
+import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 
 import { getPostsVehicles } from '@fetches/post';
 
-import { complexFilters, simpleFilters } from '@utils/Filters';
+import { complexFilters } from '@utils/Filters';
 import { classNames } from '@utils/classNames';
 
 import { Field, FormikValues } from 'formik';
 import useSWR from 'swr';
 
-import { initialValues } from '../data/fakeData';
-
 const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
+  const [filters, setFilters] = useState({});
 
   const handlePost = (event: any) => {
     setMode(event.target.value);
   };
 
-  const { data } = useSWR(['post-vehicle', { limit: 100 }], (_, query) =>
-    getPostsVehicles(query)
+  const { data } = useSWR(
+    ['post-vehicle', { limit: 100, ...filters }],
+    (_, query) => getPostsVehicles(query)
   );
 
   return (
@@ -42,17 +41,13 @@ const Landing: NextPage = () => {
               <summary className="w-full mb-2 text-lg capitalize">
                 búsqueda rápida
               </summary>
-              <Form
-                initialValues={initialValues}
-                onSubmit={(values: FormikValues) => {}}
-              >
-                <FastSearch
-                  layoutFilters="gap-2 grid md:grid-cols-3"
-                  classNameInput="pr-2 pl-2 pt-2 pb-2 text-xs"
-                  classNameSelect="pr-6 pl-2 pt-2 pb-2 text-xs"
-                  filters={simpleFilters}
-                />
-              </Form>
+              <VehicleFastSearch
+                className="gap-2 grid md:grid-cols-3"
+                filters={filters}
+                onFilter={(values: any) =>
+                  setFilters((prev) => ({ ...prev, ...values }))
+                }
+              />
             </details>
           </div>
           <div className="w-full">

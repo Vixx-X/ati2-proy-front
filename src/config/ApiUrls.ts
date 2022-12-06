@@ -27,6 +27,7 @@ export const API_URLS = {
   URL_MODELS: `/vehicles/models/`,
   URL_YEARS: `/vehicles/years/`,
   URL_VEHICLES: `/vehicles/`,
+  URL_VEHICLE_TYPES: `/vehicles/types/`,
 
   // Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
