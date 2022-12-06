@@ -8,6 +8,8 @@ import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
 import VehiclePostList from '@components/layout/Post/VehiclePostList';
 import VehiclePostPhoto from '@components/layout/Post/VehiclePostPhoto';
+import SplideImageComponent from '@components/layout/Splide';
+import ContactSellerModal from '@components/modals/ContacSellerModal';
 import VehicleComplexSearch from '@components/sections/vehicle/ComplexVehicleSearch';
 import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 
@@ -26,8 +28,9 @@ const Landing: NextPage = () => {
   const query = router.query;
 
   const [postMode, setMode] = useState<string>('photo');
-
+  const [showModalContact, setShowModalContact] = useState<boolean>(false);
   const handlePost = (event: any) => {
+    event.preventDefault();
     setMode(event.target.value);
   };
 
@@ -103,36 +106,38 @@ const Landing: NextPage = () => {
             <p className="text-red capitalize font-bold w-64">
               ver listado como:{' '}
             </p>
-            <div className="flex gap-x-16">
-              <div className="radio flex items-center capitalize">
-                <input
-                  type="radio"
-                  name="typePost"
-                  value="photo"
-                  onChange={handlePost}
-                />
-                <div className="flex items-center">
-                  <label className="ml-2">tipo foto</label>
-                  <div className="h-8 w-8 bg-primary ml-2"></div>
+            <Form initialValues={{ typePost: 'photo' }} onSubmit={() => {}}>
+              <div className="flex gap-x-16">
+                <div className="radio flex items-center capitalize">
+                  <input
+                    type="radio"
+                    name="typePost"
+                    value="photo"
+                    onChange={handlePost}
+                  />
+                  <div className="flex items-center">
+                    <label className="ml-2">tipo foto</label>
+                    <div className="h-8 w-8 bg-primary ml-2"></div>
+                  </div>
                 </div>
-              </div>
-              <div className="radio flex items-center capitalize">
-                <input
-                  type="radio"
-                  name="typePost"
-                  value="list"
-                  onChange={handlePost}
-                />
-                <div className="flex items-center justify-center">
-                  <label className="ml-2">tipo lista</label>
-                  <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
-                    <hr className="border-black" />
-                    <hr className="border-black" />
-                    <hr className="border-black" />
+                <div className="radio flex items-center capitalize">
+                  <input
+                    type="radio"
+                    name="typePost"
+                    value="list"
+                    onChange={handlePost}
+                  />
+                  <div className="flex items-center justify-center">
+                    <label className="ml-2">tipo lista</label>
+                    <div className="w-2 h-8 flex flex-col gap-y-2 justify-center ml-2">
+                      <hr className="border-black" />
+                      <hr className="border-black" />
+                      <hr className="border-black" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Form>
           </div>
           <div className="flex mt-6 my-4 mx-4 justify-center">
             <p className="text-darkprimary">
@@ -201,9 +206,16 @@ const Landing: NextPage = () => {
                       value={`post-${index}`}
                     />
                     {postMode == 'photo' ? (
-                      <VehiclePostPhoto index={index} {...element} />
+                      <VehiclePostPhoto
+                        index={index}
+                        setShowModalContact={setShowModalContact}
+                        {...element}
+                      />
                     ) : (
-                      <VehiclePostList {...element} />
+                      <VehiclePostList
+                        setShowModalContact={setShowModalContact}
+                        {...element}
+                      />
                     )}
                   </div>
                 ))}
@@ -250,6 +262,10 @@ const Landing: NextPage = () => {
               renderOnZeroPageCount={null as any}
             />
           </div>
+          <ContactSellerModal
+            showModal={showModalContact}
+            setShowModal={setShowModalContact}
+          />
         </div>
       </div>
     </MainContainer>

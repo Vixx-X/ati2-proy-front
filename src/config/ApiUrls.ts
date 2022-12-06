@@ -22,14 +22,21 @@ export const API_URLS = {
   URL_STATES: '/addresses/states/',
   URL_CITIES: '/addresses/cities/',
 
-  // Vehicles
+  //Vehicles
   URL_BRANDS: `/vehicles/brands/`,
   URL_MODELS: `/vehicles/models/`,
   URL_YEARS: `/vehicles/years/`,
   URL_VEHICLES: `/vehicles/`,
   URL_VEHICLE_TYPES: `/vehicles/types/`,
 
-  // Natural Person
+  //Contact
+  URL_CONTACT_US: `/about/contact-me/`,
+  URL_MY_BUSINESS_INFO: `/about/page-setting/`,
+
+  //Contact Seller
+  URL_CONTACT_SELLER: `/posts/contact-seller/`,
+
+  //Natural Person
   URL_NATURAL_PERSON_REGISTER: `/natural-persons/register/`,
 
   // Business

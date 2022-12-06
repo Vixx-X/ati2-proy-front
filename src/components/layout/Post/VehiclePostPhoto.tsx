@@ -82,6 +82,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
     sale_price,
     accesories,
     services,
+    setShowModalContact,
   } = props;
   const media = images?.[0];
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -180,7 +181,14 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
-            <Button className="sm:mt-16">contactar al anunciante</Button>
+            <Button
+              onClick={() => {
+                setShowModalContact(true);
+              }}
+              className="sm:mt-16"
+            >
+              contactar al anunciante
+            </Button>
           </div>
         </div>
       </div>

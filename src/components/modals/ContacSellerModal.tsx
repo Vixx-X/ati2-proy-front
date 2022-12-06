@@ -37,6 +37,8 @@ export const ContactSellerModal = ({
     setLoading(false);
   };
 
+  const initialValues = { data: {} };
+
   const handleContactMethod = (event: any) => {
     setSection(event.target.value);
   };
@@ -102,19 +104,25 @@ export const ContactSellerModal = ({
               </div>
             </div>
           </div>
-          <Form initialValues={{ data: {} }} onSubmit={handleSubmit}>
-            {sectionContact ? (
-              <div className="w-[600px] h-[800px] text-sm overflow-scroll">
+          {sectionContact ? (
+            <div className="w-[600px] h-[800px] text-sm overflow-scroll">
+              <Form initialValues={initialValues} onSubmit={handleSubmit}>
                 {sectionContact === 'email' ? <EmailSection /> : null}
-                {sectionContact === 'phone' ? <PhoneSection /> : null}
+              </Form>
+              {sectionContact === 'phone' ? <PhoneSection /> : null}
+              <Form initialValues={initialValues} onSubmit={handleSubmit}>
                 {sectionContact === 'call_me' ? <CallMeSection /> : null}
+              </Form>
+              <Form initialValues={initialValues} onSubmit={handleSubmit}>
                 {sectionContact === 'send_value' ? <SendQuerySection /> : null}
+              </Form>
+              <Form initialValues={initialValues} onSubmit={handleSubmit}>
                 {sectionContact === 'register_visit' ? (
                   <RegisterDateSection />
                 ) : null}
-              </div>
-            ) : null}
-          </Form>
+              </Form>
+            </div>
+          ) : null}
         </div>
       </BaseModal>
     </>

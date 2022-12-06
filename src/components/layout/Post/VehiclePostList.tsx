@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
-import Image from 'next/image';
+import React, { useState } from 'react';
 
 import { classNames } from '@utils/classNames';
 
@@ -32,6 +30,7 @@ const VehiclePostList = (props: any) => {
     services,
     vehicle_state,
     sale_type,
+    setShowModalContact,
   } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
@@ -112,7 +111,13 @@ const VehiclePostList = (props: any) => {
               >
                 {vehicle_state}
               </p>
-              <Button>contactar al anunciante</Button>
+              <Button
+                onClick={() => {
+                  setShowModalContact(true);
+                }}
+              >
+                contactar al anunciante
+              </Button>
             </div>
           </div>
         </div>

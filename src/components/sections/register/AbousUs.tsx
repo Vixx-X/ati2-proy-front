@@ -66,7 +66,7 @@ export const AboutUs = ({}) => {
           <div
             className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
           >
-            <Field name="user.about_website.other" placeholder=""></Field>
+            <Field name="user.about_website.other" placeholder="" />
           </div>
         </div>
       </div>

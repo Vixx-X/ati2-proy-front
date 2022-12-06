@@ -4,6 +4,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 
 import Loader from '@components/Loader';
+import LoaderSpinner from '@components/LoaderSpinner';
 import { ErrorMsg } from '@components/forms/ErrorMsg';
 import { Form } from '@components/forms/Form';
 import { PassField } from '@components/forms/PassField';
@@ -44,6 +45,7 @@ const LogIn: NextPage = () => {
 
   return (
     <>
+      {loading ? <LoaderSpinner /> : null}
       <div className="rounded mb-4 w-[90%] max-w-[22rem] my-10 mb-14">
         <Form initialValues={initValues} onSubmit={handleSubmit}>
           <>
