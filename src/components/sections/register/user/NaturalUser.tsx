@@ -6,7 +6,7 @@ import Select from '@components/forms/Select';
 import BaseModal from '@components/modals/BaseModal';
 import PhoneField from '../../../forms/PhoneField'
 import PhoneButtonSet from '../../../layout/PhoneButtonSet'
-
+import CountrySelect from '../../../forms/CountrySelect'
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -45,12 +45,12 @@ export const NaturalUser = ({}) => {
           <ErrorMsg name="email" />
         </div>
         <div className="flex items-center">
-          <label htmlFor="country" className="w-2/4 capitalize">
-            country
+          <label htmlFor="email" className="w-2/4 capitalize">
+            pais
           </label>
-          <Select choices={[]} name="country" placeholder="Select a country" />
-          <ErrorMsg name="country" />
+          <CountrySelect noTitle name="country" />
         </div>
+        <ErrorMsg name="country" />
         <div className="flex items-center">
           <label htmlFor="phone" className="w-2/4 capitalize">
             phone

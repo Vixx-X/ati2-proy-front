@@ -9,6 +9,7 @@ import Select, { SelectProps } from './Select';
 
 export interface CountrySelectProps extends Omit<SelectProps, 'choices'> {
   choices?: { value: string; text: string }[];
+  noTitle?: boolean
 }
 
 export const CountrySelect = (props: CountrySelectProps) => {
@@ -27,9 +28,9 @@ export const CountrySelect = (props: CountrySelectProps) => {
   );
   return (
     <div className="w-full">
-      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
+      { !props.noTitle && <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
         Pais
-      </p>
+      </p>}
       <Select
         className="w-full rounded"
         choices={choices}

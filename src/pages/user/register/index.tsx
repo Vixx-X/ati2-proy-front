@@ -163,7 +163,7 @@ const initialValues: NaturalPerson | Business = {
   email: 'pepitaperez@gmail.com',
   phone:'+58123123123',
   local_phone: '+582123332244',
-  country: 've',
+  country: '',
 };
 
 const Register: NextPage = () => {
