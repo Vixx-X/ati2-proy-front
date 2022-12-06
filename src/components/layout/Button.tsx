@@ -1,11 +1,9 @@
-import React, { ReactNode } from 'react';
-import { ReactChild } from 'react';
+import { ReactNode } from 'react';
 
 import Link from 'next/link';
 
-interface ContainerProps {
+export interface ButtonProps extends Props {
   type?: 'button' | 'submit' | 'reset' | undefined;
-  children: ReactChild;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   className?: string;
@@ -22,7 +20,7 @@ export const Button = ({
   bgColor = 'bg-secundary',
   anchorTag,
   ...props
-}: ContainerProps & Props) => {
+}: ButtonProps) => {
   return (
     <>
       {!anchorTag ? (
