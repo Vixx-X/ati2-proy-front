@@ -30,7 +30,6 @@ const Landing: NextPage = () => {
   const [postMode, setMode] = useState<string>('photo');
   const [showModalContact, setShowModalContact] = useState<boolean>(false);
   const handlePost = (event: any) => {
-    event.preventDefault();
     setMode(event.target.value);
   };
 
@@ -71,7 +70,7 @@ const Landing: NextPage = () => {
                 búsqueda rápida
               </summary>
               <VehicleFastSearch
-                className="gap-2 grid md:grid-cols-3"
+                className="gap-2 grid md:grid-cols-2"
                 filters={filters}
                 onFilter={(values: any) =>
                   router.push({
@@ -87,7 +86,7 @@ const Landing: NextPage = () => {
                 búsqueda detallada
               </summary>
               <VehicleComplexSearch
-                className="gap-2 grid md:grid-cols-3"
+                className="gap-2 grid md:grid-cols-2"
                 filters={filters}
                 onFilter={(values: any) =>
                   router.push({

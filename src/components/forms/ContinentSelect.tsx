@@ -11,6 +11,7 @@ export interface ContinentSelectProps extends FilteredSelectProps {}
 export const ContinentSelect = ({
   filter,
   name,
+  className,
   ...props
 }: ContinentSelectProps) => {
   const { data } = useSWR(
@@ -32,8 +33,8 @@ export const ContinentSelect = ({
         Continente
       </p>
       <Select
+        className={`w-full rounded ${className}`}
         name={name}
-        className="w-full rounded"
         choices={choices}
         placeholder="--Selecciona Continente--"
         {...props}

@@ -36,23 +36,28 @@ const VehicleComplexSearch = ({
       initialValues={filters}
       onSubmit={onFilter as any}
       renderProps
-      autoSubmit
     >
       {({ values }) => (
         <>
-          <ContinentSelect name="continent" />
+          <ContinentSelect name="continent" className="text-xs truncate" />
           <CountrySelect
             name="country"
             filter={{
               continent: values?.continent,
             }}
+            className="text-xs truncate"
           />
-          <StateSelect name="state" filter={{ country: values?.country }} />
+          <StateSelect
+            name="state"
+            className="text-xs truncate"
+            filter={{ country: values?.country }}
+          />
           <CitySelect
             name="city"
             filter={{ state: values?.filter?.address?.state }}
+            className="text-xs truncate"
           />
-          <div>
+          <div className="text-xs truncate">
             <Label>Zona</Label>
             <Field name="line1" />
           </div>
@@ -60,14 +65,19 @@ const VehicleComplexSearch = ({
             <Label>Vehiculo en</Label>
             <RadioGroup name="sale_type" choices={SALE_TYPE_CHOICES} />
           </div>
-          <BrandSelect name="brand" />
-          <ModelSelect name="model" filter={{ brand: values?.brand }} />
+          <BrandSelect name="brand" className="text-xs truncate" />
+          <ModelSelect
+            name="model"
+            className="text-xs truncate"
+            filter={{ brand: values?.brand }}
+          />
           <YearSelect
             name="year"
             filter={{
               brand: values?.filter?.vehicle?.brand,
               model: values?.filter?.vehicle?.model,
             }}
+            className="text-xs truncate"
           />
           <div>
             <Label>Vehiculo en</Label>

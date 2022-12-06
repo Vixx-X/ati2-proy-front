@@ -8,7 +8,11 @@ import Select, { FilteredSelectProps } from './Select';
 
 export interface ModelSelectProps extends FilteredSelectProps {}
 
-export const ModelSelect = ({ filter, ...props }: ModelSelectProps) => {
+export const ModelSelect = ({
+  filter,
+  className,
+  ...props
+}: ModelSelectProps) => {
   const { data } = useSWR(['model', { limit: 300, ...filter }], (_, query) =>
     getModels(query)
   );
@@ -24,10 +28,10 @@ export const ModelSelect = ({ filter, ...props }: ModelSelectProps) => {
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Marcas de Vehiculos
+        Modelo de Vehiculos
       </p>
       <Select
-        className="w-full rounded"
+        className={`w-full rounded ${className}`}
         choices={choices}
         placeholder="--Selecciona Modelo--"
         {...props}

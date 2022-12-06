@@ -8,7 +8,11 @@ import Select, { FilteredSelectProps } from './Select';
 
 export interface StateSelectProps extends FilteredSelectProps {}
 
-export const StateSelect = ({ filter, ...props }: StateSelectProps) => {
+export const StateSelect = ({
+  filter,
+  className,
+  ...props
+}: StateSelectProps) => {
   const { data } = useSWR(['state', { limit: 300, ...filter }], (_, query) =>
     getStates(query)
   );
@@ -27,7 +31,7 @@ export const StateSelect = ({ filter, ...props }: StateSelectProps) => {
         Estado
       </p>
       <Select
-        className="w-full rounded"
+        className={`w-full rounded ${className}`}
         choices={choices}
         placeholder="--Selecciona Estado--"
         {...props}

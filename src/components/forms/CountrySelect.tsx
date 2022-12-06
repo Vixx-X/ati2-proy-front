@@ -11,6 +11,7 @@ export interface CountrySelectProps extends FilteredSelectProps {}
 export const CountrySelect = ({
   filter,
   name,
+  className,
   ...props
 }: CountrySelectProps) => {
   const { data } = useSWR(
@@ -31,7 +32,7 @@ export const CountrySelect = ({
         Pais
       </p>
       <Select
-        className="w-full rounded"
+        className={`w-full rounded ${className}`}
         choices={choices}
         placeholder="--Selecciona País--"
         name={name}

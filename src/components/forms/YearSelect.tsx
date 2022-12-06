@@ -8,7 +8,11 @@ import Select, { FilteredSelectProps } from './Select';
 
 export interface YearSelectProps extends FilteredSelectProps {}
 
-export const YearSelect = ({ filter, ...props }: YearSelectProps) => {
+export const YearSelect = ({
+  filter,
+  className,
+  ...props
+}: YearSelectProps) => {
   const { data } = useSWR(['year', { limit: 300, ...filter }], (_, query) =>
     getYears(query)
   );
@@ -27,7 +31,7 @@ export const YearSelect = ({ filter, ...props }: YearSelectProps) => {
         Año de Vehiculo
       </p>
       <Select
-        className="w-full rounded"
+        className={`w-full rounded ${className}`}
         choices={choices}
         placeholder="--Selecciona Year--"
         {...props}

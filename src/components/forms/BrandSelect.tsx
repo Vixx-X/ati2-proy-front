@@ -6,7 +6,7 @@ import useSWR from 'swr';
 
 import Select from './Select';
 
-export const BrandSelect = ({ name, filter, ...props }: Props) => {
+export const BrandSelect = ({ name, filter, className, ...props }: Props) => {
   const { data } = useSWR(['brand', { limit: 100, ...filter }], (_, query) =>
     getBrands(query)
   );
@@ -21,11 +21,11 @@ export const BrandSelect = ({ name, filter, ...props }: Props) => {
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Marcas de Vehiculos
+        Marcas de Vehículos
       </p>
       <Select
         name={name}
-        className="w-full rounded"
+        className={`w-full rounded ${className}`}
         choices={choices}
         placeholder="--Selecciona Marca--"
         {...props}

@@ -48,22 +48,24 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
       title="iniciar sesion"
       setShowModal={setShowModal}
     >
-      <>
+      <div className="min-w-[600px]">
         <p>Seleccione la cuenta en la que desea acceder</p>
         <Form initialValues={initValues} onSubmit={handleSubmit}>
           <div className="flex flex-col gap-y-4 m-8 ">
             <div className="flex">
-              <label className="basis-1/6" htmlFor="email">
+              <label className="basis-1/6 capitalize" htmlFor="email">
                 correo
               </label>
-              <Field name="email" id="email" />
+              <Field name="email" id="email" styles="basis-5/6" />
               <ErrorMsg name="email" />
             </div>
             <div className="flex">
-              <label className="basis-1/6" htmlFor="password">
+              <label className="basis-1/6 capitalize" htmlFor="password">
                 contraseña
               </label>
-              <PassField name="password" id="password" />
+              <div className="basis-5/6 text-sm">
+                <PassField name="password" id="password" />
+              </div>
               <ErrorMsg name="password" />
             </div>
           </div>
@@ -76,7 +78,7 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
             </a>
           </div>
         </Form>
-      </>
+      </div>
     </BaseModal>
   );
 };
