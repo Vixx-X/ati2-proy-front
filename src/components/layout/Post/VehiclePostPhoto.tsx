@@ -5,6 +5,7 @@ import Image from 'next/image';
 import DetailsModal from '@components/modals/DetailsModal';
 import PhotosModal from '@components/modals/PhotosModal';
 
+import { DEFAULT_IMAGE } from '@data/fakeData';
 import {
   Address,
   Contact,
@@ -110,16 +111,16 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
               vehicle_state={vehicle_state}
               sale_type={sale_type}
             />
-            <div className="w-full sm:max-w-[250px] sm:max-h-[170px]">
-              {media && media[0] ? (
-                <Image
-                  alt={'post'}
-                  src={media}
-                  className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
-                  objectFit="cover"
-                  layout="fill"
-                />
-              ) : null}
+            <div className="w-full sm:max-w-[250px] sm:max-h-[170px] text-center">
+              <Image
+                src={images.length ? images[0] : DEFAULT_IMAGE}
+                alt={images.length ? images[0] : 'placeholder-vehicle'}
+                className="opacity-70 hover:opacity-100 cursor-pointer transition-opacity"
+                unoptimized
+                width="100%"
+                height="100%"
+                objectFit="cover"
+              />
             </div>
           </div>
           <div className="font-bold text-lg sm:flex sm:justify-center sm:items-center">
@@ -201,7 +202,8 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           showModal={showModal}
           setShowModal={setShowModal}
           title={titleHover}
-          media={media}
+          images={images}
+          videos={videos}
           address={address}
           vehicle={vehicle}
           vehicle_state={vehicle_state}

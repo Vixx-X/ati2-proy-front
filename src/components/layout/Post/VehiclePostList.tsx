@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+import Image from 'next/image';
+
 import { classNames } from '@utils/classNames';
+
+import { DEFAULT_IMAGE } from '@data/fakeData';
 
 import Button from '../Button';
 import GenericComponent from '../Parser/Parse';
@@ -20,7 +24,7 @@ const VehiclePostList = (props: any) => {
     address,
     contact,
     details,
-    media,
+    images,
     rental_price,
     currency,
     sale_price,
@@ -31,10 +35,17 @@ const VehiclePostList = (props: any) => {
   } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
-    <div>
+    <div className="w-full">
       <div className="md:flex md:flex-wrap">
         <div className="md:w-4/12 lg:w-2/12 flex flex-col gap-y-2">
-          <SplideImageComponent images={media} />
+          {images.length > 1 ? (
+            <SplideImageComponent images={images} />
+          ) : (
+            <img
+              src={images.length ? images[0] : DEFAULT_IMAGE}
+              alt={images.length ? images[0] : 'placeholder-vehicle'}
+            />
+          )}
           <a className="text-blue-600 underline cursor-pointer font-bold">
             Más detalles
           </a>

@@ -10,6 +10,9 @@ enum DaysOfWeek {
   WEEK = 8,
 }
 
+export const DEFAULT_IMAGE =
+  'https://manxmotortrader.com/wp-content/themes/kensington/img/placeholder.jpg';
+
 enum SaleType {
   SALE = 'SALE',
   RENTAL = 'RENTAL',
