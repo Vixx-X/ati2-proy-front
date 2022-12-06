@@ -59,7 +59,10 @@ const Landing: NextPage = () => {
     (_, q) => getPostsVehicles(q)
   );
 
-  const pages = useMemo(() => Math.ceil(data?.count / PAGE_SIZE), [data]);
+  const pages = useMemo(
+    () => Math.ceil((data?.count ?? 1) / PAGE_SIZE),
+    [data]
+  );
 
   return (
     <MainContainer activate="inicio" maxWidth="max-w-none">
@@ -151,13 +154,34 @@ const Landing: NextPage = () => {
               tipo de vehículo
             </p>
             <div className="flex gap-x-16">
-              <Button className="w-32 text-sm" bgColor="bg-primary">
+              <Button
+                className="w-32 text-sm"
+                bgColor="bg-primary"
+                href={{
+                  query: { ...query, vehicle_type: 'CAR' },
+                }}
+                anchorTag
+              >
                 carro
               </Button>
-              <Button className="w-32 text-sm" bgColor="bg-secundary">
+              <Button
+                className="w-32 text-sm"
+                bgColor="bg-secundary"
+                href={{
+                  query: { ...query, vehicle_type: 'SUV' },
+                }}
+                anchorTag
+              >
                 camioneta
               </Button>
-              <Button className="w-40 text-sm" bgColor="bg-pink">
+              <Button
+                className="w-40 text-sm"
+                bgColor="bg-pink"
+                href={{
+                  query: { ...query, vehicle_type: 'TRUCK' },
+                }}
+                anchorTag
+              >
                 camión
               </Button>
             </div>
@@ -165,13 +189,34 @@ const Landing: NextPage = () => {
           <div className="flex my-4 mx-4 items-center">
             <p className="text-red capitalize font-bold w-64">vehiculo en</p>
             <div className="flex gap-x-16">
-              <Button className="w-32 text-sm" bgColor="bg-primary">
+              <Button
+                className="w-32 text-sm"
+                bgColor="bg-primary"
+                href={{
+                  query: { ...query, sale_type: 'SALE' },
+                }}
+                anchorTag
+              >
                 venta
               </Button>
-              <Button className="w-32 text-sm" bgColor="bg-secundary">
+              <Button
+                className="w-32 text-sm"
+                bgColor="bg-secundary"
+                href={{
+                  query: { ...query, sale_type: 'RENT' },
+                }}
+                anchorTag
+              >
                 alquiler
               </Button>
-              <Button className="w-40 text-sm" bgColor="bg-pink">
+              <Button
+                className="w-40 text-sm"
+                bgColor="bg-pink"
+                href={{
+                  query: { ...query, sale_type: 'BOTH' },
+                }}
+                anchorTag
+              >
                 alquiler y venta
               </Button>
             </div>
@@ -181,10 +226,24 @@ const Landing: NextPage = () => {
               ordenar resultados por
             </p>
             <div className="flex gap-x-16">
-              <Button className="w-32 text-sm" bgColor="bg-primary">
+              <Button
+                className="w-32 text-sm"
+                bgColor="bg-primary"
+                href={{
+                  query: { ...query, ordering: 'sale_price' },
+                }}
+                anchorTag
+              >
                 precio
               </Button>
-              <Button className="w-32 text-sm" bgColor="bg-secundary">
+              <Button
+                className="w-32 text-sm"
+                bgColor="bg-secundary"
+                href={{
+                  query: { ...query, ordering: 'rent_price' },
+                }}
+                anchorTag
+              >
                 alquiler
               </Button>
             </div>

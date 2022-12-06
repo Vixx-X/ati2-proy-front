@@ -75,12 +75,20 @@ const VehicleComplexSearch = ({
               name="ordering"
               choices={[
                 {
-                  text: 'De mayor a menor precio',
-                  value: '-price',
+                  text: 'De mayor a menor precio de venta',
+                  value: '-sale_price',
                 },
                 {
-                  text: 'De menor a mayor precio',
-                  value: 'price',
+                  text: 'De menor a mayor precio de venta',
+                  value: 'sale_price',
+                },
+                {
+                  text: 'De mayor a menor precio de renta',
+                  value: '-rental_price',
+                },
+                {
+                  text: 'De menor a mayor precio de renta',
+                  value: 'rental_price',
                 },
               ]}
             />
