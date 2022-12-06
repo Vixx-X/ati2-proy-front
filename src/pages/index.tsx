@@ -45,7 +45,7 @@ const Landing: NextPage = () => {
                 className="gap-2 grid md:grid-cols-3"
                 filters={filters}
                 onFilter={(values: any) =>
-                  setFilters((prev) => ({ ...prev, values }))
+                  setFilters((prev) => ({ ...prev, ...values }))
                 }
               />
             </details>

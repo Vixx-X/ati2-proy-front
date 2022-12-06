@@ -1,8 +1,6 @@
 import BrandSelect from '@components/forms/BrandSelect';
-import CitySelect from '@components/forms/CitySelect';
 import ContinentSelect from '@components/forms/ContinentSelect';
 import CountrySelect from '@components/forms/CountrySelect';
-import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
 import RadioGroup from '@components/forms/RadioGroup';
@@ -34,6 +32,7 @@ const VehicleFastSearch = ({
       initialValues={filters}
       onSubmit={onFilter as any}
       renderProps
+      autoSubmit
     >
       {({ values }) => (
         <>
