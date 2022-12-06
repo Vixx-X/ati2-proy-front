@@ -23,23 +23,29 @@ export const Field = ({
     [status, props.name /*, errors*/]
   );
 
-  return (
-    <FField
-      className={classNames(
-        props?.className ??
-          'bg-white border border-darkprimary placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 text-gray-600 pl-4 pr-10 py-2 focus:border-1',
-        hasError
-          ? 'focus:border-red-300 focus:ring-red-300'
-          : 'focus:border-gray-300 focus:ring-gray-300',
-        styles
-      )}
-      value={recursiveGetter(values, props.name)}
-      onChange={onChangeCallback(handleChange)}
-      {...props}
-    >
-      {children}
-    </FField>
-  );
+  const fieldProps = {
+    className: classNames(
+      props?.className ??
+        'bg-white border border-darkprimary placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 text-gray-600 pl-4 pr-10 py-2 focus:border-1',
+      hasError
+        ? 'focus:border-red-300 focus:ring-red-300'
+        : 'focus:border-gray-300 focus:ring-gray-300',
+      styles
+    ),
+    value: recursiveGetter(values, props.name),
+    onChange: onChangeCallback(handleChange),
+    ...props,
+  };
+
+  if (props?.name) return <FField {...fieldProps}>{children}</FField>;
+
+  if (props?.as === 'select')
+    return <select {...fieldProps}>{children}</select>;
+
+  if (props?.as === 'textarea')
+    return <textarea {...fieldProps}>{children}</textarea>;
+
+  return <input {...fieldProps}>{children}</input>;
 };
 
 export default Field;

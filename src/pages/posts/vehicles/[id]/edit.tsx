@@ -43,17 +43,14 @@ const EditVehicle: NextPage = () => {
     accesories: data?.accesories,
     services: data?.services,
     contact: {
-      // "contact_hour_start": "2022-12-05T05:55:38.575Z",
-      // "contact_hour_end": "2022-12-05T05:55:38.575Z",
-      // "contact_days": [
-      //   "string"
-      // ]
+      contact_hour_start: data?.contact.contact_hour_start,
+      contact_hour_end: data?.contact.contact_hour_end,
+      contact_days: data?.contact.contact_days,
       first_name: data?.contact.first_name,
       last_name: data?.contact.last_name,
       email: data?.contact.email,
       local_phone: data?.local_phone,
       phone: data?.phone,
-      days: data?.contact.contact_days,
     },
     // currency: data.currency,
     vehicle_id: data?.vehicle?.id,

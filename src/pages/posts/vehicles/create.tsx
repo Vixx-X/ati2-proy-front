@@ -31,17 +31,14 @@ const CreateVehicle: NextPage = () => {
     accesories: '',
     services: '',
     contact: {
-      // "contact_hour_start": "2022-12-05T05:55:38.575Z",
-      // "contact_hour_end": "2022-12-05T05:55:38.575Z",
-      // "contact_days": [
-      //   "string"
-      // ]
+      contact_hour_start: '',
+      contact_hour_end: '',
+      contact_days: [],
       first_name: '',
       last_name: '',
       email: '',
       local_phone: '',
       phone: '',
-      days: '',
     },
     vehicle_id: '',
     video_ids: [],

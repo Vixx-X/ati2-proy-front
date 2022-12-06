@@ -93,16 +93,14 @@ export const EditVehicleForm = ({
         image_ids: images,
         video_ids: videos,
         contact: {
-          first_name: 'gabriela',
-          last_name: 'ustariz',
-          email: 'gabyustariz@hotmail.com',
+          first_name: values.contact.first_name,
+          last_name: values.contact.last_name,
+          email: values.contact.email,
           local_phone: '+582128886655',
           phone: '+582128886655',
-          contact_hour_start: '2022-12-05T05:55:38.575Z',
-          contact_hour_end: '2022-12-05T05:55:38.575Z',
-          contact_days: ['monday'],
-          // contact_hour_start: '2022-12-05T05:55:38.575Z,
-          // contact_hour_end": '2022-12-05T05:55:38.575Z",
+          contact_days: values.contact.contact_days,
+          contact_hour_start: values.contact.contact_hour_start,
+          contact_hour_end: values.contact.contact_hour_end,
         },
       };
 
@@ -324,8 +322,11 @@ export const EditVehicleForm = ({
               <ContactUserData />
             </div>
             <div className="w-[40%] gap-2 flex flex-col items-center justify-center">
-              <ContactDays />
-              <ContactUseHours />
+              <ContactDays name="contact.contact_days" />
+              <ContactUseHours
+                nameStart="contact.contact_hour_start"
+                nameEnd="contact.contact_hour_end"
+              />
             </div>
           </div>
           <div className="flex gap-x-4">
