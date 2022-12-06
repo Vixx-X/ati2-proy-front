@@ -15,6 +15,7 @@ export interface FilteredSelectProps extends Props {
   placeholder?: string;
   choices?: { value: string; text: string }[];
   filter?: { [key: string]: any };
+  noTitle?: boolean
 }
 
 export const Select = ({ choices, placeholder, ...props }: SelectProps) => {
