@@ -46,10 +46,10 @@ export const postOTPRequest = async (data: any) => {
   return resp.data;
 };
 
-export async function postResetPassword(email: any) {
+export async function postResetPassword(body: any) {
   const resp = await fetcher.post(
     API_URLS.URL_PASSWORD_RESET,
-    { email },
+    body,
     makeFetchOptions()
   );
   await assertApiError(resp);

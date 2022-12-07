@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
+import LoaderSpinner from '@components/LoaderSpinner';
+
 import { getContactDays } from '@fetches/post';
 
 import useToggle from '@hooks/useToggle';
@@ -24,12 +26,14 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 
   const days = useMemo(() => data?.map((el: any) => el.option), [data]);
 
-  const weekdayOptions: any = useMemo(() => {
-    if (days) [...days]?.splice(0, 5);
-  }, [days]);
-  const weekendOptions: any = useMemo(() => {
-    if (days) [...days]?.splice(5, 7);
-  }, [days]);
+  const weekdayOptions = useMemo(
+    () => (!days ? null : [...days]?.splice(0, 5)),
+    [days]
+  );
+  const weekendOptions = useMemo(
+    () => (!days ? null : [...days]?.splice(5, 7)),
+    [days]
+  );
 
   const choices = useMemo(() => {
     const items = days?.map((el: any) => ({
@@ -44,18 +48,22 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
     ];
   }, [days, weekends, weekdays]);
 
-  // useEffect(() => {
-  //   const options = recursiveGetter(values, name);
-  //   toggleWeekends(weekendOptions?.every((el: string) => options.includes(el)));
-  //   toggleWeekdays(weekdayOptions?.every((el: string) => options.includes(el)));
-  // }, [
-  //   name,
-  //   toggleWeekdays,
-  //   toggleWeekends,
-  //   values,
-  //   weekdayOptions,
-  //   weekendOptions,
-  // ]);
+  useEffect(() => {
+    const options = recursiveGetter(values, name);
+    toggleWeekends(
+      weekendOptions?.every((el: string) => options?.includes(el))
+    );
+    toggleWeekdays(
+      weekdayOptions?.every((el: string) => options?.includes(el))
+    );
+  }, [
+    name,
+    toggleWeekdays,
+    toggleWeekends,
+    values,
+    weekdayOptions,
+    weekendOptions,
+  ]);
 
   return (
     <>
@@ -73,15 +81,23 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
               const val = e.target.value;
               const options = recursiveGetter(values, name);
               if (val === 'weekends' && !weekends) {
-                setFieldValue(name, [
-                  ...(new Set([...weekendOptions, ...options]) as any),
-                ]);
+                if (weekendOptions)
+                  setFieldValue(name, [
+                    ...(new Set([
+                      ...weekendOptions,
+                      ...(options ?? []),
+                    ]) as any),
+                  ]);
                 return;
               }
               if (val === 'weekdays' && !weekdays) {
-                setFieldValue(name, [
-                  ...(new Set([...weekdayOptions, ...options]) as any),
-                ]);
+                if (weekdayOptions)
+                  setFieldValue(name, [
+                    ...(new Set([
+                      ...weekdayOptions,
+                      ...(options ?? []),
+                    ]) as any),
+                  ]);
                 return;
               }
               return fun(e);
