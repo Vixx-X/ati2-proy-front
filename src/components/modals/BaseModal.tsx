@@ -29,7 +29,7 @@ export const BaseModal = ({
             <div
               className={`relative my-6 mx-auto bg-white border-x border-b border-gray-300 rounded-t ${className}`}
             >
-              <div className="flex justify- between border-solid rounded-t bg-primary">
+              <div className="flex justify- between border-solid rounded-t bg-primary sticky top-0">
                 <div className="grow flex px-4 py-2 w-100 justify-center items-center">
                   <p className="font-semibold text-white text-center items-center text-xl capitalize">
                     {title}

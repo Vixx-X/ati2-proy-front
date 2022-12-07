@@ -16,7 +16,7 @@ const MainContainer = ({
     <div className="flex flex-col h-screen">
       <Header activate={activate} />
       <Container
-        className={`pt-4 pb-16 ${containerClassName}`}
+        className={`pt-4 pb-16 mt-24 ${containerClassName}`}
         maxWidth={maxWidth}
       >
         {children}

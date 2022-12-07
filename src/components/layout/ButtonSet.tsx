@@ -24,7 +24,7 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
   const [open, setOpen] = useState(false);
   return (
     <Container className="w-11/12">
-      <div className="flex justify-end gap-x-4 h-12">
+      <div className="flex justify-end gap-x-4 h-12 bg-white">
         {!isAuth ? (
           <>
             <Button
