@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
 interface NavbarProps {
-  activatePage?: string;
+  activatePage?: string | Array<string>;
   options: any;
   link?: string;
   text?: string;
+  activate?: string;
   visible?: boolean;
   stylesMargin?: string;
   top?: number;
@@ -15,6 +16,7 @@ export const Navbar = ({
   activatePage,
   link,
   text,
+  activate,
   visible = false,
   top = 0,
   stylesMargin,
@@ -24,6 +26,8 @@ export const Navbar = ({
     setIsVisible(!isVisible);
   };
 
+  console.log(activatePage, activate);
+
   const styleTop = `${top + 58}px`;
   return (
     <li className="list-none">
@@ -32,10 +36,11 @@ export const Navbar = ({
           {options ? (
             <div
               className={`hover:text-yellow transition py-4 ${
-                text === activatePage ? 'underline text-yellow' : ''
+                activate === activatePage ||
+                (activate && activatePage?.includes(activate))
+                  ? 'underline text-yellow'
+                  : ''
               }`}
-              // onMouseOver={expand}
-              // onMouseLeave={() => setIsVisible(false)}
               onClick={expand}
             >
               {text}
@@ -43,7 +48,10 @@ export const Navbar = ({
           ) : (
             <a
               className={`hover:text-yellow transition block py-4 ${
-                text === activatePage ? 'underline text-yellow' : ''
+                activate === activatePage ||
+                (activate && activatePage?.includes(activate))
+                  ? 'underline text-yellow'
+                  : ''
               }`}
               href={link}
             >
@@ -54,7 +62,7 @@ export const Navbar = ({
       )}
       {isVisible && options ? (
         <ul
-          className={`px-0 mx-0 flex flex-wrap max-h-14 bg-primary gap-x-4 gap-y-4 justify-between text-white no-underline items-center capitalize font-bold cursor-pointer list-none ${stylesMargin}`}
+          className={`flex mx-0 px-10 flex-wrap max-h-14 bg-primary gap-x-4 gap-y-4 justify-between text-white no-underline items-center capitalize font-bold cursor-pointer list-none ${stylesMargin}`}
           style={{ top: styleTop }}
         >
           <>
@@ -62,6 +70,7 @@ export const Navbar = ({
               <Navbar
                 options={element?.options && element?.options}
                 activatePage={activatePage}
+                activate={element.activate}
                 link={element.link}
                 text={element.text}
                 stylesMargin={`ml-0 absolute`}

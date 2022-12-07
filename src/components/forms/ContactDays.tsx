@@ -24,8 +24,12 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 
   const days = useMemo(() => data?.map((el: any) => el.option), [data]);
 
-  const weekdayOptions = useMemo(() => [...days]?.splice(0, 5), [days]);
-  const weekendOptions = useMemo(() => [...days]?.splice(5, 7), [days]);
+  const weekdayOptions: any = useMemo(() => {
+    if (days) [...days]?.splice(0, 5);
+  }, [days]);
+  const weekendOptions: any = useMemo(() => {
+    if (days) [...days]?.splice(5, 7);
+  }, [days]);
 
   const choices = useMemo(() => {
     const items = days?.map((el: any) => ({
@@ -40,18 +44,18 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
     ];
   }, [days, weekends, weekdays]);
 
-  useEffect(() => {
-    const options = recursiveGetter(values, name);
-    toggleWeekends(weekendOptions.every((el: string) => options.includes(el)));
-    toggleWeekdays(weekdayOptions.every((el: string) => options.includes(el)));
-  }, [
-    name,
-    toggleWeekdays,
-    toggleWeekends,
-    values,
-    weekdayOptions,
-    weekendOptions,
-  ]);
+  // useEffect(() => {
+  //   const options = recursiveGetter(values, name);
+  //   toggleWeekends(weekendOptions?.every((el: string) => options.includes(el)));
+  //   toggleWeekdays(weekdayOptions?.every((el: string) => options.includes(el)));
+  // }, [
+  //   name,
+  //   toggleWeekdays,
+  //   toggleWeekends,
+  //   values,
+  //   weekdayOptions,
+  //   weekendOptions,
+  // ]);
 
   return (
     <>
@@ -91,4 +95,3 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 };
 
 export default ContactDays;
-
