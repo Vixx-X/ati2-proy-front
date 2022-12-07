@@ -35,7 +35,7 @@ const OPTIONS = [
   },
   {
     value: 'email',
-    text: 'Correo electrónico o usuario',
+    text: 'Correo electrónico',
   },
   {
     value: 'phone_number',
@@ -67,7 +67,7 @@ export const ResetPasswordModal = ({
       setStatus({});
       setStep(STEPS.INFO);
     } catch (exception: any) {
-      setStatus(exception.data);
+      setStatus(exception.data.detail);
       setLoading(false);
     }
   };
@@ -116,7 +116,7 @@ export const ResetPasswordModal = ({
               <>
                 <p className="mb-3">
                   {values?.form_choice === 'email' ? (
-                    <>Ingresa tu correo electrónico, o usuario</>
+                    <>Ingresa tu correo electrónico</>
                   ) : values?.form_choice === 'document_id' ? (
                     <>Ingresa tu cédula de identidad, DNI, o pasaporte</>
                   ) : values?.form_choice === 'phone_number' ? (
@@ -126,12 +126,18 @@ export const ResetPasswordModal = ({
                 <div className="flex flex-col gap-y-4 m-8 ">
                   <div className="flex">
                     <Field name={values?.form_choice} />
-                    <ErrorMsg name={values?.form_choice} />
                   </div>
+                  <ErrorMsg name={values?.form_choice} />
+                  <ErrorMsg name={'non_field_errors'} />
                 </div>
                 <div className="flex justify-center mt-2">
                   <div className="flex">
-                    <Button type="submit">Siguiente</Button>
+                    <Button
+                      type="submit"
+                      disabled={values?.form_choice === 'phone_number'}
+                    >
+                      Siguiente
+                    </Button>
                     <Button onClick={() => setStep(STEPS.BASE)}>
                       Cancelar
                     </Button>
