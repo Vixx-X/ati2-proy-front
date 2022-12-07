@@ -1,0 +1,139 @@
+import { useState } from 'react';
+
+import Loader from '@components/Loader';
+import ErrorMsg from '@components/forms/ErrorMsg';
+import Field from '@components/forms/Field';
+import Form from '@components/forms/Form';
+import PassField from '@components/forms/PassField';
+import Button from '@components/layout/Button';
+import BaseModal from '@components/modals/BaseModal';
+
+import { postResetPassword } from '@fetches/user';
+
+import { FormikValues } from 'formik';
+
+interface ResetPasswordModalProps {
+  showModal: boolean;
+  setShowModal: any;
+}
+
+interface ResetPasswordForm {
+  document_id: string;
+  email: string;
+}
+
+const STEPS = {
+  BASE: 0,
+  FORM: 1,
+  INFO: 2,
+};
+
+export const ResetPasswordModal = ({
+  showModal,
+  setShowModal,
+}: ResetPasswordModalProps) => {
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<any | undefined>();
+  const [step, setStep] = useState(STEPS.BASE);
+
+  const initValues = {
+    document_id: '',
+    email: '',
+  } as ResetPasswordForm;
+
+  const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
+    setLoading(true);
+    try {
+      const data = {} as any;
+      if (values?.document_id) data['document_id'] = values?.document_id;
+      if (values?.email) data['email'] = values?.email;
+      const user = await postResetPassword(data);
+      setUser(user);
+      setStatus({});
+      setStep(STEPS.INFO);
+    } catch (exception: any) {
+      setStatus(exception.data);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <BaseModal
+      showModal={showModal}
+      title="reset password"
+      setShowModal={setShowModal}
+    >
+      <>
+        <Form initialValues={initValues} onSubmit={handleSubmit} renderProps>
+            {({values}) => (
+          {step === STEPS.INFO ? (
+            <div className="divide-y">
+              <p className="text-light mb-4">
+                Acabamos de enviar tu usuario, y un link paravrestablecer tu
+                contraseña, al correo: {user?.email}
+              </p>
+              <p className="text-light mb-4">
+                y al número de teléfono: {user?.phone_number}
+              </p>
+              <p className="text-light mb-4">
+                Si este no es su correo o teléfono, debe modificar su correo
+                electrónico, o teléfono, en la cuenta que posee con la empresa,
+                y solicitar nuevamente el envío de dicha información
+              </p>
+            </div>
+          ) : step === STEPS.BASE ? (
+            <p className="mb-4">
+              Seleccione la información que va a proporcionar
+            </p>
+          ) : step === STEPS.FORM ? (
+            <>
+              <div className="divide-y">
+                <div>
+                  <p className="font-light text-3xl mb-3 text-light">
+                    Olvido de contraseña
+                  </p>
+                </div>
+                <div className="pt-4">
+                  <div className="mb-4">
+                    <label
+                      className="block text-sm xl:text-lg font-bold mb-2 text-light"
+                      htmlFor="email"
+                    >
+                      Correo electrónico
+                    </label>
+                    <Field
+                      type="email"
+                      label="Correo electrónico"
+                      name="email"
+                      id="email"
+                      className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <ErrorMsg name="email" />
+                  <p className="text-light mb-4">
+                    Por favor ingresar su correo electronico. Recibirás via
+                    correo un link para crear una nueva contraseña
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full"
+                >
+                  <p>Enviar</p>
+                </button>
+              </div>
+              {loading && <Loader />}
+            </>
+          ) : null}
+
+            )}
+        </Form>
+      </>
+    </BaseModal>
+  );
+};
+
+export default ResetPasswordModal;

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
+import Loader from '@components/Loader';
 import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
-import PassField from '@components/forms/PassField';
+import RadioGroup from '@components/forms/RadioGroup';
 import Button from '@components/layout/Button';
 import BaseModal from '@components/modals/BaseModal';
 
@@ -21,12 +22,34 @@ interface ResetPasswordForm {
   email: string;
 }
 
+const STEPS = {
+  BASE: 0,
+  FORM: 1,
+  INFO: 2,
+};
+
+const OPTIONS = [
+  {
+    value: 'document_id',
+    text: 'Cédula de identidad, DNI o pasaporte',
+  },
+  {
+    value: 'email',
+    text: 'Correo electrónico o usuario',
+  },
+  {
+    value: 'phone_number',
+    text: 'Teléfono celular o móvil',
+  },
+];
+
 export const ResetPasswordModal = ({
   showModal,
   setShowModal,
 }: ResetPasswordModalProps) => {
   const [loading, setLoading] = useState(false);
-  const [tmpUserData, setTmpUserData] = useState();
+  const [user, setUser] = useState<any | undefined>();
+  const [step, setStep] = useState(STEPS.BASE);
 
   const initValues = {
     document_id: '',
@@ -40,8 +63,9 @@ export const ResetPasswordModal = ({
       if (values?.document_id) data['document_id'] = values?.document_id;
       if (values?.email) data['email'] = values?.email;
       const user = await postResetPassword(data);
-      setTmpUserData(user);
+      setUser(user);
       setStatus({});
+      setStep(STEPS.INFO);
     } catch (exception: any) {
       setStatus(exception.data);
       setLoading(false);
@@ -54,35 +78,71 @@ export const ResetPasswordModal = ({
       title="reset password"
       setShowModal={setShowModal}
     >
-      <>
-        <p>Seleccione la cuenta en la que desea acceder</p>
-        <Form initialValues={initValues} onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-y-4 m-8 ">
-            <div className="flex">
-              <label className="basis-1/6" htmlFor="email">
-                correo
-              </label>
-              <Field name="email" id="email" />
-              <ErrorMsg name="email" />
-            </div>
-            <div className="flex">
-              <label className="basis-1/6" htmlFor="password">
-                contraseña
-              </label>
-              <PassField name="password" id="password" />
-              <ErrorMsg name="password" />
-            </div>
-          </div>
-          <div className="text-center">
-            <Button className="w-auto rounded-md font-bold" type="submit">
-              iniciar sesión
-            </Button>
-            <a className="mt-4 block underline ">
-              Olvide mi Contraseña o mis datos
-            </a>
-          </div>
-        </Form>
-      </>
+      <Form initialValues={initValues} onSubmit={handleSubmit} renderProps>
+        {({ values }) => (
+          <>
+            {step === STEPS.INFO ? (
+              <div>
+                <p className="mb-4">
+                  Acabamos de enviar tu usuario, y un link para restablecer tu
+                  contraseña, al correo: {user?.email}
+                </p>
+                <p className="mb-4">
+                  y al número de teléfono: {user?.phone_number ?? 'NO APLICA'}
+                </p>
+                <p className="mb-4">
+                  Si este no es su correo o teléfono, debe modificar su correo
+                  electrónico, o teléfono, en la cuenta que posee con la
+                  empresa, y solicitar nuevamente el envío de dicha información
+                </p>
+              </div>
+            ) : step === STEPS.BASE ? (
+              <>
+                <p className="mb-4">
+                  Seleccione la información que va a proporcionar
+                </p>
+                <RadioGroup name="form_choice" choices={OPTIONS} />
+                <div className="flex mt-3">
+                  <Button
+                    onClick={() => setStep(STEPS.FORM)}
+                    disabled={!values?.form_choice}
+                  >
+                    Siguiente
+                  </Button>
+                  <Button onClick={() => setStep(STEPS.BASE)}>Cancelar</Button>
+                </div>
+              </>
+            ) : step === STEPS.FORM ? (
+              <>
+                <p className="mb-3">
+                  {values?.form_choice === 'email' ? (
+                    <>Ingresa tu correo electrónico, o usuario</>
+                  ) : values?.form_choice === 'document_id' ? (
+                    <>Ingresa tu cédula de identidad, DNI, o pasaporte</>
+                  ) : values?.form_choice === 'phone_number' ? (
+                    <>Ingresa tu número de teléfono móvil</>
+                  ) : null}
+                </p>
+                <div className="flex flex-col gap-y-4 m-8 ">
+                  <div className="flex">
+                    <Field name={values?.form_choice} />
+                    <ErrorMsg name={values?.form_choice} />
+                  </div>
+                </div>
+                <div className="flex justify-center mt-2">
+                  <div className="flex">
+                    <Button type="submit">Siguiente</Button>
+                    <Button onClick={() => setStep(STEPS.BASE)}>
+                      Cancelar
+                    </Button>
+                  </div>
+                </div>
+                {loading && <Loader />}
+              </>
+            ) : null}
+          </>
+        )}
+      </Form>
     </BaseModal>
   );
 };
