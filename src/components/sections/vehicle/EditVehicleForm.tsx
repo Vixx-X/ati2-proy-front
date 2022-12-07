@@ -11,14 +11,16 @@ import { CurrencySelect } from '@components/forms/CurrencySelect';
 import { DragAndDropImg } from '@components/forms/DragAndDropImg';
 import { DragAndDropVideo } from '@components/forms/DragAndDropVideo';
 import ErrorMsg from '@components/forms/ErrorMsg';
-import { Field } from '@components/forms/Field';
-import { Form } from '@components/forms/Form';
+import Field from '@components/forms/Field';
+import Form from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
 import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
 import TextArea from '@components/forms/TextArea';
 import YearSelect from '@components/forms/YearSelect';
 import Button from '@components/layout/Button';
+
+import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES, YES_OR_NO } from '@config';
 
 import { postVehicle, putVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
@@ -50,37 +52,6 @@ const textAreaData = [
   },
 ];
 
-const SALE_TYPE_CHOICES = [
-  {
-    value: 'RENT',
-    text: 'Alquiler',
-  },
-  {
-    value: 'SALE',
-    text: 'Venta',
-  },
-  {
-    value: 'BOTH',
-    text: 'Alquiler y Venta',
-  },
-];
-
-const VEHICLE_STATE_CHOICES = [
-  {
-    value: 'NEW',
-    text: 'Nuevo',
-  },
-  {
-    value: 'USED',
-    text: 'Usado',
-  },
-];
-
-const YES_OR_NO = [
-  { value: '1', text: 'Si' },
-  { value: '0', text: 'No' },
-];
-
 export const EditVehicleForm = ({
   createMode,
   initialValues: initValues,
@@ -90,7 +61,10 @@ export const EditVehicleForm = ({
 
   const initialValues = {
     ...initValues,
-    filter: { video: '0', ...initValues.filter },
+    filter: {
+      video: initValues.video_ids?.length ? '1' : '0',
+      ...initValues.filter,
+    },
   };
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
@@ -108,8 +82,7 @@ export const EditVehicleForm = ({
       const data = {
         address: values.address,
         details: values.details,
-        currency:
-          values?.currency1 === 'OTHER' ? values?.currency2 : values?.currency1,
+        currency: values.currency,
         sale_price: values.sale_price,
         rental_price: values.rental_price,
         sale_type: values.sale_type,
@@ -120,16 +93,14 @@ export const EditVehicleForm = ({
         image_ids: images,
         video_ids: videos,
         contact: {
-          first_name: 'gabriela',
-          last_name: 'ustariz',
-          email: 'gabyustariz@hotmail.com',
+          first_name: values.contact.first_name,
+          last_name: values.contact.last_name,
+          email: values.contact.email,
           local_phone: '+582128886655',
           phone: '+582128886655',
-          contact_hour_start: '2022-12-05T05:55:38.575Z',
-          contact_hour_end: '2022-12-05T05:55:38.575Z',
-          contact_days: ['monday'],
-          // contact_hour_start: '2022-12-05T05:55:38.575Z,
-          // contact_hour_end": '2022-12-05T05:55:38.575Z",
+          contact_days: values.contact.contact_days,
+          contact_hour_start: values.contact.contact_hour_start,
+          contact_hour_end: values.contact.contact_hour_end,
         },
       };
 
@@ -343,20 +314,7 @@ export const EditVehicleForm = ({
               ) : null}
             </div>
             <div>
-              <CurrencySelect name="currency1" />
-
-              {values?.currency1 === 'OTHER' ? (
-                <div className="flex flex-col">
-                  <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    Coloque las siglas de las monedas
-                  </p>
-                  <Field
-                    type="text"
-                    className="pr-2 pl-2 pt-2 pb-2 text-xs"
-                    name="currency2"
-                  />
-                </div>
-              ) : null}
+              <CurrencySelect name="currency" />
             </div>
           </div>
           <div className="flex justify-between gap-4">
@@ -364,8 +322,11 @@ export const EditVehicleForm = ({
               <ContactUserData />
             </div>
             <div className="w-[40%] gap-2 flex flex-col items-center justify-center">
-              <ContactDays />
-              <ContactUseHours />
+              <ContactDays name="contact.contact_days" />
+              <ContactUseHours
+                nameStart="contact.contact_hour_start"
+                nameEnd="contact.contact_hour_end"
+              />
             </div>
           </div>
           <div className="flex gap-x-4">

@@ -4,10 +4,15 @@ import type { NextPage } from 'next';
 
 import LoaderSpinner from '@components/LoaderSpinner';
 import MainContainer from '@components/layout/MainContainer';
+import DocumentsModal from '@components/modals/DocumentsModal';
 import ContactForm from '@components/sections/contactus/ContactForm';
 
 import { getBusinessInfo } from '@fetches/contact';
 
+import questions from '@data/Questions';
+import Questions from '@data/Questions';
+import terms from '@data/TermsAndConditions';
+import TermsAndConditions from '@data/TermsAndConditions';
 import {
   faFacebook,
   faInstagram,
@@ -28,12 +33,14 @@ interface ContactUsForm {
 const ContactUs: NextPage = () => {
   const [load, setLoading] = useState<boolean>(false);
   const { data } = useSWR('contact', () => getBusinessInfo());
+  const [questionModal, setQuestionModal] = useState(false);
+  const [termsModal, setTermsModal] = useState(false);
 
   return (
     <>
       {load ? <LoaderSpinner /> : null}
       <MainContainer
-        activate="contáctenos"
+        activate="contact-us"
         containerClassName="flex flex-col grow"
       >
         <div className="h-full flex">
@@ -62,10 +69,14 @@ const ContactUs: NextPage = () => {
               <h4 className="font-bold">Enlaces de interés</h4>
               <ul>
                 <li className="underline text-blue-600 cursor-pointer capitalize">
-                  <p>preguntas frecuentes</p>
+                  <p onClick={() => setQuestionModal(true)}>
+                    preguntas frecuentes
+                  </p>
                 </li>
                 <li className="underline text-blue-600 cursor-pointer capitalize">
-                  <p>términos de servicio</p>
+                  <p onClick={() => setTermsModal(true)}>
+                    términos de servicio
+                  </p>
                 </li>
               </ul>
             </div>
@@ -109,6 +120,18 @@ const ContactUs: NextPage = () => {
           <ContactForm setLoading={setLoading} />
         </div>
       </MainContainer>
+      <DocumentsModal
+        showModal={termsModal}
+        setShowModal={setTermsModal}
+        text={<TermsAndConditions />}
+        title={'términos y condiciones'}
+      />
+      <DocumentsModal
+        showModal={questionModal}
+        setShowModal={setQuestionModal}
+        text={<Questions />}
+        title={'preguntas frecuentes'}
+      />
     </>
   );
 };

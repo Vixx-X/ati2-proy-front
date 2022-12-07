@@ -23,7 +23,7 @@ export const getPostsVehicles = async (query: any = {}) => {
     makeFetchOptions()
   );
   await assertApiError(resp);
-  return resp.data.results;
+  return resp.data;
 };
 
 export const getPostVehicleById = async (id: any) => {

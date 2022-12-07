@@ -56,50 +56,50 @@ const VehiclePostList = (props: any) => {
               currency={currency}
               sale_price={sale_price}
             />
-            <p className="capitalize">
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">marca : </h4>
               {vehicle?.brand}
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">modelo : </h4>
               {vehicle?.model}
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">año : </h4>
               {vehicle?.year}
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">detalles : </h4>
               <GenericComponent content={details} />
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">
                 accesorios :{' '}
               </h4>
               <a className="underline text-red">Click aquí</a>
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">fotos : </h4>
               <a className="underline text-red">Click aquí</a>
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">videos : </h4>
               <a className="underline text-red">Click aquí</a>
-            </p>
-            <p className="capitalize">
+            </div>
+            <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">
                 servicios al día :
               </h4>
               <GenericComponent content={services} />
-            </p>
-            <p>
+            </div>
+            <div>
               <a className="text-red">
                 Haga click aquí para ver ubicación exacta{' '}
               </a>
               <span className="text-blue-600 underline">
                 Ver ubicación exacta
               </span>
-            </p>
+            </div>
             <div className="2xl:absolute top-0 right-4 flex gap-x-4">
               <p
                 className={classNames(

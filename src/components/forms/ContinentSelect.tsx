@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 
+import Loader from '@components/Loader';
+
 import { getContinents } from '@fetches/address';
 
 import useSWR from 'swr';

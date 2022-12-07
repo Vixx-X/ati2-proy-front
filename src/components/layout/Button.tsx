@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
-import { ReactChild } from 'react';
+import { ReactNode } from 'react';
 
-interface ContainerProps {
+import Link from 'next/link';
+
+export interface ButtonProps extends Props {
   type?: 'button' | 'submit' | 'reset' | undefined;
-  children: ReactChild;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   className?: string;
@@ -18,9 +18,9 @@ export const Button = ({
   endIcon,
   className,
   bgColor = 'bg-secundary',
-  anchorTag = false,
+  anchorTag,
   ...props
-}: ContainerProps & Props) => {
+}: ButtonProps) => {
   return (
     <>
       {!anchorTag ? (
@@ -34,14 +34,16 @@ export const Button = ({
           {endIcon && endIcon}
         </button>
       ) : (
-        <a
-          className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
-          {...props}
-        >
-          {startIcon && startIcon}
-          {children}
-          {endIcon && endIcon}
-        </a>
+        <Link href={props?.href} passHref>
+          <a
+            className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
+            {...props}
+          >
+            {startIcon && startIcon}
+            {children}
+            {endIcon && endIcon}
+          </a>
+        </Link>
       )}
     </>
   );

@@ -1,35 +1,51 @@
 import { Field } from './Field';
 
+type CheckBoxChoiceProps = {
+  value: string | Number;
+  text: string | JSX.Element;
+  checked?: boolean;
+};
+
 interface CheckBoxProps extends Props {
-  choices?: { value: string | Number; text: string | JSX.Element }[];
+  choices?: CheckBoxChoiceProps[];
   name: string;
   label?: string;
 }
 
-export const CheckBox = ({ choices, name, label, childClassName, ...props }: CheckBoxProps) => {
+export const CheckBox = ({
+  choices,
+  name,
+  label,
+  childClassName,
+  ...props
+}: CheckBoxProps) => {
   return (
     <>
       {choices ? (
         <div role="group" {...props}>
-          {choices?.map(
-            (
-              {
-                value,
-                text,
-              }: { value: string | Number; text: string | JSX.Element },
-              index: number
-            ) => (
-              <div className={ childClassName } key={index}>
+          {choices?.map(({ value, text, checked }, index: number) => (
+            <div className={childClassName} key={index}>
+              {checked ? (
                 <Field
                   type="checkbox"
                   name={name}
                   value={value}
                   className="w-4 h-4"
+                  checked={checked}
+                  {...props}
                 />
-                <label className="ml-2">{text}</label>
-              </div>
-            )
-          )}
+              ) : (
+                <Field
+                  type="checkbox"
+                  name={name}
+                  value={value}
+                  className="w-4 h-4"
+                  {...props}
+                />
+              )}
+              <label className="ml-2">{text}</label>
+            </div>
+          ))}
         </div>
       ) : (
         <div {...props}>
