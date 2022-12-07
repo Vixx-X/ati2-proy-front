@@ -9,6 +9,7 @@ interface BaseModalProps {
   children: ReactChild;
   showModal: boolean;
   backDrop?: boolean;
+  className?: string;
   setShowModal: any;
 }
 
@@ -17,6 +18,7 @@ export const BaseModal = ({
   children,
   showModal,
   setShowModal,
+  className,
   backDrop = true,
 }: BaseModalProps) => {
   return (
@@ -24,8 +26,10 @@ export const BaseModal = ({
       {showModal && (
         <>
           <div className="transition-all opacity-1 justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative my-6 mx-auto bg-white border-x border-b border-gray-300 rounded-t">
-              <div className="flex justify- between border-solid rounded-t bg-primary">
+            <div
+              className={`relative my-6 mx-auto bg-white border-x border-b border-gray-300 rounded-t ${className}`}
+            >
+              <div className="flex justify- between border-solid rounded-t bg-primary sticky top-0">
                 <div className="grow flex px-4 py-2 w-100 justify-center items-center">
                   <p className="font-semibold text-white text-center items-center text-xl capitalize">
                     {title}

@@ -36,7 +36,7 @@ export const Button = ({
       ) : (
         <Link href={props?.href} passHref>
           <a
-            className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
+            className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity flex items-center justify-center ${className}`}
             {...props}
           >
             {startIcon && startIcon}
