@@ -20,7 +20,7 @@ import { classNames } from '@utils/classNames';
 import { Field } from 'formik';
 import useSWR from 'swr';
 
-const Landing: NextPage = () => {
+const Vehicles: NextPage = () => {
   const router = useRouter();
   const query = router.query;
 
@@ -38,7 +38,7 @@ const Landing: NextPage = () => {
   );
 
   return (
-    <MainContainer activate="inicio" maxWidth="max-w-none">
+    <MainContainer activate={['vehicle', 'view-posts']} maxWidth="max-w-none">
       <div className="md:flex justify-between">
         <div className="w-96 text-xs flex flex-col gap-y-8">
           <div className="w-full">
@@ -265,4 +265,4 @@ const Landing: NextPage = () => {
   );
 };
 
-export default Landing;
+export default Vehicles;

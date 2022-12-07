@@ -6,6 +6,7 @@ import ModelSelect from '@components/forms/ModelSelect';
 import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
 import VehicleTypeSelect from '@components/forms/VehicleTypeSelect';
+import Button from '@components/layout/Button';
 
 import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES } from '@config';
 
@@ -13,6 +14,7 @@ interface FastSearchInterface extends Props {
   className?: string;
   filters: any;
   onFilter: Function;
+  autoSubmit?: boolean;
 }
 
 const Label = ({ children }: Props) => (
@@ -25,6 +27,7 @@ const VehicleFastSearch = ({
   filters,
   onFilter,
   className,
+  autoSubmit = true,
 }: FastSearchInterface) => {
   return (
     <Form
@@ -32,9 +35,9 @@ const VehicleFastSearch = ({
       initialValues={filters}
       onSubmit={onFilter as any}
       renderProps
-      autoSubmit
+      autoSubmit={autoSubmit}
     >
-      {({ values }) => (
+      {({ values, resetForm }) => (
         <>
           <ContinentSelect name="continent" />
           <CountrySelect
@@ -50,6 +53,12 @@ const VehicleFastSearch = ({
           </div>
           <BrandSelect name="brand" />
           <ModelSelect name="model" filter={{ brand: values?.brand }} />
+          {!autoSubmit ? (
+            <div className="flex lg:w-96 gap-x-4 lg:col-span-6 justify-center mx-auto">
+              <Button type="submit">Buscar</Button>
+              <Button onClick={resetForm}>Cancelar</Button>
+            </div>
+          ) : null}
         </>
       )}
     </Form>
