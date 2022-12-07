@@ -50,7 +50,7 @@ export const Header = ({ activate }: HeaderProps) => {
   ];
 
   return (
-    <div className="fixed top-0 w-full">
+    <div className="fixed top-0 w-full z-50">
       <ButtonSet setShowModal={setShowModal} />
       <header className="w-100 bg-primary relative">
         <Container>

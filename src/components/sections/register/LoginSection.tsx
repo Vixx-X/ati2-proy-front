@@ -24,7 +24,7 @@ const LoginSection = ({}) => {
               Password
             </label>
             <div className="w-full">
-              {/* <PassField name="user.password1" id="user.password1" /> */}
+              <PassField name="user.password1" id="user.password1" />
               <ErrorMsg name="user.password1" />
             </div>
           </div>
@@ -33,7 +33,7 @@ const LoginSection = ({}) => {
               Confirm password
             </label>
             <div className="w-full">
-              {/* <PassField name="user.password2" id="user.password2" /> */}
+              <PassField name="user.password2" id="user.password2" />
               <ErrorMsg name="user.password2" />
             </div>
           </div>
