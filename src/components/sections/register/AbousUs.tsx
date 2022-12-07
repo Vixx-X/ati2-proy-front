@@ -46,13 +46,13 @@ export const AboutUs = ({}) => {
         Es importante para nosotros, porque nos ayuda a mejorar el servicio que
         le ofrecemos
       </p>
-      <div className="grid md:grid-cols-4 text-center mt-8">
+      <div className="grid md:grid-cols-4 mt-8">
         <CheckBox
           name="user.about_website.web"
-          label="web portal of business"
+          label="Web portal of business"
         />
         <div>
-          <div className="flex justify-center items-center">
+          <div>
             <input
               type="checkbox"
               className="w-4 h-4"
@@ -60,19 +60,19 @@ export const AboutUs = ({}) => {
                 setSocial(event.target.checked);
               }}
             />
-            <label className="ml-2">social networks</label>
+            <label className="ml-2">Social networks</label>
           </div>
           <div
-            className={`text-center ${socialSection ? 'visible' : 'invisible'}`}
+            className={`${socialSection ? 'visible' : 'hidden md:block md:invisible'}`}
           >
             <CheckBox
-              className="flex flex-wrap gap-1"
+              className="my-4 grid lg:grid-cols-2 gap-1"
               name="user.about_website.socials"
               choices={socialsMediaOptions}
             />
           </div>
         </div>
-        <CheckBox name="user.about_website.friends" label="friends" />
+        <CheckBox name="user.about_website.friends" label="Friends" />
         <div>
           <input
             type="checkbox"
@@ -81,11 +81,11 @@ export const AboutUs = ({}) => {
               setOther(event.target.checked);
             }}
           />
-          <label className="ml-2">other</label>
+          <label className="ml-2">Other</label>
           <div
             className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
           >
-            <Field name="user.about_website.other" placeholder="" />
+            <Field name="user.about_website.other" styles="mt-4" />
           </div>
         </div>
       </div>

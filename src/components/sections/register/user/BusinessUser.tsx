@@ -1,148 +1,130 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import CitySelect from '@components/forms/CitySelect';
-import ContinentSelect from '@components/forms/ContinentSelect';
 import CountrySelect from '@components/forms/CountrySelect';
 import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
-import PhoneField from '@components/forms/PhoneField';
-import Select from '@components/forms/Select';
-import BaseModal from '@components/modals/BaseModal';
+import TextArea from '@components/forms/TextArea';
+import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormikContext } from 'formik';
 
 export const BusinessUser = ({}) => {
   const { values } = useFormikContext();
 
+  console.log('valorcitos', values, values?.filter?.address?.country, values?.filter);
   return (
     <>
       <div className="w-full justify-center flex gap-x-20">
-        <div className="flex flex-col gap-y-4">
-          <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
-            datos de la empresa
+        <div className="flex flex-col gap-y-4 md:w-2/4">
+          <div className="bg-primary py-4 px-10 text-white texx-xl font-bold">
+            Datos de la empresa
           </div>
-          <div className="flex items-center">
-            <label htmlFor="name" className="w-2/4 capitalize">
-              name of business
+          <div className="flex gap-x-4">
+            <label htmlFor="name" className="w-40">
+              Name of business
             </label>
-            <Field name="name" id="name" />
+            <div className="w-full">
+              <Field name="name" id="name" />
+              <ErrorMsg name="name" />
+            </div>
           </div>
-          <ErrorMsg name="name" />
-          <div className="flex items-center">
-            <label htmlFor="tax_id" className="w-2/4 capitalize">
-              tax id
+          <div className="flex gap-x-4">
+            <label htmlFor="tax_id" className="w-40">
+              Tax id
             </label>
-            <Field name="tax_id" id="tax_id" />
+            <div className="w-full">
+              <Field name="tax_id" id="tax_id" />
+              <ErrorMsg name="tax_id" />
+            </div>
           </div>
-          <ErrorMsg name="tax_id" />
-          <div className="flex items-center">
-            <label htmlFor="city" className="w-2/4 capitalize">
-              city
+          <div className="flex gap-x-4">
+            <label htmlFor="city" className="w-40">
+              Country
             </label>
-            <Select choices={[]} name="city" placeholder="Select a city" />
+            <div className="w-full">
+              <CountrySelect notitle name="filter.address.country" />
+            </div>
           </div>
-          <ErrorMsg name="city" />
-          {/*           <div className="flex items-center">
-            <label htmlFor="country" className="w-2/4 capitalize">
-              country
+          <div className="flex gap-x-4">
+            <label htmlFor="city" className="w-40">
+              City
             </label>
-            <Select
-              choices={[]}
-              name="country"
-              placeholder="Select a country"
-            />
+            <div className="w-full">
+              <CitySelect
+                notitle
+                name="address.city"
+                filter={{ country: values?.filter?.address?.country }}
+              />
+              <ErrorMsg name="address.city" />
+            </div>
           </div>
-            <ErrorMsg name="country" />
-          <div className="flex items-center">
-            <label htmlFor="continent" className="w-2/4 capitalize">
-              continent
+          <div className="flex gap-x-4">
+            <label htmlFor="address.line1" className="w-40">
+              Main address
             </label>
-            <Field name="continent" id="continent" />
+            <div className="w-full">
+              <TextArea name="address.line1" id="address.line1" />
+              <ErrorMsg name="address.line1" />
+            </div>
           </div>
-            <ErrorMsg name="continent" /> */}
-
-          <ContinentSelect name="filter.address.continent" />
-          <CountrySelect
-            name="filter.address.country"
-            all
-          />
-
-          <div className="flex items-center">
-            <label htmlFor="address?.line1" className="w-2/4 capitalize">
-              main address
+          <div className="flex gap-x-4">
+            <label htmlFor="address.line2" className="w-40">
+              More details of address
             </label>
-            <Field name="address?.line1" id="address?.line1" />
-          </div>
-          <ErrorMsg name="address?.line1" />
-          <div className="flex items-center">
-            <label htmlFor="address?.line2" className="w-2/4 capitalize">
-              more details of address
-            </label>
-            <Field name="address?.line2" id="address?.line2" />
-          </div>
-          <ErrorMsg name="address?.line2" />
-          <div className="flex items-center">
-            <label htmlFor="phone" className="w-2/4 capitalize">
-              phone
-            </label>
+            <div className="w-full">
+              <Field name="address.line2" id="address.line2" />
+              <ErrorMsg name="address.line2" />
+            </div>
           </div>
         </div>
-        <div className="flex flex-col gap-y-4">
-          <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
-            datos representante de la empresa
+        <div className="flex flex-col gap-y-4 md:w-2/4">
+          <div className="bg-primary py-4 px-10 text-white texx-xl font-bold">
+            Datos representante de la empresa
           </div>
-          <div className="flex items-center">
-            <label
-              htmlFor="representant.first_name"
-              className="w-2/4 capitalize"
-            >
-              name of representant
+          <div className="flex gap-x-4">
+            <label htmlFor="representant.first_name" className="w-40">
+              Name of representant
             </label>
-            <Field
-              name="representant.first_name"
-              id="representant.first_name"
-            />
+            <div>
+              <Field
+                name="representant.first_name"
+                id="representant.first_name"
+              />
+              <ErrorMsg name="representant.first_name" />
+            </div>
           </div>
-          <ErrorMsg name="representant.first_name" />
-          <div className="flex items-center">
-            <label
-              htmlFor="representant.last_name"
-              className="w-2/4 capitalize"
-            >
-              last name of representant
+          <div className="flex gap-x-4">
+            <label htmlFor="representant.last_name" className="w-40">
+              Last name of representant
             </label>
-            <Field name="representant.last_name" id="representant.last_name" />
+            <div>
+              <Field
+                name="representant.last_name"
+                id="representant.last_name"
+              />
+              <ErrorMsg name="representant.last_name" />
+            </div>
           </div>
-          <ErrorMsg name="representant.last_name" />
-
-          <div className="flex items-center">
-            <label htmlFor="representant.email" className="w-2/4 capitalize">
-              email of representant
+          <div className="flex gap-x-4">
+            <label htmlFor="representant.email" className="w-40">
+              Email of representant
             </label>
-            <Field name="representant.email" id="representant.email" />
+            <div>
+              <Field name="representant.email" id="representant.email" />
+              <ErrorMsg name="representant.email" />
+            </div>
           </div>
-          <ErrorMsg name="representant.email" />
-
-          <div className="flex items-center">
-            <label htmlFor="phone" className="w-2/4 capitalize">
-              phone of representant
+          <div className="flex gap-x-4">
+            <label htmlFor="representant.email" className="w-40">
+              Phones
             </label>
-            <PhoneField name="representant.phone" />
-          </div>
-          <div className="flex gap-2">
-            <ErrorMsg name="representant.phone" />
-          </div>
-
-          <div className="flex items-center">
-            <label htmlFor="phone" className="w-2/4 capitalize">
-              local phone of representant
-            </label>
-            <PhoneField name="representant.local_phone" />
-          </div>
-          <div className="flex gap-2">
-            <ErrorMsg name="representant.local_phone" />
+            <div className="w-full">
+              <PhoneButtonSet
+                phoneName="representant.phone"
+                localPhoneName="representant.local_phone"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -28,9 +28,11 @@ export const ContinentSelect = ({
 
   return (
     <div className="w-full">
-      { !props.noTitle && <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Continente
-      </p>}
+      {!props.notitle && (
+        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded capitalize">
+          continente
+        </p>
+      )}
       <Select
         name={name}
         className="w-full rounded"

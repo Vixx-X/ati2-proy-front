@@ -30,9 +30,9 @@ export const CountrySelect = ({
   );
   return (
     <div className="w-full">
-      {!props.noTitle && (
-        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-          Pais
+      {!props.notitle && (
+        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded capitalize">
+          país
         </p>
       )}
       <Select

@@ -10,27 +10,34 @@ const LoginSection = ({}) => {
     <>
       <div className="flex flex-col justify-center">
         <div className="flex flex-col gap-y-4 justify-center">
-          <div className="flex items-center">
-            <label htmlFor="email" className="w-80 capitalize">
-              email to access to portal
+          <div className="flex">
+            <label htmlFor="email" className="w-80">
+              Email to access to portal
             </label>
-            <Field name="user.email" id="user.email" />
+            <div className="w-full">
+              <Field name="user.email" id="user.email" />
+              <ErrorMsg name="user.email" />
+            </div>
           </div>
-            <ErrorMsg name="user.email" />
-          <div className="flex items-center">
-            <label htmlFor="user.password1" className="w-80 capitalize">
-              password
+          <div className="flex">
+            <label htmlFor="user.password1" className="w-80">
+              Password
             </label>
-            <PassField name="user.password1" id="user.password1" />
+            <div className="w-full">
+              {/* <PassField name="user.password1" id="user.password1" /> */}
+              <ErrorMsg name="user.password1" />
+            </div>
           </div>
-            <ErrorMsg name="user.password1" />
-          <div className="flex items-center">
-            <label htmlFor="user.password2" className="w-80 capitalize">
-              confirm password
+          <div className="flex">
+            <label htmlFor="user.password2" className="w-80">
+              Confirm password
             </label>
-            <PassField name="user.password2" id="user.password2" />
+            <div className="w-full">
+              {/* <PassField name="user.password2" id="user.password2" /> */}
+              <ErrorMsg name="user.password2" />
+            </div>
           </div>
-            <ErrorMsg name="user.password2" />
+
           {/* Setear un checkbox para saber si se debe recibir info */}
           {/* <CheckBox name="information-details" choices={"value", "option"}></CheckBox> */}
         </div>

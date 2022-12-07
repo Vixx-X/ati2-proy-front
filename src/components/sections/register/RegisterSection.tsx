@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, from 'react';
 
 import BusinessUser from './user/BusinessUser';
 import NaturalUser from './user/NaturalUser';
-
 
 export enum UserType {
   NATURAL = 'natural',
@@ -13,6 +12,7 @@ export const RegisterSection = ({ userType, setUserType }: any) => {
   const handleUser = (event: any) => {
     setUserType(event.target.value as UserType);
   };
+
   return (
     <>
       <div className="flex gap-x-10">
