@@ -13,6 +13,7 @@ interface AuthState {
   logout: Function;
   logoutCallback: Function | null;
   refresh: Function;
+  loading: boolean;
 }
 
 const INVALID_TOKEN = ''; // leave blank
@@ -33,14 +34,14 @@ export const _authStore = _create<AuthState>()((set, get) => ({
     return tokens;
   },
   loginCallback: null,
-  logout: () => {
+  logout: (url?: string) => {
     postRevoke();
     set({
       access_token: INVALID_TOKEN,
       isAuth: false,
     });
     localStorage.setItem('auth', 'false');
-    get().logoutCallback?.();
+    get().logoutCallback?.(url);
   },
   logoutCallback: null,
   refresh: async () => {
@@ -55,8 +56,10 @@ export const _authStore = _create<AuthState>()((set, get) => ({
       loginCallback,
       logoutCallback,
       isAuth: localStorage.getItem('auth') === 'true',
+      loading: false,
     });
   },
+  loading: true,
 }));
 
 // We also create a hook to get the vanilla auth store state inside react
