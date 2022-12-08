@@ -2,18 +2,15 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
+import Page from '@components/Page';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
 import DocumentsModal from '@components/modals/DocumentsModal';
 import HowPostSection from '@components/sections/home/searchSection/QuestionSection';
 import SearchSection from '@components/sections/home/searchSection/SearchSection';
 
-import { SERVER_URLS } from '@config';
-
 import Questions from '@data/Questions';
 import useTranslate from '@hooks/useTranslate';
-
-const { URL_VEHICLES } = SERVER_URLS;
 
 const Landing: NextPage = () => {
   const [section, setSection] = useState<string>();
@@ -21,7 +18,7 @@ const Landing: NextPage = () => {
   const t = useTranslate();
 
   return (
-    <>
+    <Page>
       <MainContainer activate="home">
         <h2 className="font-bold text-lg mt-10 text-center">
           {t('Opciones de búsqueda')}
@@ -76,7 +73,7 @@ const Landing: NextPage = () => {
         text={<Questions />}
         title={'preguntas frecuentes'}
       />
-    </>
+    </Page>
   );
 };
 

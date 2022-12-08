@@ -52,10 +52,11 @@ export const CallMeSection = ({}) => {
         optionsClassNames="w-9/12 mr-2"
       />
       <ContactUseHours
-        name="data.contact_days"
         className="flex mb-2"
         titleClassNames="w-3/12 mr-2 w-fit h-fit text-sm"
         optionsClassNames="w-9/12 mr-2"
+        nameStart="data.contact_hour_start"
+        nameEnd="data.contact_hour_end"
       />
       <div className="py-4">
         <p className="text-darkprimary font-bold">

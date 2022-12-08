@@ -3,15 +3,9 @@ import Field from '@components/forms/Field';
 import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
-
-import { getBusinessInfo } from '@fetches/contact';
 import useTranslate from '@hooks/useTranslate';
 
-import useSWR from 'swr';
-
 export const RegisterDateSection = ({}) => {
-  const { data } = useSWR('contact', () => getBusinessInfo());
-
   const t = useTranslate();
   return (
     <div>
@@ -31,7 +25,8 @@ export const RegisterDateSection = ({}) => {
       </div>
       <div className="mb-2">
         <ContactUseHours
-          name="data.contact_days"
+          nameStart="data.contact_hour_start"
+          nameEnd="data.contact_hour_end"
           className="flex mb-2"
           titleClassNames="w-3/12 mr-2 w-fit h-fit text-sm"
           optionsClassNames="w-9/12 mr-2"

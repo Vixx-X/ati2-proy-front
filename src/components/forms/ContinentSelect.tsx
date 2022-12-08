@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import Loader from '@components/Loader';
+import LoaderSpinner from '@components/LoaderSpinner';
 
 import { getContinents } from '@fetches/address';
 
@@ -21,12 +22,16 @@ export const ContinentSelect = ({
     ['continents', { limit: 300, ...filter }],
     (_, query) => getContinents(query)
   );
+
   const choices = useMemo(
     () =>
-      data?.results.map((item: any) => ({
-        text: item.name,
-        value: item.id,
-      })),
+      data?.results.map(
+        (item: any) =>
+          ({
+            text: item.name,
+            value: item.id,
+          } ?? [])
+      ),
     [data]
   );
 

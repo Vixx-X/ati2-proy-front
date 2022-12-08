@@ -1,10 +1,8 @@
-import { getBusinessInfo } from '@fetches/contact';
 import useTranslate from '@hooks/useTranslate';
-
-import useSWR from 'swr';
+import pageStore from '@stores/PageStore';
 
 export const PhoneSection = ({}) => {
-  const { data } = useSWR('contact', () => getBusinessInfo());
+  const phone = pageStore((state) => state.phone);
 
   const t = useTranslate();
   return (
@@ -15,7 +13,7 @@ export const PhoneSection = ({}) => {
           <label className="capitalize mr-2 w-3/12 block font-bold text-darkprimary">
             {t('teléfono:')}
           </label>
-          <p className="w-9/12">{data?.phone}</p>
+          <p className="w-9/12">{phone}</p>
         </div>
       </div>
       <div className="mb-2">
