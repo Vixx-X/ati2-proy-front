@@ -5,6 +5,7 @@ import LoaderSpinner from '@components/LoaderSpinner';
 import { getContactDays } from '@fetches/post';
 
 import useToggle from '@hooks/useToggle';
+import useTranslate from '@hooks/useTranslate';
 
 import recursiveGetter from '@utils/recursiveGetter';
 
@@ -12,7 +13,6 @@ import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 import CheckBox from './Checkbox';
-import useTranslate from '@hooks/useTranslate';
 
 interface ContactDaysProps extends Props {
   name: string;
@@ -76,36 +76,55 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
       </div>
       <div className="border border-2 border-darkprimary p-3 flex flex-wrap justify-center">
         <CheckBox
+          name={name}
           className="flex flex-wrap gap-1 justify-center"
           choices={choices}
           onChangeCallback={(fun: any) => {
             return (e: any) => {
               const val = e.target.value;
+              const checked = e.target.checked;
               const options = recursiveGetter(values, name);
-              if (val === 'weekends' && !weekends) {
-                if (weekendOptions)
+              if (val === 'weekends') {
+                if (!weekendOptions) return;
+                if (checked) {
                   setFieldValue(name, [
                     ...(new Set([
                       ...weekendOptions,
                       ...(options ?? []),
                     ]) as any),
                   ]);
+                } else {
+                  setFieldValue(
+                    name,
+                    (options ?? []).filter(
+                      (el: string) => !weekendOptions.includes(el)
+                    )
+                  );
+                }
                 return;
               }
-              if (val === 'weekdays' && !weekdays) {
-                if (weekdayOptions)
+              if (val === 'weekdays') {
+                if (!weekdayOptions) return;
+                if (checked) {
                   setFieldValue(name, [
                     ...(new Set([
                       ...weekdayOptions,
                       ...(options ?? []),
                     ]) as any),
                   ]);
+                } else {
+                  setFieldValue(
+                    name,
+                    (options ?? []).filter(
+                      (el: string) => !weekdayOptions.includes(el)
+                    )
+                  );
+                }
                 return;
               }
               return fun(e);
             };
           }}
-          name={name}
         />
       </div>
     </>
