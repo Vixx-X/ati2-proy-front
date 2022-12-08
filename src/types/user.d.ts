@@ -12,7 +12,7 @@ enum DaysOfWeek {
 
 export enum contactUseHours {
   AM = 0,
-  PM = 1
+  PM = 1,
 }
 
 export enum SaleType {
@@ -30,6 +30,8 @@ export enum StatusVehicle {
   NEW = 'new',
   USED = 'used',
 }
+
+export type Language = ES | EN;
 
 export interface User {
   password1: string;

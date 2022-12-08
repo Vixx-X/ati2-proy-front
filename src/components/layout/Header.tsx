@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import LogInModal from '@components/modals/LogInModal';
 
 import { SERVER_URLS } from '@config';
+
+import useTranslate from '@hooks/useTranslate';
+
+import userStore from '@stores/UserStore';
+
+import { on } from 'events';
 
 import ButtonSet from './ButtonSet';
 import Container from './Container';
@@ -14,40 +20,60 @@ interface HeaderProps {
 
 export const Header = ({ activate }: HeaderProps) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const setLang = userStore((state) => state.setLang);
+  const t = useTranslate();
 
-  const options = [
-    {
-      link: SERVER_URLS.URL_LANDING,
-      text: 'inicio',
-      activate: 'home',
-    },
-    {
-      text: 'vehículo',
-      activate: 'vehicle',
-      options: [
-        {
-          link: SERVER_URLS.URL_CREATE_VEHICLE,
-          text: 'publicar',
-          activate: 'create-post',
-        },
-        {
-          link: SERVER_URLS.URL_VEHICLES,
-          text: 'ver publicaciones',
-          activate: 'view-posts',
-        },
-        {
-          text: 'modificar',
-          activate: 'edit-post',
-        },
-      ],
-    },
-    {
-      link: SERVER_URLS.URL_CONTACT_US,
-      text: 'contáctenos',
-      activate: 'contact-us',
-    },
-    { text: 'idioma', activate: 'language' },
-  ];
+  const options = useMemo(
+    () => [
+      {
+        link: SERVER_URLS.URL_LANDING,
+        text: t('inicio'),
+        activate: 'home',
+      },
+      {
+        text: t('vehículo'),
+        activate: 'vehicle',
+        options: [
+          {
+            link: SERVER_URLS.URL_CREATE_VEHICLE,
+            text: t('publicar'),
+            activate: 'create-post',
+          },
+          {
+            link: SERVER_URLS.URL_VEHICLES,
+            text: t('ver publicaciones'),
+            activate: 'view-posts',
+          },
+          {
+            text: t('modificar'),
+            activate: 'edit-post',
+          },
+        ],
+      },
+      {
+        link: SERVER_URLS.URL_CONTACT_US,
+        text: t('contáctenos'),
+        activate: 'contact-us',
+      },
+      {
+        text: t('idioma'),
+        activate: 'language',
+        options: [
+          {
+            text: 'es',
+            activate: 'ES',
+            onClick: () => setLang('ES'),
+          },
+          {
+            text: 'en',
+            activate: 'EN',
+            onClick: () => setLang('EN'),
+          },
+        ],
+      },
+    ],
+    [t, setLang]
+  );
 
   return (
     <div className="fixed top-0 w-full">

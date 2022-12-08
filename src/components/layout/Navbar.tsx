@@ -8,6 +8,7 @@ interface NavbarProps {
   activate?: string;
   visible?: boolean;
   stylesMargin?: string;
+  onClick?: Function;
   top?: number;
 }
 
@@ -17,6 +18,7 @@ export const Navbar = ({
   link,
   text,
   activate,
+  onClick,
   visible = false,
   top = 0,
   stylesMargin,
@@ -25,8 +27,6 @@ export const Navbar = ({
   const expand = () => {
     setIsVisible(!isVisible);
   };
-
-  console.log(activatePage, activate);
 
   const styleTop = `${top + 58}px`;
   return (
@@ -45,7 +45,7 @@ export const Navbar = ({
             >
               {text}
             </div>
-          ) : (
+          ) : link ? (
             <a
               className={`hover:text-yellow transition block py-4 ${
                 activate === activatePage ||
@@ -57,6 +57,19 @@ export const Navbar = ({
             >
               {text}
             </a>
+          ) : (
+            <button
+              type="button"
+              onClick={onClick as any}
+              className={`hover:text-yellow transition block py-4 ${
+                activate === activatePage ||
+                (activate && activatePage?.includes(activate))
+                  ? 'underline text-yellow'
+                  : ''
+              }`}
+            >
+              {text}
+            </button>
           )}
         </>
       )}
@@ -76,6 +89,7 @@ export const Navbar = ({
                 stylesMargin={`ml-0 absolute`}
                 top={top + 56}
                 key={element.text}
+                onClick={element.onClick}
               />
             ))}
           </>
