@@ -1,4 +1,6 @@
 {
-  "inicio": "inicio",
-  "vehiculo": "vehicle"
+  "inicio": "home",
+  "vehículo": "vehicle",
+  "contáctenos": "contact us",
+  "idioma": "language"
 }
