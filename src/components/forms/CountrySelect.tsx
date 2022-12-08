@@ -5,6 +5,7 @@ import { getCountries } from '@fetches/address';
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export interface CountrySelectProps extends FilteredSelectProps {}
 
@@ -13,6 +14,7 @@ export const CountrySelect = ({
   name,
   ...props
 }: CountrySelectProps) => {
+  const t = useTranslate();
   const { data } = useSWR(
     ['countries', { limit: 300, ...filter }],
     (_, query) => getCountries(query)
@@ -28,12 +30,12 @@ export const CountrySelect = ({
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Pais
+        {t('País')}
       </p>
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona País--"
+        placeholder={t("--Selecciona País--")}
         name={name}
         {...props}
       />

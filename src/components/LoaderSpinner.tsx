@@ -1,4 +1,7 @@
+import useTranslate from "@hooks/useTranslate";
+
 export const LoaderSpinner = () => {
+  const t = useTranslate();
   return (
     <div className="bg-black/60 w-screen h-screen overflow-hidden flex justify-center items-center fixed z-50">
       <div role="status">
@@ -18,7 +21,7 @@ export const LoaderSpinner = () => {
             fill="currentFill"
           />
         </svg>
-        <span className="sr-only">Loading...</span>
+        <span className="sr-only">{t('Cargando...')}</span>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { getVehicles } from '@fetches/vehicles';
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export interface VehicleSelectProps extends FilteredSelectProps {}
 
@@ -20,15 +21,16 @@ export const VehicleSelect = ({ filter, ...props }: VehicleSelectProps) => {
       })),
     [data]
   );
+  const t = useTranslate();
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Vehiculo
+        {t('Vehículo')}
       </p>
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Vehiculo--"
+        placeholder={t("--Selecciona Vehiculo--")}
         {...props}
       />
     </div>

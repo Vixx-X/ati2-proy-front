@@ -15,6 +15,7 @@ import { SERVER_URLS } from '@config';
 import authStore from '@stores/AuthStore';
 
 import { FormikValues } from 'formik';
+import useTranslate from '@hooks/useTranslate';
 
 interface LogInModalProps {
   showModal: boolean;
@@ -47,6 +48,7 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
     setLoading(false);
   };
 
+  const t = useTranslate();
   return (
     <BaseModal
       showModal={showModal}
@@ -54,7 +56,7 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
       setShowModal={setShowModal}
     >
       <>
-        <p>Seleccione la cuenta en la que desea acceder</p>
+        <p>{t('Seleccione la cuenta en la que desea acceder')}</p>
         <Form initialValues={initValues} onSubmit={handleSubmit}>
           {loading ? (
             <Loader />
@@ -63,14 +65,14 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
               <div className="flex flex-col gap-y-4 m-8 ">
                 <div className="flex">
                   <label className="basis-1/6" htmlFor="email">
-                    correo
+                    {t('correo electrónico')}
                   </label>
                   <Field name="email" id="email" />
                   <ErrorMsg name="email" />
                 </div>
                 <div className="flex">
                   <label className="basis-1/6" htmlFor="password">
-                    contraseña
+                    {t('contraseña')}
                   </label>
                   <PassField name="password" id="password" />
                   <ErrorMsg name="password" />
@@ -78,11 +80,11 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
               </div>
               <div className="text-center">
                 <Button className="w-auto rounded-md font-bold" type="submit">
-                  iniciar sesión
+                  {t('iniciar sesión')}
                 </Button>
                 <Link href={SERVER_URLS.URL_PASSWORD_RESET} passHref>
                   <a className="mt-4 block underline ">
-                    Olvide mi Contraseña o mis datos
+                    {t('Olvide mi Contraseña o mis datos')}
                   </a>
                 </Link>
               </div>

@@ -1,7 +1,10 @@
+import useTranslate from "@hooks/useTranslate";
+
 const TermsAndConditions = ({}) => {
+  const t = useTranslate();
   return (
     <div>
-      Este documento describe los términos y condiciones generales (los
+      {t(`Este documento describe los términos y condiciones generales (los
       "Términos y Condiciones Generales") aplicables al uso de los servicios
       ofrecidos por Alumnos ATI2 Grupo 1 de la Facultad de Ciencias de la UCV
       dentro del sitio https://ati2.proy.vittorioadesso.com/. Cualquier persona
@@ -31,10 +34,10 @@ const TermsAndConditions = ({}) => {
       necesario. Los Usuarios garantizan y responden de la veracidad, exactitud,
       vigencia y autenticidad de todos los datos ingresados y se obligan a
       verificar que los datos contenidos en su aviso sean correctos y estén
-      actualizados.
+      actualizados.`)}
       <br />
       <br />
-      En todos los casos, los bienes deberán anunciarse en las categorías y
+      {t(`En todos los casos, los bienes deberán anunciarse en las categorías y
       subcategorías apropiadas. Los anuncios podrán incluir textos descriptivos,
       fotografías y otros contenidos y condiciones pertinentes para la venta del
       bien, siempre que no violen ninguna ley, disposición de este acuerdo o
@@ -110,10 +113,10 @@ const TermsAndConditions = ({}) => {
       contratante verificar la continuidad de su aviso en el Sitio, aun cuando
       haya efectuado la renovación. Se aclara asimismo, que VecículoATI podrá
       terminar anticipadamente aquellos anuncios en los que corrobore que el
-      vehículo no está disponible o ha sido vendido.
+      vehículo no está disponible o ha sido vendido.`)}
       <br />
       <br />
-      Tarifas por los servicios: La publicación de anuncios en VecículoATI tiene
+    {t(`Tarifas por los servicios: La publicación de anuncios en VecículoATI tiene
       un costo. Al publicar un bien para la venta, el Usuario deberá pagar un
       cargo de publicación. Para más información ver ¿Cuánto costará mi anuncio
       en VecículoATI? Beneficios adicionales:Publicación en el sitio web
@@ -131,19 +134,19 @@ const TermsAndConditions = ({}) => {
       es el propietario de los bienes ofrecidos, no tiene posesión de ellos ni
       los ofrece en venta. VecículoATI no interviene en las operaciones
       realizadas entre los Usuarios ni en las condiciones por ellos estipuladas
-      para las mismas.
+      para las mismas.`)}
       <br />
       <br />
-      VecículoATI no puede asegurar que un Usuario completará una operación ni
+      {t(`VecículoATI no puede asegurar que un Usuario completará una operación ni
       podrá verificar la identidad o datos personales ingresados por los
       Usuarios. VecículoATI no garantiza la veracidad de la publicidad de
       terceros que aparezca en el sitio y no será responsable por la
       correspondencia o contratos que el Usuario celebre con dichos terceros o
       con otros Usuarios. Por ello VecículoATI será responsable exclusivamente
-      por el servicio prestado antes detallado.
+      por el servicio prestado antes detallado.`)}
       <br />
       <br />
-      En virtud que la información contenida en los anuncios clasificados ha
+      {t(`En virtud que la información contenida en los anuncios clasificados ha
       sido suministrada y corroborada en su totalidad por el Usuario
       contratante, el cliente será el exclusivo responsable por la existencia,
       calidad, cantidad, estado, integridad o legitimidad de los bienes
@@ -156,17 +159,17 @@ const TermsAndConditions = ({}) => {
       responderán únicamente por el efectivo cumplimiento de las obligaciones
       asumidas por ellos en el perfeccionamiento de la operación. Este acuerdo
       no crea ningún contrato de sociedad, de mandato, de franquicia, o relación
-      laboral entre VecículoATI y el Usuario.
+      laboral entre VecículoATI y el Usuario.`)}
       <br />
       <br />
-      VecículoATI no será responsable por lucro cesante, o por cualquier otro
+      {t(`VecículoATI no será responsable por lucro cesante, o por cualquier otro
       daño y/o perjuicio que haya podido sufrir el Usuario, debido a las
       operaciones realizadas o no realizadas por bienes anunciados a través de
       la plataforma ni por las transacciones realizadas basadas en la confianza
-      depositada en los Servicios brindados por VecículoATI.
+      depositada en los Servicios brindados por VecículoATI.`)}
       <br />
       <br />
-      Fallas en el sistema o interrupciones en el Servicio:En virtud que la
+      {t(`Fallas en el sistema o interrupciones en el Servicio:En virtud que la
       plataforma prevista por VecículoATI se basa en sistemas de software,
       hardware, e Internet, no se puede garantizar el acceso y uso continuado o
       ininterrumpido del Sitio. Se aclara que el sistema o los Servicios, pueden
@@ -179,18 +182,18 @@ const TermsAndConditions = ({}) => {
       Usuarios no podrán imputarle responsabilidad alguna ni exigir pago por
       lucro cesante, en virtud de perjuicios resultantes de la interrupción de
       los Servicios, de dificultades técnicas o fallas en los sistemas o en
-      Internet.
+      Internet.`)}
       <br />
       <br />
-      Devoluciones: En caso que el contratante pagare la publicación de su
+      {t(`Devoluciones: En caso que el contratante pagare la publicación de su
       aviso, asume la responsabilidad de publicarlo. La empresa no será
       responsable ni reintegrará el dinero pagado por anuncios no publicados o
       retirados luego de publicados a petición explícita del contratante puesto
       que el servicio y el cargo se genera desde su contratación, o retirados
-      por cualquiera de las razones previstas en este Contrato.
+      por cualquiera de las razones previstas en este Contrato.`)}
       <br />
       <br />
-      Privacidad: Para utilizar los Servicios ofrecidos por VecículoATI, los
+     {t(` Privacidad: Para utilizar los Servicios ofrecidos por VecículoATI, los
       Usuarios deberán facilitar determinados datos de carácter personal. Su
       información personal se procesa y almacena en servidores o medios
       magnéticos que mantienen altos estándares de seguridad y protección tanto
@@ -203,10 +206,10 @@ const TermsAndConditions = ({}) => {
       acceder a cierta información o transmisiones de datos en cuyo caso
       VecículoATI no responderá por la información que sea revelada. Para mayor
       información, por favor revisar nuestras Políticas de Privacidad que se
-      incorporan a estos Términos y Condiciones Generales por referencia.
+      incorporan a estos Términos y Condiciones Generales por referencia.`)}
       <br />
       <br />
-      Violaciones del Sistema o Bases de Datos:No está permitida ninguna acción
+      {t(`Violaciones del Sistema o Bases de Datos:No está permitida ninguna acción
       o uso de dispositivo, software, u otro medio tendiente a interferir tanto
       en las actividades y operatoria de VecículoATI como en las ofertas,
       descripciones, cuentas o bases de datos de VecículoATI. Cualquier
@@ -226,10 +229,10 @@ const TermsAndConditions = ({}) => {
       o para los Usuarios y/o (f) si corroborare que el vehículo no está
       disponible o ha sido vendido. En el caso de la suspensión o inhabilitación
       de un Cliente, todos los bienes que tuviera anunciados serán removidos del
-      sistema.
+      sistema.`)}
       <br />
       <br />
-      Propiedad intelectual. Enlaces. Los contenidos de las pantallas relativas
+      {t(`Propiedad intelectual. Enlaces. Los contenidos de las pantallas relativas
       a los servicios de VecículoATI así como los programas, bases de datos,
       redes, archivos que permiten al Usuario acceder y usar su Cuenta están
       protegidos por las leyes y los tratados internacionales de derecho de
@@ -243,10 +246,10 @@ const TermsAndConditions = ({}) => {
       ocasionadas por la utilización de los mismos, sean causadas directa o
       indirectamente. La presencia de enlaces a otros sitios web no implica una
       sociedad, relación, aprobación, respaldo de VecículoATI a dichos sitios y
-      sus contenidos.
+      sus contenidos.`)}
       <br />
       <br />
-      Modificaciones a estos Términos y Condiciones: En caso de modificaciones a
+      {t(`Modificaciones a estos Términos y Condiciones: En caso de modificaciones a
       los Términos y Condiciones Generales, se informará con la antelación
       requerida por la ley vigente. Asimismo se les respetarán a los Clientes
       todos los derechos y plazos que les asisten conforme a derecho. Las
@@ -263,7 +266,7 @@ const TermsAndConditions = ({}) => {
       será sometida a las leyes aplicables y a los Tribunales competentes de la
       Ciudad de Caracas. Domicilio. Se fija como domicilio de VecículoATI, la
       Calle Eugenio Mendoza con José Ángel Lamas, Torre la Castellana, piso 8.
-      Caracas 1060, Venezuela.
+      Caracas 1060, Venezuela.`)}
     </div>
   );
 };

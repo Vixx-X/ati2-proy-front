@@ -11,6 +11,7 @@ import BaseModal from '@components/modals/BaseModal';
 import { postResetPassword } from '@fetches/user';
 
 import { FormikValues } from 'formik';
+import useTranslate from '@hooks/useTranslate';
 
 interface ResetPasswordModalProps {
   showModal: boolean;
@@ -27,21 +28,6 @@ const STEPS = {
   FORM: 1,
   INFO: 2,
 };
-
-const OPTIONS = [
-  {
-    value: 'document_id',
-    text: 'Cédula de identidad, DNI o pasaporte',
-  },
-  {
-    value: 'email',
-    text: 'Correo electrónico',
-  },
-  {
-    value: 'phone_number',
-    text: 'Teléfono celular o móvil',
-  },
-];
 
 export const ResetPasswordModal = ({
   showModal,
@@ -72,10 +58,26 @@ export const ResetPasswordModal = ({
     }
   };
 
+  const t = useTranslate();
+  
+  const OPTIONS = [
+    {
+      value: 'document_id',
+      text: t('Cédula de identidad, DNI o pasaporte'),
+    },
+    {
+      value: 'email',
+      text: t('Correo electrónico'),
+    },
+    {
+      value: 'phone_number',
+      text: t('Teléfono celular o móvil'),
+    },
+  ];
   return (
     <BaseModal
       showModal={showModal}
-      title="reset password"
+      title="Restablecer contraseña"
       setShowModal={setShowModal}
     >
       <Form initialValues={initValues} onSubmit={handleSubmit} renderProps>
@@ -84,22 +86,21 @@ export const ResetPasswordModal = ({
             {step === STEPS.INFO ? (
               <div>
                 <p className="mb-4">
-                  Acabamos de enviar tu usuario, y un link para restablecer tu
-                  contraseña, al correo: {user?.email}
+                  {t('Acabamos de enviar tu usuario, y un link para restablecer tu contraseña, al correo: {0}', user?.email)} 
                 </p>
                 <p className="mb-4">
-                  y al número de teléfono: {user?.phone_number ?? 'NO APLICA'}
+                  {t('y al número de teléfono: {0}', user?.phone_number ?? 'NO APLICA')} 
                 </p>
                 <p className="mb-4">
-                  Si este no es su correo o teléfono, debe modificar su correo
+                  {t(`Si este no es su correo o teléfono, debe modificar su correo
                   electrónico, o teléfono, en la cuenta que posee con la
-                  empresa, y solicitar nuevamente el envío de dicha información
+                  empresa, y solicitar nuevamente el envío de dicha información`)}
                 </p>
               </div>
             ) : step === STEPS.BASE ? (
               <>
                 <p className="mb-4">
-                  Seleccione la información que va a proporcionar
+                  {t('Seleccione la información que va a proporcionar')}
                 </p>
                 <RadioGroup name="form_choice" choices={OPTIONS} />
                 <div className="flex mt-3">
@@ -107,20 +108,20 @@ export const ResetPasswordModal = ({
                     onClick={() => setStep(STEPS.FORM)}
                     disabled={!values?.form_choice}
                   >
-                    Siguiente
+                    {t('Siguiente')}
                   </Button>
-                  <Button onClick={() => setStep(STEPS.BASE)}>Cancelar</Button>
+                  <Button onClick={() => setStep(STEPS.BASE)}>{t('Cancelar')}</Button>
                 </div>
               </>
             ) : step === STEPS.FORM ? (
               <>
                 <p className="mb-3">
                   {values?.form_choice === 'email' ? (
-                    <>Ingresa tu correo electrónico</>
+                    <>{t('Ingresa tu correo electrónico')}</>
                   ) : values?.form_choice === 'document_id' ? (
-                    <>Ingresa tu cédula de identidad, DNI, o pasaporte</>
+                    <>{t('Ingresa tu cédula de identidad, DNI, o pasaporte')}</>
                   ) : values?.form_choice === 'phone_number' ? (
-                    <>Ingresa tu número de teléfono móvil</>
+                    <>{t('Ingresa tu número de teléfono móvil')}</>
                   ) : null}
                 </p>
                 <div className="flex flex-col gap-y-4 m-8 ">
@@ -136,10 +137,10 @@ export const ResetPasswordModal = ({
                       type="submit"
                       disabled={values?.form_choice === 'phone_number'}
                     >
-                      Siguiente
+                      {t('Siguiente')}
                     </Button>
                     <Button onClick={() => setStep(STEPS.BASE)}>
-                      Cancelar
+                      {t('Cancelar')}
                     </Button>
                   </div>
                 </div>

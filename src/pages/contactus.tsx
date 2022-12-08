@@ -22,6 +22,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useSWR from 'swr';
+import useTranslate from '@hooks/useTranslate';
 
 interface ContactUsForm {
   target: string;
@@ -35,6 +36,7 @@ const ContactUs: NextPage = () => {
   const { data } = useSWR('contact', () => getBusinessInfo());
   const [questionModal, setQuestionModal] = useState(false);
   const [termsModal, setTermsModal] = useState(false);
+  const t = useTranslate();
 
   return (
     <>
@@ -46,73 +48,73 @@ const ContactUs: NextPage = () => {
         <div className="h-full flex">
           <div className="w-2/4 h-full flex flex-col justify-between items">
             <div>
-              <h4 className="font-bold">Teléfonos</h4>
+              <h4 className="font-bold">{t('Teléfonos')}</h4>
               <p>{data?.local_phone}</p>
               <p>{data?.phone}</p>
             </div>
             <div>
-              <h4 className="font-bold">Atención al público</h4>
+              <h4 className="font-bold">{t('Atención al público')}</h4>
               <p className="flex">
-                <span className="w-48 font-bold">Lunes a Viernes: </span>De 8 am
-                a 12 m. Y de 1pm a 5pm
+                <span className="w-48 font-bold">{t('Lunes a Viernes:')} </span>
+                {t('De 8 am a 12 m. Y de 1pm a 5pm')}
               </p>
               <p className="flex">
-                <span className="w-48 font-bold">Sábados y Domingos: </span>De 8
-                am a 12 m. Y de 1pm a 5pm
+                <span className="w-48 font-bold">{t('Sábados y Domingos:')} </span>
+                {t('De 8 am a 12 m. Y de 1pm a 5pm')}
               </p>
             </div>
             <div>
-              <h4 className="font-bold">Correo electrónico</h4>
-              <p>Envíanos tus preguntas o comentarios a {data?.email}</p>
+              <h4 className="font-bold">{t('Correo electrónico')}</h4>
+              <p>{t('Envíanos tus preguntas o comentarios a {0}', data?.email)}</p>
             </div>
             <div>
-              <h4 className="font-bold">Enlaces de interés</h4>
+              <h4 className="font-bold">{t('Enlaces de interés')}</h4>
               <ul>
                 <li className="underline text-blue-600 cursor-pointer capitalize">
                   <p onClick={() => setQuestionModal(true)}>
-                    preguntas frecuentes
+                    {t('preguntas frecuentes')}
                   </p>
                 </li>
                 <li className="underline text-blue-600 cursor-pointer capitalize">
                   <p onClick={() => setTermsModal(true)}>
-                    términos de servicio
+                    {t('términos de servicio')}
                   </p>
                 </li>
               </ul>
             </div>
             <div className="flex">
-              <h4 className="font-bold">Síguenos</h4>
+              <h4 className="font-bold">{t('Síguenos')}</h4>
               <ul className="list-none">
                 <li className="flex items-center mb-2">
                   <FontAwesomeIcon
                     className="text-primary mr-2 w-8 h-8"
                     icon={faFacebook}
                   />
-                  Facebook
+                  {t('Facebook')}
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
                     <FontAwesomeIcon icon={faTwitter} size="lg" />
                   </div>
-                  Twitter
+                  {t('Twitter')}
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
                     <FontAwesomeIcon icon={faYoutube} size="lg" />
                   </div>
-                  Youtube
+                  {t('Youtube')}
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
                     <FontAwesomeIcon icon={faInstagram} size="lg" />
                   </div>
-                  Instagram
+                  {t('Instagram')}
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
                     <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
                   </div>
-                  LinkedIn
+                  {t('LinkedIn')}
                 </li>
               </ul>
             </div>

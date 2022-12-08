@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import ErrorMsg from '@components/forms/ErrorMsg';
 import PhoneField from '@components/forms/PhoneField';
+import useTranslate from '@hooks/useTranslate';
 
 interface PhoneButtonSetInterface {
   phoneName: string;
@@ -15,9 +16,10 @@ export const PhoneButtonSet = ({
   const [phoneField, setPhoneField] = useState(false);
   const [localPhoneField, setLocalPhoneField] = useState(false);
 
+  const t = useTranslate();
   return (
     <div className="flex flex-col gap-y-4">
-      <p>Seleccione el o los teléfonos de su preferencia</p>
+      <p>{t('Seleccione el o los teléfonos de su preferencia')}</p>
       <div className="flex items-center justify-between">
         <div className="flex items-center w-2/4">
           <input
@@ -29,7 +31,7 @@ export const PhoneButtonSet = ({
           />
 
           <label className="py-1 ml-2 capitalize bg-secundary w-10/12 block text-center capitalize text-white font-bold">
-            móvil
+            {t('móvil')}
           </label>
         </div>
         <div className="flex items-center w-2/4 justify-end">
@@ -42,7 +44,7 @@ export const PhoneButtonSet = ({
           />
 
           <label className="py-1 ml-2 capitalize bg-secundary w-10/12 block text-center capitalize text-white font-bold">
-            fijo
+            {t('fijo')}
           </label>
         </div>
       </div>

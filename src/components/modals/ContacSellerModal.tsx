@@ -13,6 +13,7 @@ import EmailSection from './ContactSellerSections/EmailSection';
 import PhoneSection from './ContactSellerSections/PhoneSection';
 import RegisterDateSection from './ContactSellerSections/RegisterDate';
 import SendQuerySection from './ContactSellerSections/SendQuerySection';
+import useTranslate from '@hooks/useTranslate';
 
 interface ContactSellerProps {
   showModal: boolean;
@@ -43,6 +44,7 @@ export const ContactSellerModal = ({
     setSection(event.target.value);
   };
 
+  const t = useTranslate();
   return (
     <>
       {loading ? <LoaderSpinner /> : null}
@@ -54,7 +56,7 @@ export const ContactSellerModal = ({
         <div className="flex justify-between">
           <div className="w-[400px]">
             <h2 className="text-red font-bold text-lg">
-              Selecciona la opción de tu preferencia
+              {t('Selecciona la opción de tu preferencia')}
             </h2>
             <div className="text-darkprimary flex flex-col gap-y-4 mt-4">
               <div className="radio">
@@ -64,7 +66,7 @@ export const ContactSellerModal = ({
                   value="email"
                   onChange={handleContactMethod}
                 />
-                <label className="ml-2">Enviar correo electrónico</label>
+                <label className="ml-2">{t('Enviar correo electrónico')}</label>
               </div>
               <div className="radio">
                 <input
@@ -73,7 +75,7 @@ export const ContactSellerModal = ({
                   value="phone"
                   onChange={handleContactMethod}
                 />
-                <label className="ml-2">Llamar por teléfono</label>
+                <label className="ml-2">{t('Llamar por teléfono')}</label>
               </div>
               <div className="radio">
                 <input
@@ -82,7 +84,7 @@ export const ContactSellerModal = ({
                   value="call_me"
                   onChange={handleContactMethod}
                 />
-                <label className="ml-2">Quiero que me llamen</label>
+                <label className="ml-2">{t('Quiero que me llamen')}</label>
               </div>
               <div className="radio">
                 <input
@@ -91,7 +93,7 @@ export const ContactSellerModal = ({
                   value="send_value"
                   onChange={handleContactMethod}
                 />
-                <label className="ml-2">Enviar consulta</label>
+                <label className="ml-2">{t('Enviar consulta')}</label>
               </div>
               <div className="radio">
                 <input
@@ -100,7 +102,7 @@ export const ContactSellerModal = ({
                   value="register_visit"
                   onChange={handleContactMethod}
                 />
-                <label className="ml-2">Agendar visita</label>
+                <label className="ml-2">{t('Agendar visita')}</label>
               </div>
             </div>
           </div>

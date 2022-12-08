@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import MainContainer from '@components/layout/MainContainer';
 import EditVehicleForm from '@components/sections/vehicle/EditVehicleForm';
+import useTranslate from '@hooks/useTranslate';
 
 const CreateVehicle: NextPage = () => {
   const initialValues = {
@@ -74,16 +75,17 @@ const CreateVehicle: NextPage = () => {
     image_ids: [],
   };
 
+  const t = useTranslate();
   return (
     <MainContainer activate={['vehicle', 'create-post']}>
       <div className="flex justify-center flex-col items-center">
         <div className="w-[85%] bg-primary p-2 mt-4">
           <p className="w-full text-center text-white capitalize font-bold text-xl">
-            Publicar Vehiculo
+            {t('Publicar Vehiculo')}
           </p>
         </div>
         <p className="capitalize font-bold text-xl my-4">
-          Proporcione los datos especificos a continuación
+          {t('Proporcione los datos especificos a continuación')}
         </p>
         <div className="w-full p-1 flex justify-center flex-col items-center border border-primary">
           <div className="flex justify-center my-6 w-full">

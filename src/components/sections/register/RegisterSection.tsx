@@ -1,3 +1,4 @@
+import useTranslate from '@hooks/useTranslate';
 import React, { useState } from 'react';
 
 import BusinessUser from './user/BusinessUser';
@@ -12,10 +13,11 @@ export const RegisterSection = ({ userType, setUserType }: any) => {
   const handleUser = (event: any) => {
     setUserType(event.target.value as UserType);
   };
+  const t = useTranslate();
   return (
     <>
       <div className="flex gap-x-10">
-        <p>Selecciona el tipo de usuario</p>
+        <p>{t('Selecciona el tipo de usuario')}</p>
         <div className="radio">
           <input
             type="radio"
@@ -23,7 +25,7 @@ export const RegisterSection = ({ userType, setUserType }: any) => {
             value={UserType.NATURAL}
             onChange={handleUser}
           />
-          <label className="ml-2">Persona Natural</label>
+          <label className="ml-2">{t('Persona Natural')}</label>
         </div>
         <div className="radio">
           <input
@@ -32,7 +34,7 @@ export const RegisterSection = ({ userType, setUserType }: any) => {
             value={UserType.BUSINESS}
             onChange={handleUser}
           />
-          <label className="ml-2">Empresa</label>
+          <label className="ml-2">{t('Empresa')}</label>
         </div>
       </div>
       <div className="my-8 flex justify-center w-full">

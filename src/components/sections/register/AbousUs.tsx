@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CheckBox from '@components/forms/Checkbox';
 import Field from '@components/forms/Field';
+import useTranslate from '@hooks/useTranslate';
 
 const optionsAboutUs = [
   {
@@ -26,12 +27,13 @@ export const AboutUs = ({}) => {
   const [socialSection, setSocial] = useState<boolean>(false);
   const [otherSection, setOther] = useState<boolean>(false);
 
+  const t = useTranslate();
   return (
     <>
-      <p>Por favor coméntenos, cómo se enteró de los servicios de la empresa</p>
+      <p>{t('Por favor coméntenos, cómo se enteró de los servicios de la empresa')}</p>
       <p>
-        Es importante para nosotros, porque nos ayuda a mejorar el servicio que
-        le ofrecemos
+        {t(`Es importante para nosotros, porque nos ayuda a mejorar el servicio que
+        le ofrecemos`)}
       </p>
       <div className="grid md:grid-cols-4 text-center mt-8">
         <CheckBox
@@ -46,11 +48,11 @@ export const AboutUs = ({}) => {
               setSocial(event.target.checked);
             }}
           />
-          <label className="ml-2">social networks</label>
+          <label className="ml-2">{t('Redes sociales')}</label>
           <div
             className={`text-center ${socialSection ? 'visible' : 'invisible'}`}
           >
-            Facebook
+            {t('Facebook')}
           </div>
         </div>
         <CheckBox name="user.about_website.friends" label="friends" />
@@ -62,7 +64,7 @@ export const AboutUs = ({}) => {
               setOther(event.target.checked);
             }}
           />
-          <label className="ml-2">other</label>
+          <label className="ml-2">{t('Otro')}</label>
           <div
             className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
           >

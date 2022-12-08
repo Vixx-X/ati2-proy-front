@@ -5,6 +5,7 @@ import { getYears } from '@fetches/vehicles';
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export interface YearSelectProps extends FilteredSelectProps {}
 
@@ -13,6 +14,7 @@ export const YearSelect = ({ filter, ...props }: YearSelectProps) => {
     getYears(query)
   );
 
+  const t = useTranslate();
   const choices = useMemo(
     () =>
       data?.results.map((item: any) => ({
@@ -24,12 +26,12 @@ export const YearSelect = ({ filter, ...props }: YearSelectProps) => {
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Año de Vehiculo
+        {t('Año de Vehiculo')}
       </p>
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Year--"
+        placeholder={t("--Selecciona Year--")}
         {...props}
       />
     </div>

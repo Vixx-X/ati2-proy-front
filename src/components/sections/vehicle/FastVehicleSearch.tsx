@@ -9,6 +9,7 @@ import VehicleTypeSelect from '@components/forms/VehicleTypeSelect';
 import Button from '@components/layout/Button';
 
 import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES } from '@config';
+import useTranslate from '@hooks/useTranslate';
 
 interface FastSearchInterface extends Props {
   className?: string;
@@ -29,6 +30,7 @@ const VehicleFastSearch = ({
   className,
   autoSubmit = true,
 }: FastSearchInterface) => {
+  const t = useTranslate();
   return (
     <Form
       className={`w-full ${className}`}
@@ -48,15 +50,15 @@ const VehicleFastSearch = ({
           />
           <StateSelect name="state" filter={{ country: values?.country }} />
           <div>
-            <Label>Vehiculo en</Label>
+            <Label>{t('Vehiculo en')}</Label>
             <RadioGroup name="sale_type" choices={SALE_TYPE_CHOICES} />
           </div>
           <BrandSelect name="brand" />
           <ModelSelect name="model" filter={{ brand: values?.brand }} />
           {!autoSubmit ? (
             <div className="flex lg:w-96 gap-x-4 lg:col-span-6 justify-center mx-auto">
-              <Button type="submit">Buscar</Button>
-              <Button onClick={resetForm}>Cancelar</Button>
+              <Button type="submit">{t('Buscar')}</Button>
+              <Button onClick={resetForm}>{t('Cancelar')}</Button>
             </div>
           ) : null}
         </>

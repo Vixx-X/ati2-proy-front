@@ -1,6 +1,7 @@
 import BaseModal from '@components/modals/BaseModal';
 
 import terms from '@data/TermsAndConditions';
+import useTranslate from '@hooks/useTranslate';
 
 interface ModalProps {
   showModal: boolean;
@@ -15,10 +16,11 @@ export const DocumentsModal = ({
   text,
   title,
 }: ModalProps) => {
+  const t = useTranslate();
   return (
     <BaseModal
       showModal={showModal}
-      title={title}
+      title={t(title)}
       setShowModal={setShowModal}
       className="text-gray-600 overflow-y-scroll max-h-[90vh] max-w-[90vw]"
     >

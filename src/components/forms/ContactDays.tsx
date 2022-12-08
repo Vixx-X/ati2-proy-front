@@ -12,12 +12,14 @@ import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 import CheckBox from './Checkbox';
+import useTranslate from '@hooks/useTranslate';
 
 interface ContactDaysProps extends Props {
   name: string;
 }
 
 export const ContactDays = ({ name }: ContactDaysProps) => {
+  const t = useTranslate();
   const { values, setFieldValue } = useFormikContext();
   const { data } = useSWR('day-options', getContactDays);
 
@@ -37,7 +39,7 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 
   const choices = useMemo(() => {
     const items = days?.map((el: any) => ({
-      text: el,
+      text: t(el),
       value: el,
     }));
     if (!items) return items;
@@ -46,7 +48,7 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
       { text: 'weekdays', value: 'weekdays', checked: weekdays },
       { text: 'weekends', value: 'weekends', checked: weekends },
     ];
-  }, [days, weekends, weekdays]);
+  }, [days, weekdays, weekends, t]);
 
   useEffect(() => {
     const options = recursiveGetter(values, name);
@@ -69,7 +71,7 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
     <>
       <div className="bg-secundary">
         <p className="w-full text-center text-white font-bold text-xl py-2 px-4">
-          Dias de contacto
+          {t('Días de contacto')}
         </p>
       </div>
       <div className="border border-2 border-darkprimary p-3 flex flex-wrap justify-center">

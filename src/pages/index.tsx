@@ -11,22 +11,24 @@ import SearchSection from '@components/sections/home/searchSection/SearchSection
 import { SERVER_URLS } from '@config';
 
 import Questions from '@data/Questions';
+import useTranslate from '@hooks/useTranslate';
 
 const { URL_VEHICLES } = SERVER_URLS;
 
 const Landing: NextPage = () => {
   const [section, setSection] = useState<string>();
   const [questionModal, setQuestionModal] = useState(false);
+  const t = useTranslate();
 
   return (
     <>
       <MainContainer activate="home">
         <h2 className="font-bold text-lg mt-10 text-center">
-          Opciones de búsqueda
+          {t('Opciones de búsqueda')}
         </h2>
         <ol className="list-decimal">
           <li className="text-blue-600">
-            - Haz click en la opción de tu preferencia
+            {t('- Haz click en la opción de tu preferencia')}
           </li>
         </ol>
         <div className="flex flex-col md:flex-row items-center gap-8 justify-center py-10">
@@ -40,7 +42,7 @@ const Landing: NextPage = () => {
               }
             }}
           >
-            Buscar vehículos
+            {t('Buscar vehículos')}
           </Button>
           <Button
             className="w-60"
@@ -52,19 +54,19 @@ const Landing: NextPage = () => {
               }
             }}
           >
-            Vender o alquilar vehículo
+            {t('Vender o alquilar vehículo')}
           </Button>
         </div>
         {section === 'search' ? <SearchSection /> : null}
         {section === 'post' ? <HowPostSection /> : null}
-        <h2 className="font-bold text-lg mt-10">Preguntas frecuentes</h2>
+        <h2 className="font-bold text-lg mt-10">{t('Preguntas frecuentes')}</h2>
         <p>
-          Haga click aquí{' '}
+          {t('Haga click aquí ')}
           <span
             className="text-blue-600 underline cursor-pointer"
             onClick={() => setQuestionModal(true)}
           >
-            Ver preguntas frecuentes
+            {t('Ver preguntas frecuentes')}
           </span>
         </p>
       </MainContainer>

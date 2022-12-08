@@ -5,6 +5,7 @@ import recursiveGetter from '@utils/recursiveGetter';
 import { useFormikContext } from 'formik';
 
 import Select from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 const HOUR_TIME_CHOICES = [
   { text: '1', value: '1' },
@@ -43,6 +44,7 @@ const getHour = (time: string) => {
 };
 
 export const HourField = ({ name, ...props }: any) => {
+  const t = useTranslate();
   const { values, setFieldValue } = useFormikContext();
 
   const [hour, setHour] = useState('');
@@ -64,13 +66,13 @@ export const HourField = ({ name, ...props }: any) => {
   return (
     <div className="flex gap-2 " {...props}>
       <Select
-        placeholder="Seleccione Hora"
+        placeholder={t("Seleccione Hora")}
         onChange={(e: any) => setHour(e.target.value)}
         value={hour}
         choices={HOUR_TIME_CHOICES}
       />
       <Select
-        placeholder="Seleccione Mitad de Día"
+        placeholder={t("Seleccione Mitad de Día")}
         onChange={(e: any) => setMid(e.target.value)}
         value={mid}
         choices={MID_TIME_CHOICES}

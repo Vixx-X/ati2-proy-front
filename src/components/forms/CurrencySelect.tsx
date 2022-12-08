@@ -6,6 +6,7 @@ import { useFormikContext } from 'formik';
 
 import Field from './Field';
 import Select from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export const CurrencySelect = ({ filter, name, ...props }: Props) => {
   const { values, setFieldValue } = useFormikContext();
@@ -33,22 +34,24 @@ export const CurrencySelect = ({ filter, name, ...props }: Props) => {
     setFieldValue(name, value1 === 'OTHER' ? value2 : value1);
   }, [value1, value2, name, setFieldValue]);
 
+  const t = useTranslate();
+
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Moneda
+        {t('Moneda')}
       </p>
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona la Moneda--"
+        placeholder={t("--Selecciona la Moneda--")}
         name={name1}
         {...props}
       />
       {value1 === 'OTHER' ? (
         <div className="flex flex-col">
           <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-            Coloque las siglas de las monedas
+            {t('Coloque las siglas de las monedas')}
           </p>
           <Field
             type="text"

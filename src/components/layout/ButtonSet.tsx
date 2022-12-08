@@ -10,6 +10,7 @@ import authStore from '@stores/AuthStore';
 import userStore from '@stores/UserStore';
 
 import Container from './Container';
+import useTranslate from '@hooks/useTranslate';
 
 interface ButtonSetProps {
   setShowModal: any;
@@ -22,6 +23,7 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
   const logout = authStore((state: any) => state.logout);
   const user = userStore((state: any) => state.user);
   const [open, setOpen] = useState(false);
+  const t = useTranslate();
   return (
     <Container className="w-11/12">
       <div className="flex justify-end gap-x-4 h-12 bg-white">
@@ -31,14 +33,14 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
               className="w-auto rounded-b-none"
               onClick={() => setShowModal(true)}
             >
-              iniciar sesión
+              {t('iniciar sesión')}
             </Button>
             <Button
               className="w-auto rounded-b-none"
               href={URL_REGISTER}
               anchorTag={true}
             >
-              registrarse
+              {t('registrarse')}
             </Button>
           </>
         ) : (
@@ -58,14 +60,14 @@ export const ButtonSet = ({ setShowModal }: ButtonSetProps) => {
               className="w-auto rounded-b-none"
               onClick={() => setOpen((prev) => !prev)}
             >
-              Usuario
+              {t('Usuario')}
             </Button>
             {open ? (
               <Button
                 className="w-auto rounded-b-none"
                 onClick={() => logout()}
               >
-                Cerrar sesión
+                {t('Cerrar sesión')}
               </Button>
             ) : null}
           </>

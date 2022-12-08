@@ -14,6 +14,7 @@ import { SERVER_URLS } from '@config';
 import authStore from '@stores/AuthStore';
 
 import { Field, FormikValues } from 'formik';
+import useTranslate from '@hooks/useTranslate';
 
 const { URL_REGISTER, URL_PASSWORD_RESET } = SERVER_URLS;
 
@@ -43,6 +44,7 @@ const LogIn: NextPage = () => {
     }
   };
 
+  const t = useTranslate();
   return (
     <>
       {loading ? <LoaderSpinner /> : null}
@@ -52,7 +54,7 @@ const LogIn: NextPage = () => {
             <div className="divide-y">
               <div>
                 <p className="font-light text-3xl xl:text-4xl mb-3 text-light">
-                  Inicio de Sesión
+                  {t('Inicio de Sesión')}
                 </p>
               </div>
               <div className="pt-4">
@@ -61,14 +63,14 @@ const LogIn: NextPage = () => {
                     className="block text-sm xl:text-lg font-bold mb-2 text-light"
                     htmlFor="username"
                   >
-                    Nombre de usuario
+                    {t('Nombre de usuario')}
                   </label>
                   <Field
-                    label="Nombre de usuario"
+                    label={t('Nombre de usuario')}
                     name="username"
                     id="username"
                     className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Username"
+                    placeholder={t('Nombre de usuario')}
                   />
                 </div>
                 <ErrorMsg name="username" />
@@ -77,14 +79,14 @@ const LogIn: NextPage = () => {
                     className="block text-sm xl:text-lg font-bold mb-2 text-light"
                     htmlFor="password"
                   >
-                    Contraseña
+                    {t('Contraseña')}
                   </label>
                   <PassField
-                    label="Contraseña"
+                    label={t('Contraseña')}
                     id="password"
                     name="password"
                     className="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Password"
+                    placeholder={t('Contraseña')}
                   />
                 </div>
                 <ErrorMsg name="password" />
@@ -96,7 +98,7 @@ const LogIn: NextPage = () => {
                 type="submit"
                 className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full"
               >
-                <p>Iniciar Sesion</p>
+                <p>{t('Iniciar Sesion')}</p>
               </button>
             </div>
 
@@ -106,12 +108,12 @@ const LogIn: NextPage = () => {
 
         <Link href={URL_PASSWORD_RESET}>
           <a className="inline-block w-full align-baseline font-bold text-sm xl:text-lg  mt-4 text-light hover:text-primary text-right">
-            ¿Olvido su contraseña?
+            {t('¿Olvido su contraseña?')}
           </a>
         </Link>
         <Link href={URL_REGISTER}>
           <a className="inline-block w-full align-baseline font-bold text-sm xl:text-lg text-light hover:text-primary text-right">
-            ¿No tiene aun una cuenta?
+            {t('¿No tiene aun una cuenta?')}
           </a>
         </Link>
       </div>
