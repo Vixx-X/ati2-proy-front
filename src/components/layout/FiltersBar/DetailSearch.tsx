@@ -8,6 +8,7 @@ import Header from '@components/layout/Header';
 import { Field } from '../../forms/Field';
 import Button from '../Button';
 import Container from '../Container';
+import useTranslate from '@hooks/useTranslate';
 
 interface FastSearchInterface {
   filters: {
@@ -22,6 +23,7 @@ interface FastSearchInterface {
 }
 
 const DetailSearch = ({ filters, ...props }: FastSearchInterface) => {
+  const t = useTranslate();
   return (
     <>
       <div className="grid md:grid-cols-2 gap-2 ">
@@ -40,12 +42,12 @@ const DetailSearch = ({ filters, ...props }: FastSearchInterface) => {
         )}
         <RadioButtonWithSelects
           name={'price_rent'}
-          placeholder={'Indique Precio de alquiler'}
+          placeholder={t('Indique Precio de alquiler')}
           selectName={'Precio de Alquiler'}
         />
       </div>
       <Button className="capitalize w-fit text-center" type="submit">
-        enviar
+        {t('enviar')}
       </Button>
     </>
   );

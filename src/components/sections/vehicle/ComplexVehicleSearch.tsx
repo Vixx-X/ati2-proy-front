@@ -12,8 +12,10 @@ import YearSelect from '@components/forms/YearSelect';
 import { Button } from '@components/layout/Button';
 
 import { SALE_TYPE_CHOICES } from '@config';
+import useTranslate from '@hooks/useTranslate';
 
 import { Field } from 'formik';
+import { useMemo } from 'react';
 
 interface FastSearchInterface extends Props {
   className?: string;
@@ -34,6 +36,15 @@ const VehicleComplexSearch = ({
   className,
   autoSubmit = true,
 }: FastSearchInterface) => {
+  const t = useTranslate();
+  const saleTypeChoices = useMemo(
+    () =>
+      SALE_TYPE_CHOICES.map(({ text, ...rest }) => ({
+        text: t(text),
+        ...rest,
+      })),
+    [t]
+  );
   return (
     <Form
       className={`w-full ${className}`}
@@ -57,12 +68,12 @@ const VehicleComplexSearch = ({
             filter={{ state: values?.filter?.address?.state }}
           />
           <div>
-            <Label>Zona</Label>
+            <Label>{t('Zona')}</Label>
             <Field name="line1" />
           </div>
           <div>
             <Label>Vehiculo en</Label>
-            <RadioGroup name="sale_type" choices={SALE_TYPE_CHOICES} />
+            <RadioGroup name="sale_type" choices={saleTypeChoices} />
           </div>
           <BrandSelect name="brand" />
           <ModelSelect name="model" filter={{ brand: values?.brand }} />
@@ -76,24 +87,24 @@ const VehicleComplexSearch = ({
           <PriceRangeField name="sale_price" />
           <CurrencySelect name="currency" />
           <div>
-            <Label>Vehiculo en</Label>
+            <Label>{t('Vehiculo en')}</Label>
             <RadioGroup
               name="ordering"
               choices={[
                 {
-                  text: 'De mayor a menor precio de venta',
+                  text: t('De mayor a menor precio de venta'),
                   value: '-sale_price',
                 },
                 {
-                  text: 'De menor a mayor precio de venta',
+                  text: t('De menor a mayor precio de venta'),
                   value: 'sale_price',
                 },
                 {
-                  text: 'De mayor a menor precio de renta',
+                  text: t('De mayor a menor precio de renta'),
                   value: '-rental_price',
                 },
                 {
-                  text: 'De menor a mayor precio de renta',
+                  text: t('De menor a mayor precio de renta'),
                   value: 'rental_price',
                 },
               ]}
@@ -101,8 +112,8 @@ const VehicleComplexSearch = ({
           </div>
           {!autoSubmit ? (
             <div className="flex md:w-96 gap-x-4 lg:col-span-6 justify-center mx-auto">
-              <Button type="submit">Buscar</Button>
-              <Button onClick={resetForm}>Cancelar</Button>
+              <Button type="submit">{t('Buscar')}</Button>
+              <Button onClick={resetForm}>{t('Cancelar')}</Button>
             </div>
           ) : null}
         </>

@@ -3,11 +3,9 @@ import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
 import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
-
 import { postContactUsInfo } from '@fetches/contact';
-
+import useTranslate from '@hooks/useTranslate';
 import pageStore from '@stores/PageStore';
-
 import { FormikValues } from 'formik';
 
 interface ContactUsForm {
@@ -34,10 +32,11 @@ const ContactForm = ({ setLoading }: any) => {
     reason: '',
   };
 
+  const t = useTranslate();
   return (
     <div className="w-2/4 border-2 border-black p-8 h-fit">
       <h2 className="font-bold text-lg text-center mb-4">
-        Formulario de contacto
+        {t('Formulario de contacto')}
       </h2>
       <Form initialValues={initValues} onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -49,7 +48,7 @@ const ContactForm = ({ setLoading }: any) => {
         <div className="mb-4">
           <div className="flex border-b border-gray py-2">
             <label htmlFor="email" className="capitalize mr-2">
-              de:
+              {t('de:')}
             </label>
             <Field
               className="px-2 border-none grow text-gray-600"
@@ -62,7 +61,7 @@ const ContactForm = ({ setLoading }: any) => {
         <div className="mb-4">
           <div className="flex border-b border-gray py-2">
             <label htmlFor="full_name" className="capitalize mr-2">
-              nombre y apellido:
+              {t('nombre y apellido')}:
             </label>
             <Field
               className="px-2 border-none grow"
@@ -74,7 +73,7 @@ const ContactForm = ({ setLoading }: any) => {
         </div>
         <div className="mb-8">
           <label htmlFor="reason" className="capitalize py-2 mb-2 block">
-            asunto:
+            {t('asunto')}:
           </label>
           <TextArea className="w-full h-56 resize-none" name="reason" />
           <ErrorMsg name="reason" />
@@ -85,7 +84,7 @@ const ContactForm = ({ setLoading }: any) => {
             type="submit"
             className="w-fit align-center"
           >
-            Enviar
+            {t('Enviar')}
           </Button>
         </div>
       </Form>

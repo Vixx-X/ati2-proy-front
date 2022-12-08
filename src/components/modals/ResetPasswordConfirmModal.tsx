@@ -15,6 +15,7 @@ import { SERVER_URLS } from '@config';
 import { postResetPasswordConfirm } from '@fetches/user';
 
 import { FormikValues } from 'formik';
+import useTranslate from '@hooks/useTranslate';
 
 interface ResetPasswordConfirmModalProps {
   showModal: boolean;
@@ -32,21 +33,6 @@ const STEPS = {
   FORM: 0,
   SUCCESS: 1,
 };
-
-const OPTIONS = [
-  {
-    value: SERVER_URLS.URL_LOGIN,
-    text: 'Iniciar sesión',
-  },
-  {
-    value: SERVER_URLS.URL_LANDING,
-    text: 'Seguir navegando en el portal',
-  },
-  {
-    value: SERVER_URLS.URL_LANDING,
-    text: 'Salir',
-  },
-];
 
 export const ResetPasswordConfirmModal = ({
   showModal,
@@ -75,10 +61,25 @@ export const ResetPasswordConfirmModal = ({
     }
   };
 
+  const t = useTranslate();
+  const OPTIONS = [
+    {
+      value: SERVER_URLS.URL_LOGIN,
+      text: t('Iniciar sesión'),
+    },
+    {
+      value: SERVER_URLS.URL_LANDING,
+      text: t('Seguir navegando en el portal'),
+    },
+    {
+      value: SERVER_URLS.URL_LANDING,
+      text: t('Salir'),
+    },
+  ];
   return (
     <BaseModal
       showModal={showModal}
-      title="reset password"
+      title="Restablecer contraseña"
       setShowModal={setShowModal}
     >
       <Form initialValues={initValues} onSubmit={handleSubmit} renderProps>
@@ -86,8 +87,8 @@ export const ResetPasswordConfirmModal = ({
           <>
             {step === STEPS.SUCCESS ? (
               <div>
-                <p className="mb-4">Su contraseña ha sido cambiada</p>
-                <p className="mb-4">¿Qué desea hacer?</p>
+                <p className="mb-4">{t('Su contraseña ha sido cambiada')}</p>
+                <p className="mb-4">{t('¿Qué desea hacer?')}</p>
 
                 <RadioGroup name="form_choice" choices={OPTIONS} />
                 <div className="flex mt-3">
@@ -95,7 +96,7 @@ export const ResetPasswordConfirmModal = ({
                     onClick={() => router.push(values.form_choice)}
                     disabled={!values?.form_choice}
                   >
-                    Aceptar
+                    {t('Aceptar')}
                   </Button>
                 </div>
               </div>
@@ -105,20 +106,20 @@ export const ResetPasswordConfirmModal = ({
                   <ErrorMsg name="non_field_errors" />
                   <div className="flex">
                     <label className="basis-1/6" htmlFor="password1">
-                      contraseña
+                      {t('contraseña')}
                     </label>
                     <Field name="password1" id="password1" />
                   </div>
                   <div className="flex">
                     <label className="basis-1/6" htmlFor="password2">
-                      confirmar contraseña
+                      {t('confirmar contraseña')}
                     </label>
                     <Field name="password2" id="password2" />
                   </div>
                 </div>
                 <div className="flex justify-center mt-2">
                   <div className="flex">
-                    <Button type="submit">Cambiar contraseña</Button>
+                    <Button type="submit">{t('Cambiar contraseña')}</Button>
                   </div>
                 </div>
                 {loading && <Loader />}

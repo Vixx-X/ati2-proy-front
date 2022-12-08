@@ -3,6 +3,7 @@ import { ReactChild } from 'react';
 
 import { faSquare, faWindowMinimize } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useTranslate from '@hooks/useTranslate';
 
 interface BaseModalProps {
   title: string;
@@ -21,6 +22,7 @@ export const BaseModal = ({
   className,
   backDrop = true,
 }: BaseModalProps) => {
+  const t = useTranslate();
   return (
     <>
       {showModal && (
@@ -32,7 +34,7 @@ export const BaseModal = ({
               <div className="flex justify- between border-solid rounded-t bg-primary sticky top-0">
                 <div className="grow flex px-4 py-2 w-100 justify-center items-center">
                   <p className="font-semibold text-white text-center items-center text-xl capitalize">
-                    {title}
+                    {t(title)}
                   </p>
                 </div>
                 <div className="flex gap-5 p-2 justify-center items-center">

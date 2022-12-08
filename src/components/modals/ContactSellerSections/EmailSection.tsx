@@ -3,21 +3,23 @@ import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
+import useTranslate from '@hooks/useTranslate';
 import pageStore from '@stores/PageStore';
 
 export const EmailSection = ({}) => {
   const email = pageStore((state) => state.email);
 
+  const t = useTranslate();
   return (
     <>
-      <p className="text-red text-xl font-bold">Enviar correo eletrónico</p>
+      <p className="text-red text-xl font-bold">{t('Enviar correo eletrónico')}</p>
       <div className="mb-2">
         <div className="flex py-2">
           <label
             htmlFor="target_email"
             className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
           >
-            para:
+            {t('para:')}
           </label>
           <div className="w-9/12 mr-2">
             <input
@@ -35,7 +37,7 @@ export const EmailSection = ({}) => {
             htmlFor="first_name"
             className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
           >
-            nombre:
+            {t('nombre:')}
           </label>
           <Field name="data.first_name" styles="w-9/12 mr-2" id="first_name" />
         </div>
@@ -46,7 +48,7 @@ export const EmailSection = ({}) => {
             htmlFor="last_name"
             className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
           >
-            apellido:
+            {t('apellido:')}
           </label>
           <Field name="data.last_name" styles="w-9/12 mr-2" id="last_name" />
         </div>
@@ -57,7 +59,7 @@ export const EmailSection = ({}) => {
             htmlFor="source_email"
             className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
           >
-            correo de solicitante:
+            {t('correo de solicitante:')}
           </label>
           <Field
             name="data.source_email"
@@ -69,7 +71,7 @@ export const EmailSection = ({}) => {
       <div className="mb-2 flex">
         <div className="flex py-2 w-full">
           <label className="capitalize mr-2 w-3/12 font-bold text-darkprimary block">
-            teléfono:
+            {t('teléfono:')}
           </label>
           <div className="w-9/12 mr-2">
             <PhoneButtonSet
@@ -84,7 +86,7 @@ export const EmailSection = ({}) => {
           htmlFor="reason"
           className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
         >
-          mensaje a enviar:
+          {t('mensaje a enviar:')}
         </label>
         <TextArea
           className="h-40 resize-none w-9/12 mr-2"
@@ -93,9 +95,9 @@ export const EmailSection = ({}) => {
       </div>
       <div className="py-4">
         <p className="text-darkprimary font-bold">
-          <span className="text-red w-9/12 mr-2">* </span>Por favor sverifique
+          <span className="text-red w-9/12 mr-2">* </span>{(`Por favor sverifique
           que sus datos sean los correctos, ya que serán utilizados por el
-          anunciante para contactarlo.
+          anunciante para contactarlo.`)}
         </p>
       </div>
       <div className="text-center">
@@ -104,7 +106,7 @@ export const EmailSection = ({}) => {
           type="submit"
           className="w-fit align-center"
         >
-          Contactar al anunciante
+          {t('Contactar al anunciante')}
         </Button>
       </div>
     </>

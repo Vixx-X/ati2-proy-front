@@ -7,81 +7,83 @@ import BaseModal from '@components/modals/BaseModal';
 
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useTranslate from '@hooks/useTranslate';
 
 export const BusinessUser = ({}) => {
+  const t = useTranslate();
   return (
     <>
       <div className="w-full justify-center flex gap-x-20">
         <div className="flex flex-col gap-y-4">
           <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
-            datos de la empresa
+            {t('Datos de la empresa')}
           </div>
           <div className="flex items-center">
             <label htmlFor="name" className="w-2/4 capitalize">
-              name of business
+              {t('Nombre de la empresa')}
             </label>
             <Field name="name" id="name" />
             <ErrorMsg name="name" />
           </div>
           <div className="flex items-center">
             <label htmlFor="tax_id" className="w-2/4 capitalize">
-              tax id
+              {t('ID de Impuesto')}
             </label>
             <Field name="tax_id" id="tax_id" />
             <ErrorMsg name="tax_id" />
           </div>
           <div className="flex items-center">
             <label htmlFor="city" className="w-2/4 capitalize">
-              city
+              {t('Ciudad')}
             </label>
             <Select choices={[]} name="city" placeholder="Select a city" />
             <ErrorMsg name="city" />
           </div>
           <div className="flex items-center">
             <label htmlFor="country" className="w-2/4 capitalize">
-              country
+              {t('País')}
             </label>
             <Select
               choices={[]}
               name="country"
-              placeholder="Select a country"
+              placeholder={t("Select a country")}
             />
             <ErrorMsg name="country" />
           </div>
           <div className="flex items-center">
             <label htmlFor="continent" className="w-2/4 capitalize">
-              continent
+              {t('Continente')}
             </label>
             <Field name="continent" id="continent" />
             <ErrorMsg name="continent" />
           </div>
           <div className="flex items-center">
             <label htmlFor="address?.line1" className="w-2/4 capitalize">
-              main address
+              {t('Dirección principal')}
             </label>
             <Field name="address?.line1" id="address?.line1" />
             <ErrorMsg name="address?.line1" />
           </div>
           <div className="flex items-center">
             <label htmlFor="address?.line2" className="w-2/4 capitalize">
-              more details of address
+              {t('mas detalles de la dirección')}
             </label>
             <Field name="address?.line2" id="address?.line2" />
             <ErrorMsg name="address?.line2" />
           </div>
           <div className="flex items-center">
             <label htmlFor="phone" className="w-2/4 capitalize">
-              phone
+              {t('Teléfono')}
             </label>
           </div>
         </div>
         <div className="flex flex-col gap-y-4">
           <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
-            datos representante de la empresa
+            {t('Datos representante de la empresa')}
           </div>
           <div className="flex items-center">
             <label htmlFor="representant.first_name" className="w-2/4 capitalize">
-              name of representant
+              {t('Nombre del representante')}
             </label>
             <Field name="representant.first_name" id="representant.first_name" />
             <ErrorMsg name="representant.first_name" />
@@ -91,14 +93,14 @@ export const BusinessUser = ({}) => {
               htmlFor="representant.last_name"
               className="w-2/4 capitalize"
             >
-              last name of representant
+              {t('Apellido del representante')}
             </label>
             <Field name="representant.last_name" id="representant.last_name" />
             <ErrorMsg name="representant.last_name" />
           </div>
           <div className="flex items-center">
             <label htmlFor="phone" className="w-2/4 capitalize">
-              phone of representant
+              {t('Teléfono del representante')}
             </label>
             <ErrorMsg name="representant.phone" />
             <ErrorMsg name="representant.local_phone" />
@@ -106,9 +108,9 @@ export const BusinessUser = ({}) => {
         </div>
       </div>
       <p className="justify-center flex text-darkprimary mt-8">
-        <span className="text-red">*</span> Por favor verifique que sus datos
+        <span className="text-red">*</span> {(`Por favor verifique que sus datos
         sean los correctos, ya que serán utilizados para generar su publicación,
-        enviarle sus datos de acceso, o notificar sus pagos
+        enviarle sus datos de acceso, o notificar sus pagos`)}
       </p>
     </>
   );

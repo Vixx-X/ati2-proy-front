@@ -1,3 +1,4 @@
+import useTranslate from '@hooks/useTranslate';
 import HourField from './HourField';
 
 interface ContactUseHoursProps extends Props {
@@ -14,22 +15,23 @@ export const ContactUseHours = ({
   nameEnd,
   ...props
 }: ContactUseHoursProps) => {
+  const t = useTranslate();
   return (
     <div {...props}>
       <div className={`bg-secundary ${titleClassNames}`}>
         <p className="w-full text-center text-white font-bold py-2 px-4">
-          Horas de Contacto
+          {t('Horas de Contacto')}
         </p>
       </div>
       <div
         className={`border border-2 border-darkprimary p-3 flex flex-wrap justify-center ${optionsClassNames}`}
       >
         <div className="w-[50%]">
-          <p className="font-bold">Desde</p>
+          <p className="font-bold">{t('Desde')}</p>
           <HourField name={nameStart} />
         </div>
         <div className="w-[50%]">
-          <p className="font-bold">Hasta</p>
+          <p className="font-bold">{t('Hasta')}</p>
           <HourField name={nameEnd} />
         </div>
       </div>

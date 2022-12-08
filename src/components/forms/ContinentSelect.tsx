@@ -8,6 +8,7 @@ import { getContinents } from '@fetches/address';
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export interface ContinentSelectProps extends FilteredSelectProps {}
 
@@ -16,6 +17,7 @@ export const ContinentSelect = ({
   name,
   ...props
 }: ContinentSelectProps) => {
+  const t = useTranslate();
   const { data } = useSWR(
     ['continents', { limit: 300, ...filter }],
     (_, query) => getContinents(query)
@@ -36,13 +38,13 @@ export const ContinentSelect = ({
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Continente
+        {t('Continente')}
       </p>
       <Select
         name={name}
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Continente--"
+        placeholder={t("--Selecciona Continente--")}
         {...props}
       />
     </div>

@@ -6,16 +6,18 @@ import { useFormikContext } from 'formik';
 
 import Field from './Field';
 import Select from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export const PriceRangeField = ({ filter, name, ...props }: Props) => {
   const name_min = `${name}_min`;
   const name_max = `${name}_max`;
   const [inRange, setInRange] = useState(false);
 
+  const t = useTranslate();
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Precio
+        {t('Precio')}
       </p>
 
       <div role="group">
@@ -27,13 +29,13 @@ export const PriceRangeField = ({ filter, name, ...props }: Props) => {
             onChange={() => setInRange(true)}
             className="w-4 h-4"
           />
-          <label className="ml-2">Por rango</label>
+          <label className="ml-2">{t('Por rango')}</label>
         </div>
         {inRange ? (
           <>
-            <label className="ml-2">Minimo</label>
+            <label className="ml-2">{t('Mínimo')}</label>
             <Field name={name_min} />
-            <label className="ml-2">Maximo</label>
+            <label className="ml-2">{t('Máximo')}</label>
             <Field name={name_max} />
           </>
         ) : null}
@@ -45,7 +47,7 @@ export const PriceRangeField = ({ filter, name, ...props }: Props) => {
             onChange={() => setInRange(false)}
             className="w-4 h-4"
           />
-          <label className="ml-2">Por cualquier precio</label>
+          <label className="ml-2">{t('Por cualquier precio')}</label>
         </div>
       </div>
     </div>

@@ -24,33 +24,9 @@ import { classNames } from '@utils/classNames';
 
 import { FormikValues } from 'formik';
 import { Business, NaturalPerson } from 'user';
+import useTranslate from '@hooks/useTranslate';
 
-const registerSections = [
-  {
-    index: 0,
-    text: '¿Cómo supo de nosotros?',
-  },
-  {
-    index: 1,
-    text: 'Registrar usuario',
-  },
-  {
-    index: 2,
-    text: 'Idioma del adiestamiento',
-  },
-  {
-    index: 3,
-    text: 'Datos de inicio de sesión',
-  },
-  {
-    index: 4,
-    text: 'frecuencia e información a recibir',
-  },
-  {
-    index: 5,
-    text: 'datos de facturación',
-  },
-];
+
 
 const initialValues1: NaturalPerson | Business = {
   user: {
@@ -200,6 +176,34 @@ const Register: NextPage = () => {
     }
   };
 
+  const t = useTranslate();
+  const registerSections = [
+    {
+      index: 0,
+      text: t('¿Cómo supo de nosotros?'),
+    },
+    {
+      index: 1,
+      text: t('Registrar usuario'),
+    },
+    {
+      index: 2,
+      text: t('Idioma del adiestamiento'),
+    },
+    {
+      index: 3,
+      text: t('Datos de inicio de sesión'),
+    },
+    {
+      index: 4,
+      text: t('frecuencia e información a recibir'),
+    },
+    {
+      index: 5,
+      text: t('datos de facturación'),
+    },
+  ];
+
   return (
     <MainContainer>
       <InfoRegister />
@@ -226,7 +230,7 @@ const Register: NextPage = () => {
           className={`h-fit ${indexSection <= 0 ? 'invisible' : 'visible'}`}
           onClick={() => setSection(indexSection - 1)}
         >
-          &lt; Atrás
+          {t('< Atrás')}
         </Button>
         <p className="font-bold text-white text-center bg-primary text-xl py-4 rounded-md uppercase">
           {registerSections[indexSection].text}
@@ -236,7 +240,7 @@ const Register: NextPage = () => {
           className={`h-fit ${indexSection >= 5 ? 'invisible' : 'visible'}`}
           onClick={() => setSection(indexSection + 1)}
         >
-          Continuar &gt;
+          {t('Continuar >')}
         </Button>
       </section>
       <Form

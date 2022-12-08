@@ -187,13 +187,13 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
               }}
               className="sm:mt-16"
             >
-              contactar al anunciante
+              {t('Contactar al anunciante')}
             </Button>
           </div>
         </div>
       </div>
       <a className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block">
-        Ver información completa
+        {t('Ver información completa')}
       </a>
       {titleHover !== 'photos' && titleHover !== 'videos' ? (
         <DetailsModal
