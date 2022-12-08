@@ -7,50 +7,10 @@ import Select from '@components/forms/Select';
 
 import { getSocialMedias } from '@fetches/socials';
 
+import useTranslate from '@hooks/useTranslate';
+
 import { useFormikContext } from 'formik';
 import useSWR from 'swr';
-
-const choicesNotificationFrecuency = [
-  {
-    value: '1w',
-    text: '1 vez a la semana',
-  },
-  {
-    value: '2w',
-    text: 'cada 2 semanas',
-  },
-  {
-    value: '1m',
-    text: '1 vez al mes',
-  },
-  {
-    value: 'other',
-    text: 'otra',
-  },
-];
-
-const choicesNotificationMethod = [
-  {
-    value: 'email',
-    text: 'Correo electrónico según sus preferencias',
-  },
-  {
-    value: 'socials',
-    text: 'Redes sociales de la empresa',
-  },
-  {
-    value: 'other',
-    text: 'Mensaje de texto',
-  },
-  {
-    value: 'other',
-    text: 'Otro(s)',
-  },
-  {
-    value: 'other',
-    text: 'Mensaje privado en mi cuenta de Facebook',
-  },
-];
 
 const NotificationSection = ({ userType, setUserType }: any) => {
   const [sections, setSections] = useState<Array<boolean>>([
@@ -77,12 +37,54 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     setSections(tempArray);
   };
 
+  const t = useTranslate();
+  const choicesNotificationFrecuency = [
+    {
+      value: '1w',
+      text: t('1 vez a la semana'),
+    },
+    {
+      value: '2w',
+      text: t('cada 2 semanas'),
+    },
+    {
+      value: '1m',
+      text: t('1 vez al mes'),
+    },
+    {
+      value: 'other',
+      text: t('otra'),
+    },
+  ];
+
+  const choicesNotificationMethod = [
+    {
+      value: 'email',
+      text: t('Correo electrónico según sus preferencias'),
+    },
+    {
+      value: 'socials',
+      text: t('Redes sociales de la empresa'),
+    },
+    {
+      value: 'other',
+      text: t('Mensaje de texto'),
+    },
+    {
+      value: 'other',
+      text: t('Otro(s)'),
+    },
+    {
+      value: 'other',
+      text: t('Mensaje privado en mi cuenta de Facebook'),
+    },
+  ];
   return (
     <div className="flex flex-col justify-center  mx-auto">
       <div className="flex flex-col gap-y-4 justify-center">
         <p className="font-bold">
-          ¿Con que frecuencia le gustaría mantenerse informado acerca de los
-          servicios que ofrece la empresa?
+          {`¿Con que frecuencia le gustaría mantenerse informado acerca de los
+          servicios que ofrece la empresa?`}
         </p>
         <RadioGroup
           name="user.notification_setting.frecuency"
@@ -98,19 +100,19 @@ const NotificationSection = ({ userType, setUserType }: any) => {
             >
               <Field
                 name="user.notification_setting.frecuency_other"
-                placeholder="Ej:9 días"
+                placeholder={t('Ej:9 días')}
               />
               <p className="w-72 text-sm opacity-40 mt-4">
-                * Importante colocar número seguido del intervalo de tiempo
-                después de que se quiera recibir &quot;días&quot;
-                &quot;semanas&quot; &quot;meses&quot;
+                {t(`* Importante colocar número seguido del intervalo de tiempo
+                después de que se quiera recibir "días"
+                "semanas" "meses"`)}
               </p>
             </div>
           }
         />
         <ErrorMsg name="user.notification_setting.frecuency" />
         <p className="font-bold">
-          Medio(s) por los que le gustaría ser informado
+          {t('Medio(s) por los que le gustaría ser informado')}
         </p>
         <div className="flex flex-col gap-y-8">
           {choicesNotificationMethod.map(({ text, value }, index) => (
@@ -148,7 +150,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
                   />
                 </div>
                 <div>
-                <label>Indique Nombre de Usuario</label>
+                  <label>Indique Nombre de Usuario</label>
                   <Field
                     name={`user.notification_setting.notification_method.${value}[0].value`}
                   />

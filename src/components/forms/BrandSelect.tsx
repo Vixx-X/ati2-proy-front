@@ -5,11 +5,13 @@ import { getBrands } from '@fetches/vehicles';
 import useSWR from 'swr';
 
 import Select from './Select';
+import useTranslate from '@hooks/useTranslate';
 
 export const BrandSelect = ({ name, filter, ...props }: Props) => {
   const { data } = useSWR(['brand', { limit: 100, ...filter }], (_, query) =>
     getBrands(query)
   );
+  const t = useTranslate();
   const choices = useMemo(
     () =>
       data?.results.map((item: any) => ({
@@ -21,13 +23,13 @@ export const BrandSelect = ({ name, filter, ...props }: Props) => {
   return (
     <div className="w-full">
       <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        Marcas de Vehiculos
+        {t('Marcas de Vehiculos')}
       </p>
       <Select
         name={name}
         className="w-full rounded"
         choices={choices}
-        placeholder="--Selecciona Marca--"
+        placeholder={t("--Selecciona Marca--")}
         {...props}
       />
     </div>

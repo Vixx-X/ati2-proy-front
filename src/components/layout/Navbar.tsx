@@ -1,3 +1,4 @@
+import useTranslate from '@hooks/useTranslate';
 import React, { useState } from 'react';
 
 interface NavbarProps {
@@ -8,6 +9,7 @@ interface NavbarProps {
   activate?: string;
   visible?: boolean;
   stylesMargin?: string;
+  onClick?: Function;
   top?: number;
 }
 
@@ -17,6 +19,7 @@ export const Navbar = ({
   link,
   text,
   activate,
+  onClick,
   visible = false,
   top = 0,
   stylesMargin,
@@ -26,9 +29,8 @@ export const Navbar = ({
     setIsVisible(!isVisible);
   };
 
-  console.log(activatePage, activate);
-
   const styleTop = `${top + 58}px`;
+  const t = useTranslate();
   return (
     <li className="list-none">
       {text && (
@@ -43,9 +45,9 @@ export const Navbar = ({
               }`}
               onClick={expand}
             >
-              {text}
+              {t(text)}
             </div>
-          ) : (
+          ) : link ? (
             <a
               className={`hover:text-yellow transition block py-4 ${
                 activate === activatePage ||
@@ -55,8 +57,21 @@ export const Navbar = ({
               }`}
               href={link}
             >
-              {text}
+              {t(text)}
             </a>
+          ) : (
+            <button
+              type="button"
+              onClick={onClick as any}
+              className={`hover:text-yellow transition block py-4 ${
+                activate === activatePage ||
+                (activate && activatePage?.includes(activate))
+                  ? 'underline text-yellow'
+                  : ''
+              }`}
+            >
+              {t(text)}
+            </button>
           )}
         </>
       )}
@@ -76,6 +91,7 @@ export const Navbar = ({
                 stylesMargin={`ml-0 absolute`}
                 top={top + 56}
                 key={element.text}
+                onClick={element.onClick}
               />
             ))}
           </>

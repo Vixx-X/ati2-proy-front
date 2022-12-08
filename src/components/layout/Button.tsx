@@ -25,7 +25,7 @@ export const Button = ({
     <>
       {!anchorTag ? (
         <button
-          type={type ? type : 'button'}
+          type={type ?? 'button'}
           className={`${bgColor} w-full text-white py-2 px-4 rounded-md font-bold capitalize opacity-90 hover:opacity-100 transition-opacity ${className}`}
           {...props}
         >

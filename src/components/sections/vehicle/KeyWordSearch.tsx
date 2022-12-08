@@ -4,6 +4,7 @@ import Button from '@components/layout/Button';
 
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useTranslate from '@hooks/useTranslate';
 
 interface FastSearchInterface extends Props {
   className?: string;
@@ -16,6 +17,7 @@ const KeyWordSearch = ({
   onFilter,
   className,
 }: FastSearchInterface) => {
+  const t = useTranslate();
   return (
     <Form
       className={`w-full ${className}`}
@@ -26,7 +28,7 @@ const KeyWordSearch = ({
       {({ values }) => (
         <div className="flex w-full max-w-sm my-4 h-fit">
           <Field
-            placeholder="Introduzca país, estado, ciudad"
+            placeholder={t("Introduzca país, estado, ciudad")}
             name="search"
             styles="rounded-l-md"
           />

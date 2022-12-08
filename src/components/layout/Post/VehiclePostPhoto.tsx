@@ -21,6 +21,7 @@ import CardHover from '../Card/CardHover';
 import AddressPost from './Address';
 import HeaderPost from './Header';
 import Prices from './Prices';
+import useTranslate from '@hooks/useTranslate';
 
 interface VehiclePostPhotoProps extends Props {
   author: User;
@@ -101,6 +102,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
     }, 200);
   };
 
+  const t = useTranslate();
   return (
     <div className="max-w-[535px] max-h-[535px]">
       <div className="sm:flex">
@@ -187,13 +189,13 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
               }}
               className="sm:mt-16"
             >
-              contactar al anunciante
+              {t('Contactar al anunciante')}
             </Button>
           </div>
         </div>
       </div>
       <a className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block">
-        Ver información completa
+        {t('Ver información completa')}
       </a>
       {titleHover !== 'photos' && titleHover !== 'videos' ? (
         <DetailsModal

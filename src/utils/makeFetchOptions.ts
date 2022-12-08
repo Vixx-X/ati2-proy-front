@@ -1,4 +1,5 @@
 import { _authStore } from '@stores/AuthStore';
+import { _userStore } from '@stores/UserStore';
 
 import { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 
@@ -6,6 +7,8 @@ export function _makeFetchOptions(
   options: AxiosRequestConfig = {},
   auth: string | null = null
 ) {
+  const user = _userStore.getState();
+
   const ret: AxiosRequestConfig = {
     withCredentials: true,
     ...options,
@@ -17,6 +20,7 @@ export function _makeFetchOptions(
 
   if (options?.headers) {
     ret.headers = {
+      'Accept-Language': user.lang,
       ...ret.headers,
       ...options.headers,
     } as AxiosRequestHeaders;

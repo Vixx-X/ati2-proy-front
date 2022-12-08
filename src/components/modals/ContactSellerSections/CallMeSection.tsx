@@ -3,15 +3,17 @@ import ContactUseHours from '@components/forms/ContactHours';
 import Field from '@components/forms/Field';
 import Button from '@components/layout/Button';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
+import useTranslate from '@hooks/useTranslate';
 
 export const CallMeSection = ({}) => {
+  const t = useTranslate();
   return (
     <>
-      <h2 className="text-red text-xl font-bold">Quiero que me llamen</h2>
+      <h2 className="text-red text-xl font-bold">{t('Quiero que me llamen')}</h2>
       <div className="mb-2 flex">
         <div className="flex py-2 w-full">
           <label className="capitalize mr-2 w-3/12 font-bold text-darkprimary block">
-            teléfono:
+            {t('teléfono:')}
           </label>
           <div className="w-9/12 mr-2">
             <PhoneButtonSet
@@ -27,7 +29,7 @@ export const CallMeSection = ({}) => {
             htmlFor="first_name"
             className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
           >
-            nombre:
+            {t('nombre:')}
           </label>
           <Field name="data.first_name" styles="w-9/12 mr-2" id="first_name" />
         </div>
@@ -38,7 +40,7 @@ export const CallMeSection = ({}) => {
             htmlFor="last_name"
             className="capitalize mr-2 w-3/12 font-bold text-darkprimary block"
           >
-            apellido:
+            {t('apellido:')}
           </label>
           <Field name="data.last_name" styles="w-9/12 mr-2" id="last_name" />
         </div>
@@ -50,16 +52,17 @@ export const CallMeSection = ({}) => {
         optionsClassNames="w-9/12 mr-2"
       />
       <ContactUseHours
-        name="data.contact_days"
         className="flex mb-2"
         titleClassNames="w-3/12 mr-2 w-fit h-fit text-sm"
         optionsClassNames="w-9/12 mr-2"
+        nameStart="data.contact_hour_start"
+        nameEnd="data.contact_hour_end"
       />
       <div className="py-4">
         <p className="text-darkprimary font-bold">
-          <span className="text-red">* </span>Por favor verifique que sus datos
+          <span className="text-red">* </span>{t(`Por favor verifique que sus datos
           sean los correctos, ya que serán utilizados por el anunciante para
-          contactarlo.
+          contactarlo.`)}
         </p>
       </div>
       <div className="text-center">
@@ -68,7 +71,7 @@ export const CallMeSection = ({}) => {
           type="submit"
           className="w-fit align-center"
         >
-          Contactar al anunciante
+          {t('Contactar al anunciante')}
         </Button>
       </div>
     </>

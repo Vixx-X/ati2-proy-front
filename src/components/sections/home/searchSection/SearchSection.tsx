@@ -5,6 +5,7 @@ import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 import KeyWordSearch from '@components/sections/vehicle/KeyWordSearch';
 
 import { SERVER_URLS } from '@config';
+import useTranslate from '@hooks/useTranslate';
 
 const { URL_VEHICLES } = SERVER_URLS;
 
@@ -21,12 +22,13 @@ const SearchSection = ({}) => {
     });
   };
 
+  const t = useTranslate();
   return (
     <>
       <div className="w-full">
         <details className="w-full">
           <summary className="w-full mb-2 text-lg rounded-md border-2 border-primary py-2 px-4 font-bold">
-            Búsqueda por palabra clave
+            {t('Búsqueda por palabra clave')}
           </summary>
           <KeyWordSearch
             onFilter={(values: any) => search(values)}
@@ -38,7 +40,7 @@ const SearchSection = ({}) => {
       <div className="w-full">
         <details className="w-full">
           <summary className="w-full mb-2 text-lg rounded-md border-2 border-primary py-2 px-4 font-bold">
-            Búsqueda rápida
+            {t('Búsqueda rápida')}
           </summary>
           <VehicleFastSearch
             className="grid gap-4 md:grid-cols-2 lg:grid-cols-6 my-10"
@@ -51,7 +53,7 @@ const SearchSection = ({}) => {
       <div className="w-full">
         <details className="w-full">
           <summary className="w-full mb-2 text-lg rounded-md border-2 border-primary py-2 px-4 font-bold">
-            Búsqueda detallada
+            {t('Búsqueda detallada')}
           </summary>
           <VehicleComplexSearch
             className="grid gap-4 md:grid-cols-2 lg:grid-cols-6 my-10"

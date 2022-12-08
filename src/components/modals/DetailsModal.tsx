@@ -1,5 +1,6 @@
 import GenericComponent from '@components/layout/Parser/Parse';
 import BaseModal from '@components/modals/BaseModal';
+import useTranslate from '@hooks/useTranslate';
 
 import { classNames } from '@utils/classNames';
 
@@ -16,6 +17,7 @@ interface DetailsModalProps {
 }
 
 const SectionPart = ({ openSection, title, children }: any) => {
+  const t = useTranslate();
   return (
     <section
       className={classNames(
@@ -23,7 +25,7 @@ const SectionPart = ({ openSection, title, children }: any) => {
       )}
     >
       <h4 className="text-darkprimary font-bold text-xl capitalize p-4 pb-0">
-        {title}
+        {t(title)}
       </h4>
       <div className="p-4">{children}</div>
     </section>
@@ -39,6 +41,7 @@ export const DetailsModal = ({
   services,
   address,
 }: DetailsModalProps) => {
+  const t = useTranslate();
   return (
     <BaseModal
       showModal={showModal}
@@ -54,10 +57,10 @@ export const DetailsModal = ({
         </SectionPart>
         <div className="flex">
           <SectionPart title={'photos'}>
-            <a>Haga click aquí</a>
+            <a>{t('Haga click aquí')}</a>
           </SectionPart>
           <SectionPart title={'videos'}>
-            <a>Haga click aquí</a>
+            <a>{t('Haga click aquí')}</a>
           </SectionPart>
         </div>
         <SectionPart openSection={title} title={'services'}>

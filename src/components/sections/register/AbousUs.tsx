@@ -5,6 +5,8 @@ import Field from '@components/forms/Field';
 
 import { getSocialMedias } from '@fetches/socials';
 
+import useTranslate from '@hooks/useTranslate';
+
 import useSWR from 'swr';
 
 const optionsAboutUs = [
@@ -39,12 +41,18 @@ export const AboutUs = ({}) => {
     [data]
   );
   console.log(socialsMediaOptions);
+
+  const t = useTranslate();
   return (
     <>
-      <p>Por favor coméntenos, cómo se enteró de los servicios de la empresa</p>
       <p>
-        Es importante para nosotros, porque nos ayuda a mejorar el servicio que
-        le ofrecemos
+        {t(
+          'Por favor coméntenos, cómo se enteró de los servicios de la empresa'
+        )}
+      </p>
+      <p>
+        {t(`Es importante para nosotros, porque nos ayuda a mejorar el servicio que
+        le ofrecemos`)}
       </p>
       <div className="grid md:grid-cols-4 mt-8">
         <CheckBox
@@ -52,18 +60,18 @@ export const AboutUs = ({}) => {
           label="Web portal of business"
         />
         <div>
-          <div>
-            <input
-              type="checkbox"
-              className="w-4 h-4"
-              onChange={(event) => {
-                setSocial(event.target.checked);
-              }}
-            />
-            <label className="ml-2">Social networks</label>
-          </div>
+          <input
+            type="checkbox"
+            className="w-4 h-4"
+            onChange={(event) => {
+              setSocial(event.target.checked);
+            }}
+          />
+          <label className="ml-2">{t('Redes sociales')}</label>
           <div
-            className={`${socialSection ? 'visible' : 'hidden md:block md:invisible'}`}
+            className={`${
+              socialSection ? 'visible' : 'hidden md:block md:invisible'
+            }`}
           >
             <CheckBox
               className="my-4 grid lg:grid-cols-2 gap-1"
@@ -81,7 +89,7 @@ export const AboutUs = ({}) => {
               setOther(event.target.checked);
             }}
           />
-          <label className="ml-2">Other</label>
+          <label className="ml-2">{t('Otro')}</label>
           <div
             className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
           >

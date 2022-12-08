@@ -8,6 +8,7 @@ type CheckBoxChoiceProps = {
 
 interface CheckBoxProps extends Props {
   choices?: CheckBoxChoiceProps[];
+  onChangeCallback?: Function;
   name: string;
   label?: string;
 }
@@ -17,6 +18,7 @@ export const CheckBox = ({
   name,
   label,
   childClassName,
+  onChangeCallback,
   ...props
 }: CheckBoxProps) => {
   return (
@@ -32,6 +34,7 @@ export const CheckBox = ({
                   value={value}
                   className="w-4 h-4"
                   checked={checked}
+                  onChangeCallback={onChangeCallback}
                   {...props}
                 />
               ) : (
@@ -40,6 +43,7 @@ export const CheckBox = ({
                   name={name}
                   value={value}
                   className="w-4 h-4"
+                  onChangeCallback={onChangeCallback}
                   {...props}
                 />
               )}
@@ -49,7 +53,12 @@ export const CheckBox = ({
         </div>
       ) : (
         <div {...props}>
-          <Field type="checkbox" name={name} className="w-4 h-4" />
+          <Field
+            type="checkbox"
+            name={name}
+            className="w-4 h-4"
+            onChangeCallback={onChangeCallback}
+          />
           <label className="ml-2">{label}</label>
         </div>
       )}

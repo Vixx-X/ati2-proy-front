@@ -6,6 +6,7 @@ import Prices from '@components/layout/Post/Prices';
 import BaseModal from '@components/modals/BaseModal';
 
 import { DEFAULT_IMAGE } from '@data/fakeData';
+import useTranslate from '@hooks/useTranslate';
 
 interface DetailsModalProps {
   showModal: boolean;
@@ -30,6 +31,7 @@ export const PhotosModal = ({
   sale_price,
 }: any) => {
   const media = images?.[0];
+  const t = useTranslate();
   return (
     <BaseModal showModal={showModal} title={title} setShowModal={setShowModal}>
       <div className="grid grid-cols-4 gap-4">
@@ -60,11 +62,11 @@ export const PhotosModal = ({
         (title !== 'photos' && videos.length > 0) ? (
           <>
             <div className="col-span-full capitalize text-center font-bold">
-              {title} adicionales
+              {t('{0} adicionales', title)}
             </div>
           </>
         ) : (
-          <p>No hay más fotos adicionales</p>
+          <p>{t('No hay más fotos adicionales')}</p>
         )}
         {title === 'photos' ? (
           <>

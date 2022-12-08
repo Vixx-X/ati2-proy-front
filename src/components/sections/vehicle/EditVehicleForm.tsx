@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMemo } from 'react';
 
 import BrandSelect from '@components/forms/BrandSelect';
 import CitySelect from '@components/forms/CitySelect';
@@ -25,32 +26,9 @@ import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES, YES_OR_NO } from '@config';
 import { postVehicle, putVehicle } from '@fetches/post';
 import { getVehicles } from '@fetches/vehicles';
 
-import { FormikValues } from 'formik';
+import useTranslate from '@hooks/useTranslate';
 
-const textAreaData = [
-  {
-    title: 'Detalles o especificaciones del vehículo',
-    description:
-      'Si lo deseas, puedes indicar detalles adicionales del vehículo. Que no sea los accesorios, en esta sección',
-    name: 'details',
-  },
-  {
-    title: 'Accesorios o comodidades',
-    description: 'Accesorios o comodidades',
-    name: 'accesories',
-  },
-  {
-    title: 'Servicios al día',
-    description:
-      'SI deseas, indica los trabajos que se le han realizado al vehículo recientemente, como: Cambio de aceite, cauchos, tapicería, pago de seguros al día, entre otros',
-    name: 'services',
-  },
-  {
-    title: 'Ubicación exacta',
-    description: 'Si deseas, puedes indicar donde se encuentra el vehículo',
-    name: 'address.line2',
-  },
-];
+import { FormikValues } from 'formik';
 
 export const EditVehicleForm = ({
   createMode,
@@ -112,6 +90,57 @@ export const EditVehicleForm = ({
     }
   };
 
+  const t = useTranslate();
+  const saleTypeChoices = useMemo(
+    () =>
+      SALE_TYPE_CHOICES.map(({ text, ...rest }) => ({
+        text: t(text),
+        ...rest,
+      })),
+    [t]
+  );
+  const vehicleStateChoices = useMemo(
+    () =>
+      VEHICLE_STATE_CHOICES.map(({ text, ...rest }) => ({
+        text: t(text),
+        ...rest,
+      })),
+    [t]
+  );
+  const yesOrNo = useMemo(
+    () =>
+      YES_OR_NO.map(({ text, ...rest }) => ({
+        text: t(text),
+        ...rest,
+      })),
+    [t]
+  );
+
+  const textAreaData = [
+    {
+      title: t('Detalles o especificaciones del vehículo'),
+      description:
+        t('Si lo deseas, puedes indicar detalles adicionales del vehículo. Que no sea los accesorios, en esta sección'),
+      name: 'details',
+    },
+    {
+      title: t('Accesorios o comodidades'),
+      description: t('Accesorios o comodidades'),
+      name: 'accesories',
+    },
+    {
+      title: t('Servicios al día'),
+      description:
+        t('SI deseas, indica los trabajos que se le han realizado al vehículo recientemente, como: Cambio de aceite, cauchos, tapicería, pago de seguros al día, entre otros'),
+      name: 'services',
+    },
+    {
+      title: t('Ubicación exacta'),
+      description: t('Si deseas, puedes indicar donde se encuentra el vehículo'),
+      name: 'address.line2',
+    },
+  ];
+
   return (
     <Form
       className="w-full"
@@ -124,7 +153,7 @@ export const EditVehicleForm = ({
           <div className="w-full flex flex-col items-center gap-6">
             <div className="p-3 w-1/3 bg-secundary">
               <p className="w-full text-center text-white capitalize font-bold text-xl">
-                Ubicacion del Vehiculo
+                {t('Ubicacion del Vehiculo')}
               </p>
             </div>
             <div className="w-full flex justify-around gap-2">
@@ -146,7 +175,7 @@ export const EditVehicleForm = ({
               <ErrorMsg name="address.city_id" />
               <div>
                 <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                  Zona
+                  {t('Zona')}
                 </p>
                 <Field name="address.line1" />
                 <ErrorMsg name="address.line1" />
@@ -158,7 +187,7 @@ export const EditVehicleForm = ({
             <div className="py-2 w-2/3 flex flex-col items-center gap-6">
               <div className="w-2/3 py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  Marca, modelo y año del vehículo
+                  {t('Marca, modelo y año del vehículo')}
                 </p>
               </div>
               <div className="w-full flex justify-around gap-2">
@@ -180,24 +209,24 @@ export const EditVehicleForm = ({
             <div className="py-2 w-1/3 flex flex-col items-center gap-6">
               <div className="py-3 px-10 w-9/12 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  Estatus del vehículo
+                  {t(' Estatus del vehículo')}
                 </p>
               </div>
               <div className="flex gap-3">
                 <div>
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    Vehiculo en
+                    {t('Vehiculo en')}
                   </p>
-                  <RadioGroup name="sale_type" choices={SALE_TYPE_CHOICES} />
+                  <RadioGroup name="sale_type" choices={saleTypeChoices} />
                   <ErrorMsg name="sale_type" />
                 </div>
                 <div>
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    Estado en
+                    {'Estado en'}
                   </p>
                   <RadioGroup
                     name="vehicle_state"
-                    choices={VEHICLE_STATE_CHOICES}
+                    choices={vehicleStateChoices}
                   />
                   <ErrorMsg name="vehicle_state" />
                 </div>
@@ -208,13 +237,13 @@ export const EditVehicleForm = ({
             <div className="w-8/12 flex items-center flex-col">
               <div className="w-1/2 py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  Fotos del Vehiculo
+                  {t("Fotos del Vehiculo")}
                 </p>
               </div>
               <div className="w-full mt-2 border border-2 border-darkprimary">
                 <p className="text-center ">
-                  Arrastre las fotos que desea cargar en cada uno de los
-                  recuadros
+                  {t(`Arrastre las fotos que desea cargar en cada uno de los
+                  recuadros`)}
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   {[...Array(imageLimit)].map((_, idx) => (
@@ -231,14 +260,14 @@ export const EditVehicleForm = ({
             <div className="w-4/12 flex items-center flex-col gap-2">
               <div className="w-9/12 py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  ¿Desea agregar video?
+                  {t('¿Desea agregar video?')}
                 </p>
               </div>
               <div className="w-full border border-2 border-darkprimary">
                 <RadioGroup
                   name="filter.video"
                   className="flex justify-center items-center gap-6"
-                  choices={YES_OR_NO}
+                  choices={yesOrNo}
                 />
                 {parseInt(values?.filter?.video) ? (
                   <>
@@ -247,7 +276,7 @@ export const EditVehicleForm = ({
                         className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded"
                         htmlFor="cantVideo"
                       >
-                        Cantidad de video
+                        {t('Cantidad de video')}
                       </label>
                       <select
                         onChange={(e) =>
@@ -257,14 +286,14 @@ export const EditVehicleForm = ({
                         id="cantVideo"
                         value={videoLimit}
                       >
-                        <option value="2">Hasta 2</option>
-                        <option value="5">Hasta 5</option>
+                        <option value="2">{t('Hasta 2')}</option>
+                        <option value="5">{t('Hasta 5')}</option>
                       </select>
                     </div>
                     <div className="flex justify-center flex-wrap gap-2 p-3">
                       <p>
-                        Arrastre los videos que desea cargar, en cada uno de los
-                        recuadros
+                        {t(`Arrastre los videos que desea cargar, en cada uno de los
+                        recuadros`)}
                       </p>
                       {[...Array(videoLimit)].map((_, idx) => (
                         <div
@@ -299,7 +328,7 @@ export const EditVehicleForm = ({
               {['BOTH', 'RENT'].includes(values?.sale_type) ? (
                 <div>
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    Precio de Alquiler
+                    {t('Precio de Alquiler')}
                   </p>
                   <Field type="text" name="rental_price" />
                 </div>
@@ -307,7 +336,7 @@ export const EditVehicleForm = ({
               {['BOTH', 'SALE'].includes(values?.sale_type) ? (
                 <div>
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    Precio de Venta
+                    {t('Precio de Venta')}
                   </p>
                   <Field type="text" name="sale_price" />
                 </div>
@@ -335,9 +364,9 @@ export const EditVehicleForm = ({
             </p>
           <div className="flex justify-center gap-x-4">
             <Button type="submit" className="capitalize w-fit">
-              enviar
+              {t('enviar')}
             </Button>
-            <Button className="capitalize w-fit">cancelar</Button>
+            <Button className="capitalize w-fit">{t('cancelar')}</Button>
           </div>
         </div>
       )}

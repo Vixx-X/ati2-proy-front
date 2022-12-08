@@ -7,61 +7,69 @@ import Field from '@components/forms/Field';
 import TextArea from '@components/forms/TextArea';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
+import useTranslate from '@hooks/useTranslate';
+
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormikContext } from 'formik';
 
 export const BusinessUser = ({}) => {
+  const t = useTranslate();
   const { values } = useFormikContext();
-
-  console.log('valorcitos', values, values?.filter?.address?.country, values?.filter);
   return (
     <>
       <div className="w-full justify-center flex gap-x-20">
         <div className="flex flex-col gap-y-4 md:w-2/4">
-          <div className="bg-primary py-4 px-10 text-white texx-xl font-bold">
-            Datos de la empresa
+          <div className="bg-primary py-4 px-10 text-white capitalize text-xl font-bold">
+            {t('Datos de la empresa')}
           </div>
-          <div className="flex gap-x-4">
-            <label htmlFor="name" className="w-40">
-              Name of business
+          <div className="flex items-center">
+            <label htmlFor="name" className="w-40 capitalize">
+              {t('Nombre de la empresa')}
             </label>
             <div className="w-full">
               <Field name="name" id="name" />
               <ErrorMsg name="name" />
             </div>
           </div>
-          <div className="flex gap-x-4">
-            <label htmlFor="tax_id" className="w-40">
-              Tax id
+          <div className="flex items-center">
+            <label htmlFor="tax_id" className="w-40 capitalize">
+              {t('RIF')}
             </label>
             <div className="w-full">
               <Field name="tax_id" id="tax_id" />
               <ErrorMsg name="tax_id" />
             </div>
           </div>
-          <div className="flex gap-x-4">
-            <label htmlFor="city" className="w-40">
-              Country
+          <div className="flex items-center">
+            <label htmlFor="country" className="w-40 capitalize">
+              {t('país')}
             </label>
             <div className="w-full">
-              <CountrySelect notitle name="filter.address.country" />
+              <CountrySelect
+                notitle
+                name="filter.address.country"
+                id="country"
+              />
             </div>
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="city" className="w-40">
-              City
+              {t('Ciudad')}
             </label>
             <div className="w-full">
               <CitySelect
                 notitle
                 name="address.city"
                 filter={{ country: values?.filter?.address?.country }}
+                id="city"
               />
               <ErrorMsg name="address.city" />
             </div>
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="address.line1" className="w-40">
-              Main address
+              {t('Dirección principal')}
             </label>
             <div className="w-full">
               <TextArea name="address.line1" id="address.line1" />
@@ -70,7 +78,7 @@ export const BusinessUser = ({}) => {
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="address.line2" className="w-40">
-              More details of address
+              {t('Más detalles de la dirección')}
             </label>
             <div className="w-full">
               <Field name="address.line2" id="address.line2" />
@@ -79,12 +87,12 @@ export const BusinessUser = ({}) => {
           </div>
         </div>
         <div className="flex flex-col gap-y-4 md:w-2/4">
-          <div className="bg-primary py-4 px-10 text-white texx-xl font-bold">
-            Datos representante de la empresa
+          <div className="bg-primary py-4 px-10 text-white text-xl font-bold">
+            {t('Datos representante de la empresa')}
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="representant.first_name" className="w-40">
-              Name of representant
+              {t('Nombre del representante')}
             </label>
             <div>
               <Field
@@ -96,7 +104,7 @@ export const BusinessUser = ({}) => {
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="representant.last_name" className="w-40">
-              Last name of representant
+              {t('Apellido del representante')}
             </label>
             <div>
               <Field
@@ -108,7 +116,7 @@ export const BusinessUser = ({}) => {
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="representant.email" className="w-40">
-              Email of representant
+              {t('Correo del representante')}
             </label>
             <div>
               <Field name="representant.email" id="representant.email" />
@@ -117,7 +125,7 @@ export const BusinessUser = ({}) => {
           </div>
           <div className="flex gap-x-4">
             <label htmlFor="representant.email" className="w-40">
-              Phones
+              {t('Teléfonos del representante')}
             </label>
             <div className="w-full">
               <PhoneButtonSet
@@ -129,9 +137,10 @@ export const BusinessUser = ({}) => {
         </div>
       </div>
       <p className="justify-center flex text-darkprimary mt-8">
-        <span className="text-red">*</span> Por favor verifique que sus datos
+        <span className="text-red">*</span>{' '}
+        {`Por favor verifique que sus datos
         sean los correctos, ya que serán utilizados para generar su publicación,
-        enviarle sus datos de acceso, o notificar sus pagos
+        enviarle sus datos de acceso, o notificar sus pagos`}
       </p>
     </>
   );

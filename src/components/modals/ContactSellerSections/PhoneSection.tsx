@@ -1,25 +1,25 @@
-import { getBusinessInfo } from '@fetches/contact';
-
-import useSWR from 'swr';
+import useTranslate from '@hooks/useTranslate';
+import pageStore from '@stores/PageStore';
 
 export const PhoneSection = ({}) => {
-  const { data } = useSWR('contact', () => getBusinessInfo());
+  const phone = pageStore((state) => state.phone);
 
+  const t = useTranslate();
   return (
     <div>
-      <h2 className="text-red text-xl font-bold">Llamar por teléfono</h2>
+      <h2 className="text-red text-xl font-bold">{t('Llamar por teléfono')}</h2>
       <div className="mb-2">
         <div className="flex py-2">
           <label className="capitalize mr-2 w-3/12 block font-bold text-darkprimary">
-            teléfono:
+            {t('teléfono:')}
           </label>
-          <p className="w-9/12">{data?.phone}</p>
+          <p className="w-9/12">{phone}</p>
         </div>
       </div>
       <div className="mb-2">
         <div className="flex py-2">
           <label className="capitalize mr-2 w-3/12 block font-bold text-darkprimary">
-            nombre y apellido:
+            {t('nombre y apellido:')}
           </label>
           <p className="w-9/12">Jose J Sánchez</p>
         </div>
@@ -27,7 +27,7 @@ export const PhoneSection = ({}) => {
       <div className="mb-2">
         <div className="flex py-2">
           <label className="capitalize mr-2 w-3/12 block font-bold text-darkprimary">
-            país
+            {t('país')}
           </label>
           <p className="w-9/12">Switzerland</p>
         </div>
@@ -35,11 +35,11 @@ export const PhoneSection = ({}) => {
       <div className="mb-2">
         <div className="flex py-2">
           <label className="capitalize mr-2 w-3/12 block font-bold text-darkprimary">
-            días de contacto:
+            {t('días de contacto')}:
           </label>
           <p className="w-9/12">
-            Lunes a Viernes / Sábado y Domingo /Todos los días / Lunes, martes,
-            Miércoles, Jueves / Lunes, Martes y Jueves
+            {(`Lunes a Viernes / Sábado y Domingo /Todos los días / Lunes, martes,
+            Miércoles, Jueves / Lunes, Martes y Jueves`)}
           </p>
         </div>
       </div>

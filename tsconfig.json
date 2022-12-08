@@ -13,6 +13,7 @@
       "@utils/*": ["utils/*"],
       "@fetches/*": ["fetches/*"],
       "@data/*": ["data/*"],
+      "@translations/*": ["translations/*"],
       "*": ["types/*.d.ts"]
     },
     "target": "es5",

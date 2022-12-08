@@ -5,6 +5,8 @@ import Field from '@components/forms/Field';
 import Select from '@components/forms/Select';
 import BaseModal from '@components/modals/BaseModal';
 
+import useTranslate from '@hooks/useTranslate';
+
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -13,52 +15,52 @@ import PhoneButtonSet from '../../../layout/PhoneButtonSet';
 
 export const NaturalUser = ({}) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const t = useTranslate();
   return (
     <div className="flex justify-center">
       <div className="md:w-3/5 flex flex-col gap-y-4 justify-center">
-        <p>Ingrese los datos solicitados a continuación:</p>
+        <p>{t('Ingrese los datos solicitados a continuación:')}</p>
         <div className="flex items-center">
           <label htmlFor="first_name" className="w-2/4 capitalize">
-            name
+            {t('nombre')}
           </label>
           <Field name="first_name" id="first_name" />
         </div>
         <ErrorMsg name="first_name" />
         <div className="flex items-center">
           <label htmlFor="last_name" className="w-2/4 capitalize">
-            last name
+            {t('apellido')}
           </label>
           <Field name="last_name" id="last_name" />
         </div>
         <ErrorMsg name="last_name" />
         <div className="flex items-center">
-          <label htmlFor="document_id" className="w-2/4 capitalize">
-            document id
+          <label htmlFor="document_id" className="w-2/4">
+            {t('Documento de identidad')}
           </label>
           <Field name="document_id" id="document_id" />
         </div>
         <ErrorMsg name="document_id" />
         <div className="flex items-center">
-          <label htmlFor="email" className="w-2/4 capitalize">
-            email
+          <label htmlFor="email" className="w-2/4">
+            {t('Correo electrónico')}
           </label>
           <Field name="email" id="email" />
         </div>
         <ErrorMsg name="email" />
         <div className="flex items-center">
           <label htmlFor="email" className="w-2/4 capitalize">
-            pais
+            {t('país')}
           </label>
           <CountrySelect notitle name="country" />
         </div>
         <ErrorMsg name="country" />
         <div className="flex">
           <label htmlFor="phone" className="w-2/4 capitalize">
-            phone
+            {t('teléfonos')}
           </label>
           <PhoneButtonSet phoneName="phone" localPhoneName="local_phone" />
         </div>
-        
       </div>
       <div className="md:ml-16 mt-4">
         <div className="flex items-center">
@@ -70,8 +72,8 @@ export const NaturalUser = ({}) => {
             className="underline text-blue-600 cursor-pointer capitalize"
             onClick={() => setShowModal(true)}
           >
-            <p>phone with formats valids</p>
-            <p>click here to see allowed formats</p>
+            <p>{t('Teléfono con formatos válidos')}</p>
+            <p>{t('Haz click aqui para ver los formatos permitidos')}</p>
           </div>
         </div>
       </div>

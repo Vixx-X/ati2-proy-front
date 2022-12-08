@@ -1,18 +1,20 @@
-import RadioGroup from '@components/forms/RadioGroup';
 import ErrorMsg from '@components/forms/ErrorMsg';
+import RadioGroup from '@components/forms/RadioGroup';
 
-const choices = [
-  {
-    value: 'ES',
-    text: 'spanish',
-  },
-  {
-    value: 'EN',
-    text: 'english',
-  },
-];
+import useTranslate from '@hooks/useTranslate';
 
 export const LanguageSection = () => {
+  const t = useTranslate();
+  const choices = [
+    {
+      value: 'es',
+      text: t('spanish'),
+    },
+    {
+      value: 'en',
+      text: t('english'),
+    },
+  ];
   return (
     <>
       <div className="flex gap-x-10 justify-center">

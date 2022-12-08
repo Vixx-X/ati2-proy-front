@@ -19,6 +19,7 @@ import { classNames } from '@utils/classNames';
 
 import { Field } from 'formik';
 import useSWR from 'swr';
+import useTranslate from '@hooks/useTranslate';
 
 const Vehicles: NextPage = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const Vehicles: NextPage = () => {
     getPostsVehicles(q)
   );
 
+  const t = useTranslate();
   return (
     <MainContainer activate={['vehicle', 'view-posts']} maxWidth="max-w-none">
       <div className="md:flex justify-between">
@@ -44,7 +46,7 @@ const Vehicles: NextPage = () => {
           <div className="w-full">
             <details className="w-full">
               <summary className="w-full mb-2 text-lg capitalize">
-                búsqueda rápida
+                {t('Búsqueda rápida')}
               </summary>
               <VehicleFastSearch
                 className="gap-2 grid md:grid-cols-3"
@@ -60,7 +62,7 @@ const Vehicles: NextPage = () => {
           <div className="w-full">
             <details className="w-full">
               <summary className="w-full mb-2 text-lg capitalize">
-                búsqueda detallada
+                {t('Búsqueda detallada')}
               </summary>
               <VehicleComplexSearch
                 className="gap-2 grid md:grid-cols-3"
@@ -76,11 +78,11 @@ const Vehicles: NextPage = () => {
         </div>
         <div className="w-full mx-6">
           <div className="bg-primary py-4 px-5 text-white capitalize texx-xl font-bold">
-            publicaciones realizadas
+            {t('Publicaciones realizadas')}
           </div>
           <div className="flex my-4 mx-4">
             <p className="text-red capitalize font-bold w-64">
-              ver listado como:{' '}
+              {t('Ver listado como:' )}
             </p>
             <div className="flex gap-x-16" role="group">
               <div className="radio flex items-center capitalize">
@@ -92,7 +94,7 @@ const Vehicles: NextPage = () => {
                   onChange={handlePost}
                 />
                 <div className="flex items-center">
-                  <label className="ml-2">tipo foto</label>
+                  <label className="ml-2">{t('Tipo foto')}</label>
                   <div className="h-8 w-8 bg-primary ml-2"></div>
                 </div>
               </div>
@@ -105,7 +107,7 @@ const Vehicles: NextPage = () => {
                   onChange={handlePost}
                 />
                 <div className="flex items-center justify-center">
-                  <label className="ml-2">tipo lista</label>
+                  <label className="ml-2">{t('Tipo lista')}</label>
                   <div className="w-6 h-8 flex flex-col gap-y-2 justify-center ml-2">
                     <hr className="border-black w-full" />
                     <hr className="border-black w-full" />
@@ -117,14 +119,13 @@ const Vehicles: NextPage = () => {
           </div>
           <div className="flex mt-6 my-4 mx-4 justify-center">
             <p className="text-darkprimary">
-              {' '}
-              Seleccione los filtros especificados a continuación, si desea
-              filtrar los resultados obtenidos
+              {(` Seleccione los filtros especificados a continuación, si desea
+              filtrar los resultados obtenidos`)}
             </p>
           </div>
           <div className="flex my-4 mx-4 items-center">
             <p className="text-red capitalize font-bold w-64">
-              tipo de vehículo
+              {t('Tipo de vehículo')}
             </p>
             <div className="flex gap-x-16">
               <Button
@@ -135,7 +136,7 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                carro
+                {t('Carro')}
               </Button>
               <Button
                 className="w-32 text-sm"
@@ -145,7 +146,7 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                camioneta
+                {t('Camioneta')}
               </Button>
               <Button
                 className="w-40 text-sm"
@@ -155,12 +156,12 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                camión
+                {t('Camión')}
               </Button>
             </div>
           </div>
           <div className="flex my-4 mx-4 items-center">
-            <p className="text-red capitalize font-bold w-64">vehiculo en</p>
+            <p className="text-red capitalize font-bold w-64">{t('Vehículo en')}</p>
             <div className="flex gap-x-16">
               <Button
                 className="w-32 text-sm"
@@ -170,7 +171,7 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                venta
+                {t('Venta')}
               </Button>
               <Button
                 className="w-32 text-sm"
@@ -180,7 +181,7 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                alquiler
+                {t('Alquiler')}
               </Button>
               <Button
                 className="w-40 text-sm"
@@ -190,13 +191,13 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                alquiler y venta
+                {t('Alquiler y venta')}
               </Button>
             </div>
           </div>
           <div className="flex my-4 mx-4 items-center">
             <p className="text-red capitalize font-bold w-64">
-              ordenar resultados por
+              {t('Ordenar resultados por')}
             </p>
             <div className="flex gap-x-16">
               <Button
@@ -207,7 +208,7 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                precio
+                {t('Precio')}
               </Button>
               <Button
                 className="w-32 text-sm"
@@ -217,7 +218,7 @@ const Vehicles: NextPage = () => {
                 }}
                 anchorTag
               >
-                alquiler
+                {t('Alquiler')}
               </Button>
             </div>
           </div>

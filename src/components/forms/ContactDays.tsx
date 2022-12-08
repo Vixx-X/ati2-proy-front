@@ -5,6 +5,7 @@ import LoaderSpinner from '@components/LoaderSpinner';
 import { getContactDays } from '@fetches/post';
 
 import useToggle from '@hooks/useToggle';
+import useTranslate from '@hooks/useTranslate';
 
 import recursiveGetter from '@utils/recursiveGetter';
 
@@ -18,6 +19,7 @@ interface ContactDaysProps extends Props {
 }
 
 export const ContactDays = ({ name }: ContactDaysProps) => {
+  const t = useTranslate();
   const { values, setFieldValue } = useFormikContext();
   const { data } = useSWR('day-options', getContactDays);
 
@@ -37,7 +39,7 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 
   const choices = useMemo(() => {
     const items = days?.map((el: any) => ({
-      text: el,
+      text: t(el),
       value: el,
     }));
     if (!items) return items;
@@ -46,7 +48,7 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
       { text: 'weekdays', value: 'weekdays', checked: weekdays },
       { text: 'weekends', value: 'weekends', checked: weekends },
     ];
-  }, [days, weekends, weekdays]);
+  }, [days, weekdays, weekends, t]);
 
   useEffect(() => {
     const options = recursiveGetter(values, name);
@@ -69,41 +71,60 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
     <>
       <div className="bg-secundary">
         <p className="w-full text-center text-white font-bold text-xl py-2 px-4">
-          Dias de contacto
+          {t('Días de contacto')}
         </p>
       </div>
       <div className="border border-2 border-darkprimary p-3 flex flex-wrap justify-center">
         <CheckBox
+          name={name}
           className="flex flex-wrap gap-1 justify-center"
           choices={choices}
           onChangeCallback={(fun: any) => {
             return (e: any) => {
               const val = e.target.value;
+              const checked = e.target.checked;
               const options = recursiveGetter(values, name);
-              if (val === 'weekends' && !weekends) {
-                if (weekendOptions)
+              if (val === 'weekends') {
+                if (!weekendOptions) return;
+                if (checked) {
                   setFieldValue(name, [
                     ...(new Set([
                       ...weekendOptions,
                       ...(options ?? []),
                     ]) as any),
                   ]);
+                } else {
+                  setFieldValue(
+                    name,
+                    (options ?? []).filter(
+                      (el: string) => !weekendOptions.includes(el)
+                    )
+                  );
+                }
                 return;
               }
-              if (val === 'weekdays' && !weekdays) {
-                if (weekdayOptions)
+              if (val === 'weekdays') {
+                if (!weekdayOptions) return;
+                if (checked) {
                   setFieldValue(name, [
                     ...(new Set([
                       ...weekdayOptions,
                       ...(options ?? []),
                     ]) as any),
                   ]);
+                } else {
+                  setFieldValue(
+                    name,
+                    (options ?? []).filter(
+                      (el: string) => !weekdayOptions.includes(el)
+                    )
+                  );
+                }
                 return;
               }
               return fun(e);
             };
           }}
-          name={name}
         />
       </div>
     </>

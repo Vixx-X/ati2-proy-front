@@ -4,7 +4,11 @@ import Form from '@components/forms/Form';
 import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 
-import { getBusinessInfo, postContactUsInfo } from '@fetches/contact';
+import { postContactUsInfo } from '@fetches/contact';
+
+import useTranslate from '@hooks/useTranslate';
+
+import pageStore from '@stores/PageStore';
 
 import { FormikValues } from 'formik';
 import useSWR from 'swr';
@@ -28,7 +32,7 @@ const ContactUsSchema = Yup.object().shape({
 });
 
 const ContactForm = ({ setLoading }: any) => {
-  const { data } = useSWR('contact', () => getBusinessInfo());
+  const email = pageStore((state) => state.email);
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
     try {
@@ -45,10 +49,11 @@ const ContactForm = ({ setLoading }: any) => {
     reason: '',
   };
 
+  const t = useTranslate();
   return (
     <div className="w-2/4 border-2 border-black p-8 h-fit">
       <h2 className="font-bold text-lg text-center mb-4">
-        Formulario de contacto
+        {t('Formulario de contacto')}
       </h2>
       <Form
         validationSchema={ContactUsSchema}
@@ -61,15 +66,13 @@ const ContactForm = ({ setLoading }: any) => {
             <div className="mb-4">
               <div className="flex border-b border-gray py-2">
                 <label className="capitalize mr-2">para:</label>
-                <p className="px-2 border-none grow text-gray-600">
-                  {data?.email}
-                </p>
+                <p className="px-2 border-none grow text-gray-600">{email}</p>
               </div>
             </div>
             <div className="mb-4">
               <div className="flex border-b border-gray py-2">
                 <label htmlFor="email" className="capitalize mr-2">
-                  de:
+                  {t('de:')}
                 </label>
                 <Field
                   className="px-2 border-none grow text-gray-600"
@@ -86,7 +89,7 @@ const ContactForm = ({ setLoading }: any) => {
             <div className="mb-4">
               <div className="flex border-b border-gray py-2">
                 <label htmlFor="full_name" className="capitalize mr-2">
-                  nombre y apellido:
+                  {t('nombre y apellido')}:
                 </label>
                 <Field
                   className="px-2 border-none grow"
@@ -102,7 +105,7 @@ const ContactForm = ({ setLoading }: any) => {
             </div>
             <div className="mb-8">
               <label htmlFor="reason" className="capitalize py-2 mb-2 block">
-                asunto:
+                {t('asunto')}:
               </label>
               <TextArea className="w-full h-56 resize-none" name="reason" />
             </div>
@@ -115,9 +118,9 @@ const ContactForm = ({ setLoading }: any) => {
               <Button
                 bgColor="bg-darkprimary"
                 type="submit"
-                className="w-fit align-center"
+                className="w-fit align-center capitalize"
               >
-                Enviar
+                {t('enviar')}
               </Button>
             </div>
           </>
