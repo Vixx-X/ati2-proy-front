@@ -45,7 +45,7 @@ const EditOptionsIcons = ({ author, id }: any) => {
             className="cursor-pointer"
             title={t('eliminar')}
             onClick={() => {
-              Dialog(t('¿Eliminar post?'), t('Seguro?'), [
+              Dialog(t('¿Eliminar post?'), t('¿Seguro que desea elimiar el post?'), [
                 {
                   title: t('cancelar'),
                 },

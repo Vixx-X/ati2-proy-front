@@ -36,7 +36,6 @@ export const getPostVehicleById = async (id: any) => {
 };
 
 export const deletePostVehicle = async (id: any) => {
-  return; // remove this to enable deletion
   const resp = await fetcher.delete(
     makeUrl(API_URLS.URL_POST_VEHICLE, { id }),
     makeAuthFetchOptions()

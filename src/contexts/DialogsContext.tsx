@@ -21,7 +21,7 @@ export const DialogProvider = ({ children }: DialogProviderProps) => {
           {...dialog?.options}
         >
           <div>{dialog?.message}</div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2 mt-8">
             {dialog?.buttons?.map((button: any, index: number) => (
               <Button
                 key={index}

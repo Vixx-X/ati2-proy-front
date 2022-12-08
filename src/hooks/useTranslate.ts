@@ -9,7 +9,7 @@ interface TransDict {
 }
 
 const Format = function (str: string, ...args: any[]): string {
-  if (!args) return str;
+  if (!args || !str) return str;
   return str.replace(/{(\d+)}/g, function (match: any, number: number) {
     return typeof args[number] != 'undefined' ? args[number] : match;
   });
