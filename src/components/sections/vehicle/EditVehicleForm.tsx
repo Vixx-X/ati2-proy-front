@@ -358,7 +358,11 @@ export const EditVehicleForm = ({
               />
             </div>
           </div>
-          <div className="flex gap-x-4">
+          <p className="text-center" style={{color:"blue"}}>
+            <span style={{color:"red"}}>*</span>
+            Por favor verifique que los datos sean los correctos, ya que serán utilizados para dar a conocer su vivienda
+            </p>
+          <div className="flex justify-center gap-x-4">
             <Button type="submit" className="capitalize w-fit">
               {t('enviar')}
             </Button>

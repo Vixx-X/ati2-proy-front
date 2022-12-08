@@ -48,14 +48,18 @@ export const PhoneButtonSet = ({
           </label>
         </div>
       </div>
-      <div className={`text-center ${phoneField ? 'visible' : 'invisible'}`}>
-        <PhoneField name={phoneName} />
+      <div>
+        <div className={`text-center ${phoneField ? 'visible' : 'invisible'}`}>
+          <PhoneField name={phoneName} />
+        </div>
         <ErrorMsg name={phoneName} />
       </div>
-      <div
-        className={`text-center ${localPhoneField ? 'visible' : 'invisible'}`}
-      >
-        <PhoneField name={localPhoneName} ext={true} />
+      <div>
+        <div
+          className={`text-center ${localPhoneField ? 'visible' : 'invisible'}`}
+        >
+          <PhoneField name={localPhoneName} ext={true} />
+        </div>
         <ErrorMsg name={localPhoneName} />
       </div>
     </div>

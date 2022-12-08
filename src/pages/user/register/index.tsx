@@ -28,12 +28,12 @@ import useTranslate from '@hooks/useTranslate';
 
 
 
-const initialValues1: NaturalPerson | Business = {
+const initialValues1: NaturalPerson | (Business & filtersType) = {
   user: {
     password1: '',
     password2: '',
     email: '',
-    language: '',
+    language: 'ES',
     notification_setting: {
       active: false,
       frecuency: '',
@@ -83,9 +83,23 @@ const initialValues1: NaturalPerson | Business = {
   phone: '',
   local_phone: '',
   country: '',
+  filter: {
+    address: {
+      country: '',
+    },
+  },
 };
 
-const initialValues: NaturalPerson | Business = {
+interface filtersType {
+  filter: {
+    address: {
+      state?: any;
+      country: any;
+    };
+  };
+}
+
+const initialValues: NaturalPerson | (Business & filtersType) = {
   user: {
     password1: 'abcd1234..',
     password2: 'abcd1234..',
@@ -137,9 +151,9 @@ const initialValues: NaturalPerson | Business = {
   last_name: 'Perez',
   document_id: 'V6677885',
   email: 'pepitaperez@gmail.com',
-  phone: '+584143332244',
+  phone: '+58123123123',
   local_phone: '+582123332244',
-  country: 've',
+  country: '',
 };
 
 const Register: NextPage = () => {
@@ -152,6 +166,7 @@ const Register: NextPage = () => {
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
+    console.log('VALUES:', values);
     const { user, representant, name, tax_id, address, ...props } = values;
     const commonUser = {
       user: { ...user, username: user.email },
@@ -224,7 +239,7 @@ const Register: NextPage = () => {
           ))}
         </div>
       </div>
-      <section className="grid gap-4 grid-cols-custom items-center">
+      <section className="grid gap-4 md:grid-cols-custom items-center">
         <Button
           bgColor="bg-red"
           className={`h-fit ${indexSection <= 0 ? 'invisible' : 'visible'}`}
@@ -244,7 +259,7 @@ const Register: NextPage = () => {
         </Button>
       </section>
       <Form
-        initialValues={initialValues}
+        initialValues={initialValues1}
         innerRef={refForm}
         onSubmit={handleSubmit}
       >

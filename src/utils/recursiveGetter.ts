@@ -18,5 +18,8 @@ export default function recursiveGetter(
     val = val?.[it];
     if (val == undefined) return _default;
   }
+  if(typeof val === 'boolean'){
+    return undefined
+  }
   return val;
 }

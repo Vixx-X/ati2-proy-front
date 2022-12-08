@@ -5,9 +5,13 @@ import Field from '@components/forms/Field';
 import Select from '@components/forms/Select';
 import BaseModal from '@components/modals/BaseModal';
 
+import useTranslate from '@hooks/useTranslate';
+
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useTranslate from '@hooks/useTranslate';
+
+import CountrySelect from '../../../forms/CountrySelect';
+import PhoneButtonSet from '../../../layout/PhoneButtonSet';
 
 export const NaturalUser = ({}) => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -18,43 +22,44 @@ export const NaturalUser = ({}) => {
         <p>{t('Ingrese los datos solicitados a continuación:')}</p>
         <div className="flex items-center">
           <label htmlFor="first_name" className="w-2/4 capitalize">
-            {t('Nombre')}
+            {t('nombre')}
           </label>
           <Field name="first_name" id="first_name" />
-          <ErrorMsg name="first_name" />
         </div>
+        <ErrorMsg name="first_name" />
         <div className="flex items-center">
           <label htmlFor="last_name" className="w-2/4 capitalize">
-            {t('Apellido')}
+            {t('apellido')}
           </label>
           <Field name="last_name" id="last_name" />
-          <ErrorMsg name="last_name" />
         </div>
+        <ErrorMsg name="last_name" />
         <div className="flex items-center">
-          <label htmlFor="document_id" className="w-2/4 capitalize">
+          <label htmlFor="document_id" className="w-2/4">
             {t('Documento de identidad')}
           </label>
           <Field name="document_id" id="document_id" />
-          <ErrorMsg name="document_id" />
         </div>
+        <ErrorMsg name="document_id" />
         <div className="flex items-center">
-          <label htmlFor="email" className="w-2/4 capitalize">
+          <label htmlFor="email" className="w-2/4">
             {t('Correo electrónico')}
           </label>
           <Field name="email" id="email" />
-          <ErrorMsg name="email" />
         </div>
+        <ErrorMsg name="email" />
         <div className="flex items-center">
-          <label htmlFor="country" className="w-2/4 capitalize">
-            {t('País')}
+          <label htmlFor="email" className="w-2/4 capitalize">
+            {t('país')}
           </label>
-          <Select choices={[]} name="country" placeholder={t("Select a country")} />
-          <ErrorMsg name="country" />
+          <CountrySelect notitle name="country" />
         </div>
-        <div className="flex items-center">
+        <ErrorMsg name="country" />
+        <div className="flex">
           <label htmlFor="phone" className="w-2/4 capitalize">
-            {t('Teléfono')}
+            {t('teléfonos')}
           </label>
+          <PhoneButtonSet phoneName="phone" localPhoneName="local_phone" />
         </div>
       </div>
       <div className="md:ml-16 mt-4">
@@ -77,7 +82,12 @@ export const NaturalUser = ({}) => {
         title="valid formats"
         setShowModal={setShowModal}
       >
-        <p>Holi</p>
+        <p>
+          Los números de teléfono deben tener el formato estándar
+          internacionalizado E.164. Los números con formato E.164 pueden tener
+          un máximo de 15 dígitos y por lo general se escriben como sigue:
+          [+][código de país][número del suscriptor incluido el código de área].
+        </p>
       </BaseModal>
     </div>
   );

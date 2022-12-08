@@ -1,5 +1,6 @@
-import useTranslate from '@hooks/useTranslate';
 import React, { useState } from 'react';
+
+import useTranslate from '@hooks/useTranslate';
 
 import BusinessUser from './user/BusinessUser';
 import NaturalUser from './user/NaturalUser';

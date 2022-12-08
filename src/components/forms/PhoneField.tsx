@@ -26,7 +26,7 @@ export const PhoneField = ({
   }, [prefixNumber, number, extNumber]);
 
   return (
-    <div className={`flex gap-x-2 ${className}`}>
+    <div className={`flex gap-x-2 w-full ${className}`}>
       <FlagSelect number={true} setValue={setPrefix} />
       <input
         type="text"

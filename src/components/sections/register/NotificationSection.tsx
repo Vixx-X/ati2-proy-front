@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
+import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
 import RadioGroup from '@components/forms/RadioGroup';
+import Select from '@components/forms/Select';
+
+import { getSocialMedias } from '@fetches/socials';
+
+import useTranslate from '@hooks/useTranslate';
 
 import { useFormikContext } from 'formik';
-import useTranslate from '@hooks/useTranslate';
+import useSWR from 'swr';
 
 const NotificationSection = ({ userType, setUserType }: any) => {
   const [sections, setSections] = useState<Array<boolean>>([
@@ -15,6 +21,15 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     false,
   ]);
   const { values }: any = useFormikContext();
+  const { data } = useSWR('socialMedia', () => getSocialMedias());
+  const socialsMediaOptions = useMemo(
+    () =>
+      data?.results.map((item: any) => ({
+        text: item.name,
+        value: item.name,
+      })),
+    [data]
+  );
 
   const handleSection = (event: any, index: number) => {
     const tempArray = [...sections];
@@ -41,7 +56,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
       text: t('otra'),
     },
   ];
-  
+
   const choicesNotificationMethod = [
     {
       value: 'email',
@@ -68,8 +83,8 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     <div className="flex flex-col justify-center  mx-auto">
       <div className="flex flex-col gap-y-4 justify-center">
         <p className="font-bold">
-          {(`¿Con que frecuencia le gustaría mantenerse informado acerca de los
-          servicios que ofrece la empresa?`)}
+          {`¿Con que frecuencia le gustaría mantenerse informado acerca de los
+          servicios que ofrece la empresa?`}
         </p>
         <RadioGroup
           name="user.notification_setting.frecuency"
@@ -85,7 +100,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
             >
               <Field
                 name="user.notification_setting.frecuency_other"
-                placeholder={t("Ej:9 días")}
+                placeholder={t('Ej:9 días')}
               />
               <p className="w-72 text-sm opacity-40 mt-4">
                 {t(`* Importante colocar número seguido del intervalo de tiempo
@@ -95,6 +110,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
             </div>
           }
         />
+        <ErrorMsg name="user.notification_setting.frecuency" />
         <p className="font-bold">
           {t('Medio(s) por los que le gustaría ser informado')}
         </p>
@@ -111,14 +127,34 @@ const NotificationSection = ({ userType, setUserType }: any) => {
               </div>
               <div
                 className={`w-full ${
-                  value != 'socials' && sections[index]
-                    ? 'visible'
-                    : 'invisible'
+                  value != 'socials' && sections[index] ? '' : 'hidden'
                 }`}
               >
                 <Field
                   name={`user.notification_setting.notification_method.${value}`}
                 />
+              </div>
+              <div
+                className={`w-full ${
+                  value === 'socials' && sections[index]
+                    ? 'flex gap-6'
+                    : 'hidden'
+                }`}
+              >
+                <div>
+                  <label>Seleccione Red Social</label>
+                  <Select
+                    choices={socialsMediaOptions}
+                    placeholder="Seleccione redes sociales"
+                    name={`user.notification_setting.notification_method.${value}[0].social`}
+                  />
+                </div>
+                <div>
+                  <label>Indique Nombre de Usuario</label>
+                  <Field
+                    name={`user.notification_setting.notification_method.${value}[0].value`}
+                  />
+                </div>
               </div>
             </div>
           ))}

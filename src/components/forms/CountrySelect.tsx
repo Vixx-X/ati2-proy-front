@@ -2,21 +2,25 @@ import { useMemo } from 'react';
 
 import { getCountries } from '@fetches/address';
 
+import useTranslate from '@hooks/useTranslate';
+
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';
-import useTranslate from '@hooks/useTranslate';
 
 export interface CountrySelectProps extends FilteredSelectProps {}
 
 export const CountrySelect = ({
   filter,
   name,
+  all,
   ...props
 }: CountrySelectProps) => {
   const t = useTranslate();
   const { data } = useSWR(
-    ['countries', { limit: 300, ...filter }],
+    !all || Object.values(filter).filter((item) => !!item).length > 0
+      ? ['countries', { limit: 300, ...filter }]
+      : null,
     (_, query) => getCountries(query)
   );
   const choices = useMemo(
@@ -29,13 +33,15 @@ export const CountrySelect = ({
   );
   return (
     <div className="w-full">
-      <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-        {t('País')}
-      </p>
+      {!props.notitle && (
+        <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded capitalize">
+          {t('país')}
+        </p>
+      )}
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder={t("--Selecciona País--")}
+        placeholder={t('--Selecciona País--')}
         name={name}
         {...props}
       />

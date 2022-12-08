@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
+import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
 import Form from '@components/forms/Form';
+
 import useTranslate from '@hooks/useTranslate';
 
 export const PayInfo = ({}) => {
@@ -28,16 +30,19 @@ export const PayInfo = ({}) => {
             {t('Banco de origen')}
           </div>
           <Field name="user.payment_info.source_bank" />
+          <ErrorMsg name="user.payment_info.source_bank" />
           <div className="bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
             {t('País donde reside la cuenta del banco de origen')}
           </div>
           <Field name="user.payment_info.country.name" />
+          <ErrorMsg name="user.payment_info.country" />
         </div>
         <div>
           <div className="h-fit bg-primary py-4 px-10 text-white capitalize texx-xl font-bold">
             {t('Banco destino')}
           </div>
           <Field name="user.payment_info.target_bank" />
+          <ErrorMsg name="user.payment_info.source_bank" />
         </div>
       </div>
     </>

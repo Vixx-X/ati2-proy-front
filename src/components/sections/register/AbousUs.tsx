@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import CheckBox from '@components/forms/Checkbox';
 import Field from '@components/forms/Field';
+
+import { getSocialMedias } from '@fetches/socials';
+
 import useTranslate from '@hooks/useTranslate';
+
+import useSWR from 'swr';
 
 const optionsAboutUs = [
   {
@@ -26,19 +31,33 @@ const optionsAboutUs = [
 export const AboutUs = ({}) => {
   const [socialSection, setSocial] = useState<boolean>(false);
   const [otherSection, setOther] = useState<boolean>(false);
+  const { data } = useSWR('socialMedia', () => getSocialMedias());
+  const socialsMediaOptions = useMemo(
+    () =>
+      data?.results.map((item: any) => ({
+        text: item.name,
+        value: item.name,
+      })),
+    [data]
+  );
+  console.log(socialsMediaOptions);
 
   const t = useTranslate();
   return (
     <>
-      <p>{t('Por favor coméntenos, cómo se enteró de los servicios de la empresa')}</p>
+      <p>
+        {t(
+          'Por favor coméntenos, cómo se enteró de los servicios de la empresa'
+        )}
+      </p>
       <p>
         {t(`Es importante para nosotros, porque nos ayuda a mejorar el servicio que
         le ofrecemos`)}
       </p>
-      <div className="grid md:grid-cols-4 text-center mt-8">
+      <div className="grid md:grid-cols-4 mt-8">
         <CheckBox
           name="user.about_website.web"
-          label="web portal of business"
+          label="Web portal of business"
         />
         <div>
           <input
@@ -50,12 +69,18 @@ export const AboutUs = ({}) => {
           />
           <label className="ml-2">{t('Redes sociales')}</label>
           <div
-            className={`text-center ${socialSection ? 'visible' : 'invisible'}`}
+            className={`${
+              socialSection ? 'visible' : 'hidden md:block md:invisible'
+            }`}
           >
-            {t('Facebook')}
+            <CheckBox
+              className="my-4 grid lg:grid-cols-2 gap-1"
+              name="user.about_website.socials"
+              choices={socialsMediaOptions}
+            />
           </div>
         </div>
-        <CheckBox name="user.about_website.friends" label="friends" />
+        <CheckBox name="user.about_website.friends" label="Friends" />
         <div>
           <input
             type="checkbox"
@@ -68,7 +93,7 @@ export const AboutUs = ({}) => {
           <div
             className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
           >
-            <Field name="user.about_website.other" placeholder="" />
+            <Field name="user.about_website.other" styles="mt-4" />
           </div>
         </div>
       </div>

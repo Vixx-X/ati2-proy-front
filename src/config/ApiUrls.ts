@@ -41,6 +41,8 @@ export const API_URLS = {
   // Business
   URL_BUSINESS_REGISTER: `/businesses/register/`,
 
+  //Social Medias
+  URL_SOCIAL_MEDIA: `/socials/`,
   // Posts
   URL_POSTS_VEHICLES: `/posts/vehicle/`,
   URL_POST_VEHICLE: `/posts/vehicle/[id]/`,

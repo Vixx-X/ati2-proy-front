@@ -1,4 +1,6 @@
+import ErrorMsg from '@components/forms/ErrorMsg';
 import RadioGroup from '@components/forms/RadioGroup';
+
 import useTranslate from '@hooks/useTranslate';
 
 export const LanguageSection = () => {
@@ -22,6 +24,7 @@ export const LanguageSection = () => {
           className="flex capitalize gap-x-20"
         />
       </div>
+      <ErrorMsg name="user.language" />
     </>
   );
 };
