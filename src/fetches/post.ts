@@ -35,6 +35,16 @@ export const getPostVehicleById = async (id: any) => {
   return resp.data;
 };
 
+export const deletePostVehicle = async (id: any) => {
+  return; // remove this to enable deletion
+  const resp = await fetcher.delete(
+    makeUrl(API_URLS.URL_POST_VEHICLE, { id }),
+    makeAuthFetchOptions()
+  );
+  await assertApiError(resp);
+  return resp.data;
+};
+
 export const postMedia = async (
   file: any,
   onUploadProgress: (progressEvent: any) => void

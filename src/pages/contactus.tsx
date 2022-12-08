@@ -9,9 +9,7 @@ import ContactForm from '@components/sections/contactus/ContactForm';
 
 import { getBusinessInfo } from '@fetches/contact';
 
-import questions from '@data/Questions';
 import Questions from '@data/Questions';
-import terms from '@data/TermsAndConditions';
 import TermsAndConditions from '@data/TermsAndConditions';
 import {
   faFacebook,
@@ -22,13 +20,6 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useSWR from 'swr';
-
-interface ContactUsForm {
-  target: string;
-  name: string;
-  reason: string;
-  body?: string;
-}
 
 const ContactUs: NextPage = () => {
   const [load, setLoading] = useState<boolean>(false);
@@ -86,31 +77,31 @@ const ContactUs: NextPage = () => {
                 <li className="flex items-center mb-2">
                   <FontAwesomeIcon
                     className="text-primary mr-2 w-8 h-8"
-                    icon={faFacebook}
+                    icon={faFacebook as any}
                   />
                   Facebook
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                    <FontAwesomeIcon icon={faTwitter} size="lg" />
+                    <FontAwesomeIcon icon={faTwitter as any} size="lg" />
                   </div>
                   Twitter
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                    <FontAwesomeIcon icon={faYoutube} size="lg" />
+                    <FontAwesomeIcon icon={faYoutube as any} size="lg" />
                   </div>
                   Youtube
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                    <FontAwesomeIcon icon={faInstagram} size="lg" />
+                    <FontAwesomeIcon icon={faInstagram as any} size="lg" />
                   </div>
                   Instagram
                 </li>
                 <li className="flex items-center mb-2">
                   <div className="bg-primary rounded-full text-white w-8 h-8 flex items-center justify-center mr-2">
-                    <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
+                    <FontAwesomeIcon icon={faLinkedinIn as any} size="lg" />
                   </div>
                   LinkedIn
                 </li>

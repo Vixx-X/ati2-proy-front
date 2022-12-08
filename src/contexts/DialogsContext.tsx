@@ -16,12 +16,12 @@ export const DialogProvider = ({ children }: DialogProviderProps) => {
         <Dialog
           key={dialog.id}
           open={true}
+          title={dialog.title}
           onClose={() => removeDialog(dialog.id)}
           {...dialog?.options}
         >
-          <h2>{dialog.title}</h2>
           <div>{dialog?.message}</div>
-          <div>
+          <div className="flex flex-row gap-2">
             {dialog?.buttons?.map((button: any, index: number) => (
               <Button
                 key={index}

@@ -45,7 +45,7 @@ const HowPostSection = ({}) => {
         </li>
         <li className="my-4 w-full flex flex-wrap items-center justify-between">
           4. - Luego colocas los datos solicitados, y luego presiona el botón
-          "Publicar vehículo"
+          {'"'}Publicar vehículo{'"'}
         </li>
         <li className="my-4 w-full flex flex-wrap items-center justify-between">
           5. - Luego revisaremos la publicación, si todo esta bien, te
