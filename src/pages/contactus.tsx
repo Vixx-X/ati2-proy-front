@@ -7,7 +7,7 @@ import MainContainer from '@components/layout/MainContainer';
 import DocumentsModal from '@components/modals/DocumentsModal';
 import ContactForm from '@components/sections/contactus/ContactForm';
 
-import { getBusinessInfo } from '@fetches/contact';
+import pageStore from '@stores/PageStore';
 
 import Questions from '@data/Questions';
 import TermsAndConditions from '@data/TermsAndConditions';
@@ -19,11 +19,12 @@ import {
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useSWR from 'swr';
 
 const ContactUs: NextPage = () => {
   const [load, setLoading] = useState<boolean>(false);
-  const { data } = useSWR('contact', () => getBusinessInfo());
+  const phone = pageStore((state) => state.phone);
+  const local_phone = pageStore((state) => state.local_phone);
+  const email = pageStore((state) => state.email);
   const [questionModal, setQuestionModal] = useState(false);
   const [termsModal, setTermsModal] = useState(false);
 
@@ -38,8 +39,8 @@ const ContactUs: NextPage = () => {
           <div className="w-2/4 h-full flex flex-col justify-between items">
             <div>
               <h4 className="font-bold">Teléfonos</h4>
-              <p>{data?.local_phone}</p>
-              <p>{data?.phone}</p>
+              <p>{local_phone}</p>
+              <p>{phone}</p>
             </div>
             <div>
               <h4 className="font-bold">Atención al público</h4>
@@ -54,7 +55,7 @@ const ContactUs: NextPage = () => {
             </div>
             <div>
               <h4 className="font-bold">Correo electrónico</h4>
-              <p>Envíanos tus preguntas o comentarios a {data?.email}</p>
+              <p>Envíanos tus preguntas o comentarios a {email}</p>
             </div>
             <div>
               <h4 className="font-bold">Enlaces de interés</h4>

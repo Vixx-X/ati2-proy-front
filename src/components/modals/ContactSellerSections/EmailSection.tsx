@@ -1,18 +1,12 @@
-import { useEffect, useState } from 'react';
-
 import Field from '@components/forms/Field';
 import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
-import { getCountries } from '@fetches/address';
-import { getBusinessInfo } from '@fetches/contact';
-
-import { useFormikContext } from 'formik';
-import useSWR from 'swr';
+import pageStore from '@stores/PageStore';
 
 export const EmailSection = ({}) => {
-  const { data } = useSWR('contact', () => getBusinessInfo());
+  const email = pageStore((state) => state.email);
 
   return (
     <>
@@ -28,7 +22,7 @@ export const EmailSection = ({}) => {
           <div className="w-9/12 mr-2">
             <input
               className="w-full text-gray-400 bg-white border border-darkprimary placeholder-gray-500 text-xs lg:text-sm px-4 py-3 w-full focus:text-gray-800 pl-4 pr-10 py-2"
-              value={data?.email}
+              value={email}
               readOnly
               id="target_email"
             ></input>
@@ -92,7 +86,10 @@ export const EmailSection = ({}) => {
         >
           mensaje a enviar:
         </label>
-        <TextArea className="h-40 resize-none w-9/12 mr-2" name="data.message" />
+        <TextArea
+          className="h-40 resize-none w-9/12 mr-2"
+          name="data.message"
+        />
       </div>
       <div className="py-4">
         <p className="text-darkprimary font-bold">

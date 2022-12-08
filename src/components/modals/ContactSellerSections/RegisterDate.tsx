@@ -4,13 +4,7 @@ import TextArea from '@components/forms/TextArea';
 import Button from '@components/layout/Button';
 import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
-import { getBusinessInfo } from '@fetches/contact';
-
-import useSWR from 'swr';
-
 export const RegisterDateSection = ({}) => {
-  const { data } = useSWR('contact', () => getBusinessInfo());
-
   return (
     <div>
       <h2 className="text-red text-xl font-bold">Llamar por teléfono</h2>

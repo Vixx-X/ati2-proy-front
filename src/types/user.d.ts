@@ -206,3 +206,14 @@ export interface NaturalPerson {
   local_phone: string;
   country: Country;
 }
+
+export interface PageSetting {
+  email: string;
+  image_limit: number;
+  video_limit: number;
+  phone: string;
+  local_phone: string;
+  first_name: string;
+  last_name: string;
+  bank_detail: any;
+}

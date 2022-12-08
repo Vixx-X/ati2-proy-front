@@ -5,9 +5,10 @@ import '@styles/globals.css';
 import { localStorageProvider } from '@utils/localStorageProvider';
 
 import AlertProvider from '@contexts/AlertsContext';
-import { AuthContextProvider } from '@contexts/AuthContext';
+import AuthContextProvider from '@contexts/AuthContext';
 import DialogProvider from '@contexts/DialogsContext';
-import { UserContextProvider } from '@contexts/UserContext';
+import PageContextProvider from '@contexts/PageContext';
+import UserContextProvider from '@contexts/UserContext';
 import { AnimatePresence } from 'framer-motion';
 import { SWRConfig } from 'swr';
 
@@ -18,17 +19,19 @@ function MyApp({ Component, pageProps }: AppProps) {
         provider: localStorageProvider,
       }}
     >
-      <AuthContextProvider>
-        <UserContextProvider>
-          <AnimatePresence>
-            <AlertProvider>
-              <DialogProvider>
-                <Component {...pageProps} />
-              </DialogProvider>
-            </AlertProvider>
-          </AnimatePresence>
-        </UserContextProvider>
-      </AuthContextProvider>
+      <PageContextProvider>
+        <AuthContextProvider>
+          <UserContextProvider>
+            <AnimatePresence>
+              <AlertProvider>
+                <DialogProvider>
+                  <Component {...pageProps} />
+                </DialogProvider>
+              </AlertProvider>
+            </AnimatePresence>
+          </UserContextProvider>
+        </AuthContextProvider>
+      </PageContextProvider>
     </SWRConfig>
   );
 }

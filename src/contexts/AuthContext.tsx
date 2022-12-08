@@ -23,3 +23,5 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   return <>{children}</>;
 };
+
+export default AuthContextProvider;

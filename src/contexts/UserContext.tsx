@@ -24,3 +24,5 @@ export const UserContextProvider = ({ children }: Props) => {
 
   return <>{children}</>;
 };
+
+export default UserContextProvider;
