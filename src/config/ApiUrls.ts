@@ -28,6 +28,9 @@ export const API_URLS = {
   URL_YEARS: `/vehicles/years/`,
   URL_VEHICLES: `/vehicles/`,
 
+  //Services
+  URL_SERVICES: `/services/`,
+
   //Contact
   URL_CONTACT_US: `/about/contact-me/`,
   URL_MY_BUSINESS_INFO: `/about/page-setting/`,

@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
+import CheckBox from '@components/forms/Checkbox';
 import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
 import RadioGroup from '@components/forms/RadioGroup';
 import Select from '@components/forms/Select';
 
+import { getServices } from '@fetches/contact';
 import { getSocialMedias } from '@fetches/socials';
 
 import useTranslate from '@hooks/useTranslate';
@@ -20,6 +22,12 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     false,
     false,
   ]);
+
+  const services = useSWR('services', getServices);
+  const servicesOptions = services.data?.results.map(({ name }: any) => {
+    return { text: name, value: name };
+  });
+
   const { values }: any = useFormikContext();
   const { data } = useSWR('socialMedia', () => getSocialMedias());
   const socialsMediaOptions = useMemo(
@@ -67,7 +75,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
       text: t('Redes sociales de la empresa'),
     },
     {
-      value: 'other',
+      value: 'sms',
       text: t('Mensaje de texto'),
     },
     {
@@ -75,7 +83,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
       text: t('Otro(s)'),
     },
     {
-      value: 'other',
+      value: 'facebook',
       text: t('Mensaje privado en mi cuenta de Facebook'),
     },
   ];
@@ -86,6 +94,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
           {`¿Con que frecuencia le gustaría mantenerse informado acerca de los
           servicios que ofrece la empresa?`}
         </p>
+        <ErrorMsg name="user.notification_setting.frecuency" />
         <RadioGroup
           name="user.notification_setting.frecuency"
           className="flex justify-between"
@@ -110,7 +119,12 @@ const NotificationSection = ({ userType, setUserType }: any) => {
             </div>
           }
         />
-        <ErrorMsg name="user.notification_setting.frecuency" />
+        <div className="flex justify-between">
+          <p className="font-bold">{t('Servicios de interés')}</p>
+          <p>{t('Puede seleccionar más de 1 categoría, si lo desea')}</p>
+          <CheckBox name="user.services" choices={servicesOptions} />
+        </div>
+
         <p className="font-bold">
           {t('Medio(s) por los que le gustaría ser informado')}
         </p>

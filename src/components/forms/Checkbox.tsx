@@ -26,7 +26,7 @@ export const CheckBox = ({
       {choices ? (
         <div role="group" {...props}>
           {choices?.map(({ value, text, checked }, index: number) => (
-            <div className={childClassName} key={index}>
+            <div className={`flex items-center ${childClassName}`} key={index}>
               {checked ? (
                 <Field
                   type="checkbox"
