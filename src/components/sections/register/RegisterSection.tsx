@@ -1,4 +1,4 @@
-import React, from 'react';
+import React from 'react';
 
 import BusinessUser from './user/BusinessUser';
 import NaturalUser from './user/NaturalUser';

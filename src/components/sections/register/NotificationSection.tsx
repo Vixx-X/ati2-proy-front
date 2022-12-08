@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
+import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
 import RadioGroup from '@components/forms/RadioGroup';
+import Select from '@components/forms/Select';
+
+import { getSocialMedias } from '@fetches/socials';
 
 import { useFormikContext } from 'formik';
-import ErrorMsg from '@components/forms/ErrorMsg';
+import useSWR from 'swr';
 
 const choicesNotificationFrecuency = [
   {
@@ -57,6 +61,15 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     false,
   ]);
   const { values }: any = useFormikContext();
+  const { data } = useSWR('socialMedia', () => getSocialMedias());
+  const socialsMediaOptions = useMemo(
+    () =>
+      data?.results.map((item: any) => ({
+        text: item.name,
+        value: item.name,
+      })),
+    [data]
+  );
 
   const handleSection = (event: any, index: number) => {
     const tempArray = [...sections];
@@ -112,14 +125,34 @@ const NotificationSection = ({ userType, setUserType }: any) => {
               </div>
               <div
                 className={`w-full ${
-                  value != 'socials' && sections[index]
-                    ? 'visible'
-                    : 'invisible'
+                  value != 'socials' && sections[index] ? '' : 'hidden'
                 }`}
               >
                 <Field
                   name={`user.notification_setting.notification_method.${value}`}
                 />
+              </div>
+              <div
+                className={`w-full ${
+                  value === 'socials' && sections[index]
+                    ? 'flex gap-6'
+                    : 'hidden'
+                }`}
+              >
+                <div>
+                  <label>Seleccione Red Social</label>
+                  <Select
+                    choices={socialsMediaOptions}
+                    placeholder="Seleccione redes sociales"
+                    name={`user.notification_setting.notification_method.${value}[0].social`}
+                  />
+                </div>
+                <div>
+                <label>Indique Nombre de Usuario</label>
+                  <Field
+                    name={`user.notification_setting.notification_method.${value}[0].value`}
+                  />
+                </div>
               </div>
             </div>
           ))}
