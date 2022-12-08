@@ -21,6 +21,7 @@ import CardHover from '../Card/CardHover';
 import AddressPost from './Address';
 import HeaderPost from './Header';
 import Prices from './Prices';
+import useTranslate from '@hooks/useTranslate';
 
 interface VehiclePostPhotoProps extends Props {
   author: User;
@@ -101,6 +102,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
     }, 200);
   };
 
+  const t = useTranslate();
   return (
     <div className="max-w-[535px] max-h-[535px]">
       <div className="sm:flex">
