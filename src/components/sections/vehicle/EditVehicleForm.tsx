@@ -53,9 +53,14 @@ export const EditVehicleForm = ({
       const videos = await Promise.all(
         values.video_ids.flat().map((file: any) => file.id)
       );
-
       const vehicles = await getVehicles(values?.filter?.vehicle);
-      const vehicle = vehicles?.results?.[0]?.id ?? values?.vehicle_id;
+      const vehicle =
+        values?.filter?.vehicle?.brand &&
+        values?.filter?.vehicle?.model &&
+        values?.filter?.vehicle?.year &&
+        vehicles[0]?.id
+          ? vehicles[0]?.id
+          : '';
 
       const data = {
         address: values.address,
@@ -155,12 +160,12 @@ export const EditVehicleForm = ({
       {({ values }) => (
         <div className="w-full flex flex-col gap-6 px-5">
           <div className="w-full flex flex-col items-center gap-6">
-            <div className="p-3 w-1/3 bg-secundary">
+            <div className="p-3 w-full bg-secundary">
               <p className="w-full text-center text-white capitalize font-bold text-xl">
                 {t('Ubicacion del Vehiculo')}
               </p>
             </div>
-            <div className="w-full flex justify-around gap-2">
+            <div className="w-full gap-2 grid md:grid-cols-3 lg:grid-cols-5">
               <ContinentSelect name="filter.address.continent" />
               <CountrySelect
                 name="filter.address.country"
@@ -172,11 +177,13 @@ export const EditVehicleForm = ({
                 name="filter.address.state"
                 filter={{ country: values?.filter?.address?.country }}
               />
-              <CitySelect
-                name="address.city_id"
-                filter={{ state: values?.filter?.address?.state }}
-              />
-              <ErrorMsg name="address.city_id" />
+              <div>
+                <CitySelect
+                  name="address.city_id"
+                  filter={{ state: values?.filter?.address?.state }}
+                />
+                <ErrorMsg name="address.city_id" />
+              </div>
               <div>
                 <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                   {t('Zona')}
@@ -189,7 +196,7 @@ export const EditVehicleForm = ({
           </div>
           <div className="flex gap-10 w-full">
             <div className="py-2 w-2/3 flex flex-col items-center gap-6">
-              <div className="w-2/3 py-3 px-10 bg-secundary">
+              <div className="w-full py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
                   {t('Marca, modelo y año del vehículo')}
                 </p>
@@ -208,10 +215,10 @@ export const EditVehicleForm = ({
                   }}
                 />
               </div>
-              <ErrorMsg name="vehicle" />
+              <ErrorMsg name="vehicle_id" />
             </div>
             <div className="py-2 w-1/3 flex flex-col items-center gap-6">
-              <div className="py-3 px-10 w-9/12 bg-secundary">
+              <div className="py-3 px-10 w-full bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
                   {t('Estatus del Vehículo')}
                 </p>
@@ -239,12 +246,12 @@ export const EditVehicleForm = ({
           </div>
           <div className="flex w-full gap-10">
             <div className="w-8/12 flex items-center flex-col">
-              <div className="w-1/2 py-3 px-10 bg-secundary">
+              <div className="w-full py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
                   {t('Fotos del Vehículo')}
                 </p>
               </div>
-              <div className="w-full mt-2 border border-2 border-darkprimary">
+              <div className="w-full mt-2 border border-2 border-darkprimary px-4 py-10">
                 <p className="text-center ">
                   {t(
                     `Arrastre las fotos que desea cargar en cada uno de los recuadros`
@@ -261,9 +268,10 @@ export const EditVehicleForm = ({
                   ))}
                 </div>
               </div>
+              <ErrorMsg name="image_ids" />
             </div>
             <div className="w-4/12 flex items-center flex-col gap-2">
-              <div className="w-9/12 py-3 px-10 bg-secundary">
+              <div className="w-full py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
                   {t('¿Desea agregar video?')}
                 </p>
@@ -315,22 +323,29 @@ export const EditVehicleForm = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-3 items-center justify-between">
+          <div className="grid md:grid-cols-2 gap-3 justify-between">
             {textAreaData.map((item, index) => (
-              <div
-                className={index % 2 === 0 ? 'w-[65%]' : 'w-[30%]  '}
-                key={index}
-              >
-                <TextArea
-                  name={item.name}
-                  title={item.title}
-                  description={item.description}
-                />
+              <div key={index}>
+                <div className="w-full py-3 px-10 bg-secundary">
+                  <p className="w-full text-center text-white capitalize font-bold text-xl">
+                    {item.title}
+                  </p>
+                </div>
+                <p className="my-4 h-16">{item.description}</p>
+                <div>
+                  <TextArea
+                    name={item.name}
+                    title={item.title}
+                    description={item.description}
+                    styles="rounded-xl min-h-[150px]"
+                  />
+                  <ErrorMsg name={item.name} />
+                </div>
               </div>
             ))}
           </div>
-          <div className="flex justify-between">
-            <div className=" flex gap-3 items-center">
+          <div className="grid md:grid-cols-2 gap-3 my-10">
+            <div className="grid gap-3 md:grid-cols-2 items-start w-full">
               {['BOTH', 'RENT'].includes(values?.sale_type) ? (
                 <div>
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
@@ -344,24 +359,32 @@ export const EditVehicleForm = ({
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
                     {t('Precio de Venta')}
                   </p>
-                  <Field type="text" name="sale_price" />
+                  <div>
+                    <Field type="text" name="sale_price" />
+                    <ErrorMsg name="sale_price" />
+                  </div>
                 </div>
               ) : null}
             </div>
-            <div>
+            <div className="grid md:grid-cols-2 gap-3">
+              <div></div>
               <CurrencySelect name="currency" />
+              <ErrorMsg name="currency" />
             </div>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-between gap-4 items-start">
             <div className="w-[60%] gap-2 flex flex-col items-center justify-center">
               <ContactUserData />
             </div>
             <div className="w-[40%] gap-2 flex flex-col items-center justify-center">
               <ContactDays name="contact.contact_days" />
+              <ErrorMsg name="contact.contact_days" />
               <ContactUseHours
                 nameStart="contact.contact_hour_start"
                 nameEnd="contact.contact_hour_end"
               />
+              <ErrorMsg name="contact.contact_hour_start" />
+              <ErrorMsg name="contact.contact_hour_end" />
             </div>
           </div>
           <p className="text-center" style={{ color: 'blue' }}>

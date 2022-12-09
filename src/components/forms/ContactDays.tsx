@@ -91,7 +91,7 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 
   return (
     <>
-      <div className="bg-secundary">
+      <div className="bg-secundary w-full">
         <p className="w-full text-center text-white font-bold text-xl py-2 px-4">
           {t('Días de contacto')}
         </p>

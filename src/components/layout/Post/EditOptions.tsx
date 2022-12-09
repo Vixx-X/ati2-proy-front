@@ -20,18 +20,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const { URL_EDIT_VEHICLE } = SERVER_URLS;
 
-const EditOptionsIcons = ({ author, id }: any) => {
+const EditOptionsIcons = ({ author, id, setShowModal, ...props }: any) => {
   const router = useRouter();
   const user = userStore((state: any) => state.user);
   const t = useTranslate();
   return (
     <>
       {user?.id === author ? (
-        <>
+        <div {...props}>
           <FontAwesomeIcon
             icon={faEye}
             className="cursor-pointer"
             title={t('ver')}
+            onClick={() => setShowModal(true)}
           />
           <Link href={makeUrl(URL_EDIT_VEHICLE, { id })} passHref>
             <FontAwesomeIcon
@@ -45,27 +46,31 @@ const EditOptionsIcons = ({ author, id }: any) => {
             className="cursor-pointer"
             title={t('eliminar')}
             onClick={() => {
-              Dialog(t('¿Eliminar post?'), t('¿Seguro que desea elimiar el post?'), [
-                {
-                  title: t('cancelar'),
-                },
-                {
-                  onClick: async () => {
-                    try {
-                      await deletePostVehicle(id);
-                      Alert('GREEN', t('Se eliminó con exito'));
-                      router.push({});
-                    } catch {
-                      Alert('RED', t('No se pudo eliminar'));
-                    }
+              Dialog(
+                t('¿Eliminar post?'),
+                t('¿Seguro que desea elimiar el post?'),
+                [
+                  {
+                    title: t('cancelar'),
                   },
-                  title: t('confirmar'),
-                  bgColor: 'bg-pink',
-                },
-              ]);
+                  {
+                    onClick: async () => {
+                      try {
+                        await deletePostVehicle(id);
+                        Alert('GREEN', t('Se eliminó con exito'));
+                        router.push({});
+                      } catch {
+                        Alert('RED', t('No se pudo eliminar'));
+                      }
+                    },
+                    title: t('confirmar'),
+                    bgColor: 'bg-pink',
+                  },
+                ]
+              );
             }}
           />
-        </>
+        </div>
       ) : null}
     </>
   );

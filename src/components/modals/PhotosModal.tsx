@@ -30,8 +30,8 @@ export const PhotosModal = ({
   currency,
   sale_price,
 }: any) => {
-  const media = images?.[0];
   const t = useTranslate();
+  console.log("imagencitas", images)
   return (
     <BaseModal showModal={showModal} title={title} setShowModal={setShowModal}>
       <div className="grid grid-cols-4 gap-4">
@@ -58,17 +58,17 @@ export const PhotosModal = ({
             <AddressPost address={address} />
           </div>
         </div>
-        {(title === 'photos' && images.length > 1) ||
-        (title !== 'photos' && videos.length > 0) ? (
+        {(title === t('fotos') && images.length > 1) ||
+        (title !== t('fotos') && videos.length > 0) ? (
           <>
             <div className="col-span-full capitalize text-center font-bold">
               {t('{0} adicionales', title)}
             </div>
           </>
         ) : (
-          <p>{t('No hay más fotos adicionales')}</p>
+          <p>{t('No hay más multimedia adicional')}</p>
         )}
-        {title === 'photos' ? (
+        {title === t('fotos') ? (
           <>
             {images
               ? images.map((element: any, index: any) => (

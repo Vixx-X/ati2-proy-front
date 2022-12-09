@@ -59,7 +59,7 @@ export const CheckBox = ({
             className="w-4 h-4"
             onChangeCallback={onChangeCallback}
           />
-          <label className="ml-2">{label}</label>
+          {label ?? <label className="ml-2">{label}</label>}
         </div>
       )}
     </>

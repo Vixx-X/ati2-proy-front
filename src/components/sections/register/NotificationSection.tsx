@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import CheckBox from '@components/forms/Checkbox';
 import ErrorMsg from '@components/forms/ErrorMsg';
 import Field from '@components/forms/Field';
+import PhoneField from '@components/forms/PhoneField';
 import RadioGroup from '@components/forms/RadioGroup';
 import Select from '@components/forms/Select';
 
@@ -15,14 +16,6 @@ import { useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 const NotificationSection = ({ userType, setUserType }: any) => {
-  const [sections, setSections] = useState<Array<boolean>>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
   const services = useSWR('services', getServices);
   const servicesOptions = services.data?.results.map(({ name }: any) => {
     return { text: name, value: name };
@@ -39,13 +32,8 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     [data]
   );
 
-  const handleSection = (event: any, index: number) => {
-    const tempArray = [...sections];
-    tempArray[index] = event.target.checked;
-    setSections(tempArray);
-  };
-
   const t = useTranslate();
+
   const choicesNotificationFrecuency = [
     {
       value: '1w',
@@ -77,6 +65,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     {
       value: 'sms',
       text: t('Mensaje de texto'),
+      phone: true,
     },
     {
       value: 'other',
@@ -85,6 +74,7 @@ const NotificationSection = ({ userType, setUserType }: any) => {
     {
       value: 'facebook',
       text: t('Mensaje privado en mi cuenta de Facebook'),
+      placeholder: t('Introduzca un email'),
     },
   ];
   return (
@@ -129,49 +119,56 @@ const NotificationSection = ({ userType, setUserType }: any) => {
           {t('Medio(s) por los que le gustaría ser informado')}
         </p>
         <div className="flex flex-col gap-y-8">
-          {choicesNotificationMethod.map(({ text, value }, index) => (
-            <div className="flex" key={`${value}-${index}`}>
-              <div className="w-2/4">
-                <input
-                  type="checkbox"
-                  value={value}
-                  onChange={(event) => handleSection(event, index)}
-                />
-                <label className="ml-2">{text}</label>
-              </div>
-              <div
-                className={`w-full ${
-                  value != 'socials' && sections[index] ? '' : 'hidden'
-                }`}
-              >
-                <Field
-                  name={`user.notification_setting.notification_method.${value}`}
-                />
-              </div>
-              <div
-                className={`w-full ${
-                  value === 'socials' && sections[index]
-                    ? 'flex gap-6'
-                    : 'hidden'
-                }`}
-              >
-                <div>
-                  <label>Seleccione Red Social</label>
-                  <Select
-                    choices={socialsMediaOptions}
-                    placeholder="Seleccione redes sociales"
-                    name={`user.notification_setting.notification_method.${value}[0].social`}
-                  />
+          {choicesNotificationMethod.map(
+            ({ text, value, placeholder, phone }, index) => (
+              <div className="flex" key={`${value}-${index}`}>
+                <div className="w-2/4 flex">
+                  <CheckBox name={`section.notification.${value}`} />
+                  <label className="ml-2">{text}</label>
                 </div>
-                <div>
-                  <label>Indique Nombre de Usuario</label>
-                  <Field
-                    name={`user.notification_setting.notification_method.${value}[0].value`}
-                  />
+                <div
+                  className={`w-full ${
+                    value != 'socials' && values.section.notification[value]
+                      ? ''
+                      : 'hidden'
+                  }`}
+                >
+                  {!phone ? (
+                    <Field
+                      name={`user.notification_setting.notification_method.${value}`}
+                      placeholder={placeholder}
+                    />
+                  ) : (
+                    <PhoneField
+                      name={`user.notification_setting.notification_method.${value}`}
+                    />
+                  )}
+                </div>
+                <div
+                  className={`w-full ${
+                    value === 'socials' && values.section.notification[value]
+                      ? 'flex gap-6'
+                      : 'hidden'
+                  }`}
+                >
+                  <div>
+                    <label>Seleccione Red Social</label>
+                    <Select
+                      choices={socialsMediaOptions}
+                      placeholder="Seleccione redes sociales"
+                      name={`user.notification_setting.notification_method.${value}[0].social`}
+                    />
+                  </div>
+                  <div>
+                    <label>Indique Nombre de Usuario</label>
+                    <Field
+                      name={`user.notification_setting.notification_method.${value}[0].value`}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </div>

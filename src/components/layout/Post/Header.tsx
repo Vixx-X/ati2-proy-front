@@ -3,7 +3,7 @@ import React from 'react';
 const HeaderPost = ({ vehicle, vehicle_state, sale_type, className }: any) => {
   return (
     <header
-      className={`hidden sm:block sm:text-center uppercase text-lg sm:text-xl font-bold ${className}`}
+      className={`hidden sm:block uppercase text-lg sm:text-xl font-bold ${className}`}
     >
       <h2 className="underline text-blue-600">
         {vehicle?.brand} - {vehicle?.model}

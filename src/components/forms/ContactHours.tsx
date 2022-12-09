@@ -18,7 +18,7 @@ export const ContactUseHours = ({
   const t = useTranslate();
   return (
     <div {...props}>
-      <div className={`bg-secundary ${titleClassNames}`}>
+      <div className={`bg-secundary w-full mt-4 mb-2 ${titleClassNames}`}>
         <p className="w-full text-center text-white font-bold py-2 px-4">
           {t('Horas de Contacto')}
         </p>

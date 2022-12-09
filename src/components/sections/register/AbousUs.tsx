@@ -7,6 +7,7 @@ import { getSocialMedias } from '@fetches/socials';
 
 import useTranslate from '@hooks/useTranslate';
 
+import { useFormik, useFormikContext } from 'formik';
 import useSWR from 'swr';
 
 const optionsAboutUs = [
@@ -29,8 +30,6 @@ const optionsAboutUs = [
 ];
 
 export const AboutUs = ({}) => {
-  const [socialSection, setSocial] = useState<boolean>(false);
-  const [otherSection, setOther] = useState<boolean>(false);
   const { data } = useSWR('socialMedia', () => getSocialMedias());
   const socialsMediaOptions = useMemo(
     () =>
@@ -40,7 +39,8 @@ export const AboutUs = ({}) => {
       })),
     [data]
   );
-  console.log(socialsMediaOptions);
+  const { values } = useFormikContext();
+  const vals: any = values;
 
   const t = useTranslate();
   return (
@@ -60,17 +60,15 @@ export const AboutUs = ({}) => {
           label="Web portal of business"
         />
         <div>
-          <input
-            type="checkbox"
-            className="w-4 h-4"
-            onChange={(event) => {
-              setSocial(event.target.checked);
-            }}
-          />
-          <label className="ml-2">{t('Redes sociales')}</label>
+          <div className="flex">
+            <CheckBox className="w-4 h-4" name="section.socials" />
+            <label className="ml-2">{t('Redes sociales')}</label>
+          </div>
           <div
             className={`${
-              socialSection ? 'visible' : 'hidden md:block md:invisible'
+              vals?.section?.socials
+                ? 'visible'
+                : 'hidden md:block md:invisible'
             }`}
           >
             <CheckBox
@@ -82,16 +80,14 @@ export const AboutUs = ({}) => {
         </div>
         <CheckBox name="user.about_website.friends" label="Friends" />
         <div>
-          <input
-            type="checkbox"
-            className="w-4 h-4"
-            onChange={(event) => {
-              setOther(event.target.checked);
-            }}
-          />
-          <label className="ml-2">{t('Otro')}</label>
+          <div className="flex">
+            <CheckBox className="w-4 h-4" name="section.other" />
+            <label className="ml-2">{t('Otro')}</label>
+          </div>
           <div
-            className={`text-center ${otherSection ? 'visible' : 'invisible'}`}
+            className={`text-center ${
+              vals?.section?.other ? 'visible' : 'invisible'
+            }`}
           >
             <Field name="user.about_website.other" styles="mt-4" />
           </div>

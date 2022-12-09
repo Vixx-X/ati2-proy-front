@@ -15,7 +15,6 @@ const Test: NextPage = () => {
       <Form
         initialValues={initialValues}
         onSubmit={(value) => {
-          console.log('VALUE', value);
         }}
       >
        {/*  <div className="flex gap-3  ">

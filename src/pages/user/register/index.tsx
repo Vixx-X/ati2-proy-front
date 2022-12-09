@@ -18,17 +18,16 @@ import {
 
 import { postRegisterBusiness, postRegisterPerson } from '@fetches/user';
 
+import useTranslate from '@hooks/useTranslate';
+
 import authStore from '@stores/AuthStore';
 
 import { classNames } from '@utils/classNames';
 
 import { FormikValues } from 'formik';
 import { Business, NaturalPerson } from 'user';
-import useTranslate from '@hooks/useTranslate';
 
-
-
-const initialValues1: NaturalPerson | (Business & filtersType) = {
+const initialValues1: any = {
   user: {
     password1: '',
     password2: '',
@@ -87,6 +86,12 @@ const initialValues1: NaturalPerson | (Business & filtersType) = {
     address: {
       country: '',
     },
+  },
+  section: {
+    socials: false,
+    other: false,
+    typeUser: '',
+    notification: {},
   },
 };
 
@@ -166,21 +171,44 @@ const Register: NextPage = () => {
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
     setLoading(true);
-    console.log('VALUES:', values);
-    const { user, representant, name, tax_id, address, ...props } = values;
-    const commonUser = {
-      user: { ...user, username: user.email },
+    const {
+      user,
+      representant,
+      name,
+      tax_id,
       address,
+      filter,
+      section,
+      ...props
+    } = values;
+    const frecuency =
+      user?.notification_setting.frecuency === 'other' &&
+      user?.notification_setting.frecuency_other
+        ? user?.notification_setting.frecuency_other
+        : user?.notification_setting.frecuency;
+    const commonUser = {
+      user: {
+        ...user,
+        username: user?.email.split('@')[0],
+        notification_setting: {
+          notification_method: user?.notification_setting?.notification_method,
+          frecuency: frecuency,
+        },
+      },
     };
     try {
-      if (userType === UserType.NATURAL) {
-        await postRegisterPerson({ ...commonUser, ...props });
-      } else {
+      if (section?.typeUser === UserType.BUSINESS) {
         await postRegisterBusiness({
           ...commonUser,
           representant,
           name,
           tax_id,
+          address,
+        });
+      } else {
+        await postRegisterPerson({
+          ...commonUser,
+          ...props,
         });
       }
       await login(user.email, user.password1);

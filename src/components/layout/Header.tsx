@@ -74,7 +74,7 @@ export const Header = ({ activate }: HeaderProps) => {
   );
 
   return (
-    <div className="fixed top-0 w-full z-50">
+    <div className="fixed top-0 w-full z-40">
       <ButtonSet setShowModal={setShowModal} />
       <header className="w-100 bg-primary relative">
         <Container>
