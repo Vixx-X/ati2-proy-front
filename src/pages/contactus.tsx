@@ -34,7 +34,6 @@ const ContactUs: NextPage = () => {
   return (
     <Page>
       <>
-        {load ? <LoaderSpinner /> : null}
         <MainContainer
           activate="contact-us"
           containerClassName="flex flex-col grow"

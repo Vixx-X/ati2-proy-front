@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 
+import DetailsModal from '@components/modals/DetailsModal';
+import PhotosModal from '@components/modals/PhotosModal';
+
+import useTranslate from '@hooks/useTranslate';
+
 import { classNames } from '@utils/classNames';
 
 import { DEFAULT_IMAGE } from '@data/fakeData';
@@ -9,7 +14,6 @@ import GenericComponent from '../Parser/Parse';
 import SplideImageComponent from '../Splide';
 import EditOptionsIcons from './EditOptions';
 import Prices from './Prices';
-import useTranslate from '@hooks/useTranslate';
 
 export enum StatusVehicle {
   NEW = 'new',
@@ -29,12 +33,16 @@ const VehiclePostList = (props: any) => {
     sale_price,
     vehicle,
     services,
+    accesories,
+    videos,
     vehicle_state,
     sale_type,
     setShowModalContact,
   } = props;
-  const [showModal, setShowModal] = useState<boolean>(false);
   const t = useTranslate();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [titleHover, setTitle] = useState('');
+
   return (
     <div className="w-full">
       <div className="md:flex md:flex-wrap">
@@ -47,9 +55,15 @@ const VehiclePostList = (props: any) => {
               alt={images.length ? images[0] : 'placeholder-vehicle'}
             />
           )}
-          <a className="text-blue-600 underline cursor-pointer font-bold">
+          <p
+            className="text-blue-600 underline cursor-pointer font-bold"
+            onClick={() => {
+              setTitle('');
+              setShowModal(true);
+            }}
+          >
             {t('Más detalles')}
-          </a>
+          </p>
         </div>
         <div className="md:w-8/12 lg:w-5/12 relative px-4">
           <div>
@@ -59,34 +73,70 @@ const VehiclePostList = (props: any) => {
               sale_price={sale_price}
             />
             <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">{t('marca')} : </h4>
+              <h4 className="text-darkprimary font-bold inline">
+                {t('marca')} :{' '}
+              </h4>
               {vehicle?.brand}
             </div>
             <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">{t('modelo')} : </h4>
+              <h4 className="text-darkprimary font-bold inline">
+                {t('modelo')} :{' '}
+              </h4>
               {vehicle?.model}
             </div>
             <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">{t('año')} : </h4>
+              <h4 className="text-darkprimary font-bold inline">
+                {t('año')} :{' '}
+              </h4>
               {vehicle?.year}
             </div>
             <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">{t('detalles')} : </h4>
+              <h4 className="text-darkprimary font-bold inline">
+                {t('detalles')} :{' '}
+              </h4>
               <GenericComponent content={details} />
             </div>
-            <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">
+            <div className="capitalize flex">
+              <h4 className="text-darkprimary font-bold inline mr-2">
                 {t('accesorios')} :{' '}
               </h4>
-              <a className="underline text-red">{t('Click aquí')}</a>
+              <p
+                className="underline text-red cursor-pointer"
+                onClick={() => {
+                  setTitle(t('accesorios'));
+                  setShowModal(true);
+                }}
+              >
+                {t('Click aquí')}
+              </p>
             </div>
-            <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">{t('fotos')} : </h4>
-              <a className="underline text-red">{t('Click aquí')}</a>
+            <div className="capitalize flex">
+              <h4 className="text-darkprimary font-bold inline mr-2">
+                {t('fotos')} :{' '}
+              </h4>
+              <p
+                className="underline text-red cursor-pointer"
+                onClick={() => {
+                  setTitle(t('fotos'));
+                  setShowModal(true);
+                }}
+              >
+                {t('Click aquí')}
+              </p>
             </div>
-            <div className="capitalize">
-              <h4 className="text-darkprimary font-bold inline">{t('videos')} : </h4>
-              <a className="underline text-red">{t('Click aquí')}</a>
+            <div className="capitalize flex">
+              <h4 className="text-darkprimary font-bold inline mr-2">
+                {t('videos')} :{' '}
+              </h4>
+              <p
+                className="underline text-red cursor-pointer"
+                onClick={() => {
+                  setTitle(t('videos'));
+                  setShowModal(true);
+                }}
+              >
+                {t('Click aquí')}
+              </p>
             </div>
             <div className="capitalize">
               <h4 className="text-darkprimary font-bold inline">
@@ -94,11 +144,17 @@ const VehiclePostList = (props: any) => {
               </h4>
               <GenericComponent content={services} />
             </div>
-            <div>
-              <a className="text-red">
+            <div className="flex">
+              <p className="text-red mr-2">
                 {t('Haga click aquí para ver ubicación exacta ')}
-              </a>
-              <span className="text-blue-600 underline">
+              </p>
+              <span
+                className="text-blue-600 underline cursor-pointer"
+                onClick={() => {
+                  setTitle(t('ubicación exacta'));
+                  setShowModal(true);
+                }}
+              >
                 {t('Ver ubicación exacta')}
               </span>
             </div>
@@ -143,16 +199,67 @@ const VehiclePostList = (props: any) => {
         <div className="md:w-5/12 lg:w-2/12 flex justify-between">
           <div className="flex flex-col gap-y-10">
             <p className="text-red uppercase font-bold">{sale_type}</p>
-            <a className="underline cursos-pointer text-blue-600">{t('Ver fotos')}</a>
-            <a className="underline cursos-pointer text-blue-600">{t('Ver videos')}</a>
-            <a className="underline cursos-pointer text-blue-600">
+            <p
+              className="underline cursor-pointer text-blue-600"
+              onClick={() => {
+                setTitle(t('fotos'));
+                setShowModal(true);
+              }}
+            >
+              {t('Ver fotos')}
+            </p>
+            <p
+              className="underline cursor-pointer text-blue-600"
+              onClick={() => {
+                setTitle(t('videos'));
+                setShowModal(true);
+              }}
+            >
+              {t('Ver videos')}
+            </p>
+            <p
+              className="underline cursor-pointer text-blue-600"
+              onClick={() => {
+                setTitle('');
+                setShowModal(true);
+              }}
+            >
               {t('Ver información completa')}
-            </a>
+            </p>
           </div>
-          <div className="flex flex-col gap-y-8 items-start">
-            <EditOptionsIcons author={author} id={id} />
-          </div>
+          <EditOptionsIcons
+            author={author}
+            id={id}
+            className="flex flex-col gap-y-8 items-start"
+            setShowModal={setShowModal}
+          />
         </div>
+        {titleHover !== 'fotos' && titleHover !== 'videos' ? (
+          <DetailsModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            title={titleHover}
+            details={details}
+            accesories={accesories}
+            services={services}
+            address={`${address?.line1}. ${address?.line2}`}
+          />
+        ) : (
+          <PhotosModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            title={titleHover}
+            images={images}
+            videos={videos}
+            address={address}
+            vehicle={vehicle}
+            vehicle_state={vehicle_state}
+            sale_type={sale_type}
+            rental_price={rental_price}
+            currency={currency}
+            sale_price={sale_price}
+          />
+        )}
       </div>
     </div>
   );
