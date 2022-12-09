@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
+import recursiveGetter from '@utils/recursiveGetter';
 
 import { useFormikContext } from 'formik';
 
@@ -11,19 +13,37 @@ export const PhoneField = ({
   className,
   ...props
 }: Props) => {
-  // returns all values and methods from your Formik tag
-  const { setFieldValue } = useFormikContext();
+  const formikProps = useFormikContext();
+  const { values }: any = useFormikContext();
   const [prefixNumber, setPrefix] = useState<string>('');
   const [number, setNumber] = useState<string>('');
   const [extNumber, setExt] = useState<string>('');
 
   useEffect(() => {
-    if (ext) {
-      setFieldValue(name, `${prefixNumber}${number}${extNumber}`);
-    } else {
-      setFieldValue(name, `${prefixNumber}${number}`);
-    }
-  }, [prefixNumber, number, extNumber, setFieldValue, ext, name]);
+    const prefix = recursiveGetter(values, `${name}-prefix`);
+    if (prefix) setPrefix(prefix);
+
+    const number = recursiveGetter(values, `${name}-number`);
+    if (number) setNumber(number);
+
+    const ext = recursiveGetter(values, `${name}-ext`);
+    if (ext) setExt(ext);
+  }, [values.section]);
+
+  useEffect(() => {
+    formikProps.setFieldValue(`${name}-prefix`, prefixNumber);
+    formikProps.setFieldValue(name, `${prefixNumber}${number}${extNumber}`);
+  }, [prefixNumber]);
+
+  useEffect(() => {
+    formikProps.setFieldValue(`${name}-number`, number);
+    formikProps.setFieldValue(name, `${prefixNumber}${number}${extNumber}`);
+  }, [number]);
+
+  useEffect(() => {
+    formikProps.setFieldValue(`${name}-ext`, extNumber);
+    formikProps.setFieldValue(name, `${prefixNumber}${number}${extNumber}`);
+  }, [extNumber]);
 
   return (
     <div className={`flex gap-x-2 w-full ${className}`}>

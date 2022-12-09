@@ -53,7 +53,7 @@ const CreateVehicle: NextPage = () => {
         <div className="flex justify-center flex-col items-center">
           <div className="w-[85%] bg-primary p-2 mt-4">
             <p className="w-full text-center text-white capitalize font-bold text-xl">
-              {t('Publicar Vehiculo')}
+              {t('Publicar Vehículo')}
             </p>
           </div>
           <p className="capitalize font-bold text-xl my-4">

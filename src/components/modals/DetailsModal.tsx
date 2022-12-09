@@ -49,24 +49,16 @@ export const DetailsModal = ({
       setShowModal={setShowModal}
     >
       <>
-        <SectionPart openSection={title} title={'details'}>
+        <SectionPart openSection={title} title={t('detalles')}>
           <GenericComponent content={details} />
         </SectionPart>
-        <SectionPart openSection={title} title={'accesories'}>
+        <SectionPart openSection={title} title={t('accesorios')}>
           <GenericComponent content={accesories} />
         </SectionPart>
-        <div className="flex">
-          <SectionPart title={'photos'}>
-            <a>{t('Haga click aquí')}</a>
-          </SectionPart>
-          <SectionPart title={'videos'}>
-            <a>{t('Haga click aquí')}</a>
-          </SectionPart>
-        </div>
-        <SectionPart openSection={title} title={'services'}>
+        <SectionPart openSection={title} title={t('servicios')}>
           <GenericComponent content={services} />
         </SectionPart>
-        <SectionPart openSection={title} title={'exact address'}>
+        <SectionPart openSection={title} title={t('ubicación exacta')}>
           {address}
         </SectionPart>
       </>
