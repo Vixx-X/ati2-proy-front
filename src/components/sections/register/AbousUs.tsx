@@ -74,7 +74,7 @@ export const AboutUs = ({}) => {
             }`}
           >
             <CheckBox
-              className="my-4 grid lg:grid-cols-2 gap-1"
+              className="my-2 grid lg:grid-cols-2 gap-1"
               name="user.about_website.socials"
               choices={socialsMediaOptions}
             />

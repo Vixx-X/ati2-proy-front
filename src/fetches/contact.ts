@@ -32,3 +32,9 @@ export const getBusinessInfo = async () => {
   await assertApiError(resp);
   return resp.data;
 };
+
+export const getServices = async () => {
+  const resp = await fetcher.get(API_URLS.URL_SERVICES, makeFetchOptions());
+  await assertApiError(resp);
+  return resp.data;
+};
