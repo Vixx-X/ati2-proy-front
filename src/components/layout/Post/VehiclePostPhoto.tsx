@@ -5,6 +5,8 @@ import Image from 'next/image';
 import DetailsModal from '@components/modals/DetailsModal';
 import PhotosModal from '@components/modals/PhotosModal';
 
+import useTranslate from '@hooks/useTranslate';
+
 import { DEFAULT_IMAGE } from '@data/fakeData';
 import {
   Address,
@@ -19,9 +21,9 @@ import {
 import Button from '../Button';
 import CardHover from '../Card/CardHover';
 import AddressPost from './Address';
+import EditOptionsIcons from './EditOptions';
 import HeaderPost from './Header';
 import Prices from './Prices';
-import useTranslate from '@hooks/useTranslate';
 
 interface VehiclePostPhotoProps extends Props {
   author: User;
@@ -71,6 +73,8 @@ const optionsLink = [
 
 const VehiclePostPhoto = ({ index, ...props }: any) => {
   const {
+    id,
+    author,
     address,
     details,
     vehicle,
@@ -181,6 +185,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
             vehicle_state={vehicle_state}
             sale_type={sale_type}
           />
+          <EditOptionsIcons author={author} id={id} className="flex gap-x-2" />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
             <Button

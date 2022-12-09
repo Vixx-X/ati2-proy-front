@@ -60,11 +60,11 @@ export const BusinessUser = ({}) => {
             <div className="w-full">
               <CitySelect
                 notitle
-                name="address.city"
+                name="address.city_id"
                 filter={{ country: values?.filter?.address?.country }}
                 id="city"
               />
-              <ErrorMsg name="address.city" />
+              <ErrorMsg name="address.city_id" />
             </div>
           </div>
           <div className="flex gap-x-4">

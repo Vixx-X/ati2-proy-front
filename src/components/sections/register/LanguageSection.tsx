@@ -7,11 +7,11 @@ export const LanguageSection = () => {
   const t = useTranslate();
   const choices = [
     {
-      value: 'es',
+      value: 'ES',
       text: t('spanish'),
     },
     {
-      value: 'en',
+      value: 'EN',
       text: t('english'),
     },
   ];

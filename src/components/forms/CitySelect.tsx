@@ -11,7 +11,6 @@ import Select, { FilteredSelectProps } from './Select';
 export interface CitySelectProps extends FilteredSelectProps {}
 
 export const CitySelect = ({ filter, name, ...props }: CitySelectProps) => {
-  console.log('filtros', filter);
   const { data } = useSWR(['cities', { limit: 300, ...filter }], (_, query) =>
     getCities(query)
   );

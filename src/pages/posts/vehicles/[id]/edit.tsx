@@ -54,7 +54,7 @@ const EditVehicle: NextPage = () => {
       local_phone: data?.local_phone,
       phone: data?.phone,
     },
-    // currency: data.currency,
+    currency: data?.currency,
     vehicle_id: data?.vehicle?.id,
     video_ids: data?.videos?.map((url: string, idx: number) => [
       {
