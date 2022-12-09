@@ -8,8 +8,9 @@ import EditVehicleForm from '@components/sections/vehicle/EditVehicleForm';
 
 import { getPostVehicleById } from '@fetches/post';
 
-import useSWR from 'swr';
 import useTranslate from '@hooks/useTranslate';
+
+import useSWR from 'swr';
 
 const EditVehicle: NextPage = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const EditVehicle: NextPage = () => {
         brand: data?.vehicle.brand,
         model: data?.vehicle.model,
         year: data?.vehicle.year,
+        type: data?.vehicle.type ?? '',
       },
     },
     address: {

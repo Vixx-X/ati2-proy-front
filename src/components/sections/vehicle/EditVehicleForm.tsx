@@ -207,14 +207,23 @@ export const EditVehicleForm = ({
                 </p>
               </div>
               <div className="w-full flex justify-around gap-2">
-                <BrandSelect name="filter.vehicle.brand" />
+                <BrandSelect
+                  name="filter.vehicle.brand"
+                  filter={{
+                    type: values?.filter?.vehicle?.type,
+                  }}
+                />
                 <ModelSelect
                   name="filter.vehicle.model"
-                  filter={{ brand: values?.filter?.vehicle?.brand }}
+                  filter={{
+                    brand: values?.filter?.vehicle?.brand,
+                    type: values?.filter?.vehicle?.type,
+                  }}
                 />
                 <YearSelect
                   name="filter.vehicle.year"
                   filter={{
+                    type: values?.filter?.vehicle?.type,
                     brand: values?.filter?.vehicle?.brand,
                     model: values?.filter?.vehicle?.model,
                   }}

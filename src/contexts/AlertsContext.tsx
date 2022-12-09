@@ -15,7 +15,11 @@ export const AlertProvider = ({ children }: AlertProviderProps) => {
         className="flex flex-col gap-3 m-4 fixed bottom-0 right-0"
       >
         {alerts.map((alert) => (
-          <Alert severity={alert.severity} key={alert.id} className="shadow-md">
+          <Alert
+            severity={alert.severity}
+            key={alert.id}
+            className="shadow-md flex items-center flex-row  gap-3 p-4 rounded-md"
+          >
             {alert.text}
           </Alert>
         ))}
