@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const { URL_EDIT_VEHICLE } = SERVER_URLS;
 
-const EditOptionsIcons = ({ author, id, ...props }: any) => {
+const EditOptionsIcons = ({ author, id, setShowModal, ...props }: any) => {
   const router = useRouter();
   const user = userStore((state: any) => state.user);
   const t = useTranslate();
@@ -32,6 +32,7 @@ const EditOptionsIcons = ({ author, id, ...props }: any) => {
             icon={faEye}
             className="cursor-pointer"
             title={t('ver')}
+            onClick={() => setShowModal(true)}
           />
           <Link href={makeUrl(URL_EDIT_VEHICLE, { id })} passHref>
             <FontAwesomeIcon

@@ -188,6 +188,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
             author={author}
             id={id}
             className="flex gap-x-2 justify-center my-4"
+            setShowModal={setShowModal}
           />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
