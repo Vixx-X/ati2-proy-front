@@ -64,7 +64,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
   } = props;
   const media = images?.[0];
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [titleHover, setTitle] = useState<string>('detalles');
+  const [titleHover, setTitle] = useState<string>('');
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringCard, setIsHoveringCard] = useState(false);
   const t = useTranslate();
@@ -183,6 +183,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
             vehicle={vehicle}
             vehicle_state={vehicle_state}
             sale_type={sale_type}
+            className="sm:text-center"
           />
           <EditOptionsIcons
             author={author}
