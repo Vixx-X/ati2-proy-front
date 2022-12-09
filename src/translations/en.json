@@ -320,5 +320,9 @@
   "sabado": "saturday",
   "domingo": "saturday",
   "días de semana": "weekdays",
-  "fin de semana": "weekends"
+  "fin de semana": "weekends",
+  "servicios": "services",
+  "ubicación exacta": "exact location",
+  "Ver listado como:": "See list as:",
+  "Tipo de Vehiculo": "Vehicle Type"
 }

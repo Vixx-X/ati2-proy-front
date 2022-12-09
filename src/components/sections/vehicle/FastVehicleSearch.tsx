@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import BrandSelect from '@components/forms/BrandSelect';
 import ContinentSelect from '@components/forms/ContinentSelect';
 import CountrySelect from '@components/forms/CountrySelect';
@@ -5,10 +7,10 @@ import Form from '@components/forms/Form';
 import ModelSelect from '@components/forms/ModelSelect';
 import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
-import VehicleTypeSelect from '@components/forms/VehicleTypeSelect';
 import Button from '@components/layout/Button';
 
-import { SALE_TYPE_CHOICES, VEHICLE_STATE_CHOICES } from '@config';
+import { SALE_TYPE_CHOICES } from '@config';
+
 import useTranslate from '@hooks/useTranslate';
 
 interface FastSearchInterface extends Props {
@@ -31,6 +33,14 @@ const VehicleFastSearch = ({
   autoSubmit = true,
 }: FastSearchInterface) => {
   const t = useTranslate();
+  const sale_type_options = useMemo(
+    () =>
+      SALE_TYPE_CHOICES.map(({ text, ...rest }) => ({
+        text: t(text),
+        ...rest,
+      })),
+    [t]
+  );
   return (
     <Form
       className={`w-full ${className}`}
@@ -51,7 +61,7 @@ const VehicleFastSearch = ({
           <StateSelect name="state" filter={{ country: values?.country }} />
           <div>
             <Label>{t('Vehiculo en')}</Label>
-            <RadioGroup name="sale_type" choices={SALE_TYPE_CHOICES} />
+            <RadioGroup name="sale_type" choices={sale_type_options} />
           </div>
           <BrandSelect name="brand" />
           <ModelSelect name="model" filter={{ brand: values?.brand }} />

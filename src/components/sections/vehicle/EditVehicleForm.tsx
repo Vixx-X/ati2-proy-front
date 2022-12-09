@@ -18,6 +18,7 @@ import ModelSelect from '@components/forms/ModelSelect';
 import RadioGroup from '@components/forms/RadioGroup';
 import StateSelect from '@components/forms/StateSelect';
 import TextArea from '@components/forms/TextArea';
+import VehicleTypeSelect from '@components/forms/VehicleTypeSelect';
 import YearSelect from '@components/forms/YearSelect';
 import Button from '@components/layout/Button';
 
@@ -214,6 +215,7 @@ export const EditVehicleForm = ({
                     model: values?.filter?.vehicle?.model,
                   }}
                 />
+                <VehicleTypeSelect name="filter.vehicle.type" />
               </div>
               <ErrorMsg name="vehicle_id" />
             </div>
