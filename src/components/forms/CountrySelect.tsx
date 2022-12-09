@@ -11,7 +11,7 @@ import Select, { FilteredSelectProps } from './Select';
 export interface CountrySelectProps extends FilteredSelectProps {}
 
 export const CountrySelect = ({
-  filter,
+  filter = [],
   name,
   all,
   ...props

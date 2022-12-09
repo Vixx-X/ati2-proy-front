@@ -86,7 +86,7 @@ export const EditVehicleForm = ({
       else await putVehicle(values.id, data);
       setStatus({});
     } catch (exception: any) {
-      setStatus(exception.data);
+      setStatus(exception.data.detail);
     }
   };
 
@@ -119,8 +119,9 @@ export const EditVehicleForm = ({
   const textAreaData = [
     {
       title: t('Detalles o especificaciones del vehículo'),
-      description:
-        t('Si lo deseas, puedes indicar detalles adicionales del vehículo. Que no sea los accesorios, en esta sección'),
+      description: t(
+        'Si lo deseas, puedes indicar detalles adicionales del vehículo. Que no sea los accesorios, en esta sección'
+      ),
       name: 'details',
     },
     {
@@ -130,13 +131,16 @@ export const EditVehicleForm = ({
     },
     {
       title: t('Servicios al día'),
-      description:
-        t('SI deseas, indica los trabajos que se le han realizado al vehículo recientemente, como: Cambio de aceite, cauchos, tapicería, pago de seguros al día, entre otros'),
+      description: t(
+        'SI deseas, indica los trabajos que se le han realizado al vehículo recientemente, como: Cambio de aceite, cauchos, tapicería, pago de seguros al día, entre otros'
+      ),
       name: 'services',
     },
     {
       title: t('Ubicación exacta'),
-      description: t('Si deseas, puedes indicar donde se encuentra el vehículo'),
+      description: t(
+        'Si deseas, puedes indicar donde se encuentra el vehículo'
+      ),
       name: 'address.line2',
     },
   ];
@@ -237,7 +241,7 @@ export const EditVehicleForm = ({
             <div className="w-8/12 flex items-center flex-col">
               <div className="w-1/2 py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  {t("Fotos del Vehiculo")}
+                  {t('Fotos del Vehiculo')}
                 </p>
               </div>
               <div className="w-full mt-2 border border-2 border-darkprimary">
@@ -358,10 +362,11 @@ export const EditVehicleForm = ({
               />
             </div>
           </div>
-          <p className="text-center" style={{color:"blue"}}>
-            <span style={{color:"red"}}>*</span>
-            Por favor verifique que los datos sean los correctos, ya que serán utilizados para dar a conocer su vivienda
-            </p>
+          <p className="text-center" style={{ color: 'blue' }}>
+            <span style={{ color: 'red' }}>*</span>
+            Por favor verifique que los datos sean los correctos, ya que serán
+            utilizados para dar a conocer su vivienda
+          </p>
           <div className="flex justify-center gap-x-4">
             <Button type="submit" className="capitalize w-fit">
               {t('enviar')}

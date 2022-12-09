@@ -9,13 +9,11 @@ import PhoneButtonSet from '@components/layout/PhoneButtonSet';
 
 import useTranslate from '@hooks/useTranslate';
 
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFormikContext } from 'formik';
 
 export const BusinessUser = ({}) => {
   const t = useTranslate();
-  const { values } = useFormikContext();
+  const { values }: any = useFormikContext();
   return (
     <>
       <div className="w-full justify-center flex gap-x-20">

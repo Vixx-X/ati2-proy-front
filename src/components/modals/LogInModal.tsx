@@ -12,10 +12,11 @@ import BaseModal from '@components/modals/BaseModal';
 
 import { SERVER_URLS } from '@config';
 
+import useTranslate from '@hooks/useTranslate';
+
 import authStore from '@stores/AuthStore';
 
 import { FormikValues } from 'formik';
-import useTranslate from '@hooks/useTranslate';
 
 interface LogInModalProps {
   showModal: boolean;
@@ -43,7 +44,7 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
       await login(values.email, values.password);
       setStatus({});
     } catch (exception: any) {
-      setStatus(exception.data);
+      setStatus(exception.data.detail);
     }
     setLoading(false);
   };

@@ -12,18 +12,18 @@ export const PhoneField = ({
   ...props
 }: Props) => {
   // returns all values and methods from your Formik tag
-  const formikProps = useFormikContext();
+  const { setFieldValue } = useFormikContext();
   const [prefixNumber, setPrefix] = useState<string>('');
   const [number, setNumber] = useState<string>('');
   const [extNumber, setExt] = useState<string>('');
 
   useEffect(() => {
     if (ext) {
-      formikProps.setFieldValue(name, `${prefixNumber}${number}${extNumber}`);
+      setFieldValue(name, `${prefixNumber}${number}${extNumber}`);
     } else {
-      formikProps.setFieldValue(name, `${prefixNumber}${number}`);
+      setFieldValue(name, `${prefixNumber}${number}`);
     }
-  }, [prefixNumber, number, extNumber]);
+  }, [prefixNumber, number, extNumber, setFieldValue, ext, name]);
 
   return (
     <div className={`flex gap-x-2 w-full ${className}`}>

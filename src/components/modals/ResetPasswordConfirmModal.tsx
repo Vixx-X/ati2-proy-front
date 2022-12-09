@@ -14,8 +14,9 @@ import { SERVER_URLS } from '@config';
 
 import { postResetPasswordConfirm } from '@fetches/user';
 
-import { FormikValues } from 'formik';
 import useTranslate from '@hooks/useTranslate';
+
+import { FormikValues } from 'formik';
 
 interface ResetPasswordConfirmModalProps {
   showModal: boolean;
@@ -25,8 +26,8 @@ interface ResetPasswordConfirmModalProps {
 }
 
 interface ResetPasswordConfirmForm {
-  password1: string;
-  password2: string;
+  new_password1: string;
+  new_password2: string;
 }
 
 const STEPS = {
@@ -45,8 +46,8 @@ export const ResetPasswordConfirmModal = ({
   const [step, setStep] = useState(STEPS.FORM);
 
   const initValues = {
-    password1: '',
-    password2: '',
+    new_password1: '',
+    new_password2: '',
   } as ResetPasswordConfirmForm;
 
   const handleSubmit = async (values: FormikValues, { setStatus }: any) => {
@@ -105,16 +106,18 @@ export const ResetPasswordConfirmModal = ({
                 <div className="flex flex-col gap-y-4 m-8 ">
                   <ErrorMsg name="non_field_errors" />
                   <div className="flex">
-                    <label className="basis-1/6" htmlFor="password1">
+                    <label className="basis-1/6" htmlFor="new_password1">
                       {t('contraseña')}
                     </label>
-                    <Field name="password1" id="password1" />
+                    <Field name="new_password1" id="new_password1" />
+                    <ErrorMsg name="new_password1" />
                   </div>
                   <div className="flex">
-                    <label className="basis-1/6" htmlFor="password2">
+                    <label className="basis-1/6" htmlFor="new_password2">
                       {t('confirmar contraseña')}
                     </label>
-                    <Field name="password2" id="password2" />
+                    <Field name="new_password2" id="new_password2" />
+                    <ErrorMsg name="new_password2" />
                   </div>
                 </div>
                 <div className="flex justify-center mt-2">
