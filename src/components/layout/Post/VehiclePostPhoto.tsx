@@ -44,33 +44,6 @@ interface VehiclePostPhotoProps extends Props {
   };
 }
 
-const optionsLink = [
-  {
-    text: 'details',
-    hover: true,
-  },
-  {
-    text: 'accesories',
-    hover: true,
-  },
-  {
-    text: 'photos',
-    hover: true,
-  },
-  {
-    text: 'videos',
-    hover: true,
-  },
-  {
-    text: 'services',
-    hover: false,
-  },
-  {
-    text: 'exact address',
-    hover: true,
-  },
-];
-
 const VehiclePostPhoto = ({ index, ...props }: any) => {
   const {
     id,
@@ -91,9 +64,37 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
   } = props;
   const media = images?.[0];
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [titleHover, setTitle] = useState<string>('details');
+  const [titleHover, setTitle] = useState<string>('detalles');
   const [isHovering, setIsHovering] = useState(false);
   const [isHoveringCard, setIsHoveringCard] = useState(false);
+  const t = useTranslate();
+
+  const optionsLink = [
+    {
+      text: t('detalles'),
+      hover: true,
+    },
+    {
+      text: t('accesorios'),
+      hover: true,
+    },
+    {
+      text: t('fotos'),
+      hover: true,
+    },
+    {
+      text: t('videos'),
+      hover: true,
+    },
+    {
+      text: t('servicios'),
+      hover: false,
+    },
+    {
+      text: t('ubicación exacta'),
+      hover: true,
+    },
+  ];
 
   const handleMouseOver = (title: string) => {
     setTitle(title);
@@ -105,8 +106,6 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
       setIsHovering(false);
     }, 200);
   };
-
-  const t = useTranslate();
   return (
     <div className="max-w-[535px] max-h-[535px]">
       <div className="sm:flex">
@@ -148,7 +147,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
                       onClick={() => setShowModal(true)}
                       className="cursor-pointer"
                     >
-                      {`See ${text}`}
+                      {`Ver ${text}`}
                     </a>
                     {hover &&
                       (isHoveringCard || isHovering) &&
@@ -185,7 +184,11 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
             vehicle_state={vehicle_state}
             sale_type={sale_type}
           />
-          <EditOptionsIcons author={author} id={id} className="flex gap-x-2" />
+          <EditOptionsIcons
+            author={author}
+            id={id}
+            className="flex gap-x-2 justify-center my-4"
+          />
           <div className="sm:flex sm:flex-col justify-center items-center">
             <AddressPost address={address} />
             <Button
@@ -202,7 +205,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
       <a className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block">
         {t('Ver información completa')}
       </a>
-      {titleHover !== 'photos' && titleHover !== 'videos' ? (
+      {titleHover !== 'fotos' && titleHover !== 'videos' ? (
         <DetailsModal
           showModal={showModal}
           setShowModal={setShowModal}

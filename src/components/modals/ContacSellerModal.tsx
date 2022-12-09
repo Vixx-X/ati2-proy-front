@@ -6,6 +6,8 @@ import BaseModal from '@components/modals/BaseModal';
 
 import { postContactSeller } from '@fetches/contact';
 
+import useTranslate from '@hooks/useTranslate';
+
 import { FormikValues } from 'formik';
 
 import CallMeSection from './ContactSellerSections/CallMeSection';
@@ -13,7 +15,6 @@ import EmailSection from './ContactSellerSections/EmailSection';
 import PhoneSection from './ContactSellerSections/PhoneSection';
 import RegisterDateSection from './ContactSellerSections/RegisterDate';
 import SendQuerySection from './ContactSellerSections/SendQuerySection';
-import useTranslate from '@hooks/useTranslate';
 
 interface ContactSellerProps {
   showModal: boolean;
@@ -33,7 +34,7 @@ export const ContactSellerModal = ({
       await postContactSeller(values);
       setStatus({});
     } catch (exception: any) {
-      setStatus(exception.data);
+      setStatus(exception.data.detail);
     }
     setLoading(false);
   };

@@ -13,7 +13,6 @@ export const PhoneField = ({
   className,
   ...props
 }: Props) => {
-  // returns all values and methods from your Formik tag
   const formikProps = useFormikContext();
   const { values }: any = useFormikContext();
   const [prefixNumber, setPrefix] = useState<string>('');
