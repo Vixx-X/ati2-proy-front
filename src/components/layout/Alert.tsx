@@ -4,15 +4,15 @@ export type AlertColor = 'RED' | 'GREEN' | 'YELLOW';
 
 const alertColorMap = {
   RED: {
-    color: 'bg-color-5000',
+    color: 'bg-red text-white flex font-bold p-4 items-center gap-x-4',
     icon: <FaExclamationTriangle />,
   },
   YELLOW: {
-    color: 'bg-yellow-5000',
+    color: 'bg-secundary text-white flex font-bold p-4 items-center gap-x-4',
     icon: <FaInfo />,
   },
   GREEN: {
-    color: 'bg-green-5000',
+    color: 'bg-green text-white flex font-bold p-4 items-center gap-x-4',
     icon: <FaCheck />,
   },
 };
@@ -33,7 +33,7 @@ export const Alert = ({ severity, children, ...props }: AlertProps) => {
   const color = getColor(severity);
   const icon = getIcon(severity);
   return (
-    <div {...props} className={`${props.className} ${color}}`}>
+    <div {...props} className={`${props.className} ${color}`}>
       <>
         {icon}
         {children}
