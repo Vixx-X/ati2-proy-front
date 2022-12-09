@@ -18,6 +18,28 @@ interface ContactDaysProps extends Props {
   name: string;
 }
 
+type WeekDay =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
+
+const translateWeekDay = (str: WeekDay) => {
+  const data = {
+    monday: 'lunes',
+    tuesday: 'martes',
+    wednesday: 'miercoles',
+    thursday: 'jueves',
+    friday: 'viernes',
+    saturday: 'sabado',
+    sunday: 'domingo',
+  };
+  return data[str];
+};
+
 export const ContactDays = ({ name }: ContactDaysProps) => {
   const t = useTranslate();
   const { values, setFieldValue } = useFormikContext();
@@ -39,14 +61,14 @@ export const ContactDays = ({ name }: ContactDaysProps) => {
 
   const choices = useMemo(() => {
     const items = days?.map((el: any) => ({
-      text: t(el),
+      text: t(translateWeekDay(el)),
       value: el,
     }));
     if (!items) return items;
     return [
       ...items,
-      { text: 'weekdays', value: 'weekdays', checked: weekdays },
-      { text: 'weekends', value: 'weekends', checked: weekends },
+      { text: t('días de semana'), value: 'weekdays', checked: weekdays },
+      { text: t('fin de semana'), value: 'weekends', checked: weekends },
     ];
   }, [days, weekdays, weekends, t]);
 

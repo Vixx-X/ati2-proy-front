@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import BaseModal from '@components/modals/BaseModal';
 import ResetPasswordConfirmModal from '@components/modals/ResetPasswordConfirmModal';
 
@@ -34,9 +36,16 @@ const PasswordResetConfirm = ({
           title="Restablecer contraseña"
           setShowModal={() => {}}
         >
-          <p className="mb-4">
-            {t('El link ha expirado o ya ha sido utilizado.')}
-          </p>
+          <>
+            <p className="mb-4">
+              {t(
+                'El link ha expirado o ya ha sido utilizado. Si desea generarlo nuevamente haga click '
+              )}
+              <Link href={SERVER_URLS.URL_PASSWORD_RESET} passHref>
+                <a className="mt-4 block underline ">{t('aquí')}</a>
+              </Link>
+            </p>
+          </>
         </BaseModal>
       ) : (
         <ResetPasswordConfirmModal

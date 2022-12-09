@@ -213,13 +213,13 @@ export const EditVehicleForm = ({
             <div className="py-2 w-1/3 flex flex-col items-center gap-6">
               <div className="py-3 px-10 w-9/12 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  {t(' Estatus del vehículo')}
+                  {t('Estatus del Vehículo')}
                 </p>
               </div>
               <div className="flex gap-3">
                 <div>
                   <p className="bg-sky-600 py-1 px-4 mb-2 cursor-pointer text-white font-semibold rounded">
-                    {t('Vehiculo en')}
+                    {t('Vehículo en')}
                   </p>
                   <RadioGroup name="sale_type" choices={saleTypeChoices} />
                   <ErrorMsg name="sale_type" />
@@ -241,13 +241,14 @@ export const EditVehicleForm = ({
             <div className="w-8/12 flex items-center flex-col">
               <div className="w-1/2 py-3 px-10 bg-secundary">
                 <p className="w-full text-center text-white capitalize font-bold text-xl">
-                  {t('Fotos del Vehiculo')}
+                  {t('Fotos del Vehículo')}
                 </p>
               </div>
               <div className="w-full mt-2 border border-2 border-darkprimary">
                 <p className="text-center ">
-                  {t(`Arrastre las fotos que desea cargar en cada uno de los
-                  recuadros`)}
+                  {t(
+                    `Arrastre las fotos que desea cargar en cada uno de los recuadros`
+                  )}
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   {[...Array(imageLimit)].map((_, idx) => (
@@ -296,8 +297,9 @@ export const EditVehicleForm = ({
                     </div>
                     <div className="flex justify-center flex-wrap gap-2 p-3">
                       <p>
-                        {t(`Arrastre los videos que desea cargar, en cada uno de los
-                        recuadros`)}
+                        {t(
+                          `Arrastre los videos que desea cargar, en cada uno de los recuadros`
+                        )}
                       </p>
                       {[...Array(videoLimit)].map((_, idx) => (
                         <div

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import LogInModal from '@components/modals/LogInModal';
 
@@ -7,8 +7,6 @@ import { SERVER_URLS } from '@config';
 import useTranslate from '@hooks/useTranslate';
 
 import userStore from '@stores/UserStore';
-
-import { on } from 'events';
 
 import ButtonSet from './ButtonSet';
 import Container from './Container';

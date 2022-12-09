@@ -1,4 +1,3 @@
-import useTranslate from '@hooks/useTranslate';
 import React, { useState } from 'react';
 
 interface NavbarProps {
@@ -30,7 +29,6 @@ export const Navbar = ({
   };
 
   const styleTop = `${top + 58}px`;
-  const t = useTranslate();
   return (
     <li className="list-none">
       {text && (
@@ -45,7 +43,7 @@ export const Navbar = ({
               }`}
               onClick={expand}
             >
-              {t(text)}
+              {text}
             </div>
           ) : link ? (
             <a
@@ -57,7 +55,7 @@ export const Navbar = ({
               }`}
               href={link}
             >
-              {t(text)}
+              {text}
             </a>
           ) : (
             <button
@@ -70,7 +68,7 @@ export const Navbar = ({
                   : ''
               }`}
             >
-              {t(text)}
+              {text}
             </button>
           )}
         </>

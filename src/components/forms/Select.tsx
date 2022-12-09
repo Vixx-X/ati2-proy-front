@@ -1,6 +1,4 @@
-import recursiveGetter from '@utils/recursiveGetter';
-
-import { useFormikContext } from 'formik';
+import useTranslate from '@hooks/useTranslate';
 
 import { Field } from './Field';
 
@@ -15,14 +13,15 @@ export interface FilteredSelectProps extends Props {
   placeholder?: string;
   choices?: { value: string; text: string }[];
   filter?: { [key: string]: any };
-  notitle?: boolean
+  notitle?: boolean;
 }
 
 export const Select = ({ choices, placeholder, ...props }: SelectProps) => {
+  const t = useTranslate();
   return (
     <Field as="select" {...props}>
       <>
-        <option value="">{placeholder ?? '--Seleccionar--'}</option>
+        <option value="">{placeholder ?? t('--Seleccionar--')}</option>
         {choices?.map(({ value, text }: any, index: number) => (
           <option value={value} key={index}>
             {text}

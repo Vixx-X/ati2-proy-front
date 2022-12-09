@@ -2,10 +2,11 @@ import { useMemo } from 'react';
 
 import { getYears } from '@fetches/vehicles';
 
+import useTranslate from '@hooks/useTranslate';
+
 import useSWR from 'swr';
 
 import Select, { FilteredSelectProps } from './Select';
-import useTranslate from '@hooks/useTranslate';
 
 export interface YearSelectProps extends FilteredSelectProps {}
 
@@ -31,7 +32,7 @@ export const YearSelect = ({ filter, ...props }: YearSelectProps) => {
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder={t("--Selecciona Year--")}
+        placeholder={t('--Selecciona Año--')}
         {...props}
       />
     </div>
