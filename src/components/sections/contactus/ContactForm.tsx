@@ -65,7 +65,7 @@ const ContactForm = ({ setLoading }: any) => {
           <>
             <div className="mb-4">
               <div className="flex border-b border-gray py-2">
-                <label className="capitalize mr-2">para:</label>
+                <label className="capitalize mr-2">{t('para')}:</label>
                 <p className="px-2 border-none grow text-gray-600">{email}</p>
               </div>
             </div>

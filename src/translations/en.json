@@ -75,7 +75,7 @@
   "Máximo": "Maximum",
   "Por cualquier precio": "for any price",
   "Formulario de contacto": "Contact Form",
-  "de:": "of:",
+  "de:": "from:",
   "nombre y apellido": "name and surname",
   "asunto": "affair",
   "Iniciar sesión": "Log in",
@@ -324,5 +324,6 @@
   "servicios": "services",
   "ubicación exacta": "exact location",
   "Ver listado como:": "See list as:",
-  "Tipo de Vehiculo": "Vehicle Type"
+  "Tipo de Vehiculo": "Vehicle Type",
+  "para": "for"
 }
