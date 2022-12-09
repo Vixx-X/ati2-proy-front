@@ -48,7 +48,6 @@ export const ContactSellerModal = ({
   const t = useTranslate();
   return (
     <>
-      {loading ? <LoaderSpinner /> : null}
       <BaseModal
         showModal={showModal}
         title="contactar al vendedor o arrendador"
