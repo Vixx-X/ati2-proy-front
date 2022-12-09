@@ -4,15 +4,15 @@ export type AlertColor = 'RED' | 'GREEN' | 'YELLOW';
 
 const alertColorMap = {
   RED: {
-    color: 'bg-red',
+    color: 'bg-red text-white flex font-bold p-4 items-center gap-x-4',
     icon: <FaExclamationTriangle />,
   },
   YELLOW: {
-    color: 'bg-yellow',
+    color: 'bg-secundary text-white flex font-bold p-4 items-center gap-x-4',
     icon: <FaInfo />,
   },
   GREEN: {
-    color: 'bg-green',
+    color: 'bg-green text-white flex font-bold p-4 items-center gap-x-4',
     icon: <FaCheck />,
   },
 };
