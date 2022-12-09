@@ -4,6 +4,7 @@ import ResetPasswordConfirmModal from '@components/modals/ResetPasswordConfirmMo
 import { SERVER_URLS } from '@config';
 
 import { getResetPasswordConfirm } from '@fetches/user';
+
 import useTranslate from '@hooks/useTranslate';
 
 const { URL_PASSWORD_RESET } = SERVER_URLS;
@@ -33,7 +34,9 @@ const PasswordResetConfirm = ({
           title="Restablecer contraseña"
           setShowModal={() => {}}
         >
-          <p className="mb-4">{t('El link ha expirado o ya ha sido utilizado.')}</p>
+          <p className="mb-4">
+            {t('El link ha expirado o ya ha sido utilizado.')}
+          </p>
         </BaseModal>
       ) : (
         <ResetPasswordConfirmModal
@@ -58,7 +61,12 @@ export async function getServerSideProps({ params }: any) {
         ...data,
       },
     };
-  } catch (error) {
-    return {};
+  } catch (error: any) {
+    return {
+      props: {
+        ...params,
+        ...error?.data,
+      },
+    };
   }
 }
