@@ -29,6 +29,8 @@ import { getVehicles } from '@fetches/vehicles';
 
 import useTranslate from '@hooks/useTranslate';
 
+import Alert from '@utils/alert';
+
 import { FormikValues } from 'formik';
 
 export const EditVehicleForm = ({
@@ -90,8 +92,10 @@ export const EditVehicleForm = ({
 
       if (createMode) await postVehicle(data);
       else await putVehicle(values.id, data);
+      Alert('GREEN', t('Se ha guardado exitosamente'));
       setStatus({});
     } catch (exception: any) {
+      Alert('RED', t('Ocurrió un error revise el formulario'));
       setStatus(exception.data.detail);
     }
   };
