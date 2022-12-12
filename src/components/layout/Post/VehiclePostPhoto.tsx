@@ -204,9 +204,18 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
           </div>
         </div>
       </div>
-      <a className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block">
+      {/* <a className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block">
         {t('Ver información completa')}
-      </a>
+      </a> */}
+      <p
+        className="sm:text-center underline text-red text-lg sm:text-xl mt-2 font-bold block cursor-pointer"
+        onClick={() => {
+          setTitle('');
+          setShowModal(true);
+        }}
+      >
+        {t('Ver información completa')}
+      </p>
       {titleHover !== 'fotos' && titleHover !== 'videos' ? (
         <DetailsModal
           showModal={showModal}
