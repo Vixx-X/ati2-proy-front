@@ -16,6 +16,8 @@ import useTranslate from '@hooks/useTranslate';
 
 import authStore from '@stores/AuthStore';
 
+import Alert from '@utils/alert';
+
 import { FormikValues } from 'formik';
 
 interface LogInModalProps {
@@ -42,9 +44,11 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
     setLoading(true);
     try {
       await login(values.email, values.password);
+      Alert('GREEN', t('Ingreso exitoso'));
+      setShowModal(false);
+    } catch {
+      Alert('RED', t('Ocurrió un error revise el formulario'));
       setStatus({});
-    } catch (exception: any) {
-      setStatus(exception.data.detail);
     }
     setLoading(false);
   };
@@ -63,25 +67,29 @@ export const LogInModal = ({ showModal, setShowModal }: LogInModalProps) => {
             <Loader />
           ) : (
             <>
-              <div className="flex flex-col gap-y-4 m-8 ">
+              <div className="flex flex-col gap-y-4 m-8 min-w-[500px] ">
                 <div className="flex">
-                  <label className="basis-1/6" htmlFor="email">
-                    {t('correo electrónico')}
+                  <label className="basis-2/6" htmlFor="email">
+                    {t('Correo electrónico')}
                   </label>
-                  <Field name="email" id="email" />
-                  <ErrorMsg name="email" />
+                  <div className="basis-4/6">
+                    <Field name="email" id="email" />
+                    <ErrorMsg name="email" />
+                  </div>
                 </div>
                 <div className="flex">
-                  <label className="basis-1/6" htmlFor="password">
+                  <label className="basis-2/6 capitalize" htmlFor="password">
                     {t('contraseña')}
                   </label>
-                  <PassField name="password" id="password" />
-                  <ErrorMsg name="password" />
+                  <div className="basis-4/6">
+                    <PassField name="password" id="password" />
+                    <ErrorMsg name="password" />
+                  </div>
                 </div>
               </div>
               <div className="text-center">
                 <Button className="w-auto rounded-md font-bold" type="submit">
-                  {t('iniciar sesión')}
+                  {t('Iniciar sesión')}
                 </Button>
                 <Link href={SERVER_URLS.URL_PASSWORD_RESET} passHref>
                   <a className="mt-4 block underline ">
