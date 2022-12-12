@@ -57,7 +57,7 @@ export const AboutUs = ({}) => {
       <div className="grid md:grid-cols-4 mt-8">
         <CheckBox
           name="user.about_website.web"
-          label="Web portal of business"
+          label={t('Portal web de la empresa')}
         />
         <div>
           <div className="flex">
@@ -78,7 +78,7 @@ export const AboutUs = ({}) => {
             />
           </div>
         </div>
-        <CheckBox name="user.about_website.friends" label="Friends" />
+        <CheckBox name="user.about_website.friends" label={t('Amigos')} />
         <div>
           <div className="flex">
             <CheckBox className="w-4 h-4" name="section.other" />
