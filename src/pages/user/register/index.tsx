@@ -26,6 +26,7 @@ import { classNames } from '@utils/classNames';
 
 import { FormikValues } from 'formik';
 import { Business, NaturalPerson } from 'user';
+import Alert from '@utils/alert';
 
 const initialValues1: any = {
   user: {
@@ -193,6 +194,7 @@ const Register: NextPage = () => {
         notification_setting: {
           notification_method: user?.notification_setting?.notification_method,
           frecuency: frecuency,
+          active: user?.notification_setting?.active,
         },
       },
     };
@@ -211,9 +213,11 @@ const Register: NextPage = () => {
           ...props,
         });
       }
-      await login(user.email, user.password1);
+      Alert('GREEN', t('Usuario creado exitosamente'));
       setStatus({});
+      await login(user.email, user.password1);
     } catch (exception: any) {
+      Alert('RED', t('Ocurrió un error revise el formulario'));
       setStatus(exception.data.detail);
       setLoading(false);
     }
