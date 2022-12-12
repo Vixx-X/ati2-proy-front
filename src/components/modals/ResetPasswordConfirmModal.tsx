@@ -17,6 +17,7 @@ import { postResetPasswordConfirm } from '@fetches/user';
 import useTranslate from '@hooks/useTranslate';
 
 import { FormikValues } from 'formik';
+import PassField from '@components/forms/PassField';
 
 interface ResetPasswordConfirmModalProps {
   showModal: boolean;
@@ -109,14 +110,14 @@ export const ResetPasswordConfirmModal = ({
                     <label className="basis-1/6" htmlFor="new_password1">
                       {t('contraseña')}
                     </label>
-                    <Field name="new_password1" id="new_password1" />
+                    <PassField name="new_password1" id="new_password1" />
                     <ErrorMsg name="new_password1" />
                   </div>
                   <div className="flex">
                     <label className="basis-1/6" htmlFor="new_password2">
                       {t('confirmar contraseña')}
                     </label>
-                    <Field name="new_password2" id="new_password2" />
+                    <PassField name="new_password2" id="new_password2" />
                     <ErrorMsg name="new_password2" />
                   </div>
                 </div>

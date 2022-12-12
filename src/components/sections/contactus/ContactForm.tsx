@@ -9,6 +9,7 @@ import { postContactUsInfo } from '@fetches/contact';
 import useTranslate from '@hooks/useTranslate';
 
 import pageStore from '@stores/PageStore';
+import Alert from '@utils/alert';
 
 import { FormikValues } from 'formik';
 import useSWR from 'swr';
@@ -24,7 +25,7 @@ const ContactUsSchema = Yup.object().shape({
   email: Yup.string()
     .email('Correo invalido')
     .required('Campo requerido')
-    .max(25, 'Cadena muy larga'),
+    .max(50, 'Cadena muy larga'),
   full_name: Yup.string()
     .required('Campo requerido')
     .max(50, 'Cadena muy larga'),
@@ -37,8 +38,10 @@ const ContactForm = ({ setLoading }: any) => {
     setLoading(true);
     try {
       await postContactUsInfo(values);
+      Alert('GREEN', t('Se ha enviardo su consulta satisfactoriamente'));
       setStatus({});
     } catch (exception: any) {
+      Alert('RED', t('Opps... Ocurrio un error durante el envio'));
       setStatus(exception.data.detail);
     }
     setLoading(false);
