@@ -8,6 +8,10 @@ import { postContactSeller } from '@fetches/contact';
 
 import useTranslate from '@hooks/useTranslate';
 
+import Alert from '@utils/alert';
+import { classNames } from '@utils/classNames';
+import Dialog from '@utils/dialog';
+
 import { FormikValues } from 'formik';
 
 import CallMeSection from './ContactSellerSections/CallMeSection';
@@ -32,8 +36,21 @@ export const ContactSellerModal = ({
     setLoading(true);
     try {
       await postContactSeller(values);
+      Dialog(
+        t('Información guardada'),
+        t(
+          'Los datos de contacto del anunciante han sido almacenados en la aplicación, pero falta implementar la opción de envío de correo y de mensajería de texto para otras fases del proyecto'
+        ),
+        [
+          {
+            title: t('aceptar'),
+            bgColor: 'bg-primary',
+          },
+        ]
+      );
       setStatus({});
     } catch (exception: any) {
+      Alert('RED', t('Ocurrió un error revise el formulario'));
       setStatus(exception.data.detail);
     }
     setLoading(false);

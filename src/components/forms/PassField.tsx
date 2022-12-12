@@ -16,7 +16,7 @@ export const PassField = (props: Props) => {
       <div className="relative w-full h-full">
         <Field type={fieldType} {...props}></Field>
         <span
-          className="absolute flex justify-center h-full right-3 cursor-pointer"
+          className="absolute flex justify-center h-full right-3 cursor-pointer flex justify-center items-center top-0"
           onClick={togglePass}
         >
           {fieldType === 'text' ? (
