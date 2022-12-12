@@ -47,6 +47,7 @@ const LoginSection = ({}) => {
         {`Quiero mantenerme informado acerca de los servicios que ofrece la
         empresa, y otros aspectos de interés`}
       </div>
+      <ErrorMsg name="user.notification_setting.active" />
     </>
   );
 };
