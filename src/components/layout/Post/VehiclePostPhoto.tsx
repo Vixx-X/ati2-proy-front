@@ -147,7 +147,7 @@ const VehiclePostPhoto = ({ index, ...props }: any) => {
                       onClick={() => setShowModal(true)}
                       className="cursor-pointer"
                     >
-                      {`Ver ${text}`}
+                      {t('Ver')} {text}
                     </a>
                     {hover &&
                       (isHoveringCard || isHovering) &&
