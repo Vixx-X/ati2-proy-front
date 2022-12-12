@@ -117,7 +117,7 @@
   "correo de solicitante:": "applicant email:",
   "mensaje a enviar:": "message to send:",
   "nombre": "Name",
-  "apellido": "surname",
+  "apellido": "username",
   "mensaje a enviar": "message to send",
   "No hay más multimedia adicional": "There are no more additional multimedia",
   "Seleccione la cuenta en la que desea acceder": "Select the account you want to access",
@@ -284,7 +284,6 @@
   "< Atrás": "< Back",
   "Continuar >": "Continue >",
   "refrescar": "refresh",
-  "Fotos del Vehículo": "Vehicle Photos",
   "Introduzca país, estado, ciudad": "Enter country, state, city",
   "--Selecciona Año--": "--Select Year--",
   "--Selecciona Marca--": "--Select Brand--",
@@ -325,5 +324,7 @@
   "ubicación exacta": "exact location",
   "Ver listado como:": "See list as:",
   "Tipo de Vehiculo": "Vehicle Type",
-  "para": "for"
+  "para": "for",
+  "Se ha enviardo su consulta satisfactoriamente": "Your inquiry has been sent successfully",
+  "Opps... Ocurrio un error durante el envio": "Opps... An error occurred during the request"
 }
