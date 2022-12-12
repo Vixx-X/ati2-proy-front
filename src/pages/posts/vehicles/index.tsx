@@ -4,7 +4,6 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 import Loader from '@components/Loader';
-import LoaderSpinner from '@components/LoaderSpinner';
 import Form from '@components/forms/Form';
 import Button from '@components/layout/Button';
 import MainContainer from '@components/layout/MainContainer';
@@ -19,6 +18,8 @@ import { getPostsVehicles } from '@fetches/post';
 
 import useTranslate from '@hooks/useTranslate';
 
+import userStore from '@stores/UserStore';
+
 import { classNames } from '@utils/classNames';
 
 import { Field } from 'formik';
@@ -27,6 +28,7 @@ import useSWR from 'swr';
 const Vehicles: NextPage = () => {
   const router = useRouter();
   const query = router.query;
+  const user = userStore((state) => state.user);
 
   const [showModalContact, setShowModalContact] = useState<boolean>(false);
 
@@ -240,11 +242,13 @@ const Vehicles: NextPage = () => {
                 {data &&
                   data?.results?.map((element: any, index: any) => (
                     <div key={element.id} className="flex p-6 gap-x-4 relative">
-                      <Field
-                        type="checkbox"
-                        name="selected"
-                        value={`post-${index}`}
-                      />
+                      {element.author === user?.id ? (
+                        <Field
+                          type="checkbox"
+                          name="selected"
+                          value={`post-${index}`}
+                        />
+                      ) : null}
                       {postMode == 'photo' ? (
                         <VehiclePostPhoto
                           index={index}
