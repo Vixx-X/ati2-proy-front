@@ -12,6 +12,7 @@ import pageStore from '@stores/PageStore';
 import Alert from '@utils/alert';
 
 import { FormikValues } from 'formik';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 import * as Yup from 'yup';
 
@@ -20,17 +21,6 @@ interface ContactUsForm {
   full_name: string;
   reason: string;
 }
-
-const ContactUsSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Correo invalido')
-    .required('Campo requerido')
-    .max(50, 'Cadena muy larga'),
-  full_name: Yup.string()
-    .required('Campo requerido')
-    .max(50, 'Cadena muy larga'),
-  reason: Yup.string().required('Campo requerido').max(150, 'Cadena muy larga'),
-});
 
 const ContactForm = ({ setLoading }: any) => {
   const email = pageStore((state) => state.email);
@@ -53,6 +43,20 @@ const ContactForm = ({ setLoading }: any) => {
   };
 
   const t = useTranslate();
+
+  const ContactUsSchema = useMemo(()=>
+    Yup.object().shape({
+      email: Yup.string()
+        .email(t('Correo invalido'))
+        .required(t('Campo requerido'))
+        .max(50, t('El maximo de la caracteres es de 50')),
+      full_name: Yup.string()
+        .required(t('Campo requerido'))
+        .max(50, t('El maximo de la caracteres es de 50')),
+      reason: Yup.string().required(t('Campo requerido')).max(150, t('El maximo de la caracteres es de 50')),
+    })
+  ,[t])
+
   return (
     <div className="w-2/4 border-2 border-black p-8 h-fit">
       <h2 className="font-bold text-lg text-center mb-4">
@@ -85,7 +89,7 @@ const ContactForm = ({ setLoading }: any) => {
               </div>
               {errors.email && touched.email && (
                 <div className="bg-red-600 border border-red text-red w-full p-3 my-3 py-2 rounded-lg text-sm font-normal">
-                  <span>{errors.email}</span>
+                  <span>{t(errors.email as string)}</span>
                 </div>
               )}
             </div>
@@ -102,7 +106,7 @@ const ContactForm = ({ setLoading }: any) => {
               </div>
               {errors.full_name && touched.full_name && (
                 <div className="bg-red-600 border border-red text-red w-full p-3 my-3 py-2 rounded-lg text-sm font-normal">
-                  <span>{errors.full_name}</span>
+                  <span>{t(errors.full_name as string)}</span>
                 </div>
               )}
             </div>
@@ -114,7 +118,7 @@ const ContactForm = ({ setLoading }: any) => {
             </div>
             {errors.reason && touched.reason && (
               <div className="bg-red-600 border border-red text-red w-full p-3 my-3 py-2 rounded-lg text-sm font-normal">
-                <span>{errors.reason}</span>
+                <span>{t(errors.reason as string)}</span>
               </div>
             )}
             <div className="text-center">

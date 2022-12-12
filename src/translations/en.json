@@ -326,5 +326,8 @@
   "Tipo de Vehiculo": "Vehicle Type",
   "para": "for",
   "Se ha enviardo su consulta satisfactoriamente": "Your inquiry has been sent successfully",
-  "Opps... Ocurrio un error durante el envio": "Opps... An error occurred during the request"
+  "Opps... Ocurrio un error durante el envio": "Opps... An error occurred during the request",
+  "Campo requerido": "Required Field",
+  "El maximo de la caracteres es de 50" : "Max string lenght is 50 characters",
+  "Correo invalido":"Invalid Email"
 }
