@@ -34,6 +34,7 @@ export enum StatusVehicle {
 export type Language = ES | EN;
 
 export interface User {
+  id?: number;
   password1: string;
   password2: string;
   email: string;
@@ -57,7 +58,7 @@ export interface NaturalPerson {
   last_name: string;
   document_id: string;
   email: string;
-  phone:string;
+  phone: string;
   local_phone: string;
   country: string;
 }

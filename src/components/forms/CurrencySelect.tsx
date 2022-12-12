@@ -1,12 +1,13 @@
 import { useEffect, useMemo } from 'react';
 
+import useTranslate from '@hooks/useTranslate';
+
 import recursiveGetter from '@utils/recursiveGetter';
 
 import { useFormikContext } from 'formik';
 
 import Field from './Field';
 import Select from './Select';
-import useTranslate from '@hooks/useTranslate';
 
 export const CurrencySelect = ({ filter, name, ...props }: Props) => {
   const { values, setFieldValue } = useFormikContext();
@@ -27,7 +28,10 @@ export const CurrencySelect = ({ filter, name, ...props }: Props) => {
   const name1 = `${name}/1`;
   const name2 = `${name}/2`;
 
-  const value1 = useMemo(() => recursiveGetter(values, name1), [values, name1]);
+  const value1 = useMemo(
+    () => recursiveGetter(values, name1, recursiveGetter(values, name)),
+    [values, name1, name]
+  );
   const value2 = useMemo(() => recursiveGetter(values, name2), [values, name2]);
 
   useEffect(() => {
@@ -44,8 +48,9 @@ export const CurrencySelect = ({ filter, name, ...props }: Props) => {
       <Select
         className="w-full rounded"
         choices={choices}
-        placeholder={t("--Selecciona la Moneda--")}
+        placeholder={t('--Selecciona la Moneda--')}
         name={name1}
+        value={value1}
         {...props}
       />
       {value1 === 'OTHER' ? (
@@ -57,6 +62,7 @@ export const CurrencySelect = ({ filter, name, ...props }: Props) => {
             type="text"
             className="pr-2 pl-2 pt-2 pb-2 text-xs uppercase"
             name={name2}
+            value={value2}
           />
         </div>
       ) : null}
