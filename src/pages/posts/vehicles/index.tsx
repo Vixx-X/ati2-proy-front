@@ -14,15 +14,17 @@ import ContactSellerModal from '@components/modals/ContacSellerModal';
 import VehicleComplexSearch from '@components/sections/vehicle/ComplexVehicleSearch';
 import VehicleFastSearch from '@components/sections/vehicle/FastVehicleSearch';
 
-import { getPostsVehicles } from '@fetches/post';
+import { deletePostVehicle, getPostsVehicles } from '@fetches/post';
 
 import useTranslate from '@hooks/useTranslate';
 
 import userStore from '@stores/UserStore';
 
+import Alert from '@utils/alert';
 import { classNames } from '@utils/classNames';
+import Dialog from '@utils/dialog';
 
-import { Field } from 'formik';
+import { Field, FormikValues } from 'formik';
 import useSWR from 'swr';
 
 const Vehicles: NextPage = () => {
@@ -39,11 +41,43 @@ const Vehicles: NextPage = () => {
 
   const filters = router.query;
 
-  const { data } = useSWR(['post-vehicles', query], (_, q) =>
+  const { data, mutate } = useSWR(['post-vehicles', query], (_, q) =>
     getPostsVehicles(q)
   );
 
   const t = useTranslate();
+
+  const bulkDelete = async (values: FormikValues) => {
+    const selected = values.selected;
+
+    Dialog(
+      t('¿Eliminar posts?'),
+      t('¿Seguro que desea eliminar los posts seleccionados?'),
+      [
+        {
+          title: t('cancelar'),
+        },
+        {
+          onClick: async () => {
+            try {
+              const proms = selected.map(async (el: string) =>
+                deletePostVehicle(parseInt(el))
+              );
+              await Promise.all(proms);
+              Alert('GREEN', t('Se eliminaron con exito'));
+              router.push({});
+            } catch {
+              Alert('RED', t('No se pudieron eliminar'));
+            }
+            mutate();
+          },
+          title: t('confirmar'),
+          bgColor: 'bg-pink',
+        },
+      ]
+    );
+  };
+
   return (
     <MainContainer activate={['vehicle', 'view-posts']} maxWidth="max-w-none">
       <div className="md:flex justify-between">
@@ -232,38 +266,60 @@ const Vehicles: NextPage = () => {
 
           <div>
             {!data && <Loader />}
-            <Form initialValues={{ selected: [] }} onSubmit={() => {}}>
-              <div
-                className={classNames(
-                  postMode == 'photo' ? 'lg:grid-cols-2 2xl:grid-cols-3' : '',
-                  'grid'
-                )}
-              >
-                {data &&
-                  data?.results?.map((element: any, index: any) => (
-                    <div key={element.id} className="flex p-6 gap-x-4 relative">
-                      {element.author === user?.id ? (
-                        <Field
-                          type="checkbox"
-                          name="selected"
-                          value={`post-${index}`}
-                        />
-                      ) : null}
-                      {postMode == 'photo' ? (
-                        <VehiclePostPhoto
-                          index={index}
-                          setShowModalContact={setShowModalContact}
-                          {...element}
-                        />
-                      ) : (
-                        <VehiclePostList
-                          setShowModalContact={setShowModalContact}
-                          {...element}
-                        />
+            <Paginate total={data?.count ?? 0} />
+            <Form
+              initialValues={{ selected: [] as number[] }}
+              onSubmit={bulkDelete}
+              renderProps
+            >
+              {({ values }) => (
+                <>
+                  {values.selected?.length > 0 ? (
+                    <Button type="submit">
+                      {t(
+                        'Eliminar seleccionados ({0})',
+                        values.selected?.length
                       )}
-                    </div>
-                  ))}
-              </div>
+                    </Button>
+                  ) : null}
+                  <div
+                    className={classNames(
+                      postMode == 'photo'
+                        ? 'lg:grid-cols-2 2xl:grid-cols-3'
+                        : '',
+                      'grid'
+                    )}
+                  >
+                    {data &&
+                      data?.results?.map((element: any, index: any) => (
+                        <div
+                          key={element.id}
+                          className="flex p-6 gap-x-4 relative"
+                        >
+                          {element.author === user?.id ? (
+                            <Field
+                              type="checkbox"
+                              name="selected"
+                              value={element.id}
+                            />
+                          ) : null}
+                          {postMode == 'photo' ? (
+                            <VehiclePostPhoto
+                              index={index}
+                              setShowModalContact={setShowModalContact}
+                              {...element}
+                            />
+                          ) : (
+                            <VehiclePostList
+                              setShowModalContact={setShowModalContact}
+                              {...element}
+                            />
+                          )}
+                        </div>
+                      ))}
+                  </div>
+                </>
+              )}
             </Form>
             <Paginate total={data?.count ?? 0} />
           </div>
